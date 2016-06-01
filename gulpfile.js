@@ -1,0 +1,74 @@
+var elixir = require('laravel-elixir');
+
+/*
+ |--------------------------------------------------------------------------
+ | Elixir Asset Management
+ |--------------------------------------------------------------------------
+ |
+ | Elixir provides a clean, fluent API for defining some basic Gulp tasks
+ | for your Laravel application. By default, we are compiling the Sass
+ | file for our application, as well as publishing vendor resources.
+ |
+ */
+
+elixir(function(mix) {
+
+    // ADMIN
+
+    mix.sass('admin/app.scss', 'public/css/admin.css')
+        .copy('resources/assets/fonts/admin', 'public/fonts')
+        .copy('resources/assets/js/admin', 'public/js/admin')
+        .copy('resources/assets/js/jQuery-2.2.0.min.js', 'public/js/jquery.js')
+        .copy('resources/assets/plugins/iCheck/square/blue.png', 'public/images/plugins/iCheck/square')
+        .copy('resources/assets/plugins/iCheck/square/blue@2x.png', 'public/images/plugins/iCheck/square')
+        .copy('resources/assets/plugins/iCheck/minimal/blue.png', 'public/images/plugins/iCheck/minimal')
+        .copy('resources/assets/plugins/iCheck/minimal/blue@2x.png', 'public/images/plugins/iCheck/minimal')
+        .copy('resources/assets/images/admin', 'public/images');
+
+    mix.styles([
+        '../plugins/iCheck/square/blue.css',
+        '../plugins/datepicker/datepicker3.css',
+        '../plugins/iCheck/minimal/blue.css'
+    ], 'public/css/plugins.css');
+
+    mix.scripts([
+        '../plugins/iCheck/icheck.min.js',
+        '../plugins/datepicker/bootstrap-datepicker.js'
+    ], 'public/js/plugins.js');
+
+
+    // CONSULTANT
+
+    // USER
+
+    mix.less('frontend/theme.less', 'public/css/frontend.css')
+        .copy('resources/assets/foundry/img', 'public/images')
+        .copy('resources/assets/images/frontend', 'public/images')
+        .copy('resources/assets/foundry/video', 'public/video')
+        .copy('resources/assets/videos', 'public/video');
+    mix.styles([
+        '../foundry/css/bootstrap.min.css',
+        '../foundry/css/themify-icons.css',
+        '../foundry/css/flexslider.css',
+        '../foundry/css/lightbox.min.css',
+        '../foundry/css/ytplayer.css'
+    ], 'public/css/front-plugins.css');
+    mix.styles([
+        'frontend/custom.css'
+    ], 'public/css/front-custom.css');
+    mix.scripts([
+        '../foundry/js/jquery.min.js',
+        '../foundry/js/bootstrap.min.js',
+        '../foundry/js/flickr.js',
+        '../foundry/js/flexslider.min.js',
+        '../foundry/js/lightbox.min.js',
+        '../foundry/js/masonry.min.js',
+        '../foundry/js/twitterfetcher.min.js',
+        '../foundry/js/spectragram.min.js',
+        '../foundry/js/ytplayer.min.js',
+        '../foundry/js/smooth-scroll.min.js',
+        '../foundry/js/parallax.js',
+        '../foundry/js/scripts.js',
+        'frontend/custom.js'
+    ], 'public/js/front-plugins.js');
+});

@@ -1,0 +1,17 @@
+// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "bootstrap.scss";
+@import "AdminLTE.scss";
+@import "skin-black.min.scss";
+
+// custom
+.cursor-pointer{
+  cursor: pointer;
+}
+
+// margins
+.mt-15px{
+  margin-top: 15px;
+}
+.mr-15px{
+  margin-right: 15px;
+}
