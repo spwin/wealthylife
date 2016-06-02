@@ -1,5 +1,5 @@
 // Main menu underline
-window.onload = function() {
+(function() {
 
     var $el, leftPos, newWidth,
         $mainNav = $("#underline-hover");
@@ -14,6 +14,7 @@ window.onload = function() {
         .data("origWidth", $magicLine.width());
 
     $("#underline-hover li").not('#magic-line').hover(function() {
+        $('.current a').addClass('no-pseudo');
         $el = $(this);
         leftPos = $el.position().left;
         newWidth = $el.find('a').width();
@@ -27,4 +28,5 @@ window.onload = function() {
             width: $magicLine.data("origWidth")
         });
     });
-};
+
+})();

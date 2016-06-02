@@ -97,4 +97,64 @@ class AuthController extends Controller
         $this->guard = $this->redirectAfterLogout = $type;
         Auth::guard($this->getGuard())->logout();
     }
+
+    public function postLogin(\Illuminate\Http\Request $request, $type = 'user')
+    {
+        if (method_exists($this, 'beforeLogin')) {
+            $this->beforeLogin();
+        }
+        return $this->login($request, $type);
+    }
+
+    public function login(\Illuminate\Http\Request $request, $type)
+    {
+        $this->validateLogin($request);
+
+        // If the class is using the ThrottlesLogins trait, we can automatically throttle
+        // the login attempts for this application. We'll key this by the username and
+        // the IP address of the client making these requests into this application.
+        $throttles = $this->isUsingThrottlesLoginsTrait();
+
+        if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        $credentials = $this->getCredentials($request, $type);
+        $this->guard = $type;
+
+        if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
+            return $this->handleUserWasAuthenticated($request, $throttles, $type);
+        }
+
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        if ($throttles && ! $lockedOut) {
+            $this->incrementLoginAttempts($request);
+        }
+
+        return $this->sendFailedLoginResponse($request);
+    }
+
+    protected function handleUserWasAuthenticated(\Illuminate\Http\Request $request, $throttles, $type)
+    {
+        if ($throttles) {
+            $this->clearLoginAttempts($request);
+        }
+
+        if (method_exists($this, 'authenticated')) {
+            return $this->authenticated($request, Auth::guard($this->getGuard())->user());
+        }
+
+        return redirect()->intended($this->redirectPath());
+    }
+
+    protected function getCredentials(\Illuminate\Http\Request $request, $type)
+    {
+        $credentials = $request->only($this->loginUsername(), 'password');
+        $credentials = array_add($credentials, 'type', $type);
+        return $credentials;
+    }
 }

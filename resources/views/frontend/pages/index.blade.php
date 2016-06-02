@@ -1,4 +1,5 @@
 @extends('frontend/frame')
+@section('nav-style', 'nav-home')
 @section('content')
     <section class="cover fullscreen image-slider slider-all-controls">
         <ul class="slides">

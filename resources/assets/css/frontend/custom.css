@@ -134,3 +134,46 @@
     -moz-animation: ani-mouse 2.5s linear infinite;
     animation: ani-mouse 2.5s linear infinite;
 }
+
+.mt-1px{
+    margin-top: 1px;
+}
+
+.radio-error span{
+    color: #ce3838;
+}
+
+.double-column{
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+}
+
+nav .nav-home, nav .nav-home .menu > li ul{
+    background-color: rgba(34, 34, 34, 0.2);
+}
+
+nav .nav-blog, nav .nav-blog .menu > li ul{
+    background-color: #222222;
+}
+
+/*.current a::after{
+    content: '';
+    width: 100%;
+    height: 1px;
+    display: block;
+    background-color: #fe4902;
+    bottom: 12px;
+    position: absolute;
+}
+.current a.no-pseudo::after{
+    display: none;
+}*/
+nav.fixed.scrolled { display: none; }
+@media all and (max-width: 600px){
+    .double-column{
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}

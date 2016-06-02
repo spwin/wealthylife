@@ -14,6 +14,11 @@
 // FRONTEND
 
 Route::get('/', 'FrontendController@index');
+Route::get('blog', 'FrontendController@blog');
+
+
+Route::post('create-user', 'UserController@createUser');
+Route::post('login-user', 'UserController@loginUser');
 
 Route::get('admin/login', 'AdminController@login');
 Route::get('consultant/login', 'ConsultantController@login');

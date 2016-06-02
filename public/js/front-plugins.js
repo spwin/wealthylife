@@ -589,6 +589,7 @@ $(document).ready(function() {
     jQuery('.close-modal:not(.modal-strip .close-modal)').unbind('click').click(function(){
     	var modal = jQuery(this).closest('.foundry_modal');
         modal.toggleClass('reveal-modal');
+        jQuery('.foundry_modal.reveal-modal').toggleClass('reveal-modal');
         if(typeof modal.attr('data-cookie') !== "undefined"){
             mr_cookies.setItem(modal.attr('data-cookie'), "true", Infinity);
         }
@@ -1481,7 +1482,7 @@ var mr_cookies = {
 
 
 // Main menu underline
-window.onload = function() {
+(function() {
 
     var $el, leftPos, newWidth,
         $mainNav = $("#underline-hover");
@@ -1496,6 +1497,7 @@ window.onload = function() {
         .data("origWidth", $magicLine.width());
 
     $("#underline-hover li").not('#magic-line').hover(function() {
+        $('.current a').addClass('no-pseudo');
         $el = $(this);
         leftPos = $el.position().left;
         newWidth = $el.find('a').width();
@@ -1509,5 +1511,6 @@ window.onload = function() {
             width: $magicLine.data("origWidth")
         });
     });
-};
+
+})();
 //# sourceMappingURL=front-plugins.js.map

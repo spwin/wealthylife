@@ -483,6 +483,7 @@ $(document).ready(function() {
     jQuery('.close-modal:not(.modal-strip .close-modal)').unbind('click').click(function(){
     	var modal = jQuery(this).closest('.foundry_modal');
         modal.toggleClass('reveal-modal');
+        jQuery('.foundry_modal.reveal-modal').toggleClass('reveal-modal');
         if(typeof modal.attr('data-cookie') !== "undefined"){
             mr_cookies.setItem(modal.attr('data-cookie'), "true", Infinity);
         }
