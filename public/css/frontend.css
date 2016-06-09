@@ -446,7 +446,7 @@ a {
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
-  cursor: poitner;
+  cursor: pointer;
 }
 .image-bg a,
 .bg-primary a {
@@ -751,7 +751,7 @@ footer.bg-dark li,
 .btn:last-of-type {
   margin-right: 0;
 }
-.btn:hover {
+.btn.hovered:hover {
   background: #47b475;
   color: #fff;
 }
@@ -833,8 +833,7 @@ body.btn-rounded .btn {
 .btn:visited {
   color: #47b475;
 }
-.btn-white:visited,
-.btn:visited:hover {
+.btn-white:visited {
   color: #fff;
 }
 .btn-white:visited:hover {
@@ -1211,7 +1210,7 @@ nav .cart-overview a {
 .language .menu > li ul {
   max-width: 150px;
   right: -24px;
-  border-bottom: 1px solid #fe4902;
+  /*border-bottom: 1px solid #fe4902;*/
 }
 .nav-open {
   max-height: 10000px !important;
@@ -1755,6 +1754,7 @@ textarea {
   margin-bottom: 24px;
   border-radius: 0;
   padding: 16px 20px;
+  resize: none;
 }
 textarea:focus {
   outline: 1px solid #ccc;
@@ -3257,6 +3257,7 @@ img {
 .image-slider .slides {
   position: relative;
   overflow: hidden;
+  background-color: #292929;
 }
 .image-slider .slides li {
   position: relative;
@@ -4745,18 +4746,19 @@ section + .portfolio-pullup {
   max-height: 100%;
   /*max-width: 50%; width: 50%; */
   position: fixed;
-  padding: 80px 48px;
-  transition: all 0.3s ease;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  opacity: 0;
-  visibility: hidden;
   top: 50%;
   left: 50%;
-  background: #fff;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   transform: translateX(-50%) translateY(-50%);
   -webkit-transform: translateX(-50%) translateY(-50%);
+  padding: 80px 48px;
+  transition: all 0.1s ease;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  opacity: 0;
+  visibility: hidden;
+  background: #fff;
+  -webkit-font-smoothing: subpixel-antialiased;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
   z-index: -1;
 }
 .foundry_modal.no-bg {
@@ -4785,16 +4787,25 @@ section + .portfolio-pullup {
   opacity: 1;
   visibility: visible;
   z-index: 9999;
+  top: 50%;
+  left: 50%;
   transform: translateX(-50%) translateY(-50%);
   -webkit-transform: translateX(-50%) translateY(-50%);
+  -webkit-font-smoothing: subpixel-antialiased;
 }
 .foundry_modal .close-modal {
   z-index: 4;
   position: absolute;
+  transition: all 0.1s ease;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
   top: 24px;
   right: 32px;
   cursor: pointer;
   font-size: 18px;
+}
+.foundry_modal .close-modal:hover {
+  color: #000000;
 }
 .foundry_modal *:not(.background-image-holder):not(.close-modal) {
   z-index: 4;
@@ -4810,8 +4821,14 @@ section + .portfolio-pullup {
 }
 @media all and (min-width: 1500px) {
   .foundry_modal {
-    max-width: 45%;
-    width: 45%;
+    max-width: 30%;
+    width: 30%;
+  }
+}
+@media all and (max-width: 1500px) {
+  .foundry_modal {
+    max-width: 460px;
+    width: 460px;
   }
 }
 @media all and (max-width: 1190px) {
@@ -4822,15 +4839,27 @@ section + .portfolio-pullup {
 }
 @media all and (max-width: 990px) {
   .foundry_modal {
-    max-width: 80%;
-    width: 80%;
+    max-width: 60%;
+    width: 60%;
     padding: 64px 32px;
   }
 }
 @media all and (max-width: 767px) {
   .foundry_modal {
-    max-width: 90%;
-    width: 90%;
+    max-width: 80%;
+    width: 80%;
+    padding: 48px 15px;
+    transform: translateX(0%) translateY(50%);
+    -webkit-transform: translateX(0%) translateY(50%);
+  }
+  .foundry_modal .close-modal {
+    right: 18px;
+  }
+}
+@media all and (max-width: 470px) {
+  .foundry_modal {
+    max-width: 95%;
+    width: 95%;
     padding: 48px 15px;
     transform: translateX(0%) translateY(50%);
     -webkit-transform: translateX(0%) translateY(50%);
