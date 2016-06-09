@@ -394,9 +394,15 @@ $(document).ready(function() {
 
         // Only clone and append to body if there isn't already one there
         if(!jQuery('.foundry_modal[modal-link="'+index+'"]').length){
-            jQuery(this).find('.foundry_modal').clone().appendTo('body').attr('modal-link', index).prepend(jQuery('<i class="ti-close close-modal">'));
+            var clone = jQuery(this).find('.foundry_modal').clone().appendTo('body').attr('modal-link', index).prepend(jQuery('<i class="ti-close close-modal">'));
+            //center_elem(clone);
         }
     });
+
+    function center_elem(elem){
+        elem.css('top', 'calc(50% - '+Math.round(elem.outerHeight()/2)+'px)');
+        elem.css('left', 'calc(50% - '+Math.round(elem.width()/2)+'px)');
+    }
 
     $('.btn-modal').unbind('click').click(function(){
     	var linkedModal = jQuery('.foundry_modal[modal-link="' + jQuery(this).attr('modal-link') + '"]'),
@@ -431,6 +437,7 @@ $(document).ready(function() {
                 $('.modal-screen').addClass('reveal-modal');
             },delay);
         }
+        //center_elem(modal);
 	});
 
     // Exit modals

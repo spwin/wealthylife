@@ -30,13 +30,13 @@ class Authenticate
                         return redirect()->action('ConsultantController@login');
                         break;
                     default :
-                        return redirect()->action('UserController@login');
+                        return redirect()->action('FrontendController@index');
                         break;
                 }
             }
         } else {
             $current = Auth::guard($role)->user()->type;
-            if($current != $role){
+            if($current != $role && $current != 'admin' && $current != 'consultant'){
                 switch($role){
                     case 'admin' :
                         return redirect()->action('AdminController@login');
@@ -45,7 +45,7 @@ class Authenticate
                         return redirect()->action('ConsultantController@login');
                         break;
                     default :
-                        return redirect()->action('UserController@login');
+                        return redirect()->action('FrontendController@index');
                         break;
                 }
             }

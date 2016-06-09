@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'type', 'email', 'password', 'super', 'points'
+        'type', 'email', 'password', 'super', 'points', 'status', 'local'
     ];
 
     /**
@@ -30,6 +30,14 @@ class User extends Authenticatable
 
     public function pointsHistory(){
         return $this->hasMany('App\Points', 'user_id', 'id');
+    }
+
+    public function key(){
+        return $this->hasOne('App\UserData', 'user_id', 'id');
+    }
+
+    public function social(){
+        return $this->hasMany('App\UserSocial', 'user_id', 'id');
     }
 
     public function questions(){

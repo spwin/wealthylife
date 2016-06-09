@@ -21,6 +21,12 @@
                             <p class="lead">
                                 The best personal fitness knowledge and motivation source online
                             </p>
+                            <p>
+                                <div class="modal-container inline-block">
+                                    <a class="btn btn-modal" href="#">Ask question</a>
+                                    @include('frontend/elements/question')
+                                </div>
+                            </p>
                         </div>
                     </div>
 

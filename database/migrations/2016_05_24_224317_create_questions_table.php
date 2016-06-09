@@ -18,6 +18,8 @@ class CreateQuestionsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->integer('consultant_id')->nullable()->unsigned();
             $table->foreign('consultant_id')->references('id')->on('users')->onDelete('set null');
+            $table->integer('image_id')->nullable()->unsigned();
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('set null');
             $table->text('question');
             $table->string('status');
             $table->string('ip');

@@ -61,6 +61,7 @@ class AdminController extends Controller
         $input = $request->all();
         $input['birth_date'] = date('Y-m-d',  strtotime(str_replace('/', '-', $input['birth_date'])));
 
+        $input['status'] = 1;
         $input['type'] = 'admin';
         $input['password'] = bcrypt($input['password']);
         $user = new User();
@@ -227,6 +228,7 @@ class AdminController extends Controller
         $input = $request->all();
         $input['birth_date'] = date('Y-m-d',  strtotime(str_replace('/', '-', $input['birth_date'])));
 
+        $input['status'] = 1;
         $input['type'] = 'consultant';
         $input['password'] = bcrypt($input['password']);
         $user = new User();

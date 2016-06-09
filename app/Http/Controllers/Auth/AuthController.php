@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
@@ -45,7 +47,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'getLogout']);
+        $this->middleware($this->guestMiddleware(), ['except' => ['getLogout','getUserLogout', 'getAdminLogout', 'getConsultantLogout', 'postLogin']]);
     }
 
     /**
@@ -79,7 +81,9 @@ class AuthController extends Controller
     }
 
     public function redirectPath(){
-        return '/'.Auth::guard($this->getGuard())->user()->type;
+        $url = Auth::guard($this->getGuard())->user()->type;
+        if($url == 'user') $url = '';
+        return '/'.$url;
     }
 
     public function getConsultantLogout(){
@@ -90,6 +94,11 @@ class AuthController extends Controller
     public function getAdminLogout(){
         $this->getLogout('admin');
         return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+    }
+
+    public function getUserLogout(){
+        $this->getLogout('user');
+        return redirect('/');
     }
 
     public function getLogout($type = 'user')
@@ -125,7 +134,7 @@ class AuthController extends Controller
         $this->guard = $type;
 
         if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
-            return $this->handleUserWasAuthenticated($request, $throttles, $type);
+            return $this->handleUserWasAuthenticated($request, $throttles);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -135,10 +144,10 @@ class AuthController extends Controller
             $this->incrementLoginAttempts($request);
         }
 
-        return $this->sendFailedLoginResponse($request);
+        return $this->sendFailedLoginResponse($request, $type);
     }
 
-    protected function handleUserWasAuthenticated(\Illuminate\Http\Request $request, $throttles, $type)
+    protected function handleUserWasAuthenticated(\Illuminate\Http\Request $request, $throttles)
     {
         if ($throttles) {
             $this->clearLoginAttempts($request);
@@ -155,6 +164,28 @@ class AuthController extends Controller
     {
         $credentials = $request->only($this->loginUsername(), 'password');
         $credentials = array_add($credentials, 'type', $type);
+        $credentials = array_add($credentials, 'status', 1);
         return $credentials;
+    }
+
+    protected function sendFailedLoginResponse(\Illuminate\Http\Request $request, $type = 'user')
+    {
+        $errors = [$this->loginUsername() => $this->getFailedLoginMessage($request, $type)];
+        if($type == 'user'){
+            $request->session()->flash('modal', 'login');
+        }
+        return redirect()->back()
+            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withErrors($errors, $type == 'user' ? 'login' : 'default');
+    }
+
+    protected function getFailedLoginMessage($request, $type)
+    {
+        $user = User::where(['email' => $request->email])->first();
+        $message = Lang::get('auth.failed');
+        if($user && Hash::check($request->password, $user->password) && $user->status == 0 && $user->type == $type){
+            $message = Lang::get('auth.email-confirmation');
+        }
+        return $message;
     }
 }

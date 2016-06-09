@@ -34,91 +34,111 @@
 
                 <div class="module widget-handle language left">
                     <ul class="menu">
-                        <li class="profile-dropdown">
-                            <a href="#">Profile</a>
-                            <ul>
-                                <li>
-                                    <div class="modal-container">
-                                        <a class="btn-modal" href="#">Log in</a>
-                                        <div class="foundry_modal text-center" {{ Session::has('modal') && Session::get('modal') == 'login' && count($errors->login) > 0 ? 'data-time-delay=10' : '' }}>
-                                            <h3 class="uppercase">Log in</h3>
-                                            <p class="lead mb48">
-                                                Please fill all the fields.
-                                            </p>
-                                            @if (count($errors->login) > 0)
-                                                <div class="alert alert-danger">
-                                                    <ul>
-                                                        @foreach ($errors->login->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif
-                                            {!! Form::open([
-                                                'role' => 'form',
-                                                'url' => action('UserController@loginUser', ['modal' => 'login', 'url' => Route::currentRouteAction() ]),
-                                                'files' => true,
-                                                'class' => '',
-                                                'method' => 'POST'
-                                            ]) !!}
-                                            {!! Form::email('email', null, ['class' => $errors->login->first('email', 'field-error '), 'placeholder' => 'Email address']) !!}
-                                            {!! Form::input('password', 'password', '', ['class' => $errors->login->first('password', 'field-error '), 'placeholder' => 'Password']) !!}
-                                            <input type="submit" value="Log in">
-                                            {!! Form::close() !!}
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="modal-container">
-                                        <a class="btn-modal" href="#">Sign up</a>
-                                        <div class="foundry_modal text-center" {{ Session::has('modal') && Session::get('modal') == 'signup' && count($errors->signup) > 0 ? 'data-time-delay=10' : '' }}>
-                                            <h3 class="uppercase">Sign Up</h3>
-                                            <p class="lead mb48">
-                                                Please fill all the fields.
-                                            </p>
-                                            @if (count($errors->signup) > 0)
-                                                <div class="alert alert-danger">
-                                                    <ul>
-                                                        @foreach ($errors->signup->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif
-                                            {!! Form::open([
-                                                'role' => 'form',
-                                                'url' => action('UserController@createUser', ['modal' => 'signup', 'url' => Route::currentRouteAction() ]),
-                                                'files' => true,
-                                                'class' => '',
-                                                'method' => 'POST'
-                                            ]) !!}
-                                                <div class="double-column">
-                                                    {!! Form::text('first_name', null, ['class' => $errors->signup->first('first_name', 'field-error ').'mt-1px', 'placeholder' => 'First name']) !!}
-                                                    {!! Form::text('last_name', null, ['class' => $errors->signup->first('last_name', 'field-error ').'mt-1px', 'placeholder' => 'Last name']) !!}
-                                                </div>
-                                                {!! Form::email('email', null, ['class' => $errors->signup->first('email', 'field-error '), 'placeholder' => 'Email address']) !!}
-                                                {!! Form::input('password', 'password', '', ['class' => $errors->signup->first('password', 'field-error '), 'placeholder' => 'Password']) !!}
-                                                {!! Form::input('password', 'password_confirmation', '', ['class' => $errors->signup->first('password_confirmation', 'field-error '), 'placeholder' => 'Repeat password']) !!}
-                                                <div class="gender-signup {{ $errors->signup->first('gender', 'radio-error ') }}">
-                                                    <div>
-                                                        <div class="radio-option {{ old('gender') == 'male' ? 'checked' : '' }}">
-                                                            <div class="inner"></div>
-                                                            {!! Form::radio('gender', 'male', null) !!}
-                                                        </div>
-                                                        <span>Male</span>
-                                                        <div class="radio-option {{ old('gender') == 'female' ? 'checked' : '' }}">
-                                                            <div class="inner"></div>
-                                                            {!! Form::radio('gender', 'female', null) !!}
-                                                        </div>
-                                                        <span>Female</span>
+                        <li class="profile-dropdown {{ Auth::guard('user')->user() ? 'logged' : '' }}">
+                            @if(Auth::guard('user')->user())
+                                <a href="#">{{ Auth::guard('user')->user()->userData()->first()->first_name ? Auth::guard('user')->user()->userData()->first()->first_name : 'profile' }} (£ {{ Auth::guard('user')->user()->points }})</a>
+                                <ul>
+                                    <li>
+                                        <a href="{{ action('FrontendController@profile') }}">Edit Profile</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ action('FrontendController@profile') }}">My questions</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ action('Auth\AuthController@getUserLogout') }}">Log out</a>
+                                    </li>
+                                </ul>
+                            @else
+                                <a href="#">Profile</a>
+                                <ul>
+                                    <li>
+                                        <div class="modal-container login-modal">
+                                            <a class="btn-modal" href="#">Log in</a>
+                                            <div class="foundry_modal text-center" {{ Session::has('modal') && Session::get('modal') == 'login' && count($errors->login) > 0 ? 'data-time-delay=10' : '' }}>
+                                                <h3 class="uppercase">Log in</h3>
+                                                @if (count($errors->login) > 0)
+                                                    <div class="alert alert-danger">
+                                                        <ul>
+                                                            @foreach ($errors->login->all() as $error)
+                                                                <li>{{ $error }}</li>
+                                                            @endforeach
+                                                        </ul>
                                                     </div>
+                                                @endif
+                                                {!! Form::open([
+                                                    'role' => 'form',
+                                                    'url' => action('UserController@loginUser', ['modal' => 'login', 'url' => Route::currentRouteAction() ]),
+                                                    'files' => true,
+                                                    'class' => '',
+                                                    'method' => 'POST'
+                                                ]) !!}
+                                                {!! Form::email('email', null, ['class' => $errors->login->first('email', 'field-error '), 'placeholder' => 'Email address']) !!}
+                                                {!! Form::input('password', 'password', '', ['class' => $errors->login->first('password', 'field-error ').'mb-5px', 'placeholder' => 'Password']) !!}
+                                                <div class="password-reset-link">
+                                                    Forgot your password? <a href="#">Click Here To Reset</a>
                                                 </div>
-                                                <input type="submit" value="Sign up">
-                                            {!! Form::close() !!}
+                                                <input type="submit" value="Log in">
+                                                {!! Form::close() !!}
+                                                <a class="btn btn-lg social-login google" href="{{ action('UserController@socialLogin', ['provider' => 'google']) }}"><i class="ti-google"></i> Log in with Google</a>
+                                                <a class="btn btn-lg social-login facebook" href="{{ action('UserController@socialLogin', ['provider' => 'facebook']) }}"><i class="ti-facebook"></i> Log in with Facebook</a>
+                                                <a class="btn btn-lg social-login twitter" href="{{ action('UserController@socialLogin', ['provider' => 'twitter']) }}"><i class="ti-twitter"></i> Log in with Twitter</a>
+                                                <a href="#" onclick="openModal('signup')">Create account</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+                                    <li>
+                                        <div class="modal-container signup-modal">
+                                            <a class="btn-modal" href="#">Sign up</a>
+                                            <div class="foundry_modal text-center" {{ Session::has('modal') && Session::get('modal') == 'signup' && count($errors->signup) > 0 ? 'data-time-delay=10' : '' }}>
+                                                <h3 class="uppercase">Sign Up</h3>
+                                                <p class="lead mb48">
+                                                    Please fill all the fields.
+                                                </p>
+                                                @if (count($errors->signup) > 0)
+                                                    <div class="alert alert-danger">
+                                                        <ul>
+                                                            @foreach ($errors->signup->all() as $error)
+                                                                <li>{{ $error }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endif
+                                                {!! Form::open([
+                                                    'role' => 'form',
+                                                    'url' => action('UserController@createUser', ['modal' => 'signup', 'url' => Route::currentRouteAction() ]),
+                                                    'files' => true,
+                                                    'class' => '',
+                                                    'method' => 'POST'
+                                                ]) !!}
+                                                    <div class="double-column">
+                                                        {!! Form::text('first_name', null, ['class' => $errors->signup->first('first_name', 'field-error ').'mt-1px', 'placeholder' => 'First name']) !!}
+                                                        {!! Form::text('last_name', null, ['class' => $errors->signup->first('last_name', 'field-error ').'mt-1px', 'placeholder' => 'Last name']) !!}
+                                                    </div>
+                                                    {!! Form::email('email', null, ['class' => $errors->signup->first('email', 'field-error '), 'placeholder' => 'Email address']) !!}
+                                                    {!! Form::input('password', 'password', '', ['class' => $errors->signup->first('password', 'field-error '), 'placeholder' => 'Password']) !!}
+                                                    {!! Form::input('password', 'password_confirmation', '', ['class' => $errors->signup->first('password_confirmation', 'field-error '), 'placeholder' => 'Repeat password']) !!}
+                                                    <div class="gender-signup {{ $errors->signup->first('gender', 'radio-error ') }}">
+                                                        <div>
+                                                            <div class="radio-option {{ old('gender') == 'male' ? 'checked' : '' }}">
+                                                                <div class="inner"></div>
+                                                                {!! Form::radio('gender', 'male', null) !!}
+                                                            </div>
+                                                            <span>Male</span>
+                                                            <div class="radio-option {{ old('gender') == 'female' ? 'checked' : '' }}">
+                                                                <div class="inner"></div>
+                                                                {!! Form::radio('gender', 'female', null) !!}
+                                                            </div>
+                                                            <span>Female</span>
+                                                        </div>
+                                                    </div>
+                                                    <input type="submit" value="Sign up">
+                                                    <a href="#" onclick="openModal('login')">Log in</a>
+                                                {!! Form::close() !!}
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            @endif
                         </li>
                     </ul>
                 </div>

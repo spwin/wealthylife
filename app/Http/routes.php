@@ -14,8 +14,17 @@
 // FRONTEND
 
 Route::get('/', 'FrontendController@index');
+Route::get('email-confirm/{key}', 'UserController@confirmation');
 Route::get('blog', 'FrontendController@blog');
+Route::get('contact-us', 'FrontendController@contacts');
+Route::get('authorize-question', 'FrontendController@authorizeQuestion');
 
+Route::get('social-login/{provider}', 'UserController@socialLogin');
+Route::get('social-callback/{provider}', 'UserController@socialCallback');
+
+Route::post('create-question', 'UserController@questionCreate');
+Route::post('clear-question', 'UserController@clearQuestion');
+Route::post('clear-image', 'UserController@clearImage');
 
 Route::post('create-user', 'UserController@createUser');
 Route::post('login-user', 'UserController@loginUser');
@@ -24,6 +33,20 @@ Route::get('admin/login', 'AdminController@login');
 Route::get('consultant/login', 'ConsultantController@login');
 
 Route::post('{type}/login/', 'Auth\AuthController@postLogin');
+
+
+// LOGGED
+
+Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
+    Route::get('/', 'FrontendController@profile');
+    Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
+    Route::get('messages', 'FrontendController@messages');
+    Route::get('questions', 'FrontendController@questions');
+    Route::get('articles', 'FrontendController@articles');
+    Route::get('vouchers', 'FrontendController@vouchers');
+    Route::get('credits', 'FrontendController@credits');
+    Route::get('logout', 'Auth\AuthController@getUserLogout');
+});
 
 // CONSULTANT
 

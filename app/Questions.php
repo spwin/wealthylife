@@ -12,7 +12,7 @@ class Questions extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'consultant_id', 'question', 'status', 'ip'
+        'user_id', 'consultant_id', 'question', 'status', 'ip', 'image_id'
     ];
 
     public function user(){
@@ -21,5 +21,9 @@ class Questions extends Model
 
     public function consultant(){
         return $this->hasOne('App\User', 'id', 'user_id');
+    }
+
+    public function image(){
+        return $this->hasOne('App\Images', 'id', 'image_id');
     }
 }

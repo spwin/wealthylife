@@ -148,6 +148,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -205,8 +206,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form'=> Illuminate\Html\FormFacade::class,
         'HTML'=> Illuminate\Html\HtmlFacade::class,
-        'Flash' => Laracasts\Flash\Flash::class
-
+        'Flash' => Laracasts\Flash\Flash::class,
+        'Socialize' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
 ];
