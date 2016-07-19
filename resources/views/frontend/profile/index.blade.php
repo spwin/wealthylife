@@ -17,7 +17,7 @@
                         </p>--}}
                         <ul class="tabs">
                             <li id="general">
-                                <a href="#general">
+                                <a href="#">
                                     <div class="tab-title">
                                         <span>General info</span>
                                     </div>
@@ -273,7 +273,7 @@
                                 </div>
                             </li>
                             <li id="login">
-                                <a href="#login">
+                                <a href="#">
                                     <div class="tab-title">
                                         <span>Login data</span>
                                     </div>

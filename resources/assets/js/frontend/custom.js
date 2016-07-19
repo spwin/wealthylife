@@ -1,6 +1,7 @@
 // Main menu underline
 (function() {
-
+    /* SLIDING MENU UNDERSCORE */
+    /*
     var $el, leftPos, newWidth,
         $mainNav = $("#underline-hover");
 
@@ -35,6 +36,7 @@
             width: $magicLine.data("origWidth")
         });
     });
+    */
 
     $('.display-after-load').show();
 

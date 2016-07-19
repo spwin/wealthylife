@@ -3175,7 +3175,8 @@ var mr_cookies = {
 
 // Main menu underline
 (function() {
-
+    /* SLIDING MENU UNDERSCORE */
+    /*
     var $el, leftPos, newWidth,
         $mainNav = $("#underline-hover");
 
@@ -3210,6 +3211,7 @@ var mr_cookies = {
             width: $magicLine.data("origWidth")
         });
     });
+    */
 
     $('.display-after-load').show();
 
