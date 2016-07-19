@@ -12,7 +12,8 @@
                     </p>
                     <div class="modal-container inline-block">
                         <a class="btn btn-modal" href="#">Edit</a>
-                        @include('frontend/elements/question')
+                        {{-- Edit current question from database --}}
+                        {{--@include('frontend/elements/question')--}}
                     </div>
                     <hr class="visible-xs">
                 </div>

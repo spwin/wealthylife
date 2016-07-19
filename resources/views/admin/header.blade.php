@@ -68,7 +68,7 @@
                             .Auth::guard('admin')->user()->userData()->first()->image()->first()->filename
                              }}" class="img-circle" alt="User Image">
                             <p>
-                                {{ Auth::guard('admin')->user()->userData()->first()->first_name.' '.Auth::guard('admin')->user()->userData()->first()->last_name }} - Admin
+                                {{ Auth::guard('admin')->user()->userData()->first()->first_name.' '.Auth::guard('admin')->user()->userData()->first()->last_name.' - '.ucfirst(Auth::guard('admin')->user()->type) }}
                                 <small>Member since {{ date('d/m/Y', strtotime(Auth::guard('admin')->user()->created_at)) }}</small>
                             </p>
                         </li>

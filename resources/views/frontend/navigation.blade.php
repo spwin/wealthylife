@@ -39,10 +39,10 @@
                                 <a href="#">{{ Auth::guard('user')->user()->userData()->first()->first_name ? Auth::guard('user')->user()->userData()->first()->first_name : 'profile' }} (£ {{ Auth::guard('user')->user()->points }})</a>
                                 <ul>
                                     <li>
-                                        <a href="{{ action('FrontendController@profile') }}">Edit Profile</a>
+                                        <a href="{{ action('FrontendController@profile') }}">My profile</a>
                                     </li>
                                     <li>
-                                        <a href="{{ action('FrontendController@profile') }}">My questions</a>
+                                        <a href="{{ action('FrontendController@questions') }}">My questions</a>
                                     </li>
                                     <li>
                                         <a href="{{ action('Auth\AuthController@getUserLogout') }}">Log out</a>

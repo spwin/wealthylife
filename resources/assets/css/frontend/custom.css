@@ -390,7 +390,8 @@ form .textarea-holder .charNum{
     margin-bottom: 20px;
 }
 
-.user-photo img{
+.user-photo .image{
+    max-width: 160px;
     width: 70%;
 }
 
@@ -437,10 +438,368 @@ form .textarea-holder .charNum{
     border-top: none;
 }
 
+.tabs a{
+    font-weight: 700;
+    color: #666;
+}
+
+.tabs a:hover{
+    color: #333;
+}
+
+.numbers{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+input.profile-button{
+    width: 185px;
+    height: 40px;
+    font-size: 11px;
+    line-height: 30px;
+    min-width: 0;
+}
+input.profile-button:hover{
+    background-color: #40A269;
+    color: white;
+}
+
+input.less-profile-input-margin{
+    margin-bottom: 15px;
+}
+
+*:focus {
+    outline: none;
+}
+
+.gender-profile .radio-option + span {
+    font-weight: 400;
+    margin-left: 4px;
+}
+
+form.general-profile .input-with-label span {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+    font-weight: inherit;
+    display: inline-block;
+    cursor: default;
+}
+
+form.general-profile h5, form.login-profile h5{
+    margin-bottom: 10px;
+}
+
+.no-padding{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+form.general-profile .input-with-label span.text-red{
+    color: red;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+form.general-profile select:active, form.general-profile select:focus, form.general-profile select:hover {
+    outline: inherit;
+    border: inherit;
+}
+
+form.general-profile .select-option {
+    overflow: inherit;
+}
+
+form.general-profile .gender-profile.radio-error span{
+    color: #c64444;
+}
+form.general-profile .double-column{
+    margin-left: 1px;
+}
+
+.image {
+    position: relative;
+}
+
+.image img {
+    width: 100%;
+    vertical-align: top;
+}
+
+.image:after {
+    content: 'CHANGE IMAGE';
+    color: #fff;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    line-height: 2.4;
+    bottom:0; left:0;
+    background:rgba(0,0,0,0.6);
+    opacity: 0;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+}
+
+.image:hover:after {
+    opacity: 1;
+}
+
+.avatar-overlay{
+    width: 100%;
+    top:0;
+    left:0;
+    height: 100%;
+    position: absolute;
+    background:rgba(0,0,0,0.6);
+}
+
+.center-cropped .spinner-layer{
+    z-index: 5;
+    opacity: 1;
+    -webkit-animation: fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+    animation: fill-unfill-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-color: #FFFFFF;
+}
+
+.center-cropped .circle-clipper {
+    display: inline-block;
+    position: relative;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    border-color: inherit;
+}
+
+.center-cropped .gap-patch {
+    position: absolute;
+    top: 0;
+    left: 45%;
+    width: 10%;
+    height: 100%;
+    overflow: hidden;
+    border-color: inherit;
+}
+
+@-webkit-keyframes container-rotate{
+    to{
+        -webkit-transform: rotate(360deg)
+    }
+}
+@keyframes container-rotate{
+    to{
+        -webkit-transform:rotate(360deg);
+        transform:rotate(360deg)
+    }
+}
+
+@-webkit-keyframes fill-unfill-rotate{
+    12.5% { -webkit-transform:rotate(135deg) }
+    25% { -webkit-transform:rotate(270deg) }
+    37.5% { -webkit-transform:rotate(405deg) }
+    50% { -webkit-transform:rotate(540deg) }
+    62.5% { -webkit-transform:rotate(675deg) }
+    75% { -webkit-transform:rotate(810deg) }
+    87.5% { -webkit-transform:rotate(945deg) }
+    to { -webkit-transform:rotate(1080deg)}
+}
+@keyframes fill-unfill-rotate{
+    12.5% {
+        -webkit-transform:rotate(135deg);
+        transform:rotate(135deg)}
+    25% {
+        -webkit-transform:rotate(270deg);
+        transform:rotate(270deg)}
+    37.5% {
+        -webkit-transform:rotate(405deg);
+        transform:rotate(405deg)}
+    50% {
+        -webkit-transform:rotate(540deg);
+        transform:rotate(540deg)}
+    62.5% {
+        -webkit-transform:rotate(675deg);
+        transform:rotate(675deg)}
+    75% {
+        -webkit-transform:rotate(810deg);
+        transform:rotate(810deg)}
+    87.5% {
+        -webkit-transform:rotate(945deg);
+        transform:rotate(945deg)}
+    to {
+        -webkit-transform:rotate(1080deg);
+        transform:rotate(1080deg)}
+}
+
+@-webkit-keyframes left-spin{
+    from{
+        -webkit-transform:rotate(130deg)}
+    50%{
+        -webkit-transform:rotate(-5deg)}
+    to{
+        -webkit-transform:rotate(130deg)}
+}
+
+@keyframes left-spin{
+    from{
+        -webkit-transform:rotate(130deg);
+        transform:rotate(130deg)}
+    50%{
+        -webkit-transform:rotate(-5deg);
+        transform:rotate(-5deg)}
+    to{
+        -webkit-transform:rotate(130deg);
+        transform:rotate(130deg)}
+}
+
+@-webkit-keyframes right-spin{
+    from{
+        -webkit-transform:rotate(-130deg)}
+    50%{
+        -webkit-transform:rotate(5deg)}
+    to{
+        -webkit-transform:rotate(-130deg)}
+}
+
+@keyframes right-spin{
+    from{
+        -webkit-transform:rotate(-130deg);
+        transform:rotate(-130deg)}
+    50%{
+        -webkit-transform:rotate(5deg);
+        transform:rotate(5deg)}
+    to{
+        -webkit-transform:rotate(-130deg);
+        transform:rotate(-130deg)}
+}
+
+.center-cropped .preloader-wrapper{
+    -webkit-animation: container-rotate 1568ms linear infinite;
+    animation: container-rotate 1568ms linear infinite;
+    width: 36px;
+    height: 36px;
+    margin-top: 42px;
+    display: none;
+    position: relative;
+}
+
+.center-cropped .gap-patch .circle {
+    width: 1000%;
+    left: -450%;
+}
+
+.center-cropped .circle {
+    border-radius: 50%;
+}
+
+.center-cropped .circle-clipper.left .circle {
+    -webkit-animation: left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+    animation: left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+    left: 0;
+    border-right-color: transparent !important;
+    -webkit-transform: rotate(129deg);
+    transform: rotate(129deg);
+}
+
+.center-cropped .circle-clipper.right .circle {
+    -webkit-animation: right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+    animation: right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+    left: -100%;
+    border-left-color: transparent !important;
+    -webkit-transform: rotate(-129deg);
+    transform: rotate(-129deg);
+}
+
+.center-cropped .circle-clipper .circle{
+    width: 200%;
+    height: 100%;
+    border-width: 3px;
+    border-style: solid;
+    border-color: inherit;
+    border-bottom-color: transparent !important;
+    border-radius: 50%;
+    -webkit-animation: none;
+    animation: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+div.center-cropped {
+    width: 120px;
+    height: 120px;
+    margin-right: 24px;
+    overflow: hidden;
+    position: relative;
+}
+
+div.center-cropped img {
+    max-width: none;
+    position:absolute;
+    margin: auto;
+    min-height: 100%;
+    min-width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.avatar-errors{
+    color: #c64444;
+    margin-top: 10px;
+    height: 24px;
+}
+
+.avatar-actions{
+    width: 50%;
+}
+
+.avatar-actions input[type="submit"], .avatar-actions a.btn{
+    width: 150px;
+    margin-left: 0;
+    min-width: 150px
+}
+
+.avatar-actions a.btn:hover{
+    color: white;
+    border-color: #47b475;
+    background-color: #47b475;
+}
+
+.avatar-input{
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
+    height: 0;
+    color: rgba(255,255,255,0);
+}
+
+.avatar-container{
+    width: 50%;
+}
+
+input[type="submit"].disabled{
+    cursor: default;
+    border-color: #DBDBDB;
+    background-color: #DBDBDB;
+}
+
 @media all and (max-width: 600px){
     .double-column{
         -webkit-column-count: 1;
         -moz-column-count: 1;
         column-count: 1;
+    }
+}
+@media (min-width: 768px){
+    .col-sm-3.no-padding-left{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .col-sm-4.no-padding-right{
+        padding-right: 0;
+        padding-left: 0;
     }
 }

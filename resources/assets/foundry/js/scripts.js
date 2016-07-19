@@ -607,6 +607,12 @@ $(document).ready(function() {
 
     // Tabbed Content
 
+    var hash = '';
+    if(window.location.hash) {
+        hash = window.location.hash;
+        hash = hash.replace('#', '');
+    }
+
     $('.tabbed-content').each(function() {
         $(this).append('<ul class="content"></ul>');
     });
@@ -614,9 +620,16 @@ $(document).ready(function() {
     $('.tabs li').each(function() {
         var originalTab = $(this),
             activeClass = "";
-        if (originalTab.is('.tabs>li:first-child')) {
+        if(hash != ''){
+            if(originalTab.attr('id') == hash){
+                activeClass = ' class="active"';
+                $(this).addClass('active');
+            }
+        } else if (originalTab.is('.tabs>li:first-child')) {
             activeClass = ' class="active"';
+            $(this).addClass('active');
         }
+
         var tabContent = originalTab.find('.tab-content').detach().wrap('<li' + activeClass + '></li>').parent();
         originalTab.closest('.tabbed-content').find('.content').append(tabContent);
     });

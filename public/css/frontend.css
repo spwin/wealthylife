@@ -393,7 +393,8 @@ h4.uppercase {
   letter-spacing: 3px;
   margin-right: -3px;
 }
-h5.uppercase {
+h5.uppercase,
+h5.weight {
   letter-spacing: 2px;
   margin-right: -2px;
 }
@@ -1626,8 +1627,8 @@ nav.nav-centered.outOfSight .logo {
   color: #d88519;
 }
 .alert-success {
-  border: 1px solid #60b963;
-  color: #60b963;
+  border: 1px solid #47b475;
+  color: #47b475;
 }
 .alert-danger {
   border: 1px solid #c64444;
@@ -1684,7 +1685,7 @@ input,
 button,
 select,
 textarea {
-  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 input[type="text"],
 button,

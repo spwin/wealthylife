@@ -239,7 +239,7 @@ h1.uppercase{ letter-spacing: 17px; margin-right: -17px; }
 h2.uppercase{ letter-spacing: 10px; margin-right: -10px; }
 h3.uppercase{ letter-spacing: 6px; margin-right: -6px; }
 h4.uppercase{ letter-spacing: 3px; margin-right: -3px; }
-h5.uppercase{ letter-spacing: 2px; margin-right: -2px; }
+h5.uppercase, h5.weight{ letter-spacing: 2px; margin-right: -2px; }
 h6.uppercase,.h6-u{ letter-spacing: 2px; font-weight: 700; }
 .bold-h6{ .h6; .uppercase; .h6-u; }
 
@@ -586,7 +586,7 @@ nav.nav-centered.outOfSight .logo{ display: none; }
 .alert .close{ opacity: 1; font-size: 24px; top: -2px; right: -4px; .transition(0.3s); }
 .alert .close span{ font-weight: 400; }
 .alert-warning{ border: 1px solid #d88519; color: #d88519; }
-.alert-success{ border: 1px solid #60b963; color: #60b963; }
+.alert-success{ border: 1px solid #47b475; color: #47b475; }
 .alert-danger{ border: 1px solid #c64444; color: #c64444; }
 
 /*!---------- 10. ICONS ----------*/
@@ -610,7 +610,7 @@ nav.nav-centered.outOfSight .logo{ display: none; }
 
 /*!---------- 11. FORMS ----------*/
 
-input,button,select,textarea{ font-family: @heading-font,"Helvetica Neue",Helvetica,Arial,sans-serif; }
+input,button,select,textarea{ font-family: /*@heading-font,*/"Helvetica Neue",Helvetica,Arial,sans-serif; }
 input[type="text"],button,textarea,select,input[type="password"]{ -webkit-appearance: none; -moz-appearance: none; appearance: none; }
 .bg-secondary input[type="text"], .bg-secondary textarea, .bg-secondary select{ background: #fff; }
 .input-lh{ line-height: 50px; }

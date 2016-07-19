@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Images;
 use App\Questions;
 use App\User;
+use App\UserData;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -59,7 +60,7 @@ class FrontendController extends Controller
             } else {
                 $question = array();
                 $question['content'] = session()->get('question.content');
-                $question['image'] = session()->has('question.image') ? 'images/session/temp/'.session()->get('question.image') : 'images/avatars/no_image.png';
+                $question['image'] = session()->has('question.image') ? 'uploads/session/temp/'.session()->get('question.image') : 'images/avatars/no_image.png';
                 $question['status'] = session()->get('question.status');
                 return view('frontend/pages/authorize-question')->with([
                     'question' => $question
@@ -88,10 +89,18 @@ class FrontendController extends Controller
         ]);
     }
 
+    function getBirthDate($date){
+        list($year, $month, $day) = explode('-', $date);
+        return ['year' => $year, 'month' => $month, 'day' => $day];
+    }
+
     public function profile(){
         if($user = Auth::guard('user')->user()){
+            $user_data = UserData::where(['user_id' => $user->id])->first();
             return view('frontend/profile/index')->with([
-                'user' => $user
+                'user' => $user,
+                'user_data' => $user_data,
+                'bd' => $this->getBirthDate($user_data->birth_date)
             ]);
         }
         return Redirect::action('FrontendController@index');

@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('points');
             $table->integer('status');
+            $table->boolean('email_confirmed');
             $table->boolean('super');
             $table->boolean('local')->default(1);
             $table->rememberToken();

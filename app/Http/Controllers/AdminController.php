@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 use Laracasts\Flash\Flash;
 
 class AdminController extends Controller
 {
-    private $max_filesize = 1024;
+    private $max_filesize = 5120;
 
     public function index(){
         return view('admin/dashboard/dashboard');
@@ -62,6 +63,7 @@ class AdminController extends Controller
         $input['birth_date'] = date('Y-m-d',  strtotime(str_replace('/', '-', $input['birth_date'])));
 
         $input['status'] = 1;
+        $input['email_confirmed'] = 1;
         $input['type'] = 'admin';
         $input['password'] = bcrypt($input['password']);
         $user = new User();
@@ -71,7 +73,12 @@ class AdminController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $destinationPath = 'images/avatars';
             $fileName = 'user'.$user->id.'-'.$request->file('image')->getClientOriginalName();
-            $request->file('image')->move($destinationPath, $fileName);
+            $img = Image::make($request->file('image'));
+            $img->save($destinationPath.'/original/'.$fileName, 90);
+            $img->fit(200, 200, function ($constraint) {
+                $constraint->upsize();
+            });
+            $img->save($destinationPath.'/'.$fileName, 90);
             $input['filename'] = $fileName;
         } else {
             $input['filename'] = 'no_image.png';
@@ -126,7 +133,12 @@ class AdminController extends Controller
                 if ($request->hasFile('image') && $request->file('image')->isValid()) {
                     $destinationPath = 'images/avatars';
                     $fileName = 'user' . $user->id . '-' . $request->file('image')->getClientOriginalName();
-                    $request->file('image')->move($destinationPath, $fileName);
+                    $img = Image::make($request->file('image'));
+                    $img->save($destinationPath.'/original/'.$fileName, 90);
+                    $img->fit(200, 200, function ($constraint) {
+                        $constraint->upsize();
+                    });
+                    $img->save($destinationPath.'/'.$fileName, 90);
 
                     $input['filename'] = $fileName;
                     $input['path'] = '/images/avatars/';
@@ -229,6 +241,7 @@ class AdminController extends Controller
         $input['birth_date'] = date('Y-m-d',  strtotime(str_replace('/', '-', $input['birth_date'])));
 
         $input['status'] = 1;
+        $input['email_confirmed'] = 1;
         $input['type'] = 'consultant';
         $input['password'] = bcrypt($input['password']);
         $user = new User();
@@ -238,7 +251,12 @@ class AdminController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $destinationPath = 'images/avatars';
             $fileName = 'user'.$user->id.'-'.$request->file('image')->getClientOriginalName();
-            $request->file('image')->move($destinationPath, $fileName);
+            $img = Image::make($request->file('image'));
+            $img->save($destinationPath.'/original/'.$fileName, 90);
+            $img->fit(200, 200, function ($constraint) {
+                $constraint->upsize();
+            });
+            $img->save($destinationPath.'/'.$fileName, 90);
             $input['filename'] = $fileName;
         } else {
             $input['filename'] = 'no_image.png';
@@ -293,7 +311,12 @@ class AdminController extends Controller
                 if ($request->hasFile('image') && $request->file('image')->isValid()) {
                     $destinationPath = 'images/avatars';
                     $fileName = 'user' . $user->id . '-' . $request->file('image')->getClientOriginalName();
-                    $request->file('image')->move($destinationPath, $fileName);
+                    $img = Image::make($request->file('image'));
+                    $img->save($destinationPath.'/original/'.$fileName, 90);
+                    $img->fit(200, 200, function ($constraint) {
+                        $constraint->upsize();
+                    });
+                    $img->save($destinationPath.'/'.$fileName, 90);
 
                     $input['filename'] = $fileName;
                     $input['path'] = '/images/avatars/';
@@ -348,5 +371,178 @@ class AdminController extends Controller
         }
         $user->save();
         return Redirect::action('AdminController@detailsConsultant', ['id' => $id, 't' => 2]);
+    }
+
+    public function destroyConsultant($id){
+        $user = User::findOrFail($id);
+        if($id == Auth::guard('admin')->user()->id) {
+            Flash::error('You cannot remove your account');
+        } elseif($user->super) {
+            Flash::error('You cannot remove super consultant account');
+        } else {
+            DB::table('users')->where(['id' => $id, 'type' => 'consultant'])->delete();
+            Flash::error('Consultant account has been removed');
+        }
+        return Redirect::action('AdminController@listConsultants');
+    }
+
+    public function listUsers(){
+        $users = User::with('userData')->where(['type' => 'user'])->orderBy('created_at', 'DESC')->get();
+        return view('admin/users/users/list')->with([
+            'users' => $users
+        ]);
+    }
+
+    function getEmailConfirmation($user){
+        if($user->local){
+            if($user->email_confirmed){
+                $econf = ['status' => 'via email', 'color' => 'green'];
+            } else {
+                $econf = ['status' => 'pending', 'color' => 'yellow'];
+            }
+        } else {
+            $econf = ['status' => 'social', 'color' => 'gray'];
+        }
+        return $econf;
+    }
+
+    public function detailsUser($id){
+        $user = User::findOrFail($id);
+        $tab = Input::has('t') ? Input::get('t') : 1;
+        $user_data = UserData::where(['user_id' => $user->id])->first();
+        $econf = $this->getEmailConfirmation($user);
+        return view('admin/users/users/profile')->with([
+            'user' => $user,
+            'user_data' => $user_data,
+            'tab' => $tab,
+            'econf' => $econf
+        ]);
+    }
+
+    public function markPaidQuestion($userId, $id)
+    {
+        $result = DB::table('questions')
+            ->where('id', $id)
+            ->update(array('status' => 1));
+        if ($result){
+            Flash::success('Question #' . $id . ' has been successfully marked as paid.');
+        } else {
+            Flash::error('Question #'.$id.' has not been marked as paid.');
+        }
+        return Redirect::action('AdminController@detailsUser', ['id' => $userId]);
+    }
+
+    public function destroyUser($id){
+        $user = User::findOrFail($id);
+        if($id == Auth::guard('admin')->user()->id) {
+            Flash::error('You cannot remove your account');
+        } elseif($user->super) {
+            Flash::error('You cannot remove super user account');
+        } else {
+            DB::table('users')->where(['id' => $id, 'type' => 'user'])->delete();
+            Flash::error('User account has been removed');
+        }
+        return Redirect::action('AdminController@listUsers');
+    }
+
+    public function updateUserData($id,Request $request){
+        $user = User::where(['id' => $id, 'type' => 'user'])->first();
+        if(count($user) > 0){
+            $user_data = UserData::where(['user_id' => $user->id])->first();
+            if(count($user_data) > 0) {
+                $v = Validator::make($request->all(), [
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'image' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png'
+                ]);
+                $v->after(function($v) use ($request) {
+                    if ($request->file('image') && $request->file('image')->getError()) {
+                        $v->errors()->add('image', 'The image may not be greater than '.$this->max_filesize.' kilobytes.');
+                    }
+                });
+                if ($v->fails()) {
+                    return redirect()->action('AdminController@detailsUser', ['id' => $id, 't' => 1])->withErrors($v->errors());
+                }
+                $input = $request->all();
+                $input['birth_date'] = date('Y-m-d', strtotime(str_replace('/', '-', $input['birth_date'])));
+                if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                    $destinationPath = 'images/avatars';
+                    $fileName = 'user' . $user->id . '-' . $request->file('image')->getClientOriginalName();
+                    $img = Image::make($request->file('image'));
+                    $img->save($destinationPath.'/original/'.$fileName, 90);
+                    $img->fit(200, 200, function ($constraint) {
+                        $constraint->upsize();
+                    });
+                    $img->save($destinationPath.'/'.$fileName, 90);
+
+                    $input['filename'] = $fileName;
+                    $input['path'] = '/images/avatars/';
+
+                    $image = new Images();
+                    $image->fill($input);
+                    $image->save();
+
+                    $input['image_id'] = $image->id;
+
+                    if ($user_data->image()->first() && $user_data->image()->first()->filename != 'no_image.png') {
+                        $url = base_path('public' . $user_data->image()->first()->path) . $user_data->image()->first()->filename;
+                        if (file_exists($url))
+                            unlink($url);
+                    }
+                }
+
+                $user_data->fill($input);
+                $user_data->save();
+            }
+        }
+        Flash::success('User info has been successfully changed');
+        return Redirect::action('AdminController@detailsUser', $id);
+    }
+
+    public function updateUserLogin($id, $type, Request $request){
+        $user = User::where(['id' => $id, 'type' => 'user'])->first();
+        $info = $request->all();
+        if($type == 'email'){
+            $v = Validator::make($request->all(), [
+                'email' => 'required|email|unique:users,email,'.$user->email.',email',
+            ]);
+            if ($v->fails()) {
+                return redirect()->action('AdminController@detailsUser', ['id' => $id, 't' => 2])->withErrors($v->errors());
+            }
+            if ($request->get('email') == $user->email){
+                Flash::warning('Email address remains the same');
+            } else {
+                $user->email = $info['email'];
+                Flash::success('Email has been successfully changed');
+            }
+        } elseif($type == 'pass'){
+            $v = Validator::make($request->all(), [
+                'password' => 'required|min:6|confirmed',
+                'password_confirmation' => 'required|min:6'
+            ]);
+            if ($v->fails()) {
+                return redirect()->action('AdminController@detailsUser', ['id' => $id, 't' => 2])->withErrors($v->errors());
+            }
+            $user->password = bcrypt($info['password']);
+            Flash::success('Password has been successfully changed');
+        }
+        $user->save();
+        return Redirect::action('AdminController@detailsUser', ['id' => $id, 't' => 2]);
+    }
+
+    public function forceLoginUser(Request $request){
+        $v = Validator::make($request->all(), [
+            'id' => 'required'
+        ]);
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors(), 'authenticate');
+        }
+        $user = User::where(['id' => $request->get('id')])->first();
+        if($user) {
+            Auth::guard('user')->login($user);
+            return Redirect::action('FrontendController@index')->withInput();
+        } else {
+            return Redirect::back();
+        }
     }
 }

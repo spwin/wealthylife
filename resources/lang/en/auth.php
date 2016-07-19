@@ -14,6 +14,8 @@ return [
     */
 
     'failed' => 'These credentials do not match our records.',
+    'only-providers' => 'To log in you were using: ',
+    'use-providers-or-register' => '. Use this (or another with same email) provider or use this email to create a new account with us.',
     'email-confirmation' => 'Please confirm your email first',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 

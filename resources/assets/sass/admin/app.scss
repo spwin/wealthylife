@@ -15,3 +15,34 @@
 .mr-15px{
   margin-right: 15px;
 }
+
+.w100px{
+  width: 100px;
+  text-align: center;
+}
+
+.w40px{
+  width: 40px;
+}
+
+.w60px{
+  width: 60px;
+}
+
+.admin-user-questions{
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.table-hover.users-table>tbody>tr:hover{background-color:#FFFFCC;cursor:pointer;}
+.table-hover.users-table>tbody>tr>td:first-child{
+  width: 21px;
+}
+
+.hov-icon:before{
+  display: none;
+}
+
+.table-hover>tbody>tr:hover>td:first-child i.hov-icon:before{
+  display: inline-block;
+}

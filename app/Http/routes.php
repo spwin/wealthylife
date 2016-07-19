@@ -46,6 +46,9 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
     Route::get('vouchers', 'FrontendController@vouchers');
     Route::get('credits', 'FrontendController@credits');
     Route::get('logout', 'Auth\AuthController@getUserLogout');
+    Route::post('{id}/update-profile-login/{type}', 'UserController@updateProfileLogin');
+    Route::post('{id}/update-profile-general', 'UserController@updateProfileGeneral');
+    Route::post('change-avatar', 'UserController@changeAvatar');
 });
 
 // CONSULTANT
@@ -69,7 +72,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
             Route::post('update-login/{id}/{type}', 'AdminController@updateAdminLogin');
             Route::delete('delete-profile/{id}', 'AdminController@destroyAdmin');
         });
-        Route::group(['prefix' => 'consultant'], function(){
+        Route::group(['prefix' => 'consultants'], function(){
             Route::get('list', 'AdminController@listConsultants');
             Route::get('create', 'AdminController@createConsultant');
             Route::post('save', 'AdminController@saveConsultant');
@@ -77,6 +80,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
             Route::post('update-data/{id}', 'AdminController@updateConsultantData');
             Route::post('update-login/{id}/{type}', 'AdminController@updateConsultantLogin');
             Route::delete('delete-profile/{id}', 'AdminController@destroyConsultant');
+        });
+        Route::group(['prefix' => 'users'], function(){
+            Route::get('list', 'AdminController@listUsers');
+            Route::get('profile/{id}', 'AdminController@detailsUser');
+            Route::get('profile/{user_id}/mark-paid-question/{id}', 'AdminController@markPaidQuestion');
+            Route::post('update-data/{id}', 'AdminController@updateUserData');
+            Route::post('update-login/{id}/{type}', 'AdminController@updateUserLogin');
+            Route::post('force-login', 'AdminController@forceLoginUser');
+            Route::delete('delete-profile/{id}', 'AdminController@destroyUser');
         });
     });
     Route::get('logout', 'Auth\AuthController@getAdminLogout');

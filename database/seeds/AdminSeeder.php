@@ -22,7 +22,8 @@ class AdminSeeder extends Seeder
             'email' => 'spwinwk@gmail.com',
             'password' => bcrypt('spwin0411'),
             'super' => 1,
-            'status' => 1
+            'status' => 1,
+            'email_confirmed' => 1
         ]);
         $user->save();
 

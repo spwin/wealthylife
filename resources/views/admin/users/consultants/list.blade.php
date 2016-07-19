@@ -35,18 +35,21 @@
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
-                        <tbody><tr>
-                            <th>ID</th>
-                            <th>Status</th>
-                            <th>Email</th>
-                            <th>Name</th>
-                            <th>Pending</th>
-                            <th>Answered</th>
-                            <th>Response time</th>
-                            <th>To pay</th>
-                        </tr>
-                        @foreach($users as $user)
+                        <thead>
                             <tr>
+                                <th>ID</th>
+                                <th>Status</th>
+                                <th>Email</th>
+                                <th>Name</th>
+                                <th>Pending</th>
+                                <th>Answered</th>
+                                <th>Response time</th>
+                                <th>To pay</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($users as $user)
+                            <tr onclick="window.location.href = '{{ action('AdminController@detailsConsultant', ['id' => $user->id]) }}';">
                                 <td>{{ $user->id }}</td>
                                 <td><i class="fa fa-circle text-success"></i> Online</td>
                                 <td>

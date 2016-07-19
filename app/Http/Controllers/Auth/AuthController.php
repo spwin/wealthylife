@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
@@ -164,7 +165,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only($this->loginUsername(), 'password');
         $credentials = array_add($credentials, 'type', $type);
-        $credentials = array_add($credentials, 'status', 1);
+        $credentials = array_add($credentials, 'email_confirmed', 1);
         return $credentials;
     }
 
@@ -183,8 +184,18 @@ class AuthController extends Controller
     {
         $user = User::where(['email' => $request->email])->first();
         $message = Lang::get('auth.failed');
-        if($user && Hash::check($request->password, $user->password) && $user->status == 0 && $user->type == $type){
-            $message = Lang::get('auth.email-confirmation');
+        if($user && $user->email_confirmed == 0 && $user->type == $type){
+            if(Hash::check($request->password, $user->password)){
+                $message = Lang::get('auth.email-confirmation');
+            } elseif($providers = $user->social()->get()) {
+                $providers_list = array();
+                foreach($providers as $provider){
+                    $providers_list[] = ucfirst($provider->provider);
+                }
+                $message = Lang::get('auth.only-providers');
+                $message .= implode(', ', $providers_list);
+                $message .= Lang::get('auth.use-providers-or-register');
+            }
         }
         return $message;
     }

@@ -44,7 +44,7 @@
                 <ul class="treeview-menu">
                     <li class="{{ (Request::is('admin/users/admins*') ? 'active' : '') }}"><a href="{{ action('AdminController@listAdmins') }}"><i class="fa fa-circle-o"></i> Admins</a></li>
                     <li class="{{ (Request::is('admin/users/consultants*') ? 'active' : '') }}"><a href="{{ action('AdminController@listConsultants') }}"><i class="fa fa-circle-o"></i> Consultants</a></li>
-                    <li class="{{ (Request::is('admin/users/users*') ? 'active' : '') }}"><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Users</a></li>
+                    <li class="{{ (Request::is('admin/users/users*') ? 'active' : '') }}"><a href="{{ action('AdminController@listUsers') }}"><i class="fa fa-circle-o"></i> Users</a></li>
                 </ul>
             </li>
         </ul>

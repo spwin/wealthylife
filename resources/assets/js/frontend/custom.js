@@ -37,11 +37,6 @@
     });
 
     $('.display-after-load').show();
-    if(window.location.hash) {
-        var hash = window.location.hash;
-        $('ul.tabs li').removeClass('active');
-        $(hash).addClass('active');
-    }
 
 })();
 
@@ -140,4 +135,128 @@ function readURL(defined, input, defaultUrl) {
 function uploadImage(elem){
     var form = $(elem).closest('form');
     form.find('.image-input').click();
+}
+
+function uploadAvatar(elem){
+    var form = $(elem).closest('form');
+    form.find('.avatar-input').click();
+}
+
+var centerAvatar = function(){
+    var div;
+    return {
+        init: function(className, imageId){
+            div = $('.'+className);
+            centerAvatar.setDimension($('.'+imageId));
+        },
+        setDimension: function(img){
+            var theImage = new Image();
+            theImage.src = img.attr("src");
+            var width = theImage.width;
+            var height = theImage.height;
+            var avatar = div.find('.avatar-preview');
+            if(width > height){
+                avatar.css('max-height', div.height());
+                avatar.css('max-width', 'none');
+                avatar.css('left', (parseFloat($('.center-cropped').width())/2 - parseFloat(avatar.width()/2)) + 'px');
+                avatar.css('top', '0px');
+            } else {
+                avatar.css('max-width', div.width());
+                avatar.css('max-height', 'none');
+                avatar.css('top', (parseFloat($('.center-cropped').height())/2 - parseFloat(avatar.height()/2)) + 'px');
+                avatar.css('left', '0px');
+            }
+        }
+    }
+}();
+
+var birthDate = function(){
+    var months = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December" ];
+    return {
+        init: function (day, month, year) {
+            birthDate.populateMonths($('select#month'), month);
+            birthDate.populateYears($('select#year'), year);
+            birthDate.populateDays($('select#day'), day);
+        },
+        populateDays: function(select, def){
+            select.html($("<option />").val('00').text('Day'));
+            for(var day=1; day <= 31; day++){
+                select.append($("<option />").val(day < 10 ? '0'+day : day).text(day));
+            }
+            birthDate.setDefault(select, def);
+        },
+        populateMonths: function(select, def){
+            select.html($("<option />").val('00').text('Month'));
+            $.each(months, function(i){
+                select.append($("<option />").val(i+1 < 10 ? '0'+(i+1) : i+1).text(months[i]));
+            });
+            birthDate.setDefault(select, def);
+        },
+        populateYears: function(select, def){
+            var currentYear = (new Date).getFullYear();
+            var maxDif = 110;
+            select.html($("<option />").val('0000').text('Year'));
+            for(var year = currentYear-1;  year > currentYear-maxDif; year--){
+                select.append($("<option />").val(year).text(year));
+            }
+            birthDate.setDefault(select, def);
+        },
+        setDefault: function(select, def){
+            if(def != '') {
+                select.val(def);
+            }
+        }
+    }
+}();
+
+function showPreloader(element){
+    $('<div class="avatar-overlay"></div>').insertBefore(element);
+    $(element).css('display', 'inline-block');
+    console.log('teraz jest');
+}
+
+function hidePreloader(element){
+    $('.avatar-overlay').remove();
+    $(element).css('display', 'none');
+    console.log('teraz niema');
+}
+
+function insertAvatar(input, defaultUrl){
+    var img = $('.avatar-preview');
+    showPreloader('.preloader-wrapper');
+    var submit = $('.avatar-actions input');
+    if (input.files && input.files[0]) {
+        var fileTypes = ['jpg', 'jpeg', 'png', 'gif'];
+        var reader = new FileReader();
+        var extension = input.files[0].name.split('.').pop().toLowerCase(),
+            isSuccess = fileTypes.indexOf(extension) > -1;
+        if(isSuccess){
+            reader.onload = function (e) {
+                img.one("load", function() {
+                    hidePreloader('.preloader-wrapper');
+                }).attr("src", e.target.result);
+                centerAvatar.init('center-cropped', 'avatar-preview');
+                submit.removeClass('disabled');
+                submit.prop('disabled', false);
+
+            };
+            reader.readAsDataURL(input.files[0]);
+            $('.avatar-errors').html('');
+            submit.addClass('disabled');
+            submit.prop('disabled', true);
+        } else {
+            $('.avatar-errors').html('File extensions supported: jpg, png, gif');
+            hidePreloader('.preloader-wrapper');
+            submit.addClass('disabled');
+            submit.prop('disabled', true);
+        }
+    } else {
+        img.attr('src', defaultUrl);
+        centerAvatar.init('center-cropped', 'avatar-preview');
+        hidePreloader('.preloader-wrapper');
+        $('.avatar-errors').html('');
+        submit.addClass('disabled');
+        submit.prop('disabled', true);
+    }
 }
