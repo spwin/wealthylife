@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Images;
+use App\Questions;
 use App\User;
 use App\UserConfirmation;
 use App\UserData;
@@ -277,6 +278,19 @@ class UserController extends Controller
         session()->put('question.content', $input['question']);
 
         return Redirect::action('FrontendController@authorizeQuestion');
+    }
+
+    public function deleteQuestion($id){
+        if($user = Auth::guard('user')->user()) {
+            $question = Questions::findOrFail($id);
+            if ($question && $question->user_id == $user->id) {
+                $question->delete();
+                Session::flash('flash_notification.question.message', 'The draft question was deleted!');
+                Session::flash('flash_notification.question.level', 'success');
+                return redirect()->action('FrontendController@questions', ['#drafts']);
+            }
+        }
+        return Redirect::action('FrontendController@index');
     }
 
     public function clearQuestion(){
