@@ -46,6 +46,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
     Route::get('vouchers', 'FrontendController@vouchers');
     Route::get('credits', 'FrontendController@credits');
     Route::get('logout', 'Auth\AuthController@getUserLogout');
+    Route::post('{id}/question-delete', 'UserController@deleteQuestion');
     Route::post('{id}/update-profile-login/{type}', 'UserController@updateProfileLogin');
     Route::post('{id}/update-profile-general', 'UserController@updateProfileGeneral');
     Route::post('change-avatar', 'UserController@changeAvatar');

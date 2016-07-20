@@ -15,6 +15,14 @@
                         {{--<p class="lead mb64">
                             Some info about questions
                         </p>--}}
+                        @if (Session::has('flash_notification.question.message'))
+                            <div class="alert alert-{{ Session::get('flash_notification.question.level') }} alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                {{ Session::get('flash_notification.question.message') }}
+                            </div>
+                        @endif
                         <ul class="tabs mb-0px">
                             <li id="pending">
                                 <a href="#pending">
@@ -88,8 +96,17 @@
                                                 <tr>
                                                     <td><img width="25" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
-                                                    <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
-                                                    <td class="w170px"><a href="" class="mr-15px">Delete</a> <a href="#" class="btn btn-sm hovered mb-0px">Send</a></td>
+                                                    <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
+                                                    <td class="w170px">
+                                                        {!! Form::open([
+                                                            'method' => 'POST',
+                                                            'action' => ['UserController@deleteQuestion', $question->id],
+                                                            'onclick'=> 'return confirm("Are you sure?")'
+                                                            ]) !!}
+                                                            <button type="submit" class="mr-15px delete-draft-question">Delete</button>
+                                                        {!! Form::close() !!}
+                                                        <a href="{{ action('FrontendController@paymentQuestion', ['id' => $question->id]) }}" class="btn btn-sm hovered mb-0px">Send</a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </table>
@@ -99,6 +116,15 @@
                                 </div>
                             </li>
                         </ul>
+                    </div>
+                </div>
+                <div id="confirm" class="modal hide fade">
+                    <div class="modal-body">
+                        Are you sure?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+                        <button type="button" data-dismiss="modal" class="btn">Cancel</button>
                     </div>
                 </div>
             </div>
