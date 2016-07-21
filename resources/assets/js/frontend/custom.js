@@ -68,7 +68,6 @@ function clearForm(form_name, e, url, token, image){
 function clearImage(form_name, e, url, token, image){
     e.preventDefault();
     var form = $('.'+form_name);
-    var chars = form.find('.charNum');
     $.ajax({
         method: "POST",
         url: url,
@@ -79,6 +78,14 @@ function clearImage(form_name, e, url, token, image){
             form.find('.question-image img').attr('src', image);
         }
     });
+}
+
+function clearEditedImage(form_name, e, image){
+    e.preventDefault();
+    var form = $('.'+form_name);
+    form.find('.cleared-image').val(1);
+    form.find('.drop-zone').addClass('empty');
+    form.find('.question-image img').attr('src', image);
 }
 
 function countChar(val, e) {

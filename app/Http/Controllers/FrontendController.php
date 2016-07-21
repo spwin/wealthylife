@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Braintree\ClientToken;
 
 class FrontendController extends Controller
 {
@@ -74,9 +75,27 @@ class FrontendController extends Controller
 
     public function paymentQuestion(Request $request, $id){
         $question = Questions::where(['id' => $id])->first();
+
+        /*$customer = Auth::guard('user')->user()->subscription()->createStripeCustomer($request->stripe_token, [
+            'email' => Auth::user()->email
+        ]);
+
+        Auth::user()->setStripeId($customer->id);
+        Auth::user()->save();
+
+        Auth::guard('user')->user()->charge(5000, ['currency' => 'cad', 'description' => 'A charge for something']);
+        */
+
+        $creditCardToken = ClientToken::generate();
+        //$user = Auth::guard('user')->user();
+        //$user->newSubscription('main', 'single')->create($creditCardToken);
+
+
+
         if($question) {
             return view('frontend/profile/payment-question')->with([
-                'question' => $question
+                'question' => $question,
+                'token' => $creditCardToken
             ]);
         } else {
             return Redirect::action('FrontendController@index');

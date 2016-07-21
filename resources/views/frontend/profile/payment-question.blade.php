@@ -18,7 +18,21 @@
                     <hr class="visible-xs">
                 </div>
                 <div class="col-md-6 col-sm-6">
-                    PAY PAY PAY PAY PAY :)))
+                    {!! Form::open([
+                    'method' => 'POST',
+                    'action' => ['UserController@payment', $question->id]
+                    ]) !!}
+                    <div id="payment-form"></div>
+                    <input type="submit" value="Confirm and Pay">
+                    {!! Form::close() !!}
+
+                    <script src="https://js.braintreegateway.com/js/braintree-2.27.0.min.js"></script>
+                    <script>
+                        var clientToken = "{{ $token }}";
+                        braintree.setup(clientToken, "dropin", {
+                            container: "payment-form"
+                        });
+                    </script>
                 </div>
             </div><!--end of row-->
         </div><!--end of container-->

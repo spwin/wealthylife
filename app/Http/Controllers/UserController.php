@@ -25,6 +25,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Intervention\Image\Facades\Image;
 use Laravel\Socialite\Facades\Socialite;
+use Braintree\Transaction;
 
 class UserController extends Controller
 {
@@ -452,6 +453,100 @@ class UserController extends Controller
             return redirect()->action('FrontendController@profile');
         } else {
             return redirect()->action('FrontendController@index');
+        }
+    }
+
+    function removeCurrentImage($question){
+        if($current_image = $question->image()->first()){
+            $old_file = base_path('public'.$current_image->path).$current_image->filename;
+            if(File::exists($old_file)){
+                File::delete($old_file);
+            }
+            $question->image_id = null;
+            $question->save();
+            return DB::table('images')->where(['id' => $current_image->id])->delete();
+        } else {
+            return false;
+        }
+    }
+
+    public function updateQuestion(Request $request, $id)
+    {
+        if ($user = Auth::guard('user')->user()) {
+            $question = Questions::findOrFail($id);
+            $v = Validator::make($request->all(), [
+                'question' => 'required|max:250',
+                'image' => 'image|max:' . $this->max_filesize . '|mimes:jpeg,png'
+            ]);
+            $v->after(function ($v) use ($request) {
+                if ($request->file('image') && $request->file('image')->getError()) {
+                    $v->errors()->add('image', 'The image may not be greater than ' . $this->max_filesize . ' kilobytes.');
+                }
+            });
+            if ($v->fails()) {
+                $request->session()->flash('modal', 'question-database');
+                return Redirect::action($this->getRoute())->withErrors($v->errors(), 'question_database')->withInput();
+            }
+            $input = $request->all();
+            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                $file = $request->file('image')->getClientOriginalName();
+                $parts = explode('.', $file);
+                $extension = $parts[count($parts) - 1];
+                $filename = $question->id . '_' . $user->id . '_' . date('TmdHis', time()) . '.' . $extension;
+                $destinationPath = 'uploads/questions';
+                $img = Image::make($request->file('image'));
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0775, true, true);
+                }
+                $this->removeCurrentImage($question);
+                if($img->save($destinationPath . '/' . $filename, 90)){
+                    $image = new Images();
+                    $image->fill([
+                        'path' => '/'.$destinationPath.'/',
+                        'filename' => $filename
+                    ]);
+                    $image->save();
+                    $question->image_id = $image->id;
+                    $question->save();
+                }
+            } elseif ($input['cleared-image'] == 1) {
+                $this->removeCurrentImage($question);
+            }
+            $question->question = $input['question'];
+            $question->save();
+            return Redirect::action('FrontendController@paymentQuestion', $question->id);
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function payment(Request $request, $id){
+        $question = Questions::findOrFail($id);
+        if($request->has('payment_method_nonce')) {
+            $nonceFromTheClient = $request->get('payment_method_nonce');
+            $result = Transaction::sale([
+                'amount' => '20.00',
+                'customFields' => [
+                    'question' => $id
+                ],
+                'options' => [
+                    'submitForSettlement' => true
+                ],
+                'paymentMethodNonce' => $nonceFromTheClient
+            ]);
+            if($result->success){
+                $question->status = 1;
+                $question->save();
+                Session::flash('flash_notification.question.message', 'You payment was completed, please check your email for more info');
+                Session::flash('flash_notification.question.level', 'success');
+                return Redirect::action('FrontendController@questions');
+            } else {
+                Session::flash('flash_notification.question.message', $result->message);
+                Session::flash('flash_notification.question.level', 'danger');
+                return Redirect::action('FrontendController@questions');
+            }
+        } else {
+            return Redirect::action('FrontendController@profile');
         }
     }
 }

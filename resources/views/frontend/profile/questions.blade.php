@@ -101,9 +101,10 @@
                                                         {!! Form::open([
                                                             'method' => 'POST',
                                                             'action' => ['UserController@deleteQuestion', $question->id],
-                                                            'onclick'=> 'return confirm("Are you sure?")'
+                                                            'onclick'=> 'return confirm("Are you sure?")',
+                                                            'class' => 'inline'
                                                             ]) !!}
-                                                            <button type="submit" class="mr-15px delete-draft-question">Delete</button>
+                                                            <button type="submit" class="delete-draft-question">Delete</button>
                                                         {!! Form::close() !!}
                                                         <a href="{{ action('FrontendController@paymentQuestion', ['id' => $question->id]) }}" class="btn btn-sm hovered mb-0px">Send</a>
                                                     </td>
@@ -116,15 +117,6 @@
                                 </div>
                             </li>
                         </ul>
-                    </div>
-                </div>
-                <div id="confirm" class="modal hide fade">
-                    <div class="modal-body">
-                        Are you sure?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
-                        <button type="button" data-dismiss="modal" class="btn">Cancel</button>
                     </div>
                 </div>
             </div>

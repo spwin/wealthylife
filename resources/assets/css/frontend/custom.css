@@ -803,3 +803,18 @@ input[type="submit"].disabled{
         padding-left: 0;
     }
 }
+
+form.inline{
+    display: inline;
+}
+
+button.delete-draft-question{
+    background-color: transparent;
+    margin: 0 10px 0 0;
+    display: inline;
+    color: #47b475;
+    border: none;
+    padding: 0;
+    width: auto;
+    height: auto;
+}
