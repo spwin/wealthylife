@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Images;
+use App\Orders;
 use App\Questions;
+use App\Settings;
 use App\User;
 use App\UserConfirmation;
 use App\UserData;
@@ -522,31 +524,70 @@ class UserController extends Controller
 
     public function payment(Request $request, $id){
         $question = Questions::findOrFail($id);
-        if($request->has('payment_method_nonce')) {
-            $nonceFromTheClient = $request->get('payment_method_nonce');
-            $result = Transaction::sale([
-                'amount' => '20.00',
-                'customFields' => [
-                    'question' => $id
-                ],
-                'options' => [
-                    'submitForSettlement' => true
-                ],
-                'paymentMethodNonce' => $nonceFromTheClient
-            ]);
-            if($result->success){
-                $question->status = 1;
-                $question->save();
-                Session::flash('flash_notification.question.message', 'You payment was completed, please check your email for more info');
-                Session::flash('flash_notification.question.level', 'success');
-                return Redirect::action('FrontendController@questions');
+        if($user = Auth::guard('user')->user()) {
+            if ($request->has('payment_method_nonce')) {
+                $price = Settings::where(['name' => 'question_price'])->first();
+                $question_price = $price ? $price->value : env('DEFAULT_QUESTION_PRICE');
+                $difference = $question_price - $user->points;
+                $nonceFromTheClient = $request->get('payment_method_nonce');
+                $result = Transaction::sale([
+                    'amount' => $difference,
+                    'customFields' => [
+                        'question' => $id
+                    ],
+                    'options' => [
+                        'submitForSettlement' => true
+                    ],
+                    'paymentMethodNonce' => $nonceFromTheClient
+                ]);
+                $order = new Orders();
+                $data = [
+                    'user_id' => $question->user()->first()->id,
+                    'question_id' => $question->id
+                ];
+                if ($result->success) {
+                    $data['braintree_id'] = $result->transaction->id;
+                    $data['status'] = 1;
+                    $order->fill($data);
+                    $order->save();
+                    $user->points = $user->points - ($question_price - $difference);
+                    $user->save();
+                    $question->status = 1;
+                    $question->save();
+                    Session::flash('flash_notification.question.message', 'You payment was completed, please check your email for more info');
+                    Session::flash('flash_notification.question.level', 'success');
+                    return Redirect::action('FrontendController@questions');
+                } else {
+                    $data['braintree_id'] = '';
+                    $data['status'] = 0;
+                    $order->fill($data);
+                    $order->save();
+                    Session::flash('flash_notification.question.message', $result->message);
+                    Session::flash('flash_notification.question.level', 'danger');
+                    return Redirect::action('FrontendController@questions');
+                }
             } else {
-                Session::flash('flash_notification.question.message', $result->message);
-                Session::flash('flash_notification.question.level', 'danger');
-                return Redirect::action('FrontendController@questions');
+                return Redirect::action('FrontendController@profile');
             }
         } else {
-            return Redirect::action('FrontendController@profile');
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function pointsPayment(Request $request, $id){
+        $question = Questions::findOrFail($id);
+        if($user = Auth::guard('user')->user()){
+            $price = Settings::where(['name' => 'question_price'])->first();
+            $question_price = $price ? $price->value : env('DEFAULT_QUESTION_PRICE');
+            $user->points = $user->points - $question_price;
+            $user->save();
+            $question->status = 1;
+            $question->save();
+            Session::flash('flash_notification.question.message', 'Your question has been submitted, please check your email for more info');
+            Session::flash('flash_notification.question.level', 'success');
+            return Redirect::action('FrontendController@questions');
+        } else {
+            return Redirect::action('FrontendController@index');
         }
     }
 }

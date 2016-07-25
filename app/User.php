@@ -63,4 +63,8 @@ class User extends Authenticatable
             return null;
         }
     }
+
+    public function orders(){
+        return $this->hasMany('App\Orders', 'user_id', 'id');
+    }
 }

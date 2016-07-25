@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Images;
 use App\Questions;
+use App\Settings;
 use App\User;
 use App\UserData;
 use Illuminate\Http\Request;
@@ -20,10 +21,26 @@ use Braintree\ClientToken;
 class FrontendController extends Controller
 {
     public function index(){
-        $videos = ['market'];
+        $videos = ['market', 'tree', 'yoga', 'sky', 'bike'];
         return view('frontend/pages/index')->with([
             'video' => $videos[array_rand($videos)]
         ]);
+    }
+
+    function getRegionByIp($data){
+        $data['country'] = '';
+        $data['region'] = '';
+        if(array_key_exists('ip', $data)) {
+            //Load the class
+            $ipLite = new ip2location;
+            $ipLite->setKey(env('IP_LOCATION_API_KEY'));
+
+            //Get errors and locations
+            $locations = $ipLite->getCity($data['ip']);
+
+            $data['country'] = $locations['countryName'];
+            $data['region'] = $locations['regionName'];
+        }
     }
 
     public function authorizeQuestion(Request $request){
@@ -34,6 +51,7 @@ class FrontendController extends Controller
                 $data['question'] = session()->get('question.content');
                 $data['status'] = 0;
                 $data['ip'] = \Request::ip();
+                //$this->getRegionByIp($data);
                 $question->fill($data);
                 $question->save();
                 if (session()->has('question.image') && $file = session()->get('question.image'))
@@ -75,27 +93,43 @@ class FrontendController extends Controller
 
     public function paymentQuestion(Request $request, $id){
         $question = Questions::where(['id' => $id])->first();
+        if($question && $user = Auth::guard('user')->user()) {
+            if($question->status == 0) {
+                $price = Settings::where(['name' => 'question_price'])->first();
+                $question_price = $price ? $price->value : env('DEFAULT_QUESTION_PRICE');
+                $difference = $question_price - $user->points;
+                if ($user->points >= $question_price) {
+                    return view('frontend/profile/points-question')->with([
+                        'question' => $question,
+                        'user_balance' => $user->points,
+                        'question_price' => $question_price,
+                        'difference' => $difference
+                    ]);
+                } else {
+                    $creditCardToken = ClientToken::generate();
+                    return view('frontend/profile/payment-question')->with([
+                        'question' => $question,
+                        'token' => $creditCardToken,
+                        'user_balance' => $user->points,
+                        'question_price' => $question_price,
+                        'difference' => $difference
+                    ]);
+                }
+            } else {
+                return Redirect::action('FrontendController@questions');
+            }
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
 
-        /*$customer = Auth::guard('user')->user()->subscription()->createStripeCustomer($request->stripe_token, [
-            'email' => Auth::user()->email
-        ]);
-
-        Auth::user()->setStripeId($customer->id);
-        Auth::user()->save();
-
-        Auth::guard('user')->user()->charge(5000, ['currency' => 'cad', 'description' => 'A charge for something']);
-        */
-
-        $creditCardToken = ClientToken::generate();
-        //$user = Auth::guard('user')->user();
-        //$user->newSubscription('main', 'single')->create($creditCardToken);
-
-
-
-        if($question) {
-            return view('frontend/profile/payment-question')->with([
+    public function viewAnswer($id){
+        if($user = Auth::guard('user')->user()) {
+            $question = Questions::findOrFail($id);
+            return view('frontend/profile/answer')->with([
                 'question' => $question,
-                'token' => $creditCardToken
+                'answer' => $question->answer()->first(),
+                'user' => $user
             ]);
         } else {
             return Redirect::action('FrontendController@index');

@@ -18,30 +18,15 @@
                     <hr class="visible-xs">
                 </div>
                 <div class="col-md-6 col-sm-6">
-                    <h2 class="uppercase mb24 bold italic">Price: £{{ $question_price }}</h2>
-                    @if($difference == $question_price)
-                        <h4 class="mb24">You need to pay £{{ $difference }} for your question.</h4>
-                    @else
-                        <h4 class="mb24">Your balance is £{{ $user_balance }}. You need to pay extra £{{ $difference }} for your question.</h4>
-                    @endif
+                    <h4 class="mb24">£{{ $question_price }} will be taken from your balance.</h4>
                     {!! Form::open([
                     'method' => 'POST',
-                    'action' => ['UserController@payment', $question->id]
+                    'action' => ['UserController@pointsPayment', $question->id]
                     ]) !!}
-                    <div id="payment-form"></div>
-                    <input type="submit" value="Confirm and Pay">
+                    <input type="submit" value="Confirm and proceed">
                     {!! Form::close() !!}
                 </div>
             </div><!--end of row-->
         </div><!--end of container-->
     </section>
 @stop
-@push('scripts')
-<script src="https://js.braintreegateway.com/js/braintree-2.27.0.min.js"></script>
-<script>
-    var clientToken = "{{ $token }}";
-    braintree.setup(clientToken, "dropin", {
-        container: "payment-form"
-    });
-</script>
-@endpush

@@ -1,13 +1,12 @@
-@extends('admin/frame')
+@extends('consultant/frame')
 @section('content-header')
     <h1>
         User profile
         <small>USER</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{ action('AdminController@index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li>Users</li>
-        <li><a href="{{ action('AdminController@listUsers') }}">Users</a></li>
+        <li><a href="{{ action('ConsultantController@index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{ action('ConsultantController@listUsers') }}">Users</a></li>
         <li class="active">Profile</li>
     </ol>
 @stop
@@ -30,17 +29,6 @@
                     <h3 class="profile-username text-center">{{ $user->userData()->first()->first_name }} {{ $user->userData()->first()->last_name }}</h3>
 
                     <p class="text-muted text-center">{{ $user->email }}</p>
-
-                        {!! Form::open([
-                        'method' => 'POST',
-                        'target' => '_blank',
-                        'action' => ['AdminController@forceLoginUser']
-                        ]) !!}
-                        {!! Form::hidden('id', $user->id) !!}
-                        <p class="text-center">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login as this user</button>
-                        </p>
-                        {!! Form::close() !!}
 
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
@@ -71,15 +59,6 @@
                             <b>Comments</b> <span class="badge bg-light-blue pull-right">13</span>
                         </li>
                     </ul>
-                    <div class="text-center">
-                        {!! Form::open([
-                        'method' => 'DELETE',
-                        'action' => ['AdminController@destroyUser', $user->id],
-                        'onclick'=> 'return confirm("Are you sure?")'
-                        ]) !!}
-                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete profile</button>
-                        {!! Form::close() !!}
-                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -89,13 +68,11 @@
         <div class="col-md-9">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
-                    <li {{ $tab == '1' ? 'class=active' : '' }}><a href="#general" data-toggle="tab">General</a></li>
-                    <li {{ $tab == '2' ? 'class=active' : '' }}><a href="#password" data-toggle="tab">Login details</a></li>
-                    <li {{ $tab == '3' ? 'class=active' : '' }}><a href="#social" data-toggle="tab">Social</a></li>
-                    <li {{ $tab == '4' ? 'class=active' : '' }}><a href="#message" data-toggle="tab">Message</a></li>
+                    <li class="active"><a href="#general" data-toggle="tab">General</a></li>
+                    <li><a href="#social" data-toggle="tab">Social</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane {{ $tab == '1' ? 'active' : '' }}" id="general">
+                    <div class="tab-pane active" id="general">
                         {!! Form::model($user_data, [
                             'role' => 'form',
                             'url' => action('AdminController@updateUserData', ['id' => $user->id]),
@@ -149,60 +126,24 @@
                                 </div>
                                 <!-- /.input group -->
                             </div>
-                            <div class="form-group {{ $errors->first('image', 'has-error') }}">
+                            {{--<div class="form-group {{ $errors->first('image', 'has-error') }}">
                                 {!! Form::label('image', 'Change Photo') !!}
                                 {!! Form::file('image') !!}
                                 <span class="help-block">{{ $errors->first('image') }}</span>
                                 <p class="help-block text-black">Max file size 5Mb</p>
-                            </div>
+                            </div>--}}
                             <div class="form-group">
                                 {!! Form::label('about', 'About') !!}
                                 {!! Form::textarea('about', null, ['class' => 'form-control', 'placeholder' => 'Enter ...', 'rows' => '3']) !!}
                             </div>
-                            <div class="box-footer">
+                            {{--<div class="box-footer">
                                 <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
+                            </div>--}}
                         {!! Form::close() !!}
                     </div>
                     <!-- /.tab-pane -->
 
-                    <div class="tab-pane {{ $tab == '2' ? 'active' : '' }}" id="password">
-                        {!! Form::model($user, [
-                            'role' => 'form',
-                            'url' => action('AdminController@updateUserLogin', ['id' => $user->id, 'type' => 'email']),
-                            'method' => 'POST'
-                        ]) !!}
-                            <div class="form-group {{ $errors->first('email', 'has-error') }}"><span class="text-danger">*</span>
-                                {!! Form::label('email', 'E-Mail Address') !!}
-                                {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Enter email']) !!}
-                                <span class="help-block">{{ $errors->first('email') }}</span>
-                            </div>
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Change email</button>
-                        </div>
-                        {!! Form::close() !!}
-                        {!! Form::model($user, [
-                            'role' => 'form',
-                            'url' => action('AdminController@updateUserLogin', ['id' => $user->id, 'type' => 'pass']),
-                            'method' => 'POST'
-                        ]) !!}
-                            <div class="form-group {{ $errors->first('password', 'has-error') }}"><span class="text-danger">*</span>
-                                {!! Form::label('password', 'New Password') !!}
-                                {!! Form::input('password', 'password', '', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
-                                <span class="help-block">{{ $errors->first('password') }}</span>
-                            </div>
-                            <div class="form-group {{ $errors->first('password_confirmation', 'has-error') }}"><span class="text-danger">*</span>
-                                {!! Form::label('password_confirmation', 'Repeat New Password') !!}
-                                {!! Form::input('password', 'password_confirmation', '', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
-                                <span class="help-block">{{ $errors->first('password_confirmation') }}</span>
-                            </div>
-                            <div class="box-footer">
-                                <button type="submit" class="btn btn-primary">Change password</button>
-                            </div>
-                        {!! Form::close() !!}
-                    </div>
-
-                    <div class="tab-pane {{ $tab == '3' ? 'active' : '' }}" id="social">
+                    <div class="tab-pane" id="social">
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
@@ -247,27 +188,6 @@
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class="tab-pane {{ $tab == '4' ? 'active' : '' }}" id="message">
-                        <div class="box-header">
-                            <i class="fa fa-envelope"></i>
-                            <h3 class="box-title">Send Message</h3>
-                        </div>
-                        <div class="box-body">
-                            <form action="#" method="post">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="subject" placeholder="Subject">
-                                </div>
-                                <div>
-                                    <textarea class="textarea" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="box-footer clearfix">
-                            <button type="button" class="pull-right btn btn-default" id="sendEmail">Send
-                                <i class="fa fa-arrow-circle-right"></i></button>
-                        </div>
                     </div>
                     <!-- /.tab-pane -->
                 </div>
@@ -338,8 +258,8 @@
                                                 <td class="w40px">#{{ $question->id }}</td>
                                                 <td class="w100px"><img class="admin-user-questions" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
-                                                <td class="w100px"><a href="#" class="btn btn-primary">Answer</a></td>
+                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
+                                                <td class="w100px"><a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-primary">Answer</a></td>
                                             </tr>
                                         @endforeach
                                     @endif
@@ -365,7 +285,7 @@
                                                 <td class="w40px">#{{ $question->id }}</td>
                                                 <td class="w100px"><img class="admin-user-questions" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
                                                 <td class="w100px"><a href="#" class="btn btn-success">View answer</a></td>
                                             </tr>
                                         @endforeach
@@ -382,7 +302,6 @@
                                         <th>Image</th>
                                         <th>Question</th>
                                         <th class="w60px">Date</th>
-                                        <th class="w100px">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -392,8 +311,7 @@
                                                 <td class="w40px">#{{ $question->id }}</td>
                                                 <td class="w100px"><img class="admin-user-questions" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
-                                                <td class="w100px"><a href="{{ action('AdminController@markPaidQuestion', ['id' => $question->id, 'user_id' => $user->id]) }}" class="btn btn-warning">Mark as paid</a></td>
+                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
                                             </tr>
                                         @endforeach
                                     @endif

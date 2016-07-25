@@ -12,6 +12,22 @@
         </div>
         <!-- Settings tab content -->
         <div class="tab-pane" id="control-sidebar-settings-tab">
+            <h3 class="control-sidebar-heading">General Settings</h3>
+            {!! Form::open([
+                'role' => 'form',
+                'url' => action('AdminController@saveSettings'),
+                'method' => 'POST'
+            ]) !!}
+            <div class="form-group">
+                <label class="control-sidebar-subheading">
+                    Price per question
+                    <input type="number" name="question_price" class="pull-right" value="{{ App\Helpers\Helpers::getSetting('question_price') }}">
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn-sm btn-success pull-right" value="Save">
+            </div>
+            {!! Form::close() !!}
         </div>
         <!-- /.tab-pane -->
     </div>

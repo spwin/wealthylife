@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Images;
+use App\Settings;
 use App\User;
 use App\UserData;
 use Illuminate\Http\Request;
@@ -544,5 +545,15 @@ class AdminController extends Controller
         } else {
             return Redirect::back();
         }
+    }
+
+    public function saveSettings(Request $request){
+        $input = $request->all();
+        foreach($input as $name => $value){
+            if($name != '_token') {
+                Settings::updateOrCreate(['name' => $name], ['value' => $value]);
+            }
+        }
+        return Redirect::back();
     }
 }

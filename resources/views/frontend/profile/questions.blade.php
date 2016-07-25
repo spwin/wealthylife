@@ -41,7 +41,7 @@
                                             @foreach($user->questions()->where(['status' => 1])->get() as $question)
                                                 <tr>
                                                     <td><img width="25" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
-                                                    <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
+                                                    <td>{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
                                                 </tr>
                                             @endforeach
@@ -70,6 +70,7 @@
                                                     <td><img width="25" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
+                                                    <td class="w170px"><a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="btn btn-sm btn-success show-answer-btn">Show answer</a></td>
                                                 </tr>
                                             @endforeach
                                         </table>

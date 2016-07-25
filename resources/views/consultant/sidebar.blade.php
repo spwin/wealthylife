@@ -29,22 +29,27 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="{{ (Request::is('admin') ? 'active' : '') }}">
-                <a href="{{ action('AdminController@index') }}">
+            <li class="{{ (Request::is('consultant') ? 'active' : '') }}">
+                <a href="{{ action('ConsultantController@index') }}">
                     <i class="fa fa-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="{{ (Request::is('admin/users*') ? 'active' : '') }} treeview">
-                <a href="#">
+            <li class="{{ (Request::is('consultant/users*') ? 'active' : '') }}">
+                <a href="{{ action('ConsultantController@listUsers') }}">
                     <i class="fa fa-users"></i>
                     <span>Users</span>
+                </a>
+            </li>
+            <li class="{{ (Request::is('consultant/questions*') ? 'active' : '') }} treeview">
+                <a href="#">
+                    <i class="fa fa-paper-plane-o"></i>
+                    <span>Questions</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ (Request::is('admin/users/admins*') ? 'active' : '') }}"><a href="{{ action('AdminController@listAdmins') }}"><i class="fa fa-circle-o"></i> Admins</a></li>
-                    <li class="{{ (Request::is('admin/users/consultants*') ? 'active' : '') }}"><a href="{{ action('AdminController@listConsultants') }}"><i class="fa fa-circle-o"></i> Consultants</a></li>
-                    <li class="{{ (Request::is('admin/users/users*') ? 'active' : '') }}"><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Users</a></li>
+                    <li class="{{ (Request::is('consultant/questions/pending*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listPending') }}"><i class="fa fa-circle-o"></i> Pending</a></li>
+                    <li class="{{ (Request::is('consultant/questions/answered*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listAnswered') }}"><i class="fa fa-circle-o"></i> Answered</a></li>
                 </ul>
             </li>
         </ul>

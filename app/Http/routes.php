@@ -40,6 +40,7 @@ Route::post('{type}/login/', 'Auth\AuthController@postLogin');
 Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
     Route::get('/', 'FrontendController@profile');
     Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
+    Route::get('{id}/view-answer', 'FrontendController@viewAnswer');
     Route::get('messages', 'FrontendController@messages');
     Route::get('questions', 'FrontendController@questions');
     Route::get('articles', 'FrontendController@articles');
@@ -52,6 +53,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
     Route::post('{id}/update-profile-general', 'UserController@updateProfileGeneral');
     Route::post('change-avatar', 'UserController@changeAvatar');
     Route::post('{id}/checkout', 'UserController@payment');
+    Route::post('{id}/points-checkout', 'UserController@pointsPayment');
 });
 
 // CONSULTANT
@@ -59,12 +61,25 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
 Route::group(['prefix' => 'consultant', 'middleware' => 'auth:consultant'], function () {
     Route::get('/', 'ConsultantController@index');
     Route::get('logout', 'Auth\AuthController@getConsultantLogout');
+    Route::group(['prefix' => 'users'], function(){
+        Route::get('list', 'ConsultantController@listUsers');
+        Route::get('profile/{id}', 'ConsultantController@detailsUser');
+    });
+    Route::group(['prefix' => 'questions'], function(){
+        Route::get('pending', 'ConsultantController@listPending');
+        Route::get('answered', 'ConsultantController@listAnswered');
+        Route::get('pending/{id}/answer', 'ConsultantController@answerQuestion');
+        Route::get('{id}/preview', 'ConsultantController@answerPreview');
+        Route::post('pending/{id}/save', 'ConsultantController@answerSave');
+        Route::post('pending/{id}/send', 'ConsultantController@answerSend');
+    });
 });
 
 // ADMIN
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::get('/', 'AdminController@index');
+    Route::post('save-settings', 'AdminController@saveSettings');
     Route::group(['prefix' => 'users'], function(){
         Route::group(['prefix' => 'admins'], function(){
             Route::get('list', 'AdminController@listAdmins');

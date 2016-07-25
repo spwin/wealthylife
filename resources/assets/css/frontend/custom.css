@@ -809,6 +809,7 @@ form.inline{
 }
 
 button.delete-draft-question{
+    line-height: initial;
     background-color: transparent;
     margin: 0 10px 0 0;
     display: inline;
@@ -817,4 +818,11 @@ button.delete-draft-question{
     padding: 0;
     width: auto;
     height: auto;
+}
+
+.show-answer-btn, .show-answer-btn:link,
+.show-answer-btn:visited, .show-answer-btn:hover,
+.show-answer-btn:active{
+    color: #FFFFFF;
+    margin: 0;
 }

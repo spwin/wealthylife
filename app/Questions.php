@@ -16,14 +16,22 @@ class Questions extends Model
     ];
 
     public function user(){
-        return $this->belongsTo('App\User', 'id', 'user_id');
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 
     public function consultant(){
-        return $this->hasOne('App\User', 'id', 'user_id');
+        return $this->hasOne('App\User', 'consultant_id', 'id');
     }
 
     public function image(){
         return $this->hasOne('App\Images', 'id', 'image_id');
+    }
+
+    public function orders(){
+        return $this->hasMany('App\Orders', 'question_id', 'id');
+    }
+
+    public function answer(){
+        return $this->hasOne('App\Answers', 'question_id', 'id');
     }
 }

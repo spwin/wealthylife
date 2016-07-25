@@ -26,6 +26,7 @@
 <script src="{{ URL::to('/') }}/js/admin/bootstrap.min.js"></script>
 <script src="{{ URL::to('/') }}/js/admin/app.min.js"></script>
 <script src="{{ URL::to('/') }}/js/plugins.js"></script>
+<script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 @stack('scripts')
 </body>
 </html>
