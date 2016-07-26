@@ -31,7 +31,14 @@
                         </li>
                     </ul>
                 </div>
-
+                @if(Auth::guard('user')->user())
+                    <div class="module widget-handle search-widget-handle left">
+                        <div class="search">
+                            <i class="ti-bell"></i>
+                            <span class="title">Search Site</span>
+                        </div>
+                    </div>
+                @endif
                 <div class="module widget-handle language left">
                     <ul class="menu">
                         <li class="profile-dropdown {{ Auth::guard('user')->user() ? 'logged' : '' }}">
