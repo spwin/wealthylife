@@ -31,8 +31,8 @@
             <li class="title balance">Balance: £{{ $user->points }}</li>
             <li>Member since: {{ date('d M, Y', strtotime($user->created_at)) }}</li>
             <li>Questions asked: {{ $user->questions() ? $user->questions()->where('status', '>' , 0)->count() : 0 }}</li>
-            <li>Comments left: {{ $user->questions() ? $user->questions()->count() : 0 }}</li>
-            <li>Articles written: {{ $user->questions() ? $user->questions()->count() : 0 }}</li>
+            {{--<li>Comments left: {{ $user->questions() ? $user->questions()->count() : 0 }}</li>
+            <li>Articles written: {{ $user->questions() ? $user->questions()->count() : 0 }}</li>--}}
         </ul>
     </div>
 </div>

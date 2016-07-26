@@ -36,7 +36,7 @@
                             <th>Question</th>
                             <th>User</th>
                             <th>IP</th>
-                            <th class="w60px">Paid</th>
+                            <th class="w60px">{{ $stat == 1 ? 'Paid' : 'Seen' }}</th>
                             <th class="w100px">Action</th>
                         </tr>
                         </thead>
@@ -48,7 +48,13 @@
                                     <td>{{ $question->question }}</td>
                                     <td><a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a></td>
                                     <td>{{ $question->ip }}</td>
-                                    <td class="w100px">{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
+                                    <td class="w100px">
+                                        @if($question->status == 1)
+                                            {{ date('d M, Y H:i', strtotime($question->updated_at)) }}
+                                        @else
+                                            {{ $question->answer()->first() ? ($question->answer()->first()->seen ? 'YES' : 'NO') : 'NO' }}
+                                        @endif
+                                    </td>
                                     <td class="w100px">
                                         @if($question->status == 1)
                                             <a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-success">Answer</a>

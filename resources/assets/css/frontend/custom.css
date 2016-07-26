@@ -178,7 +178,7 @@ nav .nav-home, nav .nav-home .menu > li ul{
 }
 
 nav .nav-blog, nav .nav-blog .menu > li ul{
-    background-color: #222222;
+    background-color: #525252;
 }
 
 nav .nav-profile, nav .nav-profile .menu > li ul{
@@ -825,4 +825,8 @@ button.delete-draft-question{
 .show-answer-btn:active{
     color: #FFFFFF;
     margin: 0;
+}
+
+.your-question .question-body{
+    font-size: 18px;
 }

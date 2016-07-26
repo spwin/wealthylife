@@ -8,7 +8,7 @@
                 <div class="col-md-9">
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right">
-                            <a class="btn btn-modal hovered mb-0px" href="#">New question</a>
+                            <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             @include('frontend/elements/question')
                         </div>
                         <h4 class="uppercase mb16">Edit profile</h4>

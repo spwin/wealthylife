@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Braintree\ClientToken;
 
@@ -40,6 +41,18 @@ class FrontendController extends Controller
 
             $data['country'] = $locations['countryName'];
             $data['region'] = $locations['regionName'];
+        }
+    }
+
+    function checkUserDetails(){
+        if($user = Auth::guard('user')->user()){
+            if(!$user->userData()->first()->weight || !$user->userData()->first()->height ||
+                $user->userData()->first()->birth_date == '0000-00-00' || !$user->userData()->first()->gender){
+                return false;
+            }
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -87,7 +100,13 @@ class FrontendController extends Controller
             }
         } else {
             //$request->session()->flash('modal', 'question');
-            return Redirect::action('FrontendController@index');
+            if($this->checkUserDetails()){
+                return Redirect::action('FrontendController@index');
+            } else {
+                Session::flash('flash_notification.general.message', 'Please fill all the data so consultant could provide you with better answer');
+                Session::flash('flash_notification.general.level', 'warning');
+                return Redirect::action('FrontendController@profile');
+            }
         }
     }
 
@@ -126,9 +145,12 @@ class FrontendController extends Controller
     public function viewAnswer($id){
         if($user = Auth::guard('user')->user()) {
             $question = Questions::findOrFail($id);
+            $answer = $question->answer()->first();
+            $answer->seen = 1;
+            $answer->save();
             return view('frontend/profile/answer')->with([
                 'question' => $question,
-                'answer' => $question->answer()->first(),
+                'answer' => $answer,
                 'user' => $user
             ]);
         } else {

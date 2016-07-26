@@ -286,7 +286,7 @@
                                                 <td class="w100px"><img class="admin-user-questions" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                 <td>{{ $question->question }}</td>
                                                 <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
-                                                <td class="w100px"><a href="#" class="btn btn-success">View answer</a></td>
+                                                <td class="w100px"><a href="{{ action('ConsultantController@answerPreview', $question->answer()->first() ? $question->answer()->first()->id : '') }}" class="btn btn-success">View answer</a></td>
                                             </tr>
                                         @endforeach
                                     @endif

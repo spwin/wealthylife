@@ -121,6 +121,18 @@ class UserController extends Controller
         return Redirect::action($action)->withInput();
     }
 
+    function checkUserDetails(){
+        if($user = Auth::guard('user')->user()){
+            if(!$user->userData()->first()->weight || !$user->userData()->first()->height ||
+                $user->userData()->first()->birth_date == '0000-00-00' || !$user->userData()->first()->gender){
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function loginUser(Request $request){
         $v = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -132,7 +144,13 @@ class UserController extends Controller
         }
         $auth = new AuthController();
         $auth->login($request, 'user');
-        return Redirect::action($this->getRoute());
+        if($this->checkUserDetails()){
+            return Redirect::action(/*$this->getRoute()*/'FrontendController@questions');
+        } else {
+            Session::flash('flash_notification.general.message', 'Please fill all the data so consultant could provide you with better answer');
+            Session::flash('flash_notification.general.level', 'warning');
+            return Redirect::action('FrontendController@profile');
+        }
     }
 
     public function socialLogin($provider){

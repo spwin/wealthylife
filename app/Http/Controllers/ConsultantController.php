@@ -57,7 +57,8 @@ class ConsultantController extends Controller
         $questions = Questions::where(['status' => 1])->get();
         return view('consultant/questions/list')->with([
             'questions' => $questions,
-            'status' => 'Pending'
+            'status' => 'Pending',
+            'stat' => 1
         ]);
     }
 
@@ -65,7 +66,8 @@ class ConsultantController extends Controller
         $questions = Questions::where(['status' => 2])->get();
         return view('consultant/questions/list')->with([
             'questions' => $questions,
-            'status' => 'Answered'
+            'status' => 'Answered',
+            'stat' => 2
         ]);
     }
 

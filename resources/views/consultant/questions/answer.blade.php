@@ -52,7 +52,7 @@
                             <b>Height</b> <span class="pull-right">{{ $user->userData()->first()->height ? $user->userData()->first()->height.' cm' : '-' }}</span>
                         </li>
                         <li class="list-group-item">
-                            <b>About</b> <span class="pull-right">{{ $user->userData()->first()->about }}</span>
+                            <b>About</b> <div>{{ $user->userData()->first()->about }}</div>
                         </li>
                     </ul>
                 </div>
