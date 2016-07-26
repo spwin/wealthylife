@@ -32,11 +32,16 @@
                     </ul>
                 </div>
                 @if(Auth::guard('user')->user())
-                    <div class="module widget-handle search-widget-handle left">
-                        <div class="search">
-                            <i class="ti-bell"></i>
-                            <span class="title">Search Site</span>
-                        </div>
+                    <div class="module widget-handle notifications-widget-handle left">
+                        <ul class="menu">
+                            <li class="notifications-dropdown">
+                                <a href="#"><i class="ti-bell"></i><div class="number-circle">1</div></a>
+                                <ul>
+                                    <li><a href="#">No new notifications</a></li>
+                                    <li><a href="#">See all</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 @endif
                 <div class="module widget-handle language left">

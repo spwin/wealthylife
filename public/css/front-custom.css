@@ -830,4 +830,31 @@ button.delete-draft-question{
 .your-question .question-body{
     font-size: 18px;
 }
+
+.menu > li.notifications-dropdown:last-child > ul {
+    right: -140px;
+    margin-top: -2px;
+}
+
+.nav-home .menu > li.notifications-dropdown ul li *{
+    text-transform: none;
+}
+.nav-home .menu li.notifications-dropdown .number-circle {
+    border-radius: 50%;
+    bottom: 13px;
+    left: 13px;
+    width: 16px;
+    height: 16px;
+    padding: 2px;
+    line-height: 10px;
+    background: #c64444;
+    border: 2px solid #c64444;
+    color: #FFFFFF;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+}
+.module.notifications-widget-handle{
+    padding: 0;
+}
 /*# sourceMappingURL=front-custom.css.map */
