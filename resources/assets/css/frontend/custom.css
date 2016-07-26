@@ -836,10 +836,10 @@ button.delete-draft-question{
     margin-top: -2px;
 }
 
-.nav-home .menu > li.notifications-dropdown ul li *{
+.menu > li.notifications-dropdown ul li *{
     text-transform: none;
 }
-.nav-home .menu li.notifications-dropdown .number-circle {
+.menu li.notifications-dropdown .number-circle {
     border-radius: 50%;
     bottom: 13px;
     left: 13px;
