@@ -15,7 +15,7 @@
 
 Route::get('/', 'FrontendController@index');
 Route::get('email-confirm/{key}', 'UserController@confirmation');
-Route::get('blog', 'FrontendController@blog');
+/*Route::get('blog', 'FrontendController@blog');*/
 Route::get('contact-us', 'FrontendController@contacts');
 Route::get('authorize-question', 'FrontendController@authorizeQuestion');
 

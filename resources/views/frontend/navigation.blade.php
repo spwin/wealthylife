@@ -18,14 +18,14 @@
                             <a href="{{ action('FrontendController@index') }}">Home</a>
                         </li>
                         <li>
-                            <a href="#">Pricing</a>
+                            <a href="#">Features</a>
                         </li>
-                        <li {{ (Request::is('*blog*') ? 'class=current' : '') }}>
+                        {{--<li {{ (Request::is('*blog*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@blog') }}">Blog</a>
                         </li>
                         <li>
                             <a href="#">FAQ</a>
-                        </li>
+                        </li>--}}
                         <li>
                             <a href="#">Contacts</a>
                         </li>
