@@ -41,7 +41,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
     Route::get('/', 'FrontendController@profile');
     Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
     Route::get('{id}/view-answer', 'FrontendController@viewAnswer');
-    Route::get('messages', 'FrontendController@messages');
+    Route::get('notifications', 'FrontendController@notifications');
     Route::get('questions', 'FrontendController@questions');
     Route::get('articles', 'FrontendController@articles');
     Route::get('vouchers', 'FrontendController@vouchers');

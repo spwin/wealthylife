@@ -181,9 +181,9 @@ class FrontendController extends Controller
         return Redirect::action('FrontendController@index');
     }
 
-    public function messages(){
+    public function notifications(){
         if($user = Auth::guard('user')->user()){
-            return view('frontend/profile/messages')->with([
+            return view('frontend/profile/notifications')->with([
                 'user' => $user
             ]);
         }

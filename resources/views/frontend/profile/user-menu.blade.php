@@ -17,7 +17,7 @@
         <hr>
         <ul class="lead">
             <li {{ (Request::is('*profile') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@profile') }}"><i class="ti-arrow-right"></i> Profile</a></li>
-            {{--<li {{ (Request::is('*profile/messages*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@messages') }}"><i class="ti-arrow-right"></i> Messages</a></li>--}}
+            <li {{ (Request::is('*profile/notifications*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@notifications') }}"><i class="ti-arrow-right"></i> Notifications</a></li>
             <li {{ (Request::is('*profile/questions*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@questions') }}"><i class="ti-arrow-right"></i> My questions</a></li>
             {{--<li {{ (Request::is('*profile/articles*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@articles') }}"><i class="ti-arrow-right"></i> My articles</a></li>--}}
             {{--<li {{ (Request::is('*profile/vouchers*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@vouchers') }}"><i class="ti-arrow-right"></i> Gift vouchers</a></li>--}}

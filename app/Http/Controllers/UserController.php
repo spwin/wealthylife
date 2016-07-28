@@ -470,7 +470,7 @@ class UserController extends Controller
             $userData->image_id = $image->id;
             $userData->save();
 
-            return redirect()->action('FrontendController@profile');
+            return redirect()->back()/*action('FrontendController@profile')*/;
         } else {
             return redirect()->action('FrontendController@index');
         }

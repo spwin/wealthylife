@@ -825,6 +825,7 @@ button.delete-draft-question{
 .show-answer-btn:active{
     color: #FFFFFF;
     margin: 0;
+    background-color: #47b475;
 }
 
 .your-question .question-body{
