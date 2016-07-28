@@ -58,17 +58,17 @@
                                     </a>
                                 </td>
                                 <td>{{ $user->email }}</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0 min</td>
-                                <td>£ 0</td>
+                                <td>{{ $user->questions()->where(['status' => 1])->count() }}</td>
+                                <td>{{ $user->answers()->where(['payroll_id' => $current->id])->count() }}</td>
+                                <td>30 min</td>
+                                <td>{{ $total += ($price->value * $user->answers()->where(['payroll_id' => $current->id])->count()) }}</td>
                             </tr>
                         @endforeach
                         <tr>
                             <td colspan="7" class="text-right">
                                 TOTAL:
                             </td>
-                            <td colspan="1">£ 0</td>
+                            <td colspan="1">£ {{ $total }}</td>
                         </tr>
                         </tbody></table>
                 </div>

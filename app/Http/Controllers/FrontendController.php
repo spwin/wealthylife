@@ -65,6 +65,8 @@ class FrontendController extends Controller
                 $data['question'] = session()->get('question.content');
                 $data['status'] = 0;
                 $data['ip'] = \Request::ip();
+                $consultant = User::where(['type' => 'consultant'])->orderByRaw("RAND()")->first();
+                $data['consultant_id'] = $consultant->id;
                 //$this->getRegionByIp($data);
                 $question->fill($data);
                 $question->save();

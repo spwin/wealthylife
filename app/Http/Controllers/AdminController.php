@@ -215,8 +215,13 @@ class AdminController extends Controller
 
     public function listConsultants(){
         $consultants = User::with('userData')->where(['type' => 'consultant'])->get();
+        $current = Payroll::where(['current' => 1])->first();
+        $price = Settings::where(['name' => 'gross_consultant'])->first();
         return view('admin/users/consultants/list')->with([
-            'users' => $consultants
+            'users' => $consultants,
+            'current' => $current,
+            'price' => $price,
+            'total' => 0
         ]);
     }
 
