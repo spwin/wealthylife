@@ -33,13 +33,13 @@
                 </div>
             </li>
         </ul>
-        <span class="scroll-btn">
+        {{--<span class="scroll-btn">
             <a href="#">
                 <span class="mouse">
                     <span>
                     </span>
                 </span>
             </a>
-        </span>
+        </span>--}}
     </section>
 @stop

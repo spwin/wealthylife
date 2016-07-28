@@ -20,6 +20,7 @@
                                 {{ Session::get('flash_notification.question.message') }}
                             </div>
                         @endif
+
                     </div>
                 </div>
             </div>

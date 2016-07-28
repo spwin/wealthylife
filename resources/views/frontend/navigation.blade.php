@@ -32,16 +32,32 @@
                     </ul>
                 </div>
                 @if(Auth::guard('user')->user())
-                    <div class="module widget-handle notifications-widget-handle left">
-                        <ul class="menu">
-                            <li class="notifications-dropdown">
-                                <a href="#"><i class="ti-bell"></i><div class="number-circle">1</div></a>
-                                <ul>
-                                    <li><a href="#">No new notifications</a></li>
-                                    <li><a href="#">See all</a></li>
+                    <div class="module widget-handle cart-widget-handle left">
+                        <div class="cart">
+                            <i class="ti-bell"></i>
+                            <span class="label number">2</span>
+                            <span class="title">Notifications</span>
+                        </div>
+                        <div class="function">
+                            <div class="widget">
+                                <h6 class="title">Notifications</h6>
+                                <hr>
+                                <ul class="cart-overview">
+                                    <li>
+                                        <a href="#">
+                                            <div class="description">
+                                                <span class="product-title">No new notifications</span>
+                                            </div>
+                                        </a>
+                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
+                                <hr>
+                                <div class="cart-controls">
+                                    <a class="btn btn-sm btn-filled" href="#">See all</a>
+                                </div>
+                            </div>
+                            <!--end of widget-->
+                        </div>
                     </div>
                 @endif
                 <div class="module widget-handle language left">

@@ -1202,7 +1202,7 @@ nav .widget hr:first-of-type {
   color: #222 !important;
 }
 nav .cart-overview {
-  min-width: 300px;
+  min-width: 150px;
   margin-bottom: 16px;
 }
 nav .cart-overview a {
@@ -3009,7 +3009,7 @@ button[type="submit"] .form-loading {
   display: block;
 }
 .widget .cart-overview li {
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   overflow: hidden;
 }
 .widget .cart-overview li:last-child {

@@ -858,4 +858,10 @@ button.delete-draft-question{
 .module.notifications-widget-handle{
     padding: 0;
 }
+.cart-overview a, .cart-overview li{
+    line-height: 1;
+}
+.cart-widget-handle .btn:hover{
+    color: #FFFFFF;
+}
 /*# sourceMappingURL=front-custom.css.map */
