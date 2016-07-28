@@ -6,7 +6,7 @@
             <div class="row">
                 @include('frontend/profile/user-menu')
                 <div class="col-md-9">
-                    <div class="tabbed-content text-tabs display-after-load">
+                    <div class="tabbed-content text-tabs display-after-load questions-container">
                         <div class="modal-container text-right">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             @include('frontend/elements/question')
@@ -38,7 +38,7 @@
                                 <div class="tab-content">
                                     @if($user->questions() && $user->questions()->where(['status' => 1])->count() > 0)
                                         <table class="table">
-                                            @foreach($user->questions()->where(['status' => 1])->get() as $question)
+                                            @foreach($user->questions()->where(['status' => 1])->orderBy('created_at', 'DESC')->get() as $question)
                                                 <tr>
                                                     <td><img width="25" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
@@ -65,8 +65,8 @@
                                 <div class="tab-content">
                                     @if($user->questions() && $user->questions()->where(['status' => 2])->count() > 0)
                                         <table class="table">
-                                            @foreach($user->questions()->where(['status' => 2])->get() as $question)
-                                                <tr>
+                                            @foreach($user->questions()->where(['status' => 2])->orderBy('answered_at', 'DESC')->get() as $question)
+                                                <tr {{ $question->answer()->first()->seen ? '' : 'class=bold' }}>
                                                     <td><img width="25" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
@@ -93,7 +93,7 @@
                                 <div class="tab-content">
                                     @if($user->questions() && $user->questions()->where(['status' => 0])->count() > 0)
                                         <table class="table">
-                                            @foreach($user->questions()->where(['status' => 0])->get() as $question)
+                                            @foreach($user->questions()->where(['status' => 0])->orderBy('created_at', 'DESC')->get() as $question)
                                                 <tr>
                                                     <td><img width="25" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>

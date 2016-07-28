@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Images;
+use App\Notifications;
 use App\Questions;
 use App\Settings;
 use App\User;
@@ -188,6 +189,24 @@ class FrontendController extends Controller
             ]);
         }
         return Redirect::action('FrontendController@index');
+    }
+
+    public function showNotification($id){
+        $notification = Notifications::findOrFail($id);
+        if($user = Auth::guard('user')->user()) {
+            if ($user->id == $notification->user()->first()->id) {
+                $notification->seen = 1;
+                $notification->save();
+                return view('frontend/profile/notification')->with([
+                    'notification' => $notification,
+                    'user' => $user
+                ]);
+            } else {
+                return Redirect::back();
+            }
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
     }
 
     public function questions(){

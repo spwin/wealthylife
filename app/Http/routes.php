@@ -42,6 +42,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
     Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
     Route::get('{id}/view-answer', 'FrontendController@viewAnswer');
     Route::get('notifications', 'FrontendController@notifications');
+    Route::get('notifications/{id}', 'FrontendController@showNotification');
     Route::get('questions', 'FrontendController@questions');
     Route::get('articles', 'FrontendController@articles');
     Route::get('vouchers', 'FrontendController@vouchers');
@@ -103,11 +104,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
             Route::get('list', 'AdminController@listUsers');
             Route::get('profile/{id}', 'AdminController@detailsUser');
             Route::get('profile/{user_id}/mark-paid-question/{id}', 'AdminController@markPaidQuestion');
+            Route::get('show-notification/{id}', 'AdminController@showNotification');
             Route::post('update-data/{id}', 'AdminController@updateUserData');
+            Route::post('send-notification/{id}', 'AdminController@sendNotification');
             Route::post('update-login/{id}/{type}', 'AdminController@updateUserLogin');
             Route::post('force-login', 'AdminController@forceLoginUser');
             Route::delete('delete-profile/{id}', 'AdminController@destroyUser');
         });
+    });
+    Route::group(['prefix' => 'payroll'], function(){
+        Route::get('/', 'AdminController@payroll');
+        Route::post('pay-payroll/{id}', 'AdminController@payPayroll');
+        Route::post('end-payroll/{id}', 'AdminController@endPayroll');
     });
     Route::get('logout', 'Auth\AuthController@getAdminLogout');
 });

@@ -12,7 +12,7 @@ class Answers extends Model
      * @var array
      */
     protected $fillable = [
-        'question_id', 'consultant_id', 'answer', 'seen', 'ip'
+        'question_id', 'consultant_id', 'answer', 'seen', 'ip', 'payroll_id'
     ];
 
     public function question(){
@@ -21,5 +21,9 @@ class Answers extends Model
 
     public function consultant(){
         return $this->belongsTo('App\User', 'id', 'consultant_id');
+    }
+
+    public function payroll(){
+        return $this->hasOne('App\Payroll', 'id', 'payroll_id');
     }
 }

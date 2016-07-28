@@ -864,3 +864,43 @@ button.delete-draft-question{
 .cart-widget-handle .btn:hover{
     color: #FFFFFF;
 }
+.widget .cart-overview .description{
+    line-height: 1.4;
+}
+.cart-widget-handle .function span:hover{
+    color: #000000 !important;
+}
+.cart-widget-handle .description i{
+    color: inherit !important;
+    line-height: inherit !important;
+    font-size: 13px;
+}
+.notifications-table tr:hover {
+    background-color: rgba(130, 130, 130, 0.08);
+    cursor: pointer;
+}
+table.notifications-table>tbody>tr>td{
+    padding: 0;
+    line-height: 1 !important;
+}
+table.notifications-table>tbody>tr>td a{
+    padding: 10px;
+    color: #222222;
+    display: inline-block;
+    width: 100%;
+}
+.bigger{
+    font-size: 18px;
+}
+.notification-time{
+    color: #CCCCCC;
+}
+.notifications-table a {
+    font-weight: normal;
+}
+.notifications-table .bold a{
+    font-weight: 600;
+}
+.questions-container p{
+    padding: 8px;
+}

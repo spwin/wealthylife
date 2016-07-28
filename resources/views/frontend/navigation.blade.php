@@ -31,29 +31,47 @@
                         </li>
                     </ul>
                 </div>
-                @if(Auth::guard('user')->user())
+                @if($user = Auth::guard('user')->user())
                     <div class="module widget-handle cart-widget-handle left">
                         <div class="cart">
                             <i class="ti-bell"></i>
-                            <span class="label number">2</span>
-                            <span class="title">Notifications</span>
+                            @if(($count = $user->notifications()->where(['seen' => 0])->count()) > 0)
+                                <span class="label number">{{ $count }}</span>
+                                <span class="title">Notifications</span>
+                            @endif
                         </div>
                         <div class="function">
                             <div class="widget">
                                 <h6 class="title">Notifications</h6>
                                 <hr>
                                 <ul class="cart-overview">
-                                    <li>
-                                        <a href="#">
+                                    @if($user->notifications()->where(['seen' => 0])->count() > 0)
+                                        @foreach($user->notifications()->where(['seen' => 0])->get() as $notification)
+                                            <li>
+                                                <a href="{{ action('FrontendController@showNotification', ['id' => $notification->id]) }}">
+                                                    <div class="description">
+                                                        <span class="product-title">
+                                                            @if($notification->type == 'admin')
+                                                                <i class="ti-control-record"></i>
+                                                            @else
+                                                                <i class="ti-flag-alt"></i>
+                                                            @endif
+                                                            {{ $notification->subject }}</span>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    @else
+                                        <li>
                                             <div class="description">
                                                 <span class="product-title">No new notifications</span>
                                             </div>
-                                        </a>
-                                    </li>
+                                        </li>
+                                    @endif
                                 </ul>
                                 <hr>
                                 <div class="cart-controls">
-                                    <a class="btn btn-sm btn-filled" href="#">See all</a>
+                                    <a class="btn btn-sm btn-filled" href="{{ action('FrontendController@notifications') }}">See all</a>
                                 </div>
                             </div>
                             <!--end of widget-->

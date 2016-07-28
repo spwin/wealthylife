@@ -23,6 +23,7 @@ class CreateQuestionsTable extends Migration
             $table->text('question');
             $table->string('status');
             $table->string('ip');
+            $table->dateTime('answered_at');
             $table->timestamps();
         });
     }

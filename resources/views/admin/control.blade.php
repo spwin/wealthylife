@@ -25,6 +25,12 @@
                 </label>
             </div>
             <div class="form-group">
+                <label class="control-sidebar-subheading">
+                    GROSS consultant
+                    <input type="number" name="gross_consultant" class="pull-right" value="{{ App\Helpers\Helpers::getSetting('gross_consultant') }}">
+                </label>
+            </div>
+            <div class="form-group">
                 <input type="submit" class="btn-sm btn-success pull-right" value="Save">
             </div>
             {!! Form::close() !!}

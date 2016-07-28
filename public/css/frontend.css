@@ -254,6 +254,9 @@ hr.short-thick {
 .thin {
   font-weight: 100 !important;
 }
+.normal {
+  font-weight: 400 !important;
+}
 @media all and (max-width: 767px) {
   .thin {
     font-weight: 300 !important;

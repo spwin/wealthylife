@@ -20,5 +20,12 @@ class SettingsSeeder extends Seeder
             'value' => '20'
         ]);
         $option->save();
+
+        $option = new Settings();
+        $option->fill([
+            'name' => 'gross_consultant',
+            'value' => '10'
+        ]);
+        $option->save();
     }
 }

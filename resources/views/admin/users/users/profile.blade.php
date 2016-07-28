@@ -92,7 +92,7 @@
                     <li {{ $tab == '1' ? 'class=active' : '' }}><a href="#general" data-toggle="tab">General</a></li>
                     <li {{ $tab == '2' ? 'class=active' : '' }}><a href="#password" data-toggle="tab">Login details</a></li>
                     <li {{ $tab == '3' ? 'class=active' : '' }}><a href="#social" data-toggle="tab">Social</a></li>
-                    <li {{ $tab == '4' ? 'class=active' : '' }}><a href="#message" data-toggle="tab">Message</a></li>
+                    <li {{ $tab == '4' ? 'class=active' : '' }}><a href="#notifications" data-toggle="tab">Notifications</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane {{ $tab == '1' ? 'active' : '' }}" id="general">
@@ -249,24 +249,68 @@
                         </table>
                     </div>
 
-                    <div class="tab-pane {{ $tab == '4' ? 'active' : '' }}" id="message">
+                    <div class="tab-pane {{ $tab == '4' ? 'active' : '' }}" id="notifications">
                         <div class="box-header">
                             <i class="fa fa-envelope"></i>
-                            <h3 class="box-title">Send Message</h3>
+                            <h3 class="box-title">Send Notification</h3>
                         </div>
                         <div class="box-body">
-                            <form action="#" method="post">
+                            {!! Form::open([
+                            'method' => 'POST',
+                            'action' => ['AdminController@sendNotification', $user->id]
+                            ]) !!}
                                 <div class="form-group">
+                                    <label for="type">Type</label>
+                                    <input type="text" class="form-control" name="type" placeholder="Type" value="admin">
+                                </div>
+                                <div class="form-group">
+                                    <label for="importance">Importance</label>
+                                    <input type="number" class="form-control" name="importance" placeholder="Importance" value="1">
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::checkbox('email', null, null, ['id' => 'email-notification']) !!}
+                                    <label for="email-notification">Send email</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject">Notification</label>
                                     <input type="text" class="form-control" name="subject" placeholder="Subject">
                                 </div>
                                 <div>
-                                    <textarea class="textarea" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                    <textarea name="body" class="textarea" placeholder="Notification" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                </div>
+                                <div>
+                                <button type="submit" class="btn btn-default" id="sendEmail">Send
+                                    <i class="fa fa-arrow-circle-right"></i></button>
                                 </div>
                             </form>
                         </div>
                         <div class="box-footer clearfix">
-                            <button type="button" class="pull-right btn btn-default" id="sendEmail">Send
-                                <i class="fa fa-arrow-circle-right"></i></button>
+                            <table id="pending-questions" class="table table-bordered table-hover scripted-table">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Subject</th>
+                                    <th>Body</th>
+                                    <th class="w60px">Date</th>
+                                    <th class="w100px">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if($user->notifications() && $user->notifications()->count() > 0)
+                                    @foreach($user->notifications()->get() as $notification)
+                                        <tr>
+                                            <td class="w40px">#{{ $notification->id }}</td>
+                                            <td class="w100px">{{ $notification->type }}</td>
+                                            <td>{{ implode(' ', array_slice(explode(' ', $notification->subject), 0, 5)) }}</td>
+                                            <td>{{ implode(' ', array_slice(explode(' ', $notification->body), 0, 5)).'...' }}</td>
+                                            <td>{{ date('d M, Y H:i', strtotime($notification->created_at)) }}</td>
+                                            <td class="w100px"><a href="{{ action('AdminController@showNotification', $notification->id) }}" class="btn btn-primary">Show details</a></td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <!-- /.tab-pane -->

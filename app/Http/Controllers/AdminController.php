@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Images;
+use App\Notifications;
+use App\Payroll;
 use App\Settings;
 use App\User;
 use App\UserData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
@@ -555,5 +559,72 @@ class AdminController extends Controller
             }
         }
         return Redirect::back();
+    }
+
+    public function sendNotification(Request $request, $id){
+        $user = User::findOrFail($id);
+        $user_data = $user->userData()->first();
+        $input = $request->all();
+        $input['email'] = $request->has('email') ? 1 : 0;
+        $input['user_id'] = $id;
+        $notification = new Notifications();
+        $notification->fill($input);
+        $notification->save();
+        if($input['email']){
+            Mail::send('emails.new_notification', ['user' => $user_data, 'notification' => $notification], function ($message) use ($user) {
+                $message->subject('New notification');
+                $message->from('spwinwk@gmail.com', 'Style Sensei');
+                $message->to($user->email);
+                $message->priority('high');
+            });
+        }
+        Flash::success('Your notification was sent successfully');
+        return Redirect::action('AdminController@detailsUser', ['id' => $id, 't' => 4]);
+    }
+
+    public function showNotification($id){
+        $notification = Notifications::findOrFail($id);
+        return view('admin/users/users/notification')->with([
+            'notification' => $notification
+        ]);
+    }
+
+    public function payroll(){
+        $payroll = Payroll::where(['current' => 0])->orderBy('id', 'DESC')->get();
+        $current = Payroll::where(['current' => 1])->first();
+        $created = new Carbon($current->starts_at);
+        $now = Carbon::now();
+        $lasts = str_replace('before', '', $created->diffForHumans($now));
+        return view('admin/payroll/index')->with([
+            'payroll' => $payroll,
+            'current' => $current,
+            'lasts' => $lasts
+        ]);
+    }
+
+    public function endPayroll(Request $request, $id){
+        $payroll = Payroll::findOrFail($id);
+        $payroll->ends_at = date('Y-m-d H:i:s', time());
+        $payroll->paid_at = null;
+        $payroll->current = 0;
+        $payroll->save();
+        $new = new Payroll();
+        $new->fill([
+            'starts_at' => date('Y-m-d H:i:s', time()),
+            'ends_at' => null,
+            'paid_at' => null,
+            'current' => 1
+        ]);
+        $new->save();
+        Flash::success('You have successfully begun a new payroll period');
+        return Redirect::action('AdminController@payroll');
+    }
+
+    public function payPayroll(Request $request, $id){
+        $payroll = Payroll::findOrFail($id);
+        $payroll->paid_at = date('Y-m-d H:i:s', time());
+        $payroll->save();
+        Flash::success('You have successfully marked this period as paid');
+        return Redirect::action('AdminController@payroll');
     }
 }

@@ -18,6 +18,8 @@ class CreateAnswersTable extends Migration
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->integer('consultant_id')->nullable()->unsigned();
             $table->foreign('consultant_id')->references('id')->on('users')->onDelete('set null');
+            $table->integer('payroll_id')->nullable()->unsigned();
+            $table->foreign('payroll_id')->references('id')->on('payroll')->onDelete('set null');
             $table->text('answer');
             $table->boolean('seen');
             $table->string('ip');

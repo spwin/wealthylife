@@ -47,6 +47,12 @@
                     <li class="{{ (Request::is('admin/users/users*') ? 'active' : '') }}"><a href="{{ action('AdminController@listUsers') }}"><i class="fa fa-circle-o"></i> Users</a></li>
                 </ul>
             </li>
+            <li class="{{ (Request::is('admin/payroll*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@payroll') }}">
+                    <i class="fa fa-money"></i>
+                    <span>Payroll</span>
+                </a>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

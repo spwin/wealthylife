@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answers;
+use App\Payroll;
 use App\Questions;
 use App\User;
 use App\UserData;
@@ -104,7 +105,11 @@ class ConsultantController extends Controller
 
     public function answerSend($id){
         $answer = Answers::findOrFail($id);
+        $current = Payroll::where(['current' => 1])->first();
+        $answer->payroll_id = $current->id;
+        $answer->save();
         $question = $answer->question()->first();
+        $question->answered_at = date('Y-m-d H:i:s', time());
         $question->status = 2;
         $question->save();
         return Redirect::action('ConsultantController@listPending');
