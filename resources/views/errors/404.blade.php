@@ -1,48 +1,35 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Whoops, page not exists. How do you get there?</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <h1>404</h1>
-                <div class="title">Whoops, page not exists. How do you get there?</div>
+@extends('frontend/frame')
+@section('nav-style', 'nav-blog')
+@section('content')
+    <section class="fullscreen">
+        <div class="container v-align-transform error-404">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="text-center">
+                        <i class="ti-receipt icon icon-lg mb24 mb-xs-0"></i>
+                        <h1 class="large">Page Not Found</h1>
+                        <p>The page you requested couldn't be found - this could be due to a spelling error in the URL or a removed page.</p>
+                        <a class="btn" href="{{ action('FrontendController@index') }}">Go Back Home</a>
+                        <a class="btn" href="{{ action('FrontendController@contacts') }}">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+            <!--end of row-->
+            <div class="embelish-icons">
+                <i class="ti-help-alt"></i>
+                <i class="ti-cross"></i>
+                <i class="ti-support"></i>
+                <i class="ti-announcement"></i>
+                <i class="ti-signal"></i>
+                <i class="ti-pulse"></i>
+                <i class="ti-marker"></i>
+                <i class="ti-pulse"></i>
+                <i class="ti-alert"></i>
+                <i class="ti-help-alt"></i>
+                <i class="ti-alert"></i>
+                <i class="ti-pulse"></i>
             </div>
         </div>
-    </body>
-</html>
+        <!--end of container-->
+    </section>
+@stop

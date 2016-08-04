@@ -904,4 +904,8 @@ table.notifications-table>tbody>tr>td a{
 .questions-container p{
     padding: 8px;
 }
+.error-404 .btn:hover{
+    background-color: #47b475;
+    color: #FFFFFF;
+}
 /*# sourceMappingURL=front-custom.css.map */
