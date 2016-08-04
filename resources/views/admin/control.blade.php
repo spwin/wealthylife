@@ -20,6 +20,12 @@
             ]) !!}
             <div class="form-group">
                 <label class="control-sidebar-subheading">
+                    Email
+                    <input type="text" name="email" class="email" value="{{ App\Helpers\Helpers::getSetting('email') }}">
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="control-sidebar-subheading">
                     Price per question
                     <input type="number" name="question_price" class="pull-right" value="{{ App\Helpers\Helpers::getSetting('question_price') }}">
                 </label>

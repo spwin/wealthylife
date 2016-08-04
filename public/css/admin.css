@@ -9536,12 +9536,17 @@ table.text-center, table.text-center td, table.text-center th {
 .table-hover > tbody > tr:hover > td:first-child i.hov-icon:before {
   display: inline-block; }
 
-.control-sidebar-dark .tab-pane input[type="number"] {
+.control-sidebar-dark .tab-pane input[type="number"], .control-sidebar-dark .tab-pane input[type="text"] {
   background-color: transparent;
   border: none;
   border-bottom: 1px solid gray;
   width: 60px;
   outline: 0; }
+
+.control-sidebar-dark .tab-pane input.email {
+  float: none;
+  display: block;
+  width: 100%; }
 
 .control-sidebar-dark .tab-pane:focus {
   outline: 0; }

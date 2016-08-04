@@ -66,7 +66,7 @@ class FrontendController extends Controller
                 $data['status'] = 0;
                 $data['ip'] = \Request::ip();
                 $consultant = User::where(['type' => 'consultant'])->orderByRaw("RAND()")->first();
-                $data['consultant_id'] = $consultant->id;
+                $data['consultant_id'] = $consultant ? $consultant->id : 1;
                 //$this->getRegionByIp($data);
                 $question->fill($data);
                 $question->save();
@@ -251,5 +251,9 @@ class FrontendController extends Controller
         return view('frontend/pages/contacts')->with([
 
         ]);
+    }
+
+    public function features(){
+        return view('frontend/pages/features')->with([]);
     }
 }

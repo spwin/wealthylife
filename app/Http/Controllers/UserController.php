@@ -48,7 +48,7 @@ class UserController extends Controller
 
     public function createUser(Request $request){
         $v = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users,email,0,local',
+            'email' => 'required|email|unique:users,email,0,local,local,1',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6',
             'first_name' => 'required',
@@ -144,12 +144,16 @@ class UserController extends Controller
         }
         $auth = new AuthController();
         $auth->login($request, 'user');
-        if($this->checkUserDetails()){
-            return Redirect::action(/*$this->getRoute()*/'FrontendController@questions');
+        if(Auth::guard('user')->user()) {
+            if ($this->checkUserDetails()) {
+                return Redirect::action(/*$this->getRoute()*/'FrontendController@questions');
+            } else {
+                Session::flash('flash_notification.general.message', 'Please fill all the data so consultant could provide you with better answer');
+                Session::flash('flash_notification.general.level', 'warning');
+                return Redirect::action('FrontendController@profile');
+            }
         } else {
-            Session::flash('flash_notification.general.message', 'Please fill all the data so consultant could provide you with better answer');
-            Session::flash('flash_notification.general.level', 'warning');
-            return Redirect::action('FrontendController@profile');
+            return Redirect::action($this->getRoute());
         }
     }
 

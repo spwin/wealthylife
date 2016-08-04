@@ -27,5 +27,12 @@ class SettingsSeeder extends Seeder
             'value' => '10'
         ]);
         $option->save();
+
+        $option = new Settings();
+        $option->fill([
+            'name' => 'email',
+            'value' => env('EMAIL')
+        ]);
+        $option->save();
     }
 }

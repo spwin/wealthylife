@@ -17,17 +17,14 @@
                         <li {{ (Request::is('/') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@index') }}">Home</a>
                         </li>
-                        <li>
-                            <a href="#">Features</a>
+                        <li {{ (Request::is('*features*') ? 'class=current' : '') }}>
+                            <a href="{{ action('FrontendController@features') }}">Features</a>
                         </li>
-                        {{--<li {{ (Request::is('*blog*') ? 'class=current' : '') }}>
-                            <a href="{{ action('FrontendController@blog') }}">Blog</a>
-                        </li>
-                        <li>
+                        {{--<li>
                             <a href="#">FAQ</a>
                         </li>--}}
-                        <li>
-                            <a href="#">Contacts</a>
+                        <li {{ (Request::is('*contacts*') ? 'class=current' : '') }}>
+                            <a href="{{ action('FrontendController@contacts') }}">Contacts</a>
                         </li>
                     </ul>
                 </div>

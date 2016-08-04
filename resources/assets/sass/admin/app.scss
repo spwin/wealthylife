@@ -49,12 +49,17 @@
 
 .control-sidebar-dark{
   .tab-pane{
-    input[type="number"]{
+    input[type="number"], input[type="text"]{
       background-color: transparent;
       border: none;
       border-bottom: 1px solid gray;
       width: 60px;
       outline: 0;
+    }
+    input.email{
+      float: none;
+      display: block;
+      width: 100%;
     }
     &:focus{
       outline: 0;
