@@ -25,7 +25,7 @@
                         @endif
                         <ul class="tabs mb-0px">
                             <li id="pending">
-                                <a href="#pending">
+                                <a href="#">
                                     <div class="tab-title">
                                         <span>
                                             Pending
@@ -52,7 +52,7 @@
                                 </div>
                             </li>
                             <li id="answered">
-                                <a href="#answered">
+                                <a href="#">
                                     <div class="tab-title">
                                         <span>
                                             Answered
@@ -80,7 +80,7 @@
                                 </div>
                             </li>
                             <li id="drafts">
-                                <a href="#drafts">
+                                <a href="#">
                                     <div class="tab-title">
                                         <span>
                                             Drafts
@@ -123,4 +123,5 @@
             </div>
         </div>
     </section>
+    @include('frontend/footer')
 @stop

@@ -35,6 +35,7 @@
             </div><!--end of row-->
         </div><!--end of container-->
     </section>
+    @include('frontend/footer')
 @stop
 @push('scripts')
 <script src="https://js.braintreegateway.com/js/braintree-2.27.0.min.js"></script>

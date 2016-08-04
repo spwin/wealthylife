@@ -32,4 +32,5 @@
             </div>
         </div>
     </section>
+    @include('frontend/footer')
 @stop

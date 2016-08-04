@@ -30,6 +30,7 @@ class Authenticate
                         return redirect()->action('ConsultantController@login');
                         break;
                     default :
+                        $request->session()->flash('modal', 'need-login');
                         return redirect()->action('FrontendController@index');
                         break;
                 }

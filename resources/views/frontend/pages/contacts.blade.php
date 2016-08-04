@@ -1,11 +1,15 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-authorize-question')
 @section('content')
-    <section class="page-title page-title-4 bg-secondary">
+    <section class="page-title page-title-4 image-bg parallax">
+        <div class="background-image-holder fadeIn">
+            <img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" />
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h3 class="uppercase mb0">Contact Us</h3>
+                    <h2 class="uppercase mb8">Contact us</h2>
+                    <p class="lead mb0">We are always happy to hear from you.</p>
                 </div>
             </div>
             <!--end of row-->
@@ -22,29 +26,66 @@
                     </p>
                     <hr>
                     <p>
-                        438 Marine Parade
-                        <br /> Elwood, Victoria
-                        <br /> P.O Box 3184
+                        <strong>Pixsens LTD</strong>
+                        <br /> Kemp House
+                        <br /> 160 City Road
+                        <br /> London EC1V 2NX
                     </p>
                     <hr>
                     <p>
-                        <strong>E:</strong> hello@foundry.net
+                        <strong>E:</strong> <span id="eadr">m<b>@</b>e@d<b>no</b>oma<b>.com</b>in.com</span>
                         <br />
-                        <strong>P:</strong> +614 3948 2726
-                        <br />
+                        {{--<strong>P:</strong> +614 3948 2726
+                        <br />--}}
                     </p>
                 </div>
                 <div class="col-sm-6 col-md-5 col-md-offset-1">
-                    <form class="form-email" data-success="Thanks for your submission, we will be in touch shortly." data-error="Please fill all fields correctly.">
-                        <input type="text" class="validate-required" name="name" placeholder="Your Name" />
-                        <input type="text" class="validate-required validate-email" name="email" placeholder="Email Address" />
-                        <textarea class="validate-required" name="message" rows="4" placeholder="Message"></textarea>
+                    @if (Session::has('flash_notification.general.message'))
+                        <div class="alert alert-{{ Session::get('flash_notification.general.level') }} alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            {{ Session::get('flash_notification.general.message') }}
+                        </div>
+                    @endif
+                    @if (count($errors->contacts) > 0)
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <ul>
+                                @foreach ($errors->contacts->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    {!! Form::open([
+                        'role' => 'form',
+                        'url' => action('FrontendController@contactForm'),
+                        'class' => 'form-contacts',
+                        'method' => 'POST'
+                    ]) !!}
+                        {!! Form::text('name', null, ['placeholder' => 'Your Name']) !!}
+                        {!! Form::text('email', null, ['placeholder' => 'Email Address']) !!}
+                        {!! Form::textarea('message', null, ['rows' => 4, 'placeholder' => 'Message']) !!}
                         <button type="submit">Send Message</button>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
             <!--end of row-->
         </div>
         <!--end of container-->
     </section>
+    @include('frontend/footer')
 @stop
+@push('scripts')
+<script type="text/javascript">
+    <!--
+    ($)(function(){
+            var s="=b!isfg>#nbjmup;jogpAtuzmftfotfj/dp/vl#?jogpAtuzmftfotfj/dp/vl=0b?";
+            m=""; for (i=0; i<s.length; i++) m+=String.fromCharCode(s.charCodeAt(i)-1); document.getElementById('eadr').innerHTML=(m);
+    });
+    //-->
+</script>
+@endpush

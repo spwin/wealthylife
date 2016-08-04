@@ -4,8 +4,8 @@
         <div class="nav-bar @yield('nav-style', 'nav-home')">
             <div class="module left">
                 <a href="{{ URL::to('/') }}">
-                    <img class="logo logo-light" alt="Foundry" src="{{ URL::to('/') }}/images/logo-light.png">
-                    <img class="logo logo-dark" alt="Foundry" src="{{ URL::to('/') }}/images/logo-dark.png">
+                    <img class="logo logo-light" alt="Foundry" src="{{ URL::to('/') }}/images/logo-light.svg">
+                    <img class="logo logo-dark" alt="Foundry" src="{{ URL::to('/') }}/images/logo-dark.svg">
                 </a>
             </div>
             <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
@@ -17,8 +17,11 @@
                         <li {{ (Request::is('/') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@index') }}">Home</a>
                         </li>
-                        <li {{ (Request::is('*features*') ? 'class=current' : '') }}>
-                            <a href="{{ action('FrontendController@features') }}">Features</a>
+                        <li {{ (Request::is('*services*') ? 'class=current' : '') }}>
+                            <a href="{{ action('FrontendController@services') }}">Services</a>
+                        </li>
+                        <li {{ (Request::is('*about-us*') ? 'class=current' : '') }}>
+                            <a href="{{ action('FrontendController@about') }}">Meet us</a>
                         </li>
                         {{--<li>
                             <a href="#">FAQ</a>
@@ -91,6 +94,9 @@
                                         <a href="{{ action('FrontendController@credits') }}">Buy credits</a>
                                     </li>
                                     <li>
+                                        <a href="{{ action('FrontendController@vouchers') }}">Vouchers</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ action('Auth\AuthController@getUserLogout') }}">Log out</a>
                                     </li>
                                 </ul>
@@ -100,7 +106,7 @@
                                     <li>
                                         <div class="modal-container login-modal">
                                             <a class="btn-modal" href="#">Log in</a>
-                                            <div class="foundry_modal text-center" {{ Session::has('modal') && Session::get('modal') == 'login' && count($errors->login) > 0 ? 'data-time-delay=10' : '' }}>
+                                            <div class="foundry_modal text-center" {{ (Session::has('modal') && (Session::get('modal') == 'login' && count($errors->login) || Session::get('modal') == 'need-login')) > 0 ? 'data-time-delay=10' : '' }}>
                                                 <h3 class="uppercase">Log in</h3>
                                                 @if (count($errors->login) > 0)
                                                     <div class="alert alert-danger">

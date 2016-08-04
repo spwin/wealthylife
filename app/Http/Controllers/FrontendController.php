@@ -15,10 +15,12 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Braintree\ClientToken;
+use Illuminate\Support\Facades\Validator;
 
 class FrontendController extends Controller
 {
@@ -253,7 +255,46 @@ class FrontendController extends Controller
         ]);
     }
 
-    public function features(){
-        return view('frontend/pages/features')->with([]);
+    public function contactForm(Request $request){
+        $v = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'name' => 'max:100',
+            'message' => 'required|max:1000'
+        ]);
+        if ($v->fails()) {
+            return Redirect::action('FrontendController@contacts')->withErrors($v->errors(), 'contacts')->withInput();
+        }
+        $input = $request->all();
+        if(!array_key_exists('name', $input)){
+            $input['name'] = 'Visitor';
+        } elseif(!$input['name']){
+            $input['name'] = 'Visitor';
+        }
+        $general_mail = Settings::where(['name' => 'email'])->first();
+        Mail::send('emails.contacts', ['input' => $input], function ($message) use ($input, $general_mail) {
+            $message->subject('StyleSensei Contact Form message');
+            $message->from($input['email'], $input['name']);
+            $message->to($general_mail->value);
+            $message->priority('high');
+        });
+        Session::flash('flash_notification.general.message', 'Your message was successfully sent!');
+        Session::flash('flash_notification.general.level', 'success');
+        return Redirect::action('FrontendController@contacts');
+    }
+
+    public function services(){
+        return view('frontend/pages/services')->with([]);
+    }
+
+    public function about(){
+        return view('frontend/pages/about')->with([]);
+    }
+
+    public function privacy(){
+        return view('frontend/pages/privacy')->with([]);
+    }
+
+    public function terms(){
+        return view('frontend/pages/terms')->with([]);
     }
 }

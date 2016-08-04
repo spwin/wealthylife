@@ -42,4 +42,5 @@
             </a>
         </span>--}}
     </section>
+    @include('frontend/footer')
 @stop

@@ -19,15 +19,15 @@
             <li {{ (Request::is('*profile') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@profile') }}"><i class="ti-arrow-right"></i> Profile</a></li>
             <li {{ (Request::is('*profile/notifications*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@notifications') }}"><i class="ti-arrow-right"></i> Notifications{{ ($count = $user->notifications()->where(['seen' => 0])->count()) > 0 ? ' ('.$count.')' : '' }}</a></li>
             <li {{ (Request::is('*profile/questions*') ? 'class=um-active' : '') }}>
-                @if(($count = $user->questions()->join('answers', 'answers.question_id', '=', 'questions.id')->where(['questions.status' => 2, 'answers.seen' => 0])->count()) > 0)
+                @if(($count = ($user->questions() ? $user->questions()->join('answers', 'answers.question_id', '=', 'questions.id')->where(['questions.status' => 2, 'answers.seen' => 0])->count() : 0)) > 0)
                     <a href="{{ action('FrontendController@questions', '#answered') }}"><i class="ti-arrow-right"></i> My questions ({{ $count }})</a>
                 @else
                     <a href="{{ action('FrontendController@questions') }}"><i class="ti-arrow-right"></i> My questions</a>
                 @endif
             </li>
             {{--<li {{ (Request::is('*profile/articles*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@articles') }}"><i class="ti-arrow-right"></i> My articles</a></li>--}}
-            {{--<li {{ (Request::is('*profile/vouchers*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@vouchers') }}"><i class="ti-arrow-right"></i> Gift vouchers</a></li>--}}
             <li {{ (Request::is('*profile/credits*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@credits') }}"><i class="ti-arrow-right"></i> Buy credits</a></li>
+            <li {{ (Request::is('*profile/vouchers*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@vouchers') }}"><i class="ti-arrow-right"></i> Gift vouchers</a></li>
         </ul>
     </div>
     <div class="widget">

@@ -840,9 +840,6 @@ body.btn-rounded .btn {
 .btn-white:visited {
   color: #fff;
 }
-.btn-white:visited:hover {
-  color: #222;
-}
 .btn-filled:visited {
   color: #fff;
 }
@@ -918,7 +915,7 @@ nav .btn,
   height: 55px;
 }
 .logo {
-  max-height: 60%;
+  max-height: 66%;
 }
 .logo-light {
   display: none;
@@ -2852,7 +2849,7 @@ button[type="submit"] .form-loading {
 }
 .page-title-3,
 .page-title-4 {
-  height: 240px;
+  height: 295px;
 }
 .page-title-4 .breadcrumb {
   position: relative;

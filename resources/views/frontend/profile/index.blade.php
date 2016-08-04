@@ -1,6 +1,7 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-profile')
 @section('content')
+    @include('frontend/profile/header')
     <section>
         <div class="container">
             <div class="row">
@@ -355,6 +356,7 @@
             </div>
         </div>
     </section>
+    @include('frontend/footer')
 @stop
 @push('scripts')
     <script type="text/javascript">

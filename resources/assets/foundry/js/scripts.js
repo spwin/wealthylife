@@ -620,7 +620,7 @@ $(document).ready(function() {
     $('.tabs li').each(function() {
         var originalTab = $(this),
             activeClass = "";
-        if(hash != ''){
+        if(hash != '' && hash != '_=_'){
             if(originalTab.attr('id') == hash){
                 activeClass = ' class="active"';
                 $(this).addClass('active');

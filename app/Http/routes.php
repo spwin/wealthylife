@@ -17,7 +17,10 @@ Route::get('/', 'FrontendController@index');
 Route::get('email-confirm/{key}', 'UserController@confirmation');
 /*Route::get('blog', 'FrontendController@blog');*/
 Route::get('contact-us', 'FrontendController@contacts');
-Route::get('features', 'FrontendController@features');
+Route::get('services', 'FrontendController@services');
+Route::get('privacy-policy', 'FrontendController@privacy');
+Route::get('terms-and-conditions', 'FrontendController@terms');
+Route::get('about-us', 'FrontendController@about');
 Route::get('authorize-question', 'FrontendController@authorizeQuestion');
 
 Route::get('social-login/{provider}', 'UserController@socialLogin');
@@ -34,6 +37,7 @@ Route::get('admin/login', 'AdminController@login');
 Route::get('consultant/login', 'ConsultantController@login');
 
 Route::post('{type}/login/', 'Auth\AuthController@postLogin');
+Route::post('send-form', 'FrontendController@contactForm');
 
 
 // LOGGED

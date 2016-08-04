@@ -908,3 +908,45 @@ table.notifications-table>tbody>tr>td a{
     background-color: #47b475;
     color: #FFFFFF;
 }
+.btn-white:visited:hover, .btn-white:hover {
+    color: #47b475;
+}
+.btn-filled:visited:hover, .btn-filled:hover {
+    color: #47b475;
+    background-color: #FFFFFF;
+}
+p.voucher-back{
+    font-weight: 400;
+    font-size: 100px;
+    z-index: 0;
+    color: rgba(52, 52, 52, 0.08);
+    left: 0;
+    right: 0;
+    top: 25px;
+}
+.boxed p.voucher-back{
+    color: rgba(71, 180, 117, 0.2);
+}
+.emphasis p.voucher-back{
+    color: rgba(255, 255, 255, 0.2);
+}
+section.pb-20px{
+    padding-bottom: 20px;
+}
+section.pt-20px{
+    padding-top: 20px;
+}
+section.pb-0px{
+    padding-bottom: 0;
+}
+footer.bg-dark span{
+    color: #939393;
+}
+.form-contacts button{
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.form-contacts button:hover{
+    color: #47b475;
+    background-color: #FFFFFF;
+}

@@ -29,4 +29,5 @@
             </div><!--end of row-->
         </div><!--end of container-->
     </section>
+    @include('frontend/footer')
 @stop
