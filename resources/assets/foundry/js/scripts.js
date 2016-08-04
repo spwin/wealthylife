@@ -621,7 +621,7 @@ $(document).ready(function() {
         var originalTab = $(this),
             activeClass = "";
         if(hash != '' && hash != '_=_'){
-            if(originalTab.attr('id') == hash){
+            if(originalTab.attr('id') == hash+'-section'){
                 activeClass = ' class="active"';
                 $(this).addClass('active');
             }

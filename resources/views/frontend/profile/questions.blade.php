@@ -24,8 +24,8 @@
                             </div>
                         @endif
                         <ul class="tabs mb-0px">
-                            <li id="pending">
-                                <a href="#">
+                            <li id="pending-section">
+                                <a href="#pending">
                                     <div class="tab-title">
                                         <span>
                                             Pending
@@ -51,8 +51,8 @@
                                     @endif
                                 </div>
                             </li>
-                            <li id="answered">
-                                <a href="#">
+                            <li id="answered-section">
+                                <a href="#answered">
                                     <div class="tab-title">
                                         <span>
                                             Answered
@@ -79,8 +79,8 @@
                                     @endif
                                 </div>
                             </li>
-                            <li id="drafts">
-                                <a href="#">
+                            <li id="drafts-section">
+                                <a href="#drafts">
                                     <div class="tab-title">
                                         <span>
                                             Drafts

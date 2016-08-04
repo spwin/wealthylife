@@ -11,6 +11,7 @@
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             @include('frontend/elements/question')
                         </div>
+                        <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@questions', ['#answered']) }}"><i class="ti-arrow-left"></i> Back</a></h4>
                         <h4 class="uppercase mb16">Your Question</h4>
                         <div class="your-question mb16">
                             <div class="row">
