@@ -4,24 +4,30 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-6 text-right text-left-xs col-sm-6">
-                    <h2 class="uppercase mb24 bold italic">Your question</h2>
+                <div class="col-md-12 text-center col-sm-12">
+                    <h2 class="uppercase mb24 bold">Your question</h2>
                     <p class="question-body">
-                        <img align="right" src="{{ url()->to('/').'/'.$question['image'] }}">
+                        <img src="{{ url()->to('/').'/'.$question['image'] }}">
                         {{ $question['content'] }}
                     </p>
                     <div class="modal-container inline-block">
-                        <a class="btn btn-modal" href="#">Edit</a>
+                        <a class="btn btn-modal btn-filled" href="#">Edit</a>
                         @include('frontend/elements/question')
                     </div>
                     <hr class="visible-xs">
                 </div>
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-12 col-sm-12 text-center">
                     <div class="question-authenticate">
-                        <a href="#" class="btn btn-lg social-login local" onclick="openModal('login')">Log in</a>
+                        <p>
+                            <i class="ti-lock"></i>
+                            You need to be Logged in in order to proceed. It takes less than a minute to create a new
+                            account or you can use social which would take you few seconds.
+                        </p>
+                        <a href="#" class="btn btn-lg social-login btn-filled" onclick="openModal('login')">Log in</a>
                     </div>
                 </div>
             </div><!--end of row-->
         </div><!--end of container-->
     </section>
+    @include('frontend/footer')
 @stop

@@ -19,7 +19,7 @@ class UserConfirmation extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'key'
+        'user_id', 'key', 'used'
     ];
 
     public function user(){

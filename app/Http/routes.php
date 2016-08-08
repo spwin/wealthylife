@@ -43,6 +43,7 @@ Route::post('send-form', 'FrontendController@contactForm');
 // LOGGED
 
 Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
+    Route::get('welcome', 'UserController@welcome');
     Route::get('/', 'FrontendController@profile');
     Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
     Route::get('{id}/view-answer', 'FrontendController@viewAnswer');

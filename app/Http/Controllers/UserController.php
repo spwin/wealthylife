@@ -104,7 +104,10 @@ class UserController extends Controller
 
     public function confirmation(Request $request, $key){
         $confirmation = UserConfirmation::where(['key' => $key])->first();
-        if($confirmation){
+        $user = null;
+        if($confirmation && !$confirmation->used){
+            $confirmation->used = 1;
+            $confirmation->save();
             $user = User::findOrFail($confirmation->user_id);
             $user->email_confirmed = 1;
             $user->save();
@@ -121,15 +124,12 @@ class UserController extends Controller
         return Redirect::action($action)->withInput();
     }
 
-    function checkUserDetails(){
-        if($user = Auth::guard('user')->user()){
-            if(!$user->userData()->first()->weight || !$user->userData()->first()->height ||
-                $user->userData()->first()->birth_date == '0000-00-00' || !$user->userData()->first()->gender){
-                return false;
-            }
-            return true;
-        } else {
+    function checkUserDetails($user){
+        if(!$user->userData()->first()->weight || !$user->userData()->first()->height ||
+            $user->userData()->first()->birth_date == '0000-00-00' || !$user->userData()->first()->gender){
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -144,14 +144,8 @@ class UserController extends Controller
         }
         $auth = new AuthController();
         $auth->login($request, 'user');
-        if(Auth::guard('user')->user()) {
-            if ($this->checkUserDetails()) {
-                return Redirect::action(/*$this->getRoute()*/'FrontendController@questions');
-            } else {
-                Session::flash('flash_notification.general.message', 'Please fill all the data so consultant could provide you with better answer');
-                Session::flash('flash_notification.general.level', 'warning');
-                return Redirect::action('FrontendController@profile');
-            }
+        if($user = Auth::guard('user')->user()) {
+            return Redirect::action('UserController@welcome');
         } else {
             return Redirect::action($this->getRoute());
         }
@@ -266,7 +260,7 @@ class UserController extends Controller
                 $this->downloadAvatar($user_db, $user, $provider);
             }
             Auth::guard('user')->login($user_db);
-            return Redirect::action('FrontendController@authorizeQuestion')->withInput();
+            return Redirect::action('UserController@welcome')->withInput();
         }else{
             return 'something went wrong';
         }
@@ -608,6 +602,30 @@ class UserController extends Controller
             Session::flash('flash_notification.question.message', 'Your question has been submitted, please check your email for more info');
             Session::flash('flash_notification.question.level', 'success');
             return Redirect::action('FrontendController@questions');
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function welcome(){
+        if($user = Auth::guard('user')->user()) {
+            if($user->welcome) {
+                if(session()->has('question.status') && session()->has('question.content') && session()->get('question.status') == 1){
+                    return Redirect::action('FrontendController@authorizeQuestion');
+                } elseif ($this->checkUserDetails($user)) {
+                    return Redirect::action('FrontendController@questions');
+                } else {
+                    Session::flash('flash_notification.general.message', 'Please fill all the data so consultant could provide you with better answer');
+                    Session::flash('flash_notification.general.level', 'warning');
+                    return Redirect::action('FrontendController@profile');
+                }
+            } else {
+                $user->welcome = 1;
+                $user->save();
+                return view('frontend/pages/welcome')->with([
+                    'user' => $user
+                ]);
+            }
         } else {
             return Redirect::action('FrontendController@index');
         }

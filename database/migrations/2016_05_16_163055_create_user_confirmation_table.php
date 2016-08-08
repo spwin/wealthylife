@@ -16,6 +16,7 @@ class CreateUserConfirmationTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->nullable()->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('used')->default(0);
             $table->string('key', 255);
             $table->timestamps();
         });

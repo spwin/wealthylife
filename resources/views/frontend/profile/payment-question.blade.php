@@ -4,20 +4,22 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-6 text-right text-left-xs col-sm-6">
+                <div class="col-md-12 text-center col-sm-12">
                     <h2 class="uppercase mb24 bold italic">Your question</h2>
                     <p class="question-body">
-                        <img align="right" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}">
+                        <img src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}">
                         {{ $question->question }}
                     </p>
                     <div class="modal-container inline-block">
-                        <a class="btn btn-modal" href="#">Edit</a>
+                        <a class="btn btn-modal btn-filled" href="#">Edit</a>
                         {{-- Edit current question from database --}}
                         @include('frontend/elements/question-database', ['question' => $question])
                     </div>
                     <hr class="visible-xs">
                 </div>
-                <div class="col-md-6 col-sm-6">
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 text-center">
                     <h2 class="uppercase mb24 bold italic">Price: £{{ $question_price }}</h2>
                     @if($difference == $question_price)
                         <h4 class="mb24">You need to pay £{{ $difference }} for your question.</h4>
@@ -26,10 +28,11 @@
                     @endif
                     {!! Form::open([
                     'method' => 'POST',
-                    'action' => ['UserController@payment', $question->id]
+                    'action' => ['UserController@payment', $question->id],
+                    'class' => 'payment-form'
                     ]) !!}
                     <div id="payment-form"></div>
-                    <input type="submit" value="Confirm and Pay">
+                    <button type="submit" class="btn btn-filled">Confirm and Pay</button>
                     {!! Form::close() !!}
                 </div>
             </div><!--end of row-->

@@ -201,14 +201,30 @@ a.question-btn, input.question-btn{
 p.question-body{
     font-size: 17px;
     clear: both;
+    max-width: 600px;
+    margin: 20px auto;
 }
 
 p.question-body img{
-    width: 30%;
-    padding: 0 0 10px 30px;
+    width: 50%;
+    padding: 0 0 10px 0;
     display: block;
+    margin: auto;
 }
 
+.question-authenticate{
+    margin: 20px auto;
+    max-width: 600px;
+}
+.question-authenticate p{
+    font-size: 16px;
+}
+.question-authenticate p i{
+    display: block;
+    margin: 15px auto;
+    font-size: 100px;
+    color: darkgray;
+}
 a.social-login{
     width: 100%;
 }
@@ -949,4 +965,20 @@ footer.bg-dark span{
 .form-contacts button:hover{
     color: #47b475;
     background-color: #FFFFFF;
+}
+.btn-hover, .btn-hover:visited{
+    color: #FFFFFF;
+    background-color: #47b475;
+    border-color: #47b475;
+}
+.btn-hover:hover{
+    background-color: #FFFFFF;
+    color: #47b475;
+}
+#payment-form{
+    min-height: 259px;
+}
+.payment-form{
+    max-width: 500px;
+    margin: auto;
 }
