@@ -14,6 +14,8 @@
 // FRONTEND
 
 Route::get('/', 'FrontendController@index');
+Route::get('soon', 'FrontendController@soon');
+
 Route::get('email-confirm/{key}', 'UserController@confirmation');
 /*Route::get('blog', 'FrontendController@blog');*/
 Route::get('contact-us', 'FrontendController@contacts');

@@ -297,4 +297,8 @@ class FrontendController extends Controller
     public function terms(){
         return view('frontend/pages/terms')->with([]);
     }
+
+    public function soon(){
+        return view('frontend/pages/soon')->with([]);
+    }
 }
