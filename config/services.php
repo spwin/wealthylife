@@ -39,17 +39,17 @@ return [
     'facebook' => [
         'client_id'     => '1646316419027352',
         'client_secret' => 'ca207d8a861fb8051128ce633d57bedb',
-        'redirect'      => 'http://wealthylife.dev/social-callback/facebook',
+        'redirect'      => env('APP_URL').'/social-callback/facebook',
     ],
     'twitter' => [
         'client_id'     => 'B2YDFF5kTv4OemGUnraGYHG3b',
         'client_secret' => 'vjzJWcUpQjbEkUl8nAxYJgTC9NAEMg90UfeSEkCZDuYBphXYXC',
-        'redirect'      => 'http://wealthylife.dev/social-callback/twitter',
+        'redirect'      => env('APP_URL').'/social-callback/twitter',
     ],
     'google' => [
         'client_id'     => '434097911873-3fnag8odt44il7vrr6vi8mj5ktmb8a2i.apps.googleusercontent.com',
         'client_secret' => 'D5ACP0Q9UElPtLOriD9CyxX7',
-        'redirect'      => 'http://wealthylife.dev/social-callback/google',
+        'redirect'      => env('APP_URL').'/social-callback/google',
     ],
 
     //Braintree configuration
