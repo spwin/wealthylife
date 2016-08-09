@@ -160,6 +160,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
+	Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
     ],
 
     /*
@@ -209,7 +210,8 @@ return [
         'HTML'=> Illuminate\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
         'Socialize' => Laravel\Socialite\Facades\Socialite::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+	'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ],
 
 ];

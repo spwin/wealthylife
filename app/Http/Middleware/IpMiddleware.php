@@ -17,7 +17,8 @@ class IpMiddleware
     {
         $allow_ip = [
             '127.0.0.1',
-            '95.148.189.71'
+            '95.148.189.71',
+	    '5.81.190.114'
         ];
 
         if(!in_array(request()->ip(), $allow_ip)){
