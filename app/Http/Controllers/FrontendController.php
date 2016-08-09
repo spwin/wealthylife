@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Images;
 use App\Notifications;
+use App\PriceSchemes;
 use App\Questions;
 use App\Settings;
 use App\User;
@@ -242,8 +243,10 @@ class FrontendController extends Controller
 
     public function credits(){
         if($user = Auth::guard('user')->user()){
+            $priceSchemes = PriceSchemes::where(['type' => 'credits'])->get();
             return view('frontend/profile/credits')->with([
-                'user' => $user
+                'user' => $user,
+                'schemes' => $priceSchemes
             ]);
         }
         return Redirect::action('FrontendController@index');

@@ -63,6 +63,7 @@ Route::group(['middleware' => ['ip']], function () {
         Route::post('change-avatar', 'UserController@changeAvatar');
         Route::post('{id}/checkout', 'UserController@payment');
         Route::post('{id}/points-checkout', 'UserController@pointsPayment');
+        Route::post('credits-payment', 'UserController@paymentCredits');
     });
 
 // CONSULTANT

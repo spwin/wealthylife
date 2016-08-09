@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Images;
 use App\Orders;
+use App\PriceSchemes;
 use App\Questions;
 use App\Settings;
 use App\User;
 use App\UserConfirmation;
 use App\UserData;
 use App\UserSocial;
+use Braintree\ClientToken;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -21,7 +23,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -559,7 +560,9 @@ class UserController extends Controller
                 $order = new Orders();
                 $data = [
                     'user_id' => $question->user()->first()->id,
-                    'question_id' => $question->id
+                    'question_id' => $question->id,
+                    'type' => 'question',
+                    'price_scheme_id' => null
                 ];
                 if ($result->success) {
                     $data['braintree_id'] = $result->transaction->id;
@@ -626,6 +629,26 @@ class UserController extends Controller
                     'user' => $user
                 ]);
             }
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function paymentCredits(Request $request){
+        $v = Validator::make($request->all(), [
+            'scheme' => 'required'
+        ]);
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors())->withInput();
+        }
+        if($user = Auth::guard('user')->user()) {
+            $scheme = PriceSchemes::findOrFail($request->get('scheme'));
+            $creditCardToken = ClientToken::generate();
+            return view('frontend/profile/payment-credits')->with([
+                'user' => $user,
+                'scheme' => $scheme,
+                'token' => $creditCardToken
+            ]);
         } else {
             return Redirect::action('FrontendController@index');
         }

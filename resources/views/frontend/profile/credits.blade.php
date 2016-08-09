@@ -12,45 +12,46 @@
                             @include('frontend/elements/question')
                         </div>
                         <h4 class="uppercase mb16">Buy credits</h4>
-                        @if (Session::has('flash_notification.question.message'))
-                            <div class="alert alert-{{ Session::get('flash_notification.question.level') }} alert-dismissible" role="alert">
+                        @if (count($errors->credits) > 0)
+                            <div class="alert alert-danger alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
-                                {{ Session::get('flash_notification.question.message') }}
+                                <ul>
+                                    @foreach ($errors->credits->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @if (Session::has('flash_notification.credits.message'))
+                            <div class="alert alert-{{ Session::get('flash_notification.credits.level') }} alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                {{ Session::get('flash_notification.credits.message') }}
                             </div>
                         @endif
                         <section class="pt-20px pb-20px">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="pricing-table pt-1 text-center">
-                                            <H5 class="uppercase">20 credits for</H5>
-                                            <span class="price">£20</span>
-                                            <p class="lead">1 question</p>
-                                            <a class="btn btn-filled btn-lg" href="#">Buy credits</a>
-                                        </div>
-                                        <!--end of pricing table-->
+                            @foreach($schemes as $scheme)
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="pricing-table pt-1 text-center boxed">
+                                        <H5 class="uppercase">{{ $scheme->credits }} credits for</H5>
+                                        <span class="price">£{{ $scheme->price }}</span>
+                                        <p class="lead">{{ $scheme->questions }} questions</p>
+                                        {!! Form::open([
+                                            'role' => 'form',
+                                            'url' => action('UserController@paymentCredits'),
+                                            'method' => 'POST',
+                                            'class' => 'buy-credits'
+                                        ]) !!}
+                                        {!! Form::hidden('scheme', $scheme->id) !!}
+                                        <input type="submit" class="btn btn-filled btn-lg" value="Buy credits">
+                                        {!! Form::close() !!}
                                     </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="pricing-table pt-1 text-center boxed">
-                                            <H5 class="uppercase">60 credits for</H5>
-                                            <span class="price">£55</span>
-                                            <p class="lead">3 questions</p>
-                                            <a class="btn btn-filled btn-lg" href="#">Buy credits</a>
-                                        </div>
-                                        <!--end of pricing table-->
-                                    </div>
-                                    <div class="col-md-4 col-sm-6">
-                                        <div class="pricing-table pt-1 text-center emphasis">
-                                            <H5 class="uppercase">100 credits for</H5>
-                                            <span class="price">£90</span>
-                                            <p class="lead">5 questions</p>
-                                            <a class="btn btn-white btn-lg" href="#">Buy credits</a>
-                                        </div>
-                                        <!--end of pricing table-->
-                                    </div>
+                                    <!--end of pricing table-->
                                 </div>
-                                <!--end of row-->
+                            @endforeach
                         </section>
                         <section class="pt-20px pb-0px">
                             <div class="row">

@@ -12,7 +12,7 @@ class Orders extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'question_id', 'status', 'braintree_id'
+        'user_id', 'question_id', 'status', 'braintree_id', 'price_scheme_id'
     ];
 
     public function user(){
@@ -21,5 +21,9 @@ class Orders extends Model
 
     public function question(){
         return $this->hasOne('App\Questions', 'id', 'question_id');
+    }
+
+    public function priceScheme(){
+        return $this->hasOne('App\PriceSchemes', 'id', 'price_scheme_id');
     }
 }
