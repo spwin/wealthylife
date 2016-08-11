@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row mb64 mb-xs-24">
             <div class="col-md-3 col-sm-4">
-                <a href="#">
+                <a href="{{ url()->to('/') }}">
                     <img alt="logo" class="image-xs" src="{{ url()->to('/') }}/images/logo-light.svg">
                 </a>
             </div>
