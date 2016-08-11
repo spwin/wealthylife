@@ -53,7 +53,6 @@ Route::group(['middleware' => ['ip']], function () {
         Route::get('notifications/{id}', 'FrontendController@showNotification');
         Route::get('questions', 'FrontendController@questions');
         Route::get('articles', 'FrontendController@articles');
-        Route::get('vouchers', 'FrontendController@vouchers');
         Route::get('credits', 'FrontendController@credits');
         Route::get('logout', 'Auth\AuthController@getUserLogout');
         Route::post('{id}/question-delete', 'UserController@deleteQuestion');
@@ -64,6 +63,15 @@ Route::group(['middleware' => ['ip']], function () {
         Route::post('{id}/checkout', 'UserController@payment');
         Route::post('{id}/points-checkout', 'UserController@pointsPayment');
         Route::post('credits-payment', 'UserController@paymentCredits');
+        Route::post('{id}/checkout-credits', 'UserController@checkoutCredits');
+        Route::group(['prefix' => 'vouchers'], function () {
+            Route::get('/', 'FrontendController@vouchers');
+            Route::get('buy', 'FrontendController@buyVoucher');
+            Route::post('pay', 'UserController@payVoucher');
+            Route::get('payment/{id}', 'UserController@formPaymentVoucher');
+            Route::post('checkout/{id}', 'UserController@checkoutVoucher');
+            Route::post('check', 'UserController@checkVoucher');
+        });
     });
 
 // CONSULTANT

@@ -11,6 +11,7 @@ use App\User;
 use App\UserConfirmation;
 use App\UserData;
 use App\UserSocial;
+use App\Vouchers;
 use Braintree\ClientToken;
 use Illuminate\Http\Request;
 
@@ -547,27 +548,31 @@ class UserController extends Controller
                 $question_price = $price ? $price->value : env('DEFAULT_QUESTION_PRICE');
                 $difference = $question_price - $user->points;
                 $nonceFromTheClient = $request->get('payment_method_nonce');
+                $order = new Orders();
+                $data = [
+                    'user_id' => $question->user()->first()->id,
+                    'question_id' => $question->id,
+                    'type' => 'question',
+                    'price_scheme_id' => null,
+                    'status' => 0,
+                    'braintree_id' => ''
+                ];
+                $order->fill($data);
+                $order->save();
                 $result = Transaction::sale([
                     'amount' => $difference,
                     'customFields' => [
-                        'question' => $id
+                        'order' => $order->id
                     ],
                     'options' => [
                         'submitForSettlement' => true
                     ],
                     'paymentMethodNonce' => $nonceFromTheClient
                 ]);
-                $order = new Orders();
-                $data = [
-                    'user_id' => $question->user()->first()->id,
-                    'question_id' => $question->id,
-                    'type' => 'question',
-                    'price_scheme_id' => null
-                ];
-                if ($result->success) {
-                    $data['braintree_id'] = $result->transaction->id;
-                    $data['status'] = 1;
-                    $order->fill($data);
+                if ($result->success){
+                    $changes['braintree_id'] = $result->transaction->id;
+                    $changes['status'] = 1;
+                    $order->fill($changes);
                     $order->save();
                     $user->points = $user->points - ($question_price - $difference);
                     $user->save();
@@ -577,10 +582,6 @@ class UserController extends Controller
                     Session::flash('flash_notification.question.level', 'success');
                     return Redirect::action('FrontendController@questions');
                 } else {
-                    $data['braintree_id'] = '';
-                    $data['status'] = 0;
-                    $order->fill($data);
-                    $order->save();
                     Session::flash('flash_notification.question.message', $result->message);
                     Session::flash('flash_notification.question.level', 'danger');
                     return Redirect::action('FrontendController@questions');
@@ -649,6 +650,181 @@ class UserController extends Controller
                 'scheme' => $scheme,
                 'token' => $creditCardToken
             ]);
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function checkoutCredits(Request $request, $id){
+        $scheme = PriceSchemes::findOrFail($id);
+        if($user = Auth::guard('user')->user()) {
+            if ($request->has('payment_method_nonce')) {
+                $nonceFromTheClient = $request->get('payment_method_nonce');
+                $order = new Orders();
+                $data = [
+                    'user_id' => $user->id,
+                    'question_id' => null,
+                    'type' => 'credits',
+                    'price_scheme_id' => $scheme->id,
+                    'status' => 0,
+                    'braintree_id' => ''
+                ];
+                $order->fill($data);
+                $order->save();
+                $result = Transaction::sale([
+                    'amount' => $scheme->price,
+                    'customFields' => [
+                        'order' => $order->id
+                    ],
+                    'options' => [
+                        'submitForSettlement' => true
+                    ],
+                    'paymentMethodNonce' => $nonceFromTheClient
+                ]);
+                if ($result->success){
+                    $changes['braintree_id'] = $result->transaction->id;
+                    $changes['status'] = 1;
+                    $order->fill($changes);
+                    $order->save();
+                    $user->points = $user->points + $scheme->credits;
+                    $user->save();
+                    Session::flash('flash_notification.credits.message', 'The payment was completed. Your current balance is '.$user->points.' credits. Please check your email for details.');
+                    Session::flash('flash_notification.credits.level', 'success');
+                    return Redirect::action('FrontendController@credits');
+                } else {
+                    Session::flash('flash_notification.credits.message', $result->message);
+                    Session::flash('flash_notification.credits.level', 'danger');
+                    return Redirect::action('FrontendController@credits');
+                }
+            } else {
+                return Redirect::action('FrontendController@profile');
+            }
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function payVoucher(Request $request){
+        $v = Validator::make($request->all(), [
+            'voucher_value' => 'required',
+            'receiver_email' => 'required|max:255',
+            'message' => 'max:500'
+        ]);
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors(), 'voucher')->withInput();
+        }
+        if($user = Auth::guard('user')->user()) {
+            if($scheme = PriceSchemes::findOrFail($request->get('voucher_value'))) {
+                $input = $request->all();
+                $input['user_id'] = $user->id;
+                $input['credits'] = $scheme->credits;
+                $input['price'] = $scheme->price;
+                if(array_key_exists('anonymous', $input) && $input['anonymous'] == 1){}else{
+                    $input['anonymous'] = 0;
+                }
+                $input['status'] = 0;
+                $input['code'] = bin2hex(random_bytes(4));
+                $input['url_key'] = bin2hex(random_bytes(20));
+                $voucher = new Vouchers();
+                $voucher->fill($input);
+                $voucher->save();
+                return Redirect::action('UserController@formPaymentVoucher', ['id' => $voucher->id]);
+            } else {
+                Session::flash('flash_notification.voucher.message', 'There was some errors in your form, please try again or contact us');
+                Session::flash('flash_notification.voucher.level', 'danger');
+                return Redirect::action('FrontendController@buyVoucher');
+            }
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function formPaymentVoucher($id){
+        $voucher = Vouchers::findOrFail($id);
+        if($user = Auth::guard('user')->user()){
+            $creditCardToken = ClientToken::generate();
+            return view('frontend/profile/payment-voucher')->with([
+                'user' => $user,
+                'voucher' => $voucher,
+                'token' => $creditCardToken
+            ]);
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function checkoutVoucher(Request $request, $id){
+        $voucher = Vouchers::findOrFail($id);
+        if($user = Auth::guard('user')->user()) {
+            if ($request->has('payment_method_nonce')) {
+                $nonceFromTheClient = $request->get('payment_method_nonce');
+                $order = new Orders();
+                $data = [
+                    'user_id' => $user->id,
+                    'question_id' => null,
+                    'type' => 'voucher',
+                    'price_scheme_id' => null,
+                    'voucher_id' => $voucher->id,
+                    'status' => 0,
+                    'braintree_id' => ''
+                ];
+                $order->fill($data);
+                $order->save();
+                $result = Transaction::sale([
+                    'amount' => $voucher->price,
+                    'customFields' => [
+                        'order' => $order->id
+                    ],
+                    'options' => [
+                        'submitForSettlement' => true
+                    ],
+                    'paymentMethodNonce' => $nonceFromTheClient
+                ]);
+                if ($result->success){
+                    $changes['braintree_id'] = $result->transaction->id;
+                    $changes['status'] = 1;
+                    $order->fill($changes);
+                    $order->save();
+                    $voucher->status = 1;
+                    $voucher->save();
+                    Session::flash('flash_notification.general.message', 'You payment was completed, please check your email for more info');
+                    Session::flash('flash_notification.general.level', 'success');
+                    return Redirect::action('FrontendController@notifications');
+                } else {
+                    Session::flash('flash_notification.question.message', $result->message);
+                    Session::flash('flash_notification.question.level', 'danger');
+                    return Redirect::back();
+                }
+            } else {
+                return Redirect::action('FrontendController@vouchers');
+            }
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function checkVoucher(Request $request){
+        $v = Validator::make($request->all(), [
+            'code' => 'required|max:10'
+        ]);
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors(), 'voucher')->withInput();
+        }
+        if($user = Auth::guard('user')->user()) {
+            $voucher = Vouchers::where(['code' => $request->get('code'), 'status' => 1])->first();
+            if ($voucher) {
+                $voucher->status = 2;
+                $voucher->save();
+                $user->points = $user->points + $voucher->credits;
+                $user->save();
+                Session::flash('flash_notification.general.message', 'Congratulations! You hve successfully used your '.$voucher->credits.' credits gift voucher.');
+                Session::flash('flash_notification.general.level', 'success');
+                return Redirect::action('FrontendController@notifications');
+            } else {
+                Session::flash('flash_notification.voucher.message', 'You have entered wrong voucher number');
+                Session::flash('flash_notification.voucher.level', 'danger');
+                return Redirect::action('FrontendController@vouchers');
+            }
         } else {
             return Redirect::action('FrontendController@index');
         }

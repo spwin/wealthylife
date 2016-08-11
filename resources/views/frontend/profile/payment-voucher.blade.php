@@ -12,15 +12,15 @@
                     </div>
                     <h4 class="uppercase mb16">Payment process</h4>
                     <div class="col-md-12 text-center col-sm-12">
-                        <h2 class="uppercase mb24 bold italic">{{ $scheme->credits }} Credits</h2>
-                        <p>Your are about to buy {{ $scheme->credits }} credits</p>
+                        <h2 class="uppercase mb24 bold italic">Voucher details</h2>
+                        {{ dump($voucher) }}
                         <hr class="visible-xs">
                     </div>
                     <div class="col-md-12 col-sm-12 text-center">
-                        <h2 class="uppercase mb24 bold italic">Price: £{{ $scheme->price }}</h2>
+                        <h2 class="uppercase mb24 bold italic">Price: £{{ $voucher->price }}</h2>
                         {!! Form::open([
                         'method' => 'POST',
-                        'action' => ['UserController@checkoutCredits', $scheme->id],
+                        'action' => ['UserController@checkoutVoucher', $voucher->id],
                         'class' => 'payment-form'
                         ]) !!}
                         <div id="payment-form"></div>

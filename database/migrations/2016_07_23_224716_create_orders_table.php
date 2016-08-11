@@ -20,6 +20,8 @@ class CreateOrdersTable extends Migration
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('set null');
             $table->integer('price_scheme_id')->nullable()->unsigned();
             $table->foreign('price_scheme_id')->references('id')->on('price_schemes')->onDelete('set null');
+            $table->integer('voucher_id')->nullable()->unsigned();
+            $table->foreign('voucher_id')->references('id')->on('vouchers')->onDelete('set null');
             $table->integer('status');
             $table->string('braintree_id');
             $table->enum('type', ['question', 'credits', 'vouchers']);

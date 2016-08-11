@@ -12,12 +12,24 @@
                             @include('frontend/elements/question')
                         </div>
                         <h4 class="uppercase mb16">Notifications</h4>
-                        @if (Session::has('flash_notification.question.message'))
-                            <div class="alert alert-{{ Session::get('flash_notification.question.level') }} alert-dismissible" role="alert">
+                        @if (count($errors->general) > 0)
+                            <div class="alert alert-danger alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
-                                {{ Session::get('flash_notification.question.message') }}
+                                <ul>
+                                    @foreach ($errors->general->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @if (Session::has('flash_notification.general.message'))
+                            <div class="alert alert-{{ Session::get('flash_notification.general.level') }} alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                {{ Session::get('flash_notification.general.message') }}
                             </div>
                         @endif
                         <table class="table notifications-table">

@@ -52,14 +52,14 @@
                                             'class' => 'general-profile'
                                         ]) !!}
                                             <div class="input-with-label text-left">
-                                                <h5 class="uppercase"><span class="text-red">*</span>Your Name:</h5>
+                                                <h5 class="uppercase"><span class="text-red">*</span> Your Name:</h5>
                                                 <div class="double-column">
                                                     {!! Form::text('first_name', null, ['class' => $errors->general->first('first_name', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'First name']) !!}
                                                     {!! Form::text('last_name', null, ['class' => $errors->general->first('last_name', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'Last name']) !!}
                                                 </div>
                                             </div>
                                             <div class="input-with-label text-left">
-                                                <h5 class="uppercase"><span class="text-red">*</span>Gender:</h5>
+                                                <h5 class="uppercase"><span class="text-red">*</span> Gender:</h5>
                                                 <div class="gender-profile {{ $errors->general->first('gender', 'radio-error ') }}">
                                                     <div>
                                                         <div class="radio-option {{ $user_data->gender == 'male' ? 'checked' : '' }}">

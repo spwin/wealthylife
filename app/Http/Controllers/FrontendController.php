@@ -304,4 +304,15 @@ class FrontendController extends Controller
     public function soon(){
         return view('frontend/pages/soon')->with([]);
     }
+
+    public function buyVoucher(){
+        if($user = Auth::guard('user')->user()){
+            $priceSchemes = PriceSchemes::where(['type' => 'vouchers'])->get();
+            return view('frontend/profile/buy-voucher')->with([
+                'user' => $user,
+                'schemes' => $priceSchemes
+            ]);
+        }
+        return Redirect::action('FrontendController@index');
+    }
 }

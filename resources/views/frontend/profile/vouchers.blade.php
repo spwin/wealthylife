@@ -11,53 +11,54 @@
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             @include('frontend/elements/question')
                         </div>
-                        <h4 class="uppercase mb16">Buy gift vouchers</h4>
-                        @if (Session::has('flash_notification.question.message'))
-                            <div class="alert alert-{{ Session::get('flash_notification.question.level') }} alert-dismissible" role="alert">
+                        <h4 class="uppercase mb16">Gift vouchers</h4>
+                        @if (count($errors->voucher) > 0)
+                            <div class="alert alert-danger alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
-                                {{ Session::get('flash_notification.question.message') }}
+                                <ul>
+                                    @foreach ($errors->voucher->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        @if (Session::has('flash_notification.voucher.message'))
+                            <div class="alert alert-{{ Session::get('flash_notification.voucher.level') }} alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                {{ Session::get('flash_notification.voucher.message') }}
                             </div>
                         @endif
                         <section class="pt-20px pb-20px">
                             <div class="row">
-                                <div class="col-md-4 col-sm-6">
+                                <div class="col-md-6">
                                     <div class="pricing-table pt-1 text-center">
                                         <p class="voucher-back"><i class="ti-gift"></i></p>
-                                        <H5 class="uppercase">1 question</H5>
-                                        <span class="price">£20</span>
-                                        <p class="lead">Gift of 20 credits</p>
-                                        <a class="btn btn-filled btn-lg" href="#">Get voucher</a>
-                                        <p>
-                                            Great gift for your loved one
-                                        </p>
+                                        <H5 class="uppercase">Go here to</H5>
+                                        <span class="price">Buy</span>
+                                        <p class="lead">£20 - £90 gift vouchers</p>
+                                        <p>Great gift for your loved one</p>
+                                        <a class="btn btn-filled btn-lg" href="{{ action('FrontendController@buyVoucher') }}">Make someone happy</a>
                                     </div>
                                     <!--end of pricing table-->
                                 </div>
-                                <div class="col-md-4 col-sm-6">
+                                <div class="col-md-6">
                                     <div class="pricing-table pt-1 text-center boxed">
                                         <p class="voucher-back"><i class="ti-gift"></i></p>
-                                        <H5 class="uppercase">3 questions</H5>
-                                        <span class="price">£55</span>
-                                        <p class="lead">Gift of 60 credits</p>
-                                        <a class="btn btn-filled btn-lg" href="#">Get voucher</a>
-                                        <p>
-                                            Great gift for your loved one
-                                        </p>
-                                    </div>
-                                    <!--end of pricing table-->
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="pricing-table pt-1 text-center emphasis">
-                                        <p class="voucher-back"><i class="ti-gift"></i></p>
-                                        <H5 class="uppercase">5 questions</H5>
-                                        <span class="price">£90</span>
-                                        <p class="lead">Gift of 100 credits</p>
-                                        <a class="btn btn-white btn-lg" href="#">Get voucher</a>
-                                        <p>
-                                            Great gift for your loved one
-                                        </p>
+                                        <H5 class="uppercase">Enter code to</H5>
+                                        <span class="price">Claim</span>
+                                        {!! Form::open([
+                                            'role' => 'form',
+                                            'url' => action('UserController@checkVoucher'),
+                                            'method' => 'POST',
+                                            'class' => 'login-profile'
+                                        ]) !!}
+                                        <p class="lead"><input type="text" name="code" class="voucher-claim" placeholder="Enter your code here"></p>
+                                        <input type="submit" class="btn btn-filled btn-lg voucher-check" value="Confirm and continue">
+                                        {!! Form::close() !!}
                                     </div>
                                     <!--end of pricing table-->
                                 </div>
