@@ -37,7 +37,7 @@
                                 <div class="col-md-4 col-sm-6">
                                     <div class="pricing-table pt-1 text-center boxed">
                                         <H5 class="uppercase">{{ $scheme->credits }} credits for</H5>
-                                        <span class="price">£{{ $scheme->price }}</span>
+                                        <span class="price">£{{ round($scheme->price) }}</span>
                                         <p class="lead">- {{ round(100 - ($scheme->price*100/$scheme->credits)) }}%</p>
                                         <p class="lead">{{ $scheme->questions }} questions</p>
                                         {!! Form::open([

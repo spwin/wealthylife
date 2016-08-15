@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Foundry Multi-purpose HTML Template</title>
+    <title>Your image and style consultations online | Stylesensei</title>
+    <meta name="description" content="Finding an answer to your style related questions has never been easier. With only few mouse clicks you can get great advice about your outfit from expert team.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ URL::to('/') }}/css/front-plugins.css" rel="stylesheet">
     <link href="{{ URL::to('/') }}/css/frontend.css" rel="stylesheet">
