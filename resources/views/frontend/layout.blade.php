@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Your image and style consultations online | Stylesensei</title>
+    <title>Professional image and style consultation online only £20</title>
     <meta name="description" content="Finding an answer to your style related questions has never been easier. With only few mouse clicks you can get great advice about your outfit from expert team.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{{ URL::to('/') }}/css/front-plugins.css" rel="stylesheet">
