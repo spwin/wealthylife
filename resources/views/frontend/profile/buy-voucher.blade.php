@@ -76,7 +76,7 @@
                                         <div class="col-md-4 col-sm-6">
                                             <div class="pricing-table pt-1 text-center {{ old('voucher_value') && old('voucher_value') == $scheme->id ? 'emphasis' : '' }}" data-id="{{ $scheme->id }}">
                                                 <H5 class="uppercase">{{ $scheme->questions }} question{{ $scheme->questions > 1 ? 's' : '' }}</H5>
-                                                <span class="price">£{{ round($scheme->price)`` }}</span>
+                                                <span class="price">£{{ round($scheme->price) }}</span>
                                                 <p class="lead">Gift of {{ $scheme->credits }} credits</p>
                                             </div>
                                         </div>
