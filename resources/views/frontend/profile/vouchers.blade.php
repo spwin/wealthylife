@@ -39,7 +39,7 @@
                                         <p class="voucher-back"><i class="ti-gift"></i></p>
                                         <H5 class="uppercase">Go here to</H5>
                                         <span class="price">Buy</span>
-                                        <p class="lead">£20 - £90 gift vouchers</p>
+                                        <p class="lead">£20 - £100 gift vouchers</p>
                                         <p>Great gift for your loved one</p>
                                         <a class="btn btn-filled btn-lg" href="{{ action('FrontendController@buyVoucher') }}">Make someone happy</a>
                                     </div>
