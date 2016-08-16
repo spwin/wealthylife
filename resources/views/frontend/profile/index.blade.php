@@ -17,8 +17,8 @@
                             Some info about profile edit
                         </p>--}}
                         <ul class="tabs">
-                            <li id="general">
-                                <a href="#">
+                            <li id="general-section">
+                                <a href="#general">
                                     <div class="tab-title">
                                         <span>General info</span>
                                     </div>
@@ -273,8 +273,8 @@
                                     </div>
                                 </div>
                             </li>
-                            <li id="login">
-                                <a href="#">
+                            <li id="login-section">
+                                <a href="#login">
                                     <div class="tab-title">
                                         <span>Login data</span>
                                     </div>
