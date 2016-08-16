@@ -35,6 +35,7 @@ class FrontendController extends Controller
         $view = view('frontend/pages/index')->with([
             'video' => $videos[array_rand($videos)]
         ])->render();
+
         //Cache::put('home', $view, 1200);
         return $view;
     }
@@ -281,12 +282,14 @@ class FrontendController extends Controller
             $input['name'] = 'Visitor';
         }
         $general_mail = Settings::where(['name' => 'email'])->first();
-        Mail::send('emails.contacts', ['input' => $input], function ($message) use ($input, $general_mail) {
-            $message->subject('StyleSensei Contact Form message');
+
+        Mail::send(trans('notifications.contacts.form.email'), ['input' => $input], function ($message) use ($input, $general_mail) {
+            $message->subject(trans('notifications.contacts.form.subject'));
             $message->from($input['email'], $input['name']);
             $message->to($general_mail->value);
             $message->priority('high');
         });
+
         Session::flash('flash_notification.general.message', 'Your message was successfully sent!');
         Session::flash('flash_notification.general.level', 'success');
         return Redirect::action('FrontendController@contacts');
