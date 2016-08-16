@@ -160,7 +160,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
         Laravel\Cashier\CashierServiceProvider::class,
-	Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+	    Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Roumen\Sitemap\SitemapServiceProvider::class,
     ],
 
     /*
@@ -211,7 +213,8 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'Socialize' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
-	'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+	    'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

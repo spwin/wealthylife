@@ -40,7 +40,7 @@
                                         <table class="table">
                                             @foreach($user->questions()->where(['status' => 1])->orderBy('created_at', 'DESC')->get() as $question)
                                                 <tr>
-                                                    <td><img width="25" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                    <td><img width="50" src="{{ $question->image()->first() ? url()->to('/').'/photo/50x30/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
                                                 </tr>
@@ -67,7 +67,7 @@
                                         <table class="table">
                                             @foreach($user->questions()->where(['status' => 2])->orderBy('answered_at', 'DESC')->get() as $question)
                                                 <tr {{ $question->answer()->first()->seen ? '' : 'class=bold' }}>
-                                                    <td><img width="25" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                    <td><img width="50" src="{{ $question->image()->first() ? url()->to('/').'/photo/50x30/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
                                                     <td class="w170px"><a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="btn btn-sm show-answer-btn">Show answer</a></td>
@@ -95,7 +95,7 @@
                                         <table class="table">
                                             @foreach($user->questions()->where(['status' => 0])->orderBy('created_at', 'DESC')->get() as $question)
                                                 <tr>
-                                                    <td><img width="25" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                    <td><img width="50" src="{{ $question->image()->first() ? url()->to('/').'/photo/50x30/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
                                                     <td class="w170px">

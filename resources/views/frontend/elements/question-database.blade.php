@@ -20,7 +20,7 @@
     <div class="image-upload">
         <div class="drop-zone left {{ $question->image()->first() ? '' : 'empty' }}" onclick="uploadImage(this);">
             <div class="question-image text-left">
-                <img src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ $question->image()->first() ? url()->to('/').'/photo/200x200/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
