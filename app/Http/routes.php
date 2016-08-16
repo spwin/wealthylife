@@ -10,6 +10,40 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+// IMAGES CACHE
+Route::get('/photo/{size}/{name}', function($size = NULL, $name = NULL){
+    if(!is_null($size) && !is_null($name)){
+        $size = explode('x', $size);
+        $cache_image = Image::cache(function($image) use($size, $name){
+            return $image->make(url('uploads/questions/'.$name))->resize($size[0], $size[1], function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+        }, 1000);
+
+        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+    } else {
+        abort(404);
+    }
+});
+
+Route::get('/temp/{size}/{dir}/{name}', function($size = NULL, $dir = NULL, $name = NULL){
+    if(!is_null($size) && !is_null($name)){
+        $size = explode('x', $size);
+        $cache_image = Image::cache(function($image) use($size, $dir, $name){
+            return $image->make(url('uploads/session/temp/'.$dir.'/'.$name))->resize($size[0], $size[1], function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+        }, 1000);
+
+        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+    } else {
+        abort(404);
+    }
+});
+
+Route::get('sitemap.xml', 'FrontendController@sitemap');
 
 // FRONTEND
 Route::get('soon', 'FrontendController@soon');

@@ -12,24 +12,32 @@ use App\UserData;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Braintree\ClientToken;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class FrontendController extends Controller
 {
     public function index(){
+        /*$page = Cache::get('home');
+        if($page != null){
+            return $page;
+        }*/
         $videos = ['market', 'tree', 'yoga', 'sky', 'bike'];
-        return view('frontend/pages/index')->with([
+        $view = view('frontend/pages/index')->with([
             'video' => $videos[array_rand($videos)]
-        ]);
+        ])->render();
+
+        //Cache::put('home', $view, 1200);
+        return $view;
     }
 
     function getRegionByIp($data){
@@ -98,7 +106,7 @@ class FrontendController extends Controller
             } else {
                 $question = array();
                 $question['content'] = session()->get('question.content');
-                $question['image'] = session()->has('question.image') ? 'uploads/session/temp/'.session()->get('question.image') : 'images/avatars/no_image.png';
+                $question['image'] = session()->has('question.image') ? 'temp/300x300/'.session()->get('question.image') : 'images/avatars/no_image.png';
                 $question['status'] = session()->get('question.status');
                 return view('frontend/pages/authorize-question')->with([
                     'question' => $question
@@ -274,12 +282,14 @@ class FrontendController extends Controller
             $input['name'] = 'Visitor';
         }
         $general_mail = Settings::where(['name' => 'email'])->first();
-        Mail::send('emails.contacts', ['input' => $input], function ($message) use ($input, $general_mail) {
-            $message->subject('StyleSensei Contact Form message');
+
+        Mail::send(trans('notifications.contacts.form.email'), ['input' => $input], function ($message) use ($input, $general_mail) {
+            $message->subject(trans('notifications.contacts.form.subject'));
             $message->from($input['email'], $input['name']);
             $message->to($general_mail->value);
             $message->priority('high');
         });
+
         Session::flash('flash_notification.general.message', 'Your message was successfully sent!');
         Session::flash('flash_notification.general.level', 'success');
         return Redirect::action('FrontendController@contacts');
@@ -314,5 +324,16 @@ class FrontendController extends Controller
             ]);
         }
         return Redirect::action('FrontendController@index');
+    }
+
+    public function sitemap(){
+        $sitemap = App::make("sitemap");
+
+        $sitemap->setCache('laravel.sitemap', 60);
+
+        if (!$sitemap->isCached()) {
+            $sitemap->add(URL::to('soon'), date('c', time()), '1.0', 'weekly');
+        }
+        return $sitemap->render('xml');
     }
 }

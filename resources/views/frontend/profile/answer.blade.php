@@ -17,7 +17,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <a target="_blank" href="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : '#' }}">
-                                        <img src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}">
+                                        <img src="{{ $question->image()->first() ? url()->to('/').'/photo/300x200/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}">
                                     </a>
                                 </div>
                                 <div class="col-md-8">

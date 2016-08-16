@@ -19,7 +19,7 @@
     <div class="image-upload">
         <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
             <div class="question-image text-left">
-                <img src="{{ session()->has('question.image') ? url()->to('/').'/uploads/session/temp/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/200x200/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">

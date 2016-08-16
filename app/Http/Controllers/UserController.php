@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Helpers;
 use App\Images;
 use App\Orders;
 use App\PriceSchemes;
@@ -21,7 +22,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -92,12 +92,7 @@ class UserController extends Controller
         ]);
         $confirmation->save();
 
-        Mail::send('emails.new_user', ['user' => $user_data, 'key' => $key], function ($message) use ($user) {
-            $message->subject('Email confirmation link');
-            $message->from('spwinwk@gmail.com', 'Style Sensei');
-            $message->to($user->email);
-            $message->priority('high');
-        });
+        Helpers::sendEmail('notifications.registration.confirmation.', $user->email, $user, ['user' => $user_data, 'key' => $key]);
 
         $request->session()->flash('modal', 'success-signup');
 
