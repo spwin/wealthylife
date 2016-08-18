@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answers;
 use App\Helpers\Helpers;
 use App\Images;
 use App\Orders;
@@ -823,5 +824,29 @@ class UserController extends Controller
         } else {
             return Redirect::action('FrontendController@index');
         }
+    }
+
+    public function rateAnswer(Request $request, $id){
+        $v = Validator::make($request->all(), [
+            'comment' => 'max:500'
+        ]);
+        $v->after(function ($v) use ($request) {
+            if (!$request->has('stars') && !$request->get('comment')) {
+                $v->errors()->add('answer', 'Please fill at least one of the above to submit!');
+            }
+        });
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors(), 'answer')->withInput();
+        }
+        $answer = Answers::findOrFail($id);
+        $answer->fill([
+            'rated' => 1,
+            'rating' => $request->get('stars'),
+            'feedback' => $request->get('comment')
+        ]);
+        $answer->save();
+        Session::flash('flash_notification.answer.message', 'Thank you for helping us to improve!');
+        Session::flash('flash_notification.answer.level', 'success');
+        return Redirect::action('FrontendController@viewAnswer', ['id' => $id]);
     }
 }

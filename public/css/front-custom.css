@@ -210,7 +210,6 @@ p.question-body{
 }
 
 p.question-body img{
-    width: 50%;
     padding: 0 0 10px 0;
     display: block;
     margin: auto;
@@ -1017,5 +1016,46 @@ span.text-red{
 .btn:focus{
     color: inherit;
     text-decoration: none;
+}
+
+.rating-wrapper {
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+}
+
+.rating-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+}
+
+.rating-star:hover,
+.rating-star:hover ~ .rating-star {
+    background-position: 0 0;
+}
+
+.rating-wrapper:hover .rating-star:hover,
+.rating-wrapper:hover .rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+}
+
+.rating-star,
+.rating-wrapper:hover .rating-star {
+    float: right;
+    display: block;
+    width: 20px;
+    height: 16px;
+    cursor: pointer;
+    background: url('../images/stars.png') 0 -16px no-repeat;
+}
+
+.answer-rating input[type="submit"]{
+    width: 150px;
 }
 /*# sourceMappingURL=front-custom.css.map */

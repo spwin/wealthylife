@@ -20,7 +20,6 @@ Route::get('/photo/{size}/{name}', function($size = NULL, $name = NULL){
                 $c->upsize();
             });
         }, 1000);
-
         return Response::make($cache_image, 200, ['Content-Type' => 'image']);
     } else {
         abort(404);
@@ -36,7 +35,6 @@ Route::get('/temp/{size}/{dir}/{name}', function($size = NULL, $dir = NULL, $nam
                 $c->upsize();
             });
         }, 1000);
-
         return Response::make($cache_image, 200, ['Content-Type' => 'image']);
     } else {
         abort(404);
@@ -98,6 +96,7 @@ Route::group(['middleware' => ['ip']], function () {
         Route::post('{id}/points-checkout', 'UserController@pointsPayment');
         Route::post('credits-payment', 'UserController@paymentCredits');
         Route::post('{id}/checkout-credits', 'UserController@checkoutCredits');
+        Route::post('{id}/rate-answer', 'UserController@rateAnswer');
         Route::group(['prefix' => 'vouchers'], function () {
             Route::get('/', 'FrontendController@vouchers');
             Route::get('buy', 'FrontendController@buyVoucher');

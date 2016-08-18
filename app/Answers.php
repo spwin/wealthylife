@@ -12,7 +12,7 @@ class Answers extends Model
      * @var array
      */
     protected $fillable = [
-        'question_id', 'consultant_id', 'answer', 'seen', 'ip', 'payroll_id'
+        'question_id', 'consultant_id', 'answer', 'seen', 'ip', 'payroll_id', 'rated', 'rating', 'feedback'
     ];
 
     public function question(){

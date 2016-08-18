@@ -22,6 +22,9 @@ class CreateAnswersTable extends Migration
             $table->foreign('payroll_id')->references('id')->on('payroll')->onDelete('set null');
             $table->text('answer');
             $table->boolean('seen');
+            $table->boolean('rated')->default(0);
+            $table->integer('rating')->default(0);
+            $table->text('feedback');
             $table->string('ip');
             $table->timestamps();
         });
