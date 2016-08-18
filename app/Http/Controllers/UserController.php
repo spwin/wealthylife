@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answers;
+use App\Article;
 use App\Helpers\Helpers;
 use App\Images;
 use App\Orders;
@@ -826,6 +827,7 @@ class UserController extends Controller
         }
     }
 
+
     public function rateAnswer(Request $request, $id){
         $v = Validator::make($request->all(), [
             'comment' => 'max:500'
@@ -848,5 +850,133 @@ class UserController extends Controller
         Session::flash('flash_notification.answer.message', 'Thank you for helping us to improve!');
         Session::flash('flash_notification.answer.level', 'success');
         return Redirect::action('FrontendController@viewAnswer', ['id' => $id]);
+    }
+
+    public function createArticle(Request $request){
+        if($user = Auth::guard('user')->user()) {
+            $v = Validator::make($request->all(), [
+                'title' => 'required|max:255|unique:article,title',
+                'image' => 'required|image|mimes:jpeg,png',
+                'content' => 'required'
+            ]);
+            $v->after(function ($v) use ($request) {
+                if ($request->file('image') && $request->file('image')->getError()) {
+                    $v->errors()->add('image', 'The image may not be greater than ' . $this->max_filesize . ' kilobytes.');
+                }
+
+                if(str_word_count(strip_tags($request->get('content'))) > 500){
+                    $v->errors()->add('content', 'Content field must not exceed 500 words.');
+                }
+            });
+            if ($v->fails()) {
+                return Redirect::back()->withErrors($v->errors(), 'article')->withInput();
+            }
+
+            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                $destinationPath = 'uploads/blog';
+                $fileName = 'user' . $user->id . '-a' . '-' . $request->file('image')->getClientOriginalName();
+                $img = Image::make($request->file('image'));
+                $img->save($destinationPath . '/' . $fileName, 90);
+                $image_data['filename'] = $fileName;
+            } else {
+                $image_data['filename'] = 'no_image.png';
+            }
+
+            $image_data['path'] = '/uploads/blog/';
+            $image = new Images();
+            $image->fill($image_data);
+            $image->save();
+
+            $input = $request->all();
+            $input['url'] = $this->generateUrl($input['title']);
+            $input['user_id'] = $user->id;
+            $input['image_id'] = $image->id;
+
+            $article = new Article();
+            $article->fill($input);
+            $article->save();
+
+            Session::flash('flash_notification.article.message', 'Your Blog entry was saved, please check it once again and submit for review.');
+            Session::flash('flash_notification.article.level', 'success');
+
+            return Redirect::action('FrontendController@previewArticle', ['id' => $article->id]);
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    function generateUrl($title){
+        $slug = strtolower($title);
+        $slug = preg_replace('/\W+/','-',$slug);
+        $slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $slug);
+        $slug = ltrim($slug, '-');
+        return $slug;
+    }
+
+    public function saveArticle(Request $request, $id){
+        if($user = Auth::guard('user')->user()) {
+            $article = Article::findOrFail($id);
+            $v = Validator::make($request->all(), [
+                'title' => 'required|max:255',
+                'image' => 'image|mimes:jpeg,png',
+                'content' => 'required'
+            ]);
+            $v->after(function ($v) use ($request) {
+                if ($request->file('image') && $request->file('image')->getError()) {
+                    $v->errors()->add('image', 'The image may not be greater than ' . $this->max_filesize . ' kilobytes.');
+                }
+
+                if(str_word_count(strip_tags($request->get('content'))) > 500){
+                    $v->errors()->add('content', 'Content field must not exceed 500 words.');
+                }
+            });
+            if ($v->fails()) {
+                return Redirect::back()->withErrors($v->errors(), 'article')->withInput();
+            }
+
+            $input = $request->all();
+
+            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+                $destinationPath = 'uploads/blog';
+                $fileName = 'user' . $user->id . '-a' . $article->id . '-' . $request->file('image')->getClientOriginalName();
+                $img = Image::make($request->file('image'));
+                $img->save($destinationPath . '/' . $fileName, 90);
+                $image_data['filename'] = $fileName;
+                $image_data['path'] = '/uploads/blog/';
+                $image = new Images();
+                $image->fill($image_data);
+                $image->save();
+                $input['image_id'] = $image->id;
+            }
+
+            $input['hide_name'] = $request->has('hide_name') ? 1 : 0;
+            $input['hide_email'] = $request->has('hide_email') ? 1 : 0;
+            $input['disable_comments'] = $request->has('disable_comments') ? 1 : 0;
+
+            $article->fill($input);
+            $article->save();
+
+            Session::flash('flash_notification.article.message', 'Your Blog entry has been edited, please check it once again before submitting for review.');
+            Session::flash('flash_notification.article.level', 'success');
+
+            return Redirect::action('FrontendController@previewArticle', ['id' => $article->id]);
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function submitArticle($id){
+        if($user = Auth::guard('user')->user()) {
+            $article = Article::findOrFail($id);
+            $article->status = 1;
+            $article->save();
+
+            Session::flash('flash_notification.article.message', 'Thank you! Your Blog entry was submitted for review. You will be notified if it will get public.');
+            Session::flash('flash_notification.article.level', 'success');
+
+            return Redirect::action('FrontendController@articles', ['#submitted']);
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
     }
 }

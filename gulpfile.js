@@ -59,6 +59,9 @@ elixir(function(mix) {
         '../plugins/datepicker/datepicker3.css'
     ], 'public/css/front-plugins.css');
     mix.styles([
+        'frontend/tinymce.css'
+    ], 'public/css/tinymce.css')
+    mix.styles([
         'frontend/custom.css'
     ], 'public/css/front-custom.css')
         .copy('resources/assets/css/frontend/fonts.css', 'public/css');

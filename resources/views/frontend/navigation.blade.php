@@ -17,8 +17,11 @@
                         <li {{ (Request::is('/') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@index') }}">Home</a>
                         </li>
+                        <li {{ (Request::is('*blog*') ? 'class=current' : '') }}>
+                            <a href="{{ action('FrontendController@blog') }}">Blog</a>
+                        </li>
                         <li {{ (Request::is('*services*') ? 'class=current' : '') }}>
-                            <a href="{{ action('FrontendController@services') }}">Services</a>
+                            <a href="{{ action('FrontendController@services') }}">About</a>
                         </li>
                         <li {{ (Request::is('*about-us*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@about') }}">Meet us</a>
@@ -89,6 +92,9 @@
                                     </li>
                                     <li>
                                         <a href="{{ action('FrontendController@questions') }}">My questions</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ action('FrontendController@articles') }}">Blog entries</a>
                                     </li>
                                     <li>
                                         <a href="{{ action('FrontendController@credits') }}">Buy credits</a>

@@ -29,4 +29,16 @@ class Helpers
         });
     }
 
+    public static function getExcerpt($max, $string){
+        if(strlen($string) > $max){
+            $excerpt = substr($string, 0, $max);
+            $lastSpace = strrpos($excerpt, ' ');
+            $excerpt = substr($excerpt, 0, $lastSpace);
+            $excerpt .= '...';
+        } else {
+            $excerpt = $string;
+        }
+        return $excerpt;
+    }
+
 }
