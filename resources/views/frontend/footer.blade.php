@@ -36,17 +36,17 @@
                 <ul class="list-inline social-list">
                     <li>
                         <a href="#">
+                            <i class="ti-twitter-alt"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
                             <i class="ti-facebook"></i>
                         </a>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="ti-pinterest"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="ti-twitter-alt"></i>
+                            <i class="ti-instagram"></i>
                         </a>
                     </li>
                 </ul>
