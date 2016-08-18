@@ -25,7 +25,7 @@
                     <a href="{{ action('FrontendController@questions') }}"><i class="ti-arrow-right"></i> My questions</a>
                 @endif
             </li>
-            {{--<li {{ (Request::is('*profile/articles*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@articles') }}"><i class="ti-arrow-right"></i> My articles</a></li>--}}
+            <li {{ (Request::is('*profile/articles*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@articles') }}"><i class="ti-arrow-right"></i> Blog entries</a></li>
             <li {{ (Request::is('*profile/credits*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@credits') }}"><i class="ti-arrow-right"></i> Buy credits</a></li>
             <li {{ (Request::is('*profile/vouchers*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@vouchers') }}"><i class="ti-arrow-right"></i> Gift vouchers</a></li>
         </ul>
@@ -37,8 +37,8 @@
             <li class="title balance">Balance: £{{ $user->points }}</li>
             <li>Member since: {{ date('d M, Y', strtotime($user->created_at)) }}</li>
             <li>Questions asked: {{ $user->questions() ? $user->questions()->where('status', '>' , 0)->count() : 0 }}</li>
-            {{--<li>Comments left: {{ $user->questions() ? $user->questions()->count() : 0 }}</li>
-            <li>Articles written: {{ $user->questions() ? $user->questions()->count() : 0 }}</li>--}}
+            <li>Articles published: {{ $user->articles()->where(['status' => 2])->get() ? $user->articles()->where(['status' => 2])->get()->count() : 0 }}</li>
+            {{--<li>Comments left: {{ $user->questions() ? $user->questions()->count() : 0 }}</li>--}}
         </ul>
     </div>
 </div>

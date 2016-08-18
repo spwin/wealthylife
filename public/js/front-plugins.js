@@ -3212,11 +3212,10 @@ var mr_cookies = {
         });
     });
     */
-
-    $('.display-after-load').show();
-
 })();
-
+window.onload = function() {
+    $('.display-after-load').show();
+};
 // Question clear
 function clearForm(form_name, e, url, token, image){
     e.preventDefault();
@@ -3253,6 +3252,15 @@ function clearImage(form_name, e, url, token, image){
             form.find('.question-image img').attr('src', image);
         }
     });
+}
+
+function clearArticleImage(form_name, e, image){
+    e.preventDefault();
+    var form = $('.'+form_name);
+    var input = form.find('.image-input');
+    input.replaceWith( input = input.clone(true) );
+    form.find('.drop-article-zone').addClass('empty');
+    form.find('.article-image img').attr('src', image);
 }
 
 function clearEditedImage(form_name, e, image){
@@ -3298,6 +3306,27 @@ function openModal(type){
 function readURL(defined, input, defaultUrl) {
     var img = $('.image-preview');
     var container = $('.drop-zone');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            container.removeClass('empty');
+            img.attr('src', e.target.result);
+            img.show();
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        if(!defined){
+            img.hide();
+            container.addClass('empty');
+        }
+        img.attr('src', defaultUrl);
+    }
+}
+
+function readArticleURL(defined, input, defaultUrl) {
+    var img = $('.image-article-preview');
+    var container = $('.drop-article-zone');
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {

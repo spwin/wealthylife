@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Images;
 use App\Notifications;
 use App\PriceSchemes;
@@ -231,10 +232,23 @@ class FrontendController extends Controller
         return Redirect::action('FrontendController@index');
     }
 
+    public function newArticle(){
+        if($user = Auth::guard('user')->user()){
+            $article = new Article();
+            return view('frontend/profile/new-article')->with([
+                'user' => $user,
+                'article' => $article
+            ]);
+        }
+        return Redirect::action('FrontendController@index');
+    }
+
     public function articles(){
         if($user = Auth::guard('user')->user()){
+            $articles = Article::where(['user_id' => $user->id])->get();
             return view('frontend/profile/articles')->with([
-                'user' => $user
+                'user' => $user,
+                'articles' => $articles
             ]);
         }
         return Redirect::action('FrontendController@index');
@@ -335,5 +349,27 @@ class FrontendController extends Controller
             $sitemap->add(URL::to('soon'), date('c', time()), '1.0', 'weekly');
         }
         return $sitemap->render('xml');
+    }
+
+    public function previewArticle($id){
+        if($user = Auth::guard('user')->user()){
+            $article = Article::findOrFail($id);
+            return view('frontend/profile/preview-article')->with([
+                'user' => $user,
+                'article' => $article
+            ]);
+        }
+        return Redirect::action('FrontendController@index');
+    }
+
+    public function editArticle($id){
+        if($user = Auth::guard('user')->user()){
+            $article = Article::findOrFail($id);
+            return view('frontend/profile/edit-article')->with([
+                'user' => $user,
+                'article' => $article
+            ]);
+        }
+        return Redirect::action('FrontendController@index');
     }
 }

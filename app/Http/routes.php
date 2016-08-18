@@ -11,6 +11,22 @@
 |
 */
 // IMAGES CACHE
+Route::get('/blog/{size}/{name}', function($size = NULL, $name = NULL){
+    if(!is_null($size) && !is_null($name)){
+        $size = explode('x', $size);
+        $cache_image = Image::cache(function($image) use($size, $name){
+            return $image->make(url('uploads/blog/'.$name))->resize($size[0], $size[1], function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+        }, 1000);
+
+        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+    } else {
+        abort(404);
+    }
+});
+
 Route::get('/photo/{size}/{name}', function($size = NULL, $name = NULL){
     if(!is_null($size) && !is_null($name)){
         $size = explode('x', $size);
@@ -86,7 +102,15 @@ Route::group(['middleware' => ['ip']], function () {
         Route::get('notifications', 'FrontendController@notifications');
         Route::get('notifications/{id}', 'FrontendController@showNotification');
         Route::get('questions', 'FrontendController@questions');
-        Route::get('articles', 'FrontendController@articles');
+        Route::group(['prefix' => 'articles'], function () {
+            Route::get('/', 'FrontendController@articles');
+            Route::get('new', 'FrontendController@newArticle');
+            Route::get('{id}/preview', 'FrontendController@previewArticle');
+            Route::get('{id}/edit', 'FrontendController@editArticle');
+            Route::post('create', 'UserController@createArticle');
+            Route::post('{id}/save', 'UserController@saveArticle');
+            Route::post('{id}/submit', 'UserController@submitArticle');
+        });
         Route::get('credits', 'FrontendController@credits');
         Route::get('logout', 'Auth\AuthController@getUserLogout');
         Route::post('{id}/question-delete', 'UserController@deleteQuestion');

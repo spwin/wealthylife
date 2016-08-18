@@ -91,6 +91,9 @@
                                         <a href="{{ action('FrontendController@questions') }}">My questions</a>
                                     </li>
                                     <li>
+                                        <a href="{{ action('FrontendController@articles') }}">Blog entries</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ action('FrontendController@credits') }}">Buy credits</a>
                                     </li>
                                     <li>
