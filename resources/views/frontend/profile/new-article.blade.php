@@ -12,7 +12,7 @@
                             @include('frontend/elements/question')
                         </div>
                         <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@articles') }}"><i class="ti-arrow-left"></i> Back</a></h4>
-                        <h4 class="uppercase mb16">My Blog</h4>
+                        <h4 class="uppercase mb16">Create blog entry</h4>
                         <div class="col-md-12">
                             <p>
                                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.

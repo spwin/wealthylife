@@ -17,6 +17,9 @@
                         <li {{ (Request::is('/') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@index') }}">Home</a>
                         </li>
+                        <li {{ (Request::is('*blog*') ? 'class=current' : '') }}>
+                            <a href="{{ action('FrontendController@blog') }}">Blog</a>
+                        </li>
                         <li {{ (Request::is('*services*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@services') }}">About</a>
                         </li>

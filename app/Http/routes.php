@@ -67,7 +67,7 @@ Route::group(['middleware' => ['ip']], function () {
     Route::get('/', 'FrontendController@index');
 
     Route::get('email-confirm/{key}', 'UserController@confirmation');
-    /*Route::get('blog', 'FrontendController@blog');*/
+    Route::get('blog', 'FrontendController@blog');
     Route::get('contact-us', 'FrontendController@contacts');
     Route::get('services', 'FrontendController@services');
     Route::get('privacy-policy', 'FrontendController@privacy');
