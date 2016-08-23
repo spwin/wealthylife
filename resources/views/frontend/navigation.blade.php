@@ -20,11 +20,11 @@
                         <li {{ (Request::is('*blog*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@blog') }}">Blog</a>
                         </li>
-                        <li {{ (Request::is('*services*') ? 'class=current' : '') }}>
-                            <a href="{{ action('FrontendController@services') }}">About</a>
+                        <li {{ (Request::is('*about*') ? 'class=current' : '') }}>
+                            <a href="{{ action('FrontendController@about') }}">About</a>
                         </li>
-                        <li {{ (Request::is('*about-us*') ? 'class=current' : '') }}>
-                            <a href="{{ action('FrontendController@about') }}">Meet us</a>
+                        <li {{ (Request::is('*the-team*') ? 'class=current' : '') }}>
+                            <a href="{{ action('FrontendController@team') }}">The Team</a>
                         </li>
                         {{--<li>
                             <a href="#">FAQ</a>
@@ -35,7 +35,7 @@
                     </ul>
                 </div>
                 @if($user = Auth::guard('user')->user())
-                    @php($notifications = $user->notifications()->where(['seen' => 0])->get())
+                    @php($notifications = $user->notifications()->where(['seen' => 0])->orderBy('created_at', 'DESC')->get())
                     <div class="module widget-handle cart-widget-handle left">
                         <div class="cart">
                             <i class="ti-bell"></i>
@@ -56,7 +56,7 @@
                                                     <div class="description">
                                                         <span class="product-title">
                                                             @if($notification->type == 'admin')
-                                                                <i class="ti-control-record"></i>
+                                                                <i class="ti-crown"></i>
                                                             @else
                                                                 <i class="ti-flag-alt"></i>
                                                             @endif

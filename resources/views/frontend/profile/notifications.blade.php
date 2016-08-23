@@ -33,7 +33,7 @@
                             </div>
                         @endif
                         <table class="table notifications-table">
-                            @foreach($user->notifications()->orderBy('seen', 'DESC`')->orderBy('created_at', 'DESC')->get() as $notification)
+                            @foreach($user->notifications()->orderBy('created_at', 'DESC')->get() as $notification)
                                 <tr {{ $notification->seen ? '' : 'class=bold' }}>
                                     <td class="w170px"><a href="{{ action('FrontendController@showNotification', ['id' => $notification->id]) }}">{{ date('d M, Y H:i', strtotime($notification->created_at)) }}</a></td>
                                     <td><a href="{{ action('FrontendController@showNotification', ['id' => $notification->id]) }}">{{ $notification->subject }}</a></td>

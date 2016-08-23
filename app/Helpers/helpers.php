@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Notifications;
 use App\Settings;
 use Illuminate\Support\Facades\Mail;
 
@@ -16,8 +17,23 @@ class Helpers
         }
     }
 
-    public static function sendNotification($type, $id, $params = []){
-
+    public static function sendNotification($type, $user, $params = []){
+        $notification = new Notifications();
+        $notification->fill([
+            'user_id' => $user->id,
+            'importance' => 1,
+            'type' => 'system',
+            'subject' => trans($type.'topic', $params),
+            'body' => trans($type.'content', $params),
+            'seen' => 0,
+            'email' => 0
+        ]);
+        /*
+         * echo trans('messages.welcome', ['name' => 'dayle']);
+            'welcome' => 'Welcome, :NAME', // Welcome, DAYLE
+            'goodbye' => 'Goodbye, :Name', // Goodbye, Dayle
+         */
+        $notification->save();
     }
 
     public static function sendEmail($type, $email, $user, $params = []){

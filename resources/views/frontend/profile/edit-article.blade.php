@@ -45,6 +45,18 @@
                                     'class' => 'create-article'
                                 ]) !!}
 
+                                <div class="feature feature-3 feature-4 bordered">
+                                    <div class="left">
+                                        <i class="ti-announcement icon-lg warning"></i>
+                                    </div>
+                                    <div class="right">
+                                        <h5 class="uppercase mb16">Review will be required</h5>
+                                        <p>
+                                            Keep in mind Your blog entry needs to be reviewed again before publishing once you will make changes.
+                                        </p>
+                                    </div>
+                                </div>
+
                                 <div class="input-with-label text-left">
                                     <h5 class="uppercase"><span class="text-red">*</span> Title:</h5>
                                     {!! Form::text('title', null, ['class' => $errors->general->first('title', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'Title']) !!}
@@ -107,17 +119,7 @@
                                     </div>
                                     <div class="clear"></div>
                                 </div>
-                                <div class="feature feature-3 feature-4 bordered">
-                                    <div class="left">
-                                        <i class="ti-announcement icon-lg warning"></i>
-                                    </div>
-                                    <div class="right">
-                                        <h5 class="uppercase mb16">Review will be required</h5>
-                                        <p>
-                                            Keep in mind Your blog entry needs to be reviewed again before publishing once you will make changes.
-                                        </p>
-                                    </div>
-                                </div>
+
                                 <div class="pull-right">
                                     <input type="submit" class="btn profile-button" value="Save and Preview">
                                 </div>

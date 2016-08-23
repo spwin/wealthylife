@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Images;
 use App\Notifications;
+use App\PasswordResets;
 use App\PriceSchemes;
 use App\Questions;
 use App\Settings;
@@ -13,6 +14,7 @@ use App\UserData;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -219,8 +221,15 @@ class FrontendController extends Controller
 
     public function questions(){
         if($user = Auth::guard('user')->user()){
+            $per_page = 15;
+            $pending = $user->questions()->with('image')->where(['status' => 1])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'pending_page', null);
+            $answered = $user->questions()->with('image')->where(['status' => 2])->orderBy('answered_at', 'DESC')->paginate($per_page, ['*'], 'answered_page', null);
+            $drafts = $user->questions()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
             return view('frontend/profile/questions')->with([
-                'user' => $user
+                'user' => $user,
+                'pending' => $pending,
+                'answered' => $answered,
+                'drafts' => $drafts
             ]);
         }
         return Redirect::action('FrontendController@index');
@@ -239,10 +248,17 @@ class FrontendController extends Controller
 
     public function articles(){
         if($user = Auth::guard('user')->user()){
+            $per_page = 10;
             $articles = Article::where(['user_id' => $user->id])->get();
+            $published = $user->articles()->with('image')->where(['status' => 3])->orderBy('published_at', 'DESC')->paginate($per_page, ['*'], 'published_page', null);
+            $submitted = $user->articles()->with('image')->where(['status' => 1])->orWhere(['status' => 2])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'submitted_page', null);
+            $drafts = $user->articles()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
             return view('frontend/profile/articles')->with([
                 'user' => $user,
-                'articles' => $articles
+                'articles' => $articles,
+                'published' => $published,
+                'submitted' => $submitted,
+                'drafts' => $drafts
             ]);
         }
         return Redirect::action('FrontendController@index');
@@ -303,12 +319,12 @@ class FrontendController extends Controller
         return Redirect::action('FrontendController@contacts');
     }
 
-    public function services(){
-        return view('frontend/pages/services')->with([]);
+    public function about(){
+        return view('frontend/pages/about-us')->with([]);
     }
 
-    public function about(){
-        return view('frontend/pages/about')->with([]);
+    public function team(){
+        return view('frontend/pages/team')->with([]);
     }
 
     public function privacy(){
@@ -385,5 +401,23 @@ class FrontendController extends Controller
 
     public function passwordReset(){
         return view('frontend/pages/reset-password')->with([]);
+    }
+
+    public function newPassword($token = ''){
+        if($token){
+            $check = PasswordResets::where(['token' => $token])->first();
+            if($check && $user = User::findOrFail($check->user_id)){
+                return view('frontend/pages/new-password')->with([
+                    'user' => $user
+                ]);
+            } else {
+                abort(404);
+            }
+        }
+        return Redirect::action('FrontendController@index');
+    }
+
+    public function changedPassword(){
+        return view('frontend/pages/password-changed')->with([]);
     }
 }

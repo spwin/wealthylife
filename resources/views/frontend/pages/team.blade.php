@@ -1,4 +1,6 @@
 @extends('frontend/frame')
+@section('page-title', trans('seo.team.title'))
+@section('meta-description', trans('seo.team.description'))
 @section('nav-style', 'nav-authorize-question')
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
@@ -8,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h2 class="uppercase mb8">About Us</h2>
+                    <h2 class="uppercase mb8">The team</h2>
                     <p class="lead mb0">A descriptive subtitle for your page.</p>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Helpers\Helpers;
 use App\Images;
 use App\Notifications;
 use App\Payroll;
@@ -684,6 +685,7 @@ class AdminController extends Controller
                     'published_at' => date('Y-m-d H:i:s', time())
                 ];
                 $done = 'Published';
+                Helpers::sendNotification('notifications.article.published.', $article->user, ['link' => action('FrontendController@blogEntry', ['url' => $article->url])]);
                 break;
             case 'archive':
                 $input = [

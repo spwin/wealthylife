@@ -38,7 +38,9 @@
                                 </li>
                             @endif
                         </ul>
-                        <img src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
+                        <a href="{{ url()->to('/').$article->image->path.$article->image->filename }}" data-lightbox="image-{{ $article->image->id }}" data-title="{{ $article->title }}">
+                            <img src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
+                        </a>
                         {!! $article->content !!}
                     </div>
                     <!--end of post snippet-->
@@ -47,9 +49,12 @@
                     </div>
                     <hr>
                     @if(!$article->disable_comments)
+                        <div class="fb-comments" data-href="{{ request()->fullUrl() }}" data-numposts="5" data-width="100%"></div>
+                        {{--
                         <div class="disqus-comments" data-shortname="stylesensei">
                             <div id="disqus_thread"></div>
                         </div>
+                        --}}
                     @endif
                 </div>
             </div>

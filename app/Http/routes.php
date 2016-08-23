@@ -82,10 +82,10 @@ Route::group(['middleware' => ['ip']], function () {
     Route::get('email-confirm/{key}', 'UserController@confirmation');
     Route::get('blog', 'FrontendController@blog');
     Route::get('contact-us', 'FrontendController@contacts');
-    Route::get('services', 'FrontendController@services');
+    Route::get('about', 'FrontendController@about');
     Route::get('privacy-policy', 'FrontendController@privacy');
     Route::get('terms-and-conditions', 'FrontendController@terms');
-    Route::get('about-us', 'FrontendController@about');
+    Route::get('the-team', 'FrontendController@team');
     Route::get('authorize-question', 'FrontendController@authorizeQuestion');
 
     Route::get('blog/', 'FrontendController@blog');
@@ -108,7 +108,10 @@ Route::group(['middleware' => ['ip']], function () {
     Route::post('send-form', 'FrontendController@contactForm');
 
     Route::get('reset-password', 'FrontendController@passwordReset');
+    Route::get('new-password/{token}', 'FrontendController@newPassword');
+    Route::get('password-changed', 'FrontendController@changedPassword');
     Route::post('reset-process', 'UserController@resetPassword');
+    Route::post('save-password/{id}', 'UserController@savePassword');
 // LOGGED
 
     Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {

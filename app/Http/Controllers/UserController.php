@@ -875,7 +875,7 @@ class UserController extends Controller
 
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $destinationPath = 'uploads/blog';
-                $fileName = 'user' . $user->id . '-a' . '-' . $request->file('image')->getClientOriginalName();
+                $fileName = 'user' . $user->id . '-a' . '-' . str_replace(' ', '-', $request->file('image')->getClientOriginalName());
                 $img = Image::make($request->file('image'));
                 $img->save($destinationPath . '/' . $fileName, 90);
                 $image_data['filename'] = $fileName;
@@ -939,7 +939,7 @@ class UserController extends Controller
 
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $destinationPath = 'uploads/blog';
-                $fileName = 'user' . $user->id . '-a' . $article->id . '-' . $request->file('image')->getClientOriginalName();
+                $fileName = 'user' . $user->id . '-a' . $article->id . '-' . str_replace(' ', '-', $request->file('image')->getClientOriginalName());
                 $img = Image::make($request->file('image'));
                 $img->save($destinationPath . '/' . $fileName, 90);
                 $image_data['filename'] = $fileName;
@@ -985,8 +985,18 @@ class UserController extends Controller
     }
 
     public function resetPassword(Request $request){
-        $user = User::where(['email' => $request->get('email')])->first();
+        $user = User::with('userData')->where(['email' => $request->get('email')])->first();
         if($user){
+            PasswordResets::where(['user_id' => $user->id])->delete();
+            $length = 54;
+            $token = bin2hex(random_bytes($length));
+            $newToken = new PasswordResets();
+            $newToken->fill([
+                'user_id' => $user->id,
+                'token' => $token
+            ]);
+            $newToken->save();
+            Helpers::sendEmail('notifications.password.recovery.', $user->email, $user, ['user' => $user->userData, 'token' => $newToken->token]);
             Session::flash('flash_notification.password.message', 'Please check your email, we sent you password a password recovery link.');
             Session::flash('flash_notification.password.level', 'success');
         } else {
@@ -994,5 +1004,27 @@ class UserController extends Controller
             Session::flash('flash_notification.password.level', 'danger');
         }
         return Redirect::action('FrontendController@passwordReset')->withInput();
+    }
+
+    public function savePassword(Request $request, $id){
+        $v = Validator::make($request->all(), [
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6'
+        ]);
+        if ($v->fails()) {
+            return redirect()->back()->withErrors($v->errors(), 'password');
+        }
+        $user = User::findOrFail($id);
+        $input = $request->all();
+        $user->password = bcrypt($input['password']);
+        if($user->local == 0){
+            $user->local = 1;
+            $user->email_confirmed = 1;
+        }
+        $user->save();
+        PasswordResets::where(['user_id' => $user->id])->delete();
+        Session::flash('flash_notification.password.message', 'Your Password has been successfully saved.');
+        Session::flash('flash_notification.password.level', 'success');
+        return Redirect::action('FrontendController@changedPassword')->withInput();
     }
 }

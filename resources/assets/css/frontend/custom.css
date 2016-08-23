@@ -1156,3 +1156,22 @@ span.text-red{
     color: #292929;
     font-weight: 400;
 }
+
+img.question-list{
+    max-height: 30px;
+    max-width: 50px;
+    width: auto;
+    height: auto;
+}
+
+.paginator{
+    text-align: center;
+}
+
+.paginator ul.pagination li,
+.tabbed-content .content .paginator ul.pagination li.active{
+    display: inline-block;
+}
+.masonry-loader{
+    top: 200px;
+}

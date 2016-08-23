@@ -9,8 +9,8 @@
             <div class="col-md-3 col-sm-4">
                 <ul>
                     <li><a href="{{ action('FrontendController@index') }}"><h5 class="uppercase mb16 fade-on-hover">Home</h5></a></li>
-                    <li><a href="{{ action('FrontendController@services') }}"><h5 class="uppercase mb16 fade-on-hover">Services</h5></a></li>
-                    <li><a href="{{ action('FrontendController@about') }}"><h5 class="uppercase mb16 fade-on-hover">Meet us</h5></a></li>
+                    <li><a href="{{ action('FrontendController@about') }}"><h5 class="uppercase mb16 fade-on-hover">About</h5></a></li>
+                    <li><a href="{{ action('FrontendController@team') }}"><h5 class="uppercase mb16 fade-on-hover">The Team</h5></a></li>
                     <li><a href="{{ action('FrontendController@contacts') }}"><h5 class="uppercase mb16 fade-on-hover">Contacts</h5></a></li>
                 </ul>
             </div>

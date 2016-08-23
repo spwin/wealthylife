@@ -32,15 +32,14 @@
                                         <div class="tab-title">
                                         <span>
                                             Published
-                                            @php($published = $user->articles()->with('image')->where(['status' => 3])->orderBy('published_at', 'DESC')->get())
-                                            @if(count($published) > 0)
-                                                (<span class="numbers">{{ count($published) }}</span>)
+                                            @if($published->total() > 0)
+                                                (<span class="numbers">{{ $published->total() }}</span>)
                                             @endif
                                         </span>
                                         </div>
                                     </a>
                                     <div class="tab-content">
-                                        @if(count($published) > 0)
+                                        @if($published->total() > 0)
                                             <table class="table">
                                                 <tr>
                                                     <th class="w23p">Title</th>
@@ -67,6 +66,9 @@
                                         @else
                                             <p>You have no published blog entries yet.</p>
                                         @endif
+                                        <div class="paginator">
+                                            {{ $published->fragment('published')->links() }}
+                                        </div>
                                     </div>
                                 </li>
 
@@ -75,15 +77,14 @@
                                         <div class="tab-title">
                                         <span>
                                             Submitted
-                                            @php($submitted = $user->articles()->with('image')->where(['status' => 1])->orWhere(['status' => 2])->orderBy('created_at', 'DESC')->get())
-                                            @if(count($submitted)  > 0)
-                                                (<span class="numbers">{{ count($submitted) }}</span>)
+                                            @if($submitted->total()  > 0)
+                                                (<span class="numbers">{{ $submitted->total() }}</span>)
                                             @endif
                                         </span>
                                         </div>
                                     </a>
                                     <div class="tab-content">
-                                        @if(count($submitted) > 0)
+                                        @if($submitted->total() > 0)
                                             <table class="table">
                                                 <tr>
                                                     <th class="w23p">Title</th>
@@ -110,6 +111,9 @@
                                         @else
                                             <p>You have no submitted blog entries.</p>
                                         @endif
+                                        <div class="paginator">
+                                            {{ $submitted->fragment('submitted')->links() }}
+                                        </div>
                                     </div>
                                 </li>
 
@@ -118,15 +122,14 @@
                                         <div class="tab-title">
                                         <span>
                                             Drafts
-                                            @php($drafts = $user->articles()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->get())
-                                            @if(count($drafts)  > 0)
-                                                (<span class="numbers">{{ count($drafts) }}</span>)
+                                            @if($drafts->total()  > 0)
+                                                (<span class="numbers">{{ $drafts->total() }}</span>)
                                             @endif
                                         </span>
                                         </div>
                                     </a>
                                     <div class="tab-content">
-                                        @if(count($drafts) > 0)
+                                        @if($drafts->total() > 0)
                                             <table class="table">
                                                 <tr>
                                                     <th class="w23p">Title</th>
@@ -153,6 +156,9 @@
                                         @else
                                             <p>You have no blog entries drafts.</p>
                                         @endif
+                                        <div class="paginator">
+                                            {{ $drafts->fragment('drafts')->links() }}
+                                        </div>
                                     </div>
                                 </li>
                             </ul>

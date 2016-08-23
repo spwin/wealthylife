@@ -29,19 +29,26 @@
                                     <div class="tab-title">
                                         <span>
                                             Pending
-                                            @php($pending = $user->questions()->with('image')->where(['status' => 1])->orderBy('created_at', 'DESC')->get())
-                                            @if(count($pending) > 0)
-                                                (<span class="numbers">{{ count($pending) }}</span>)
+                                            @if($pending->total() > 0)
+                                                (<span class="numbers">{{ $pending->total() }}</span>)
                                             @endif
                                         </span>
                                     </div>
                                 </a>
                                 <div class="tab-content">
-                                    @if(count($pending) > 0)
+                                    @if($pending->total() > 0)
                                         <table class="table">
                                             @foreach($pending as $question)
-                                                <tr>
-                                                    <td><img width="50" src="{{ $question->image ? url()->to('/').'/photo/50x30/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                <tr class="text-center">
+                                                    <td>
+                                                        @if($question->image)
+                                                            <a href="{{ url()->to('/').$question->image->path.$question->image->filename }}" data-lightbox="image-{{ $question->image->id }}" data-title="Question #{{ $question->id }}">
+                                                                <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$question->image->filename }}">
+                                                            </a>
+                                                        @else
+                                                            <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                                        @endif
+                                                    </td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
                                                 </tr>
@@ -50,6 +57,9 @@
                                     @else
                                         <p>No pending questions.</p>
                                     @endif
+                                    <div class="paginator">
+                                        {{ $pending->fragment('pending')->links() }}
+                                    </div>
                                 </div>
                             </li>
                             <li id="answered-section">
@@ -57,19 +67,26 @@
                                     <div class="tab-title">
                                         <span>
                                             Answered
-                                            @php($answered = $user->questions()->with('image')->where(['status' => 2])->orderBy('answered_at', 'DESC')->get())
-                                            @if(count($answered) > 0)
-                                                (<span class="numbers">{{ count($answered) }}</span>)
+                                            @if($answered->total() > 0)
+                                                (<span class="numbers">{{ $answered->total() }}</span>)
                                             @endif
                                         </span>
                                     </div>
                                 </a>
                                 <div class="tab-content">
-                                    @if(count($answered) > 0)
+                                    @if($answered->total() > 0)
                                         <table class="table">
                                             @foreach($answered as $question)
-                                                <tr {{ $question->answer->seen ? '' : 'class=bold' }}>
-                                                    <td><img width="50" src="{{ $question->image ? url()->to('/').'/photo/50x30/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                <tr class="text-center {{ $question->answer->seen ? '' : 'bold' }}" >
+                                                    <td>
+                                                        @if($question->image)
+                                                            <a href="{{ url()->to('/').$question->image->path.$question->image->filename }}" data-lightbox="image-{{ $question->image->id }}" data-title="Question #{{ $question->id }}">
+                                                                <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$question->image->filename }}">
+                                                            </a>
+                                                        @else
+                                                            <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                                        @endif
+                                                    </td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
                                                     <td class="w170px"><a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="btn btn-sm show-answer-btn">Show answer</a></td>
@@ -79,6 +96,9 @@
                                     @else
                                         <p>No answered questions.</p>
                                     @endif
+                                    <div class="paginator">
+                                        {{ $answered->fragment('answered')->links() }}
+                                    </div>
                                 </div>
                             </li>
                             <li id="drafts-section">
@@ -86,19 +106,26 @@
                                     <div class="tab-title">
                                         <span>
                                             Drafts
-                                            @php($drafts = $user->questions()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->get())
-                                            @if(count($drafts) > 0)
-                                                (<span class="numbers">{{ count($drafts) }}</span>)
+                                            @if($drafts->total() > 0)
+                                                (<span class="numbers">{{ $drafts->total() }}</span>)
                                             @endif
                                         </span>
                                     </div>
                                 </a>
                                 <div class="tab-content">
-                                    @if(count($drafts) > 0)
+                                    @if($drafts->total() > 0)
                                         <table class="table">
                                             @foreach($drafts as $question)
-                                                <tr>
-                                                    <td><img width="50" src="{{ $question->image ? url()->to('/').'/photo/50x30/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                <tr class="text-center">
+                                                    <td>
+                                                        @if($question->image)
+                                                            <a href="{{ url()->to('/').$question->image->path.$question->image->filename }}" data-lightbox="image-{{ $question->image->id }}" data-title="Question #{{ $question->id }}">
+                                                                <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$question->image->filename }}">
+                                                            </a>
+                                                        @else
+                                                            <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                                        @endif
+                                                    </td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
                                                     <td class="w170px">
@@ -118,6 +145,9 @@
                                     @else
                                         <p>No questions drafts.</p>
                                     @endif
+                                    <div class="paginator">
+                                        {{ $drafts->fragment('drafts')->links() }}
+                                    </div>
                                 </div>
                             </li>
                         </ul>

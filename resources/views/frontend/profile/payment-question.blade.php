@@ -7,7 +7,7 @@
                 <div class="col-md-12 text-center col-sm-12">
                     <h2 class="uppercase mb24 bold italic">Your question</h2>
                     <p class="question-body">
-                        <img src="{{ $question->image()->first() ? url()->to('/').'/photo/300x300/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}">
+                        <img src="{{ $question->image ? url()->to('/').'/photo/300x300/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}">
                         {{ $question->question }}
                     </p>
                     <div class="modal-container inline-block">
