@@ -32,31 +32,33 @@
                                         <div class="tab-title">
                                         <span>
                                             Published
-                                            @if($user->articles() && $user->articles()->where(['status' => 3])->count() > 0)
-                                                (<span class="numbers">{{ $user->articles()->where(['status' => 3])->count() }}</span>)
+                                            @php($published = $user->articles()->with('image')->where(['status' => 3])->orderBy('published_at', 'DESC')->get())
+                                            @if(count($published) > 0)
+                                                (<span class="numbers">{{ count($published) }}</span>)
                                             @endif
                                         </span>
                                         </div>
                                     </a>
                                     <div class="tab-content">
-                                        @if($user->articles() && $user->articles()->where(['status' => 3])->count() > 0)
+                                        @if(count($published) > 0)
                                             <table class="table">
                                                 <tr>
-                                                    <th>Title</th>
-                                                    <th>Image</th>
-                                                    <th>Excerpt</th>
-                                                    <th>Created</th>
-                                                    <th>Published</th>
-                                                    <th></th>
+                                                    <th class="w23p">Title</th>
+                                                    <th class="w11p">Image</th>
+                                                    <th class="w23p">Excerpt</th>
+                                                    <th class="w14p">Created</th>
+                                                    <th class="w14p">Published</th>
+                                                    <th class="w15p"></th>
                                                 </tr>
-                                                @foreach($user->articles()->where(['status' => 3])->get() as $article)
+                                                @foreach($published as $article)
                                                     <tr>
-                                                        <td>{{ $article->title }}</td>
-                                                        <td><img width="100" src="{{ $article->image()->first() ? url()->to('/').'/blog/100x100/'.$article->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
-                                                        <td>{{ \App\Helpers\Helpers::getExcerpt(100, strip_tags($article->content)) }}</td>
+                                                        <td class="bold">{{ $article->title }}</td>
+                                                        <td class="text-center"><img width="100" class="article-list-img" src="{{ $article->image ? url()->to('/').'/blog/100x100/'.$article->image->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                        <td>{{ \App\Helpers\Helpers::getExcerpt(60, strip_tags($article->content)) }}</td>
                                                         <td>{{ $article->created_at }}</td>
                                                         <td>{{ $article->published_at ? $article->published_at : 'NO'}}</td>
                                                         <td>
+                                                            <a href="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">View</a>
                                                             <a href="{{ action('FrontendController@editArticle', ['id' => $article->id]) }}">Edit</a>
                                                         </td>
                                                     </tr>
@@ -73,31 +75,33 @@
                                         <div class="tab-title">
                                         <span>
                                             Submitted
-                                            @if($user->articles() && $user->articles()->where(['status' => 1])->orWhere(['status' => 2])->count() > 0)
-                                                (<span class="numbers">{{ $user->articles()->where(['status' => 1])->orWhere(['status' => 2])->count() }}</span>)
+                                            @php($submitted = $user->articles()->with('image')->where(['status' => 1])->orWhere(['status' => 2])->orderBy('created_at', 'DESC')->get())
+                                            @if(count($submitted)  > 0)
+                                                (<span class="numbers">{{ count($submitted) }}</span>)
                                             @endif
                                         </span>
                                         </div>
                                     </a>
                                     <div class="tab-content">
-                                        @if($user->articles() && $user->articles()->where(['status' => 1])->orWhere(['status' => 2])->count() > 0)
+                                        @if(count($submitted) > 0)
                                             <table class="table">
                                                 <tr>
-                                                    <th>Title</th>
-                                                    <th>Image</th>
-                                                    <th>Excerpt</th>
-                                                    <th>Created</th>
-                                                    <th>Published</th>
-                                                    <th></th>
+                                                    <th class="w23p">Title</th>
+                                                    <th class="w11p">Image</th>
+                                                    <th class="w23p">Excerpt</th>
+                                                    <th class="w14p">Created</th>
+                                                    <th class="w14p">Reviewed</th>
+                                                    <th class="w15p"></th>
                                                 </tr>
-                                                @foreach($user->articles()->where(['status' => 1])->orWhere(['status' => 2])->get() as $article)
+                                                @foreach($submitted as $article)
                                                     <tr>
-                                                        <td>{{ $article->title }}</td>
-                                                        <td><img width="100" src="{{ $article->image()->first() ? url()->to('/').'/blog/100x100/'.$article->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
-                                                        <td>{{ \App\Helpers\Helpers::getExcerpt(100, strip_tags($article->content)) }}</td>
+                                                        <td class="bold">{{ $article->title }}</td>
+                                                        <td class="text-center"><img width="100" class="article-list-img" src="{{ $article->image ? url()->to('/').'/blog/100x100/'.$article->image->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                        <td>{{ \App\Helpers\Helpers::getExcerpt(60, strip_tags($article->content)) }}</td>
                                                         <td>{{ $article->created_at }}</td>
-                                                        <td>{{ $article->published_at ? $article->published_at : 'NO'}}</td>
+                                                        <td>{{ $article->reviewed ? 'YES' : 'NO'}}</td>
                                                         <td>
+                                                            <a href="{{ action('FrontendController@previewArticle', ['id' => $article->id]) }}">Preview</a>
                                                             <a href="{{ action('FrontendController@editArticle', ['id' => $article->id]) }}">Edit</a>
                                                         </td>
                                                     </tr>
@@ -114,30 +118,31 @@
                                         <div class="tab-title">
                                         <span>
                                             Drafts
-                                            @if($user->articles() && $user->articles()->where(['status' => 0])->count() > 0)
-                                                (<span class="numbers">{{ $user->articles()->where(['status' => 0])->count() }}</span>)
+                                            @php($drafts = $user->articles()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->get())
+                                            @if(count($drafts)  > 0)
+                                                (<span class="numbers">{{ count($drafts) }}</span>)
                                             @endif
                                         </span>
                                         </div>
                                     </a>
                                     <div class="tab-content">
-                                        @if($user->articles() && $user->articles()->where(['status' => 0])->count() > 0)
+                                        @if(count($drafts) > 0)
                                             <table class="table">
                                                 <tr>
-                                                    <th>Title</th>
-                                                    <th>Image</th>
-                                                    <th>Excerpt</th>
-                                                    <th>Created</th>
-                                                    <th>Published</th>
-                                                    <th></th>
+                                                    <th class="w23p">Title</th>
+                                                    <th class="w11p">Image</th>
+                                                    <th class="w23p">Excerpt</th>
+                                                    <th class="w14p">Created</th>
+                                                    <th class="w14p">Comments</th>
+                                                    <th class="w15p"></th>
                                                 </tr>
-                                                @foreach($user->articles()->where(['status' => 0])->get() as $article)
+                                                @foreach($drafts as $article)
                                                     <tr>
-                                                        <td>{{ $article->title }}</td>
-                                                        <td><img width="100" src="{{ $article->image()->first() ? url()->to('/').'/blog/100x100/'.$article->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
-                                                        <td>{{ \App\Helpers\Helpers::getExcerpt(100, strip_tags($article->content)) }}</td>
+                                                        <td class="bold">{{ $article->title }}</td>
+                                                        <td class="text-center"><img width="100" class="article-list-img" src="{{ $article->image ? url()->to('/').'/blog/100x100/'.$article->image->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                        <td>{{ \App\Helpers\Helpers::getExcerpt(60, strip_tags($article->content)) }}</td>
                                                         <td>{{ $article->created_at }}</td>
-                                                        <td>{{ $article->published_at ? $article->published_at : 'NO'}}</td>
+                                                        <td>{{ $article->disable_comments ? 'NO' : 'YES'}}</td>
                                                         <td>
                                                             <a href="{{ action('FrontendController@previewArticle', ['id' => $article->id]) }}">Submit</a>
                                                             <a href="{{ action('FrontendController@editArticle', ['id' => $article->id]) }}">Edit</a>

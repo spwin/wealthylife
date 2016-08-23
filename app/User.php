@@ -75,4 +75,8 @@ class User extends Authenticatable
     public function articles(){
         return $this->hasMany('App\Article', 'user_id', 'id');
     }
+
+    public function token(){
+        return $this->hasOne('App\PasswordResets', 'user_id', 'id');
+    }
 }

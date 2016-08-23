@@ -35,11 +35,12 @@
                     </ul>
                 </div>
                 @if($user = Auth::guard('user')->user())
+                    @php($notifications = $user->notifications()->where(['seen' => 0])->get())
                     <div class="module widget-handle cart-widget-handle left">
                         <div class="cart">
                             <i class="ti-bell"></i>
-                            @if(($count = $user->notifications()->where(['seen' => 0])->count()) > 0)
-                                <span class="label number">{{ $count }}</span>
+                            @if(count($notifications) > 0)
+                                <span class="label number">{{ count($notifications) }}</span>
                                 <span class="title">Notifications</span>
                             @endif
                         </div>
@@ -48,8 +49,8 @@
                                 <h6 class="title">Notifications</h6>
                                 <hr>
                                 <ul class="cart-overview">
-                                    @if($user->notifications()->where(['seen' => 0])->count() > 0)
-                                        @foreach($user->notifications()->where(['seen' => 0])->get() as $notification)
+                                    @if(count($notifications) > 0)
+                                        @foreach($notifications as $notification)
                                             <li>
                                                 <a href="{{ action('FrontendController@showNotification', ['id' => $notification->id]) }}">
                                                     <div class="description">
@@ -85,7 +86,7 @@
                     <ul class="menu">
                         <li class="profile-dropdown {{ Auth::guard('user')->user() ? 'logged' : '' }}">
                             @if(Auth::guard('user')->user())
-                                <a href="#">{{ Auth::guard('user')->user()->userData()->first()->first_name ? Auth::guard('user')->user()->userData()->first()->first_name : 'profile' }} (£ {{ Auth::guard('user')->user()->points }})</a>
+                                <a href="#">{{ Auth::guard('user')->user()->userData->first_name ? Auth::guard('user')->user()->userData->first_name : 'profile' }} (£ {{ Auth::guard('user')->user()->points }})</a>
                                 <ul>
                                     <li>
                                         <a href="{{ action('FrontendController@profile') }}">My profile</a>
@@ -133,7 +134,7 @@
                                                 {!! Form::email('email', null, ['class' => $errors->login->first('email', 'field-error '), 'placeholder' => 'Email address']) !!}
                                                 {!! Form::input('password', 'password', '', ['class' => $errors->login->first('password', 'field-error ').'mb-5px', 'placeholder' => 'Password']) !!}
                                                 <div class="password-reset-link">
-                                                    Forgot your password? <a href="#">Click Here To Reset</a>
+                                                    Forgot your password? <a href="{{ action('FrontendController@passwordReset') }}">Click Here To Reset</a>
                                                 </div>
                                                 <input type="submit" value="Log in">
                                                 {!! Form::close() !!}

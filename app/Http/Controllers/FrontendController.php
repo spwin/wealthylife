@@ -173,12 +173,6 @@ class FrontendController extends Controller
         }
     }
 
-    public function blog(){
-        return view('frontend/pages/blog')->with([
-
-        ]);
-    }
-
     function getBirthDate($date){
         list($year, $month, $day) = explode('-', $date);
         return ['year' => $year, 'month' => $month, 'day' => $day];
@@ -371,5 +365,25 @@ class FrontendController extends Controller
             ]);
         }
         return Redirect::action('FrontendController@index');
+    }
+
+    public function blog(){
+        $articles = Article::with('image')->whereNotNull('published_at')->where(['status' => 3, 'reviewed' => 1])->orderBy('published_at', 'DESC')->paginate(16);
+        return view('frontend/pages/blog')->with([
+            'articles' => $articles
+        ]);
+    }
+
+    public function blogEntry($url){
+        $article = Article::where(['url' => $url])->first();
+        $article->visits = $article->visits + 1;
+        $article->save();
+        return view('frontend/pages/inner-blog')->with([
+            'article' => $article
+        ]);
+    }
+
+    public function passwordReset(){
+        return view('frontend/pages/reset-password')->with([]);
     }
 }

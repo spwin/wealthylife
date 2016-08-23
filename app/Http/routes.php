@@ -11,6 +11,21 @@
 |
 */
 // IMAGES CACHE
+Route::get('/blog-masonry/{width}/{name}', function($width = NULL, $name = NULL){
+    if(!is_null($width) && !is_null($name)){
+        $cache_image = Image::cache(function($image) use($width, $name){
+            return $image->make(url('uploads/blog/'.$name))->resize($width, null, function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+        }, 1000);
+
+        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+    } else {
+        abort(404);
+    }
+});
+
 Route::get('/blog/{size}/{name}', function($size = NULL, $name = NULL){
     if(!is_null($size) && !is_null($name)){
         $size = explode('x', $size);
@@ -73,6 +88,9 @@ Route::group(['middleware' => ['ip']], function () {
     Route::get('about-us', 'FrontendController@about');
     Route::get('authorize-question', 'FrontendController@authorizeQuestion');
 
+    Route::get('blog/', 'FrontendController@blog');
+    Route::get('blog/{url}', 'FrontendController@blogEntry');
+
     Route::get('social-login/{provider}', 'UserController@socialLogin');
     Route::get('social-callback/{provider}', 'UserController@socialCallback');
 
@@ -89,7 +107,8 @@ Route::group(['middleware' => ['ip']], function () {
     Route::post('{type}/login/', 'Auth\AuthController@postLogin');
     Route::post('send-form', 'FrontendController@contactForm');
 
-
+    Route::get('reset-password', 'FrontendController@passwordReset');
+    Route::post('reset-process', 'UserController@resetPassword');
 // LOGGED
 
     Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
@@ -185,6 +204,11 @@ Route::group(['middleware' => ['ip']], function () {
                 Route::post('force-login', 'AdminController@forceLoginUser');
                 Route::delete('delete-profile/{id}', 'AdminController@destroyUser');
             });
+        });
+        Route::group(['prefix' => 'articles'], function () {
+            Route::get('/{type}', 'AdminController@articles');
+            Route::get('/details/{id}', 'AdminController@detailsArticle');
+            Route::post('/edit/{id}', 'AdminController@editArticle');
         });
         Route::group(['prefix' => 'payroll'], function () {
             Route::get('/', 'AdminController@payroll');

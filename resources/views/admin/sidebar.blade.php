@@ -47,6 +47,19 @@
                     <li class="{{ (Request::is('admin/users/users*') ? 'active' : '') }}"><a href="{{ action('AdminController@listUsers') }}"><i class="fa fa-circle-o"></i> Users</a></li>
                 </ul>
             </li>
+            <li class="{{ (Request::is('admin/articles*') ? 'active' : '') }} treeview">
+                <a href="#">
+                    <i class="fa fa-newspaper-o"></i>
+                    <span>Articles</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ (Request::is('admin/articles/pending*') ? 'active' : '') }}"><a href="{{ action('AdminController@articles', ['type' => 'pending']) }}"><i class="fa fa-circle-o"></i> Pending</a></li>
+                    <li class="{{ (Request::is('admin/articles/edited*') ? 'active' : '') }}"><a href="{{ action('AdminController@articles', ['type' => 'edited']) }}"><i class="fa fa-circle-o"></i> Edited</a></li>
+                    <li class="{{ (Request::is('admin/articles/published*') ? 'active' : '') }}"><a href="{{ action('AdminController@articles', ['type' => 'published']) }}"><i class="fa fa-circle-o"></i> Published</a></li>
+                    <li class="{{ (Request::is('admin/articles/archived*') ? 'active' : '') }}"><a href="{{ action('AdminController@articles', ['type' => 'archived']) }}"><i class="fa fa-circle-o"></i> Archived</a></li>
+                </ul>
+            </li>
             <li class="{{ (Request::is('admin/payroll*') ? 'active' : '') }}">
                 <a href="{{ action('AdminController@payroll') }}">
                     <i class="fa fa-money"></i>

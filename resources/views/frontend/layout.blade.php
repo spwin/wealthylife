@@ -12,6 +12,7 @@
     <link href="{{ URL::to('/') }}/css/fonts.css" rel="stylesheet">
 </head>
 <body class="scroll-assist">
+@yield('after-body-snippet')
 @yield('wrapper')
 <script src="{{ URL::to('/') }}/js/front-plugins.js"></script>
 <script>

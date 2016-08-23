@@ -18,7 +18,7 @@
     ]) !!}
     <div class="avatar-container left">
         <div class="center-cropped right">
-            <img class="avatar-preview" src="{{ $user->userData()->first()->image()->first() ? url()->to('/').'/'.$user->userData()->first()->image()->first()->path.$user->userData()->first()->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}" alt="" />
+            <img class="avatar-preview" src="{{ $user->userData->image ? url()->to('/').'/'.$user->userData->image->path.$user->userData->image->filename : url()->to('/').'/images/avatars/no_image.png' }}" alt="" />
             <div class="preloader-wrapper">
                 <div class="spinner-layer">
                     <div class="circle-clipper left">
@@ -38,7 +38,7 @@
     </div>
     <div class="clear"></div>
     <div class="avatar-errors"></div>
-    {!! Form::file('avatar', ['onChange' => 'insertAvatar(this, "'.( $user->userData()->first()->image()->first() ? url()->to('/').'/'.$user->userData()->first()->image()->first()->path.$user->userData()->first()->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png').'")', 'class' => 'avatar-input']) !!}
+    {!! Form::file('avatar', ['onChange' => 'insertAvatar(this, "'.( $user->userData->image ? url()->to('/').'/'.$user->userData->image->path.$user->userData->image->filename : url()->to('/').'/images/avatars/no_image.png').'")', 'class' => 'avatar-input']) !!}
     {!! Form::close() !!}
 </div>
 @push('scripts')

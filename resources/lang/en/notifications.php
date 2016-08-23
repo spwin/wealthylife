@@ -34,5 +34,9 @@ return [
 
     'contacts.form.subject' => env('APP_NAME').' Contact Form message',
     'contacts.form.content' => '',
-    'contacts.form.email' => 'emails.contacts'
+    'contacts.form.email' => 'emails.contacts',
+
+    'article.published.subject' => '',
+    'article.published.content' => '',
+    'article.published.email' => '',
 ];

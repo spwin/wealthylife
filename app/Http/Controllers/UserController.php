@@ -7,6 +7,7 @@ use App\Article;
 use App\Helpers\Helpers;
 use App\Images;
 use App\Orders;
+use App\PasswordResets;
 use App\PriceSchemes;
 use App\Questions;
 use App\Settings;
@@ -952,6 +953,8 @@ class UserController extends Controller
             $input['hide_name'] = $request->has('hide_name') ? 1 : 0;
             $input['hide_email'] = $request->has('hide_email') ? 1 : 0;
             $input['disable_comments'] = $request->has('disable_comments') ? 1 : 0;
+            $input['status'] = 0;
+            $input['reviewed'] = 0;
 
             $article->fill($input);
             $article->save();
@@ -969,6 +972,7 @@ class UserController extends Controller
         if($user = Auth::guard('user')->user()) {
             $article = Article::findOrFail($id);
             $article->status = 1;
+            $article->reviewed = 0;
             $article->save();
 
             Session::flash('flash_notification.article.message', 'Thank you! Your Blog entry was submitted for review. You will be notified if it will get public.');
@@ -978,5 +982,17 @@ class UserController extends Controller
         } else {
             return Redirect::action('FrontendController@index');
         }
+    }
+
+    public function resetPassword(Request $request){
+        $user = User::where(['email' => $request->get('email')])->first();
+        if($user){
+            Session::flash('flash_notification.password.message', 'Please check your email, we sent you password a password recovery link.');
+            Session::flash('flash_notification.password.level', 'success');
+        } else {
+            Session::flash('flash_notification.password.message', 'There are no users with this email in our database.');
+            Session::flash('flash_notification.password.level', 'danger');
+        }
+        return Redirect::action('FrontendController@passwordReset')->withInput();
     }
 }

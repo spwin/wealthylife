@@ -9576,4 +9576,27 @@ table.text-center, table.text-center td, table.text-center th {
   border: 1px solid #dddddd;
   padding: 10px; }
 
+.text-color-pending {
+  color: orange; }
+
+.text-color-edited {
+  color: blue; }
+
+.text-color-published {
+  color: #47EB13; }
+
+.text-color-archived {
+  color: darkgray; }
+
+.article-details span {
+  margin-right: 25px; }
+
+.article-action-btn {
+  display: inline-block;
+  margin-right: 15px; }
+
+span.article-current-status {
+  font-size: 20px;
+  line-height: 2.3; }
+
 /*# sourceMappingURL=admin.css.map */

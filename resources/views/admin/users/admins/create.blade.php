@@ -12,7 +12,6 @@
     </ol>
     @stop
     @section('content')
-            <!-- Small boxes (Stat box) -->
     {!! Form::open([
         'role' => 'form',
         'url' => action('AdminController@saveAdmin'),

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Images;
 use App\Notifications;
 use App\Payroll;
@@ -631,5 +632,71 @@ class AdminController extends Controller
         $payroll->save();
         Flash::success('You have successfully marked this period as paid');
         return Redirect::action('AdminController@payroll');
+    }
+
+    public function articles($type = 'pending'){
+        switch($type) {
+            case 'pending' : $articles = Article::with(['image', 'user'])->whereNull('published_at')->where(['status' => 1, 'reviewed' => 0])->get(); break;
+            case 'edited' : $articles = Article::with(['image', 'user'])->whereNotNull('published_at')->where(['status' => 1, 'reviewed' => 0])->get(); break;
+            case 'published' : $articles = Article::with(['image', 'user'])->whereNotNull('published_at')->where(['status' => 3, 'reviewed' => 1])->get(); break;
+            case 'archived' : $articles = Article::with(['image', 'user'])->whereNull('published_at')->where(['status' => 2, 'reviewed' => 1])->get(); break;
+            default : $articles = [];
+        }
+        return view('admin/articles/index')->with([
+            'articles' => $articles,
+            'status' => ucfirst($type)
+        ]);
+    }
+
+    public function detailsArticle($id){
+        $article = Article::with(['image', 'user'])->where(['id' => $id])->first();
+        $type = 'pending';
+        if($article->status == 1){
+            if($article->published_at){
+                $type = 'edited';
+            } else {
+                $type = 'pending';
+            }
+        } elseif($article->status == 2){
+            $type = 'archived';
+        } elseif($article->status == 3){
+            $type = 'published';
+        }
+        $user = User::findOrFail($article->user->id);
+        return view('admin/articles/details')->with([
+            'article' => $article,
+            'type' => $type,
+            'user' => $user
+        ]);
+    }
+
+    public function editArticle(Request $request, $id){
+        $article = Article::findOrFail($id);
+        $action = $request->get('action');
+        $type = $request->get('type');
+        $input = [];
+        $done = '';
+        switch($action){
+            case 'publish':
+                $input = [
+                    'status' => 3,
+                    'reviewed' => 1,
+                    'published_at' => date('Y-m-d H:i:s', time())
+                ];
+                $done = 'Published';
+                break;
+            case 'archive':
+                $input = [
+                    'status' => 2,
+                    'reviewed' => 1,
+                    'published_at' => null
+                ];
+                $done = 'Archived';
+                break;
+        }
+        $article->fill($input);
+        $article->save();
+        Flash::success('The article has been '.$done.' successfully!');
+        return Redirect::action('AdminController@articles', ['type' => $type]);
     }
 }

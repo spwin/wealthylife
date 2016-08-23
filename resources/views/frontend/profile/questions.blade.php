@@ -29,18 +29,19 @@
                                     <div class="tab-title">
                                         <span>
                                             Pending
-                                            @if($user->questions() && $user->questions()->where(['status' => 1])->count() > 0)
-                                                (<span class="numbers">{{ $user->questions()->where(['status' => 1])->count() }}</span>)
+                                            @php($pending = $user->questions()->with('image')->where(['status' => 1])->orderBy('created_at', 'DESC')->get())
+                                            @if(count($pending) > 0)
+                                                (<span class="numbers">{{ count($pending) }}</span>)
                                             @endif
                                         </span>
                                     </div>
                                 </a>
                                 <div class="tab-content">
-                                    @if($user->questions() && $user->questions()->where(['status' => 1])->count() > 0)
+                                    @if(count($pending) > 0)
                                         <table class="table">
-                                            @foreach($user->questions()->where(['status' => 1])->orderBy('created_at', 'DESC')->get() as $question)
+                                            @foreach($pending as $question)
                                                 <tr>
-                                                    <td><img width="50" src="{{ $question->image()->first() ? url()->to('/').'/photo/50x30/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                    <td><img width="50" src="{{ $question->image ? url()->to('/').'/photo/50x30/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
                                                 </tr>
@@ -56,18 +57,19 @@
                                     <div class="tab-title">
                                         <span>
                                             Answered
-                                            @if($user->questions() && $user->questions()->where(['status' => 2])->count() > 0)
-                                                (<span class="numbers">{{ $user->questions()->where(['status' => 2])->count() }}</span>)
+                                            @php($answered = $user->questions()->with('image')->where(['status' => 2])->orderBy('answered_at', 'DESC')->get())
+                                            @if(count($answered) > 0)
+                                                (<span class="numbers">{{ count($answered) }}</span>)
                                             @endif
                                         </span>
                                     </div>
                                 </a>
                                 <div class="tab-content">
-                                    @if($user->questions() && $user->questions()->where(['status' => 2])->count() > 0)
+                                    @if(count($answered) > 0)
                                         <table class="table">
-                                            @foreach($user->questions()->where(['status' => 2])->orderBy('answered_at', 'DESC')->get() as $question)
-                                                <tr {{ $question->answer()->first()->seen ? '' : 'class=bold' }}>
-                                                    <td><img width="50" src="{{ $question->image()->first() ? url()->to('/').'/photo/50x30/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                            @foreach($answered as $question)
+                                                <tr {{ $question->answer->seen ? '' : 'class=bold' }}>
+                                                    <td><img width="50" src="{{ $question->image ? url()->to('/').'/photo/50x30/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
                                                     <td class="w170px"><a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="btn btn-sm show-answer-btn">Show answer</a></td>
@@ -84,18 +86,19 @@
                                     <div class="tab-title">
                                         <span>
                                             Drafts
-                                            @if($user->questions() && $user->questions()->where(['status' => 0])->count() > 0)
-                                                (<span class="numbers">{{ $user->questions()->where(['status' => 0])->count() }}</span>)
+                                            @php($drafts = $user->questions()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->get())
+                                            @if(count($drafts) > 0)
+                                                (<span class="numbers">{{ count($drafts) }}</span>)
                                             @endif
                                         </span>
                                     </div>
                                 </a>
                                 <div class="tab-content">
-                                    @if($user->questions() && $user->questions()->where(['status' => 0])->count() > 0)
+                                    @if(count($drafts) > 0)
                                         <table class="table">
-                                            @foreach($user->questions()->where(['status' => 0])->orderBy('created_at', 'DESC')->get() as $question)
+                                            @foreach($drafts as $question)
                                                 <tr>
-                                                    <td><img width="50" src="{{ $question->image()->first() ? url()->to('/').'/photo/50x30/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                                    <td><img width="50" src="{{ $question->image ? url()->to('/').'/photo/50x30/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                                     <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
                                                     <td class="w170px">

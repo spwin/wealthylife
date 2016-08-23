@@ -18,9 +18,9 @@
     ]) !!}
     {!! Form::hidden('cleared-image', 0, ['class' => 'cleared-image']) !!}
     <div class="image-upload">
-        <div class="drop-zone left {{ $question->image()->first() ? '' : 'empty' }}" onclick="uploadImage(this);">
+        <div class="drop-zone left {{ $question->image ? '' : 'empty' }}" onclick="uploadImage(this);">
             <div class="question-image text-left">
-                <img src="{{ $question->image()->first() ? url()->to('/').'/photo/200x200/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ $question->image ? url()->to('/').'/photo/200x200/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
@@ -34,7 +34,7 @@
         <div class="clear"></div>
     </div>
     <div class="upload-button">
-        {!! Form::file('image', ['onChange' => 'readURL('.($question->image()->first() ? 'true' : 'false').', this, "'.( $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png').'")', 'class' => 'image-input']) !!}
+        {!! Form::file('image', ['onChange' => 'readURL('.($question->image ? 'true' : 'false').', this, "'.( $question->image ? url()->to('/').'/photo/200x200/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png').'")', 'class' => 'image-input']) !!}
     </div>
     <div class="textarea-holder">
         {!! Form::textarea('question', $question->question ? $question->question : null, ['class' => $errors->question->first('question_database', 'field-error ').'mt-1px', 'placeholder' => 'What would you like to ask?', 'onKeyPress' => 'countChar(this,event)', 'onKeyUp' => 'countChar(this,event)']) !!}
