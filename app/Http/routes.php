@@ -112,6 +112,9 @@ Route::group(['middleware' => ['ip']], function () {
     Route::get('password-changed', 'FrontendController@changedPassword');
     Route::post('reset-process', 'UserController@resetPassword');
     Route::post('save-password/{id}', 'UserController@savePassword');
+
+    Route::get('referral-program', 'FrontendController@referral');
+    Route::get('accept-referral', 'FrontendController@acceptReferral');
 // LOGGED
 
     Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {

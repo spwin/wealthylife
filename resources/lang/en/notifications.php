@@ -49,4 +49,9 @@ return [
     'article.published.subject' => '',
     'article.published.content' => 'Your Article has been published on the page. You can view it by clicking this link: <a href=":link">:link</a>',
     'article.published.email' => '',
+
+    'referral.confirmed.topic' => 'Referral reward',
+    'referral.confirmed.subject' => '',
+    'referral.confirmed.content' => 'You have been just rewarded £2 as your referral has been confirmed. You can check your referrals information <a href=":link">here</a>',
+    'referral.confirmed.email' => '',
 ];

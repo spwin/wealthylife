@@ -420,4 +420,25 @@ class FrontendController extends Controller
     public function changedPassword(){
         return view('frontend/pages/password-changed')->with([]);
     }
+
+    public function referral(){
+        if($user = Auth::guard('user')->user()){
+            return view('frontend/profile/referral')->with([
+                'user' => $user
+            ]);
+        }
+        return Redirect::action('FrontendController@index');
+    }
+
+    public function acceptReferral(Request $request){
+        $params = [];
+        if($request->has('referral') && $request->has('key')){
+            $referral = User::where(['id' => $request->get('referral'), 'referral_key' => $request->get('key')])->first();
+            if($referral){
+                session()->put('referral.user', $referral->id);
+                session()->put('referral.key', $referral->referral_key);
+            }
+        }
+        return Redirect::action('FrontendController@index', $params);
+    }
 }

@@ -74,14 +74,28 @@ class UserController extends Controller
             $input['status'] = 1;
             $user_data = UserData::where(['user_id' => $user->id])->first();
         } else {
+            $input['referral_key'] = bin2hex(random_bytes(10));
             $input['status'] = 0;
             $input['type'] = 'user';
             $user = new User();
             $user_data = new UserData();
         }
 
+        $ref_key = session()->get('referral.key');
+        $ref_user = session()->get('referral.user');
+        if($ref_key && $ref_user){
+            $referral = User::where(['id' => $ref_user, 'referral_key' => $ref_key])->first();
+            if($referral){
+                $input['referral_id'] = $referral->id;
+                $referral->referrals_registered = $referral->referrals_registered + 1;
+                $referral->save();
+                session()->forget('referral');
+            }
+        }
+
         $user->fill($input);
         $user->save();
+
         $input['user_id'] = $user->id;
 
         $user_data->fill($input);
@@ -161,6 +175,20 @@ class UserController extends Controller
         $input['email_confirmed'] = 0;
         $input['local'] = 0;
         $input['type'] = 'user';
+        $input['referral_key'] = bin2hex(random_bytes(10));
+
+        $ref_key = session()->get('referral.key');
+        $ref_user = session()->get('referral.user');
+        if($ref_key && $ref_user){
+            $referral = User::where(['id' => $ref_user, 'referral_key' => $ref_key])->first();
+            if($referral){
+                $input['referral_id'] = $referral->id;
+                $referral->referrals_registered = $referral->referrals_registered + 1;
+                $referral->save();
+                session()->forget('referral');
+            }
+        }
+
         $user = new User();
         $user->fill($input);
         $user->save();
@@ -289,7 +317,7 @@ class UserController extends Controller
                 File::makeDirectory($destinationPath, $mode = 0775, true, true);
             }
             $img->save($destinationPath.'/'.$fileName, 90);
-            session()->put('question.image', date('Y-m-d',time()).'/'.$fileName);
+            session()->put('question.image', date('Y-m-d',time()).'/'.$fileName);session()->put('question.image', date('Y-m-d',time()).'/'.$fileName);
         } elseif(!session()->has('question.image')) {
             session()->put('question.image', null);
         }
@@ -568,6 +596,7 @@ class UserController extends Controller
                     'paymentMethodNonce' => $nonceFromTheClient
                 ]);
                 if ($result->success){
+                    $user->referral_rewarded = $this->addReferralPoints($user);
                     $changes['braintree_id'] = $result->transaction->id;
                     $changes['status'] = 1;
                     $order->fill($changes);
@@ -680,6 +709,7 @@ class UserController extends Controller
                     'paymentMethodNonce' => $nonceFromTheClient
                 ]);
                 if ($result->success){
+                    $user->referral_rewarded = $this->addReferralPoints($user);
                     $changes['braintree_id'] = $result->transaction->id;
                     $changes['status'] = 1;
                     $order->fill($changes);
@@ -779,6 +809,7 @@ class UserController extends Controller
                     'paymentMethodNonce' => $nonceFromTheClient
                 ]);
                 if ($result->success){
+                    $user->referral_rewarded = $this->addReferralPoints($user);
                     $changes['braintree_id'] = $result->transaction->id;
                     $changes['status'] = 1;
                     $order->fill($changes);
@@ -1026,5 +1057,27 @@ class UserController extends Controller
         Session::flash('flash_notification.password.message', 'Your Password has been successfully saved.');
         Session::flash('flash_notification.password.level', 'success');
         return Redirect::action('FrontendController@changedPassword')->withInput();
+    }
+
+    function addReferralPoints($user){
+        if($user->referral_id){
+            if(!$user->referral_rewarded){
+                $referral = User::where(['id' => $user->referral_id])->first();
+                if($referral){
+                    $referral->referrals_confirmed = $referral->referrals_confirmed + 1;
+                    $referral->referrals_points = $referral->referrals_points + 2;
+                    $referral->points = $referral->points + 2;
+                    $referral->save();
+                    Helpers::sendNotification('notifications.referral.confirmed.', $referral, ['link' => action('FrontendController@referral')]);
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 1;
+            }
+        } else {
+            return 0;
+        }
     }
 }

@@ -1175,3 +1175,27 @@ img.question-list{
 .masonry-loader{
     top: 200px;
 }
+.referral-link{
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #fffdf1;
+    margin-bottom: 40px;
+}
+.referral-text{
+    font-size: 16px;
+}
+p.discount{
+    position:relative;
+}
+p.discount span.round{
+    background-color: #ff7070;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFFFFF;
+    position: absolute;
+    top: -35px;
+    right: 0;
+}

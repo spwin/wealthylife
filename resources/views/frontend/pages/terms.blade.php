@@ -80,8 +80,7 @@
                             11.1 Taisyklėms yra taikoma Lietuvos Respublikos teisė.<br>
                             11.2 Visi tarp Paslaugų teikėjo ir Kliento kilę nesutarimai dėl šių Taisyklių vykdymo yra sprendžiami derybų keliu. Šalims neišsprendus ginčo derybų būdu toks ginčas galutinai sprendžiamas Lietuvos Respublikos įstatymų nustatyta tvarka teismuose pagal Paslaugų teikėjo buveinės vietą.</p>
                         <div class="clearboth">&nbsp;</div>
-
-                        <div class="stripes"></div>
+                        <div class='innerText'><br>Last Edited on 2016-08-25</div>
                     </div>
                 </div>
             </div>

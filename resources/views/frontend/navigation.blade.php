@@ -104,6 +104,9 @@
                                         <a href="{{ action('FrontendController@vouchers') }}">Vouchers</a>
                                     </li>
                                     <li>
+                                        <a href="{{ action('FrontendController@referral') }}">Referrals</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ action('Auth\AuthController@getUserLogout') }}">Log out</a>
                                     </li>
                                 </ul>
