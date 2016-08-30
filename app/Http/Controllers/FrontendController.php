@@ -81,7 +81,7 @@ class FrontendController extends Controller
                 $data['question'] = session()->get('question.content');
                 $data['status'] = 0;
                 $data['ip'] = \Request::ip();
-                $consultant = User::where(['type' => 'consultant'])->orderByRaw("RAND()")->first();
+                $consultant = User::where(['type' => 'consultant'])->inRandomOrder()->first();
                 $data['consultant_id'] = $consultant ? $consultant->id : 1;
                 //$this->getRegionByIp($data);
                 $question->fill($data);
@@ -111,6 +111,7 @@ class FrontendController extends Controller
             } else {
                 $question = array();
                 $question['content'] = session()->get('question.content');
+                $question['image_exists'] = session()->has('question.image') ? true : false;
                 $question['image'] = session()->has('question.image') ? 'temp/300x300/'.session()->get('question.image') : 'images/avatars/no_image.png';
                 $question['status'] = session()->get('question.status');
                 return view('frontend/pages/authorize-question')->with([
@@ -191,14 +192,20 @@ class FrontendController extends Controller
     public function viewAnswer($id){
         if($user = Auth::guard('user')->user()) {
             $question = Questions::findOrFail($id);
-            $answer = $question->answer()->first();
-            $answer->seen = 1;
-            $answer->save();
-            return view('frontend/profile/answer')->with([
-                'question' => $question,
-                'answer' => $answer,
-                'user' => $user
-            ]);
+            if($question && $question->status > 0) {
+                $answer = $question->answer()->first();
+                if ($answer) {
+                    $answer->seen = 1;
+                    $answer->save();
+                }
+                return view('frontend/profile/answer')->with([
+                    'question' => $question,
+                    'answer' => $answer,
+                    'user' => $user
+                ]);
+            } else {
+                return Redirect::action('FrontendController@questions');
+            }
         } else {
             return Redirect::action('FrontendController@index');
         }
@@ -382,10 +389,23 @@ class FrontendController extends Controller
     public function sitemap(){
         $sitemap = App::make("sitemap");
 
-        $sitemap->setCache('laravel.sitemap', 60);
+        $sitemap->setCache('laravel.sitemap', 720);
 
         if (!$sitemap->isCached()) {
             $sitemap->add(URL::to('soon'), date('c', time()), '1.0', 'weekly');
+
+            /*$sitemap->add(URL::to('/'), date('c', time()), '1.0', 'weekly');
+            $sitemap->add(URL::action('FrontendController@blog'), date('c', time()), '1.0', 'daily');
+            $sitemap->add(URL::action('FrontendController@about'), date('c', time()), '1.0', 'weekly');
+            $sitemap->add(URL::action('FrontendController@team'), date('c', time()), '1.0', 'weekly');
+            $sitemap->add(URL::action('FrontendController@contacts'), date('c', time()), '1.0', 'weekly');
+            $sitemap->add(URL::action('FrontendController@privacy'), date('c', time()), '1.0', 'weekly');
+            $sitemap->add(URL::action('FrontendController@terms'), date('c', time()), '1.0', 'weekly');
+
+            $articles = Article::where(['status' => 3, 'reviewed' => 1])->orderBy('published_at', 'DESC')->get();
+            foreach($articles as $article){
+                $sitemap->add(URL::action('FrontendController@blogEntry', ['url' => $article->url]), date('c', time()), '1.0', 'weekly');
+            }*/
         }
         return $sitemap->render('xml');
     }
@@ -469,5 +489,17 @@ class FrontendController extends Controller
             }
         }
         return Redirect::action('FrontendController@index', $params);
+    }
+
+    public function viewQuestion($id){
+        $question = Questions::where(['id' => $id])->first();
+        if($question && $user = Auth::guard('user')->user()){
+            return view('frontend/profile/view-question')->with([
+                'question' => $question,
+                'user' => $user
+            ]);
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
     }
 }

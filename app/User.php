@@ -95,4 +95,8 @@ class User extends Authenticatable
     public function orderDrafts(){
         return $this->hasMany('App\OrderDrafts', 'user_id', 'id');
     }
+
+    public function feedback(){
+        return $this->hasMany('App\Feedback', 'user_id', 'id');
+    }
 }

@@ -20,7 +20,7 @@
     </section>
     <section>
         <div class="container">
-            <div class="row">
+            <div>
                 <h4>Having trouble mixing and matching outfits?</h4>
                 <h4>In search of perfect footwear for your party dress?</h4>
                 <h4>Need help dressing up for date night?</h4>
@@ -28,7 +28,7 @@
                 <h5>Click here to take a look at the type of questions our styling team can answer for you!</h5>
             </div>
 
-            <div class="row">
+            <div>
                 <h4>How It Works?</h4>
                 <p>
                     Is there a fashion emergency that you want to solve? Here’s how you can get connected to our styling experts:
@@ -43,35 +43,35 @@
                 </p>
             </div>
 
-            <div class="row">
+            <div>
                 <h4>Our Mission</h4>
                 <p>
                     We aim at giving professional styling and fashion advice available for everyone without having to pay a hefty amount of money.
                 </p>
             </div>
 
-            <div class="row">
+            <div>
                 <h4>Credits</h4>
                 <p>
                     Want to make the most of your relation with us? Get outstanding deals and save money on styling advice/suggestions by using our credits system. By purchasing more credits, you get a chance to save more money and enjoy better deals. You will find more information about credits when you log into Stylesensei.
                 </p>
             </div>
 
-            <div class="row">
+            <div>
                 <h4>Gift Vouchers</h4>
                 <p>
                     If you are browsing/searching/looking for gift ideas for a friend or a family member, look no further as Stylesensei brings you the most unique and fun gift vouchers that truly make for a perfect present for any occasion. Our gift vouchers will make your present extra-ordinarily memorable and special for the receiver. By purchasing our awesome gift voucher, you can give others a chance to make use of our professional styling advice ata fraction of the cost.
                 </p>
             </div>
 
-            <div class="row">
+            <div>
                 <h4>Blog</h4>
                 <p>
                     Are you fond of penning down your thoughts? At Stylesensei, we give our customers a chance to write blogs and get them published on our site for free. In order to get started, all you need to do is create a blog entry with your photo and share. You can invite more people to view your blog by sharing it on other social media platforms.
                 </p>
             </div>
 
-            <div class="row">
+            <div>
                 <h4>Referral reward system</h4>
                 <p>
                     Our clients are the best promoters of our service. And as you are the part of it, by helping you get the most of StyleSensei we created our unique REFER A FRIEND system.
@@ -93,14 +93,14 @@
                 </p>
             </div>
 
-            <div class="row">
+            <div>
                 <h4>Security & Privacy</h4>
                 <p>
                     At Stylesensei, we ensure that our customers are protected by any kind of data theft, which is why we have encrypted the entire site with SSL certificate. Feel free to ask any type of questions on styling and we promise you that it will remain between you and the consultant in charge. Your personal information will also be protected and kept under confidentiality. We process all payments via Braintree gateway, a highly secure and reliable payment system.
                 </p>
             </div>
 
-            <div class="row">
+            <div>
                 <h5>Your style speaks of your personality, so don’t compromise on it and get in touch with Stylesensei to make sure you are looking on point all the time!</h5>
             </div>
         </div>

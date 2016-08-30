@@ -1,4 +1,6 @@
 @extends('frontend/frame')
+@section('page-title', trans('seo.blog.title'))
+@section('meta-description', trans('seo.blog.description'))
 @section('nav-style', 'nav-blog')
 @section('content')
     <section class="bg-secondary">

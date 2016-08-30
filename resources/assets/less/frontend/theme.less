@@ -1584,7 +1584,16 @@ section+.portfolio-pullup{ padding-top: 0; margin-top: -128px; position: relativ
 .foundry_modal.no-bg{ background: none; box-shadow: none !important; }
 .modal-screen{ position: fixed; width: 100%; height: 100%; background: @bg-dark; opacity: 0; z-index: 9998; .transition(0.3s); visibility: hidden; top: 0; left: 0; }
 .modal-screen.reveal-modal{ opacity: .8; visibility: visible; }
-.foundry_modal.reveal-modal{ opacity: 1; visibility: visible; z-index: 9999; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); -webkit-transform: translateX(-50%) translateY(-50%); -webkit-font-smoothing: subpixel-antialiased;}
+.foundry_modal.reveal-modal{
+	opacity: 1; visibility: visible; z-index: 9999; top: 50%; left: 50%; -webkit-backface-visibility: hidden;  -webkit-transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.0, 1.0);
+	image-rendering: optimizeSpeed;             /*                     */
+	image-rendering: -moz-crisp-edges;          /* Firefox             */
+	image-rendering: -o-crisp-edges;            /* Opera               */
+	image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) */
+	image-rendering: optimize-contrast;         /* CSS3 Proposed       */
+	-ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
+	-webkit-font-smoothing: antialiased;
+}
 .foundry_modal .close-modal{ z-index: 4; position: absolute; .transition(0.1s); top: 24px; right: 32px; cursor: pointer; font-size: 18px; }
 .foundry_modal .close-modal:hover{ color: #000000; }
 .foundry_modal *:not(.background-image-holder):not(.close-modal){ z-index: 4; /*position: relative; */}
@@ -1592,7 +1601,7 @@ section+.portfolio-pullup{ padding-top: 0; margin-top: -128px; position: relativ
 .foundry_modal iframe{ width: 100%; min-height: 400px; }
 
 @media all and (min-width: 1500px){
-	.foundry_modal{ max-width: 30%; width: 30%; }
+	.foundry_modal{ max-width: 552px; width: 552px; }
 }
 
 @media all and (max-width: 1500px){

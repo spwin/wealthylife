@@ -1,3 +1,12 @@
+::selection{
+    background: #47b475;
+    color: #FFFFFF;
+}
+::-moz-selection {
+    background: #47b475;
+    color: #FFFFFF;
+}
+
 #magic-line {
     position: absolute;
     bottom: 11px;
@@ -217,7 +226,7 @@ div.question-body{
 }
 
 div.question-body img{
-    padding: 18px 0 10px 0;
+    padding: 5px 0 10px 0;
     display: block;
     max-width: 250px;
     margin-right: 50px;
@@ -873,6 +882,10 @@ button.delete-draft-question{
     margin: 0;
     background-color: #47b475;
 }
+.show-answer-btn:hover,
+.show-answer-btn:active{
+    background-color: #40A269;
+}
 
 .your-question .question-body{
     font-size: 18px;
@@ -952,6 +965,9 @@ table.notifications-table>tbody>tr>td a{
 }
 .error-404 .btn:hover{
     background-color: #47b475;
+    color: #FFFFFF;
+}
+.btn-filled:focus{
     color: #FFFFFF;
 }
 .btn-white:visited:hover, .btn-white:hover {
@@ -1041,7 +1057,6 @@ span.text-red{
     width: initial;
 }
 .btn:focus{
-    color: inherit;
     text-decoration: none;
 }
 .rating-wrapper {
@@ -1140,6 +1155,10 @@ span.text-red{
 .w15p{
     width: 15%;
 }
+
+.w250px{
+    width: 250px;
+}
 .article-list-img{
     max-width: 100%;
     max-height: 72px;
@@ -1154,6 +1173,8 @@ span.text-red{
 .facebook-blog{
     margin-bottom: 15px;
     height: 28px;
+    position: relative;
+    clear: both;
 }
 .blog-block-image{
     background-color: #FFFFFF;
@@ -1248,7 +1269,9 @@ p.discount span.round{
     width: 50%;
     margin-top: 20px;
     padding-right: 20px;
+    padding-left: 10px;
     overflow: visible;
+    min-width: 150px;
 }
 .slider .tooltip{
     display: none;
@@ -1314,7 +1337,7 @@ p.discount span.round{
     cursor: pointer;
 }
 .questions-container table tr:hover{
-    background-color: #FEFFF0;
+    background-color: #FBFBFB;
 }
 
 .terms-conditions ul{
@@ -1331,4 +1354,25 @@ p.discount span.round{
 }
 .terms-conditions h4{
     margin-top: 60px;
+}
+
+#feedback-icon{
+    background: url("../images/feedback.png") 0 0 no-repeat transparent;
+    height: 67px;
+    width: 67px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.feedback-thank-you{
+    text-align: center;
+}
+
+.feedback-thank-you i{
+    font-size: 50px;
+    color: #40A269;
+    display: block;
+    margin-bottom: 20px;
 }

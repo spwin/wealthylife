@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Answers;
 use App\Article;
 use App\Discounts;
+use App\Feedback;
 use App\Helpers\Helpers;
 use App\Images;
 use App\OrderDrafts;
@@ -53,7 +54,7 @@ class UserController extends Controller
         return $redirectUrl;
     }
 
-    function createDiscount($id, $type){
+    function Discount($id, $type){
         if($type == 'referral'){
             $discount = new Discounts();
             $discount->fill([
@@ -335,7 +336,7 @@ class UserController extends Controller
         ]);
         $v->after(function($v) use ($request) {
             if ($request->file('image') && $request->file('image')->getError()) {
-                $v->errors()->add('image', 'The image may not be greater than '.$this->max_filesize.' kilobytes.');
+                $v->errors()->add('image', 'The image may not be greater than '.$this->max_filesize.' kilobytes (php).');
             }
         });
         if ($v->fails()) {
@@ -644,6 +645,7 @@ class UserController extends Controller
                     $user->points = $user->points - $order_draft->points;
                     $user->save();
                     $question->status = 1;
+                    $question->asked_at = date('Y-m-d H:i:s', time());
                     $question->save();
                     Session::flash('flash_notification.question.message', 'You payment was completed, please check your email for more info');
                     Session::flash('flash_notification.question.level', 'success');
@@ -668,6 +670,7 @@ class UserController extends Controller
             $user->points = $user->points - $order_draft->points;
             $user->save();
             $question->status = 1;
+            $question->asked_at = date('Y-m-d H:i:s', time());
             $question->save();
             Session::flash('flash_notification.question.message', 'Your question has been submitted, please check your email for more info');
             Session::flash('flash_notification.question.level', 'success');
@@ -920,7 +923,7 @@ class UserController extends Controller
         $answer->save();
         Session::flash('flash_notification.answer.message', 'Thank you for helping us to improve!');
         Session::flash('flash_notification.answer.level', 'success');
-        return Redirect::action('FrontendController@viewAnswer', ['id' => $id]);
+        return Redirect::action('FrontendController@viewAnswer', ['id' => $answer->question->id]);
     }
 
     public function createArticle(Request $request){
@@ -1169,5 +1172,29 @@ class UserController extends Controller
         } else {
             return Redirect::action('FrontendController@index');
         }
+    }
+
+    public function leaveFeedback(Request $request){
+        $v = Validator::make($request->all(), [
+            'content' => 'required|min:3|max:1000'
+        ]);
+
+        $request->session()->flash('modal', 'feedback');
+
+        if ($v->fails()) {
+            return Redirect::action($this->getRoute())->withErrors($v->errors(), 'feedback')->withInput();
+        }
+        $input = $request->all();
+        $input['ip'] = \Request::ip();
+        if($user = Auth::guard('user')->user()){
+            $input['user_id'] = $user->id;
+        }
+        $feedback = new Feedback();
+        $feedback->fill($input);
+        $feedback->save();
+
+        Session::flash('flash_notification.feedback.message', 'Your feedback is valuable in helping us build better products.');
+        Session::flash('flash_notification.feedback.level', 'success');
+        return Redirect::action($this->getRoute());
     }
 }

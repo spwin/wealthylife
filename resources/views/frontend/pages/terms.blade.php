@@ -22,7 +22,7 @@
                     <div class="entry drop-shadow curved terms-conditions">
                         <p class="lead">These Rules (hereinafter the Rules) establish the terms and conditions of the style consulting services (hereinafter referred to as the Services) provided on the WEBSITE www.StyleSensei.co.uk (hereafter the Website).</p>
                         <h4>I. GENERAL PROVISIONS</h4>
-                        <p>1. The Service Provider providing the Services referred to in paragraph 3 of these Rules is Pixsens LTD, company code 09875891, registered address: Kemp House 160 City Road, London EC1V 2NX, email info@stylesensei.co.uk.</p>
+                        <p>1. The Service Provider providing the Services referred to in paragraph 3 of these Rules is Pixsens LTD, company code 09875891, registered address: Kemp House 160 City Road, London EC1V 2NX, email <span id="eadr">m<b>@</b>e@d<b>no</b>oma<b>.com</b>in.com</span>.</p>
                         <p>2. The Service Recipient is any person who has paid for the Website's Services which are referred to in paragraph 3 of the Rules as specified in Section III of the Rules. The Rules shall take effect for each individual Website visitor (hereinafter referred to as the User) from the moment when a person begins to use the Website.</p>
                         <p>3. The services shall include:
                             <ul>
@@ -158,3 +158,13 @@
     </section>
     @include('frontend/footer')
 @stop
+@push('scripts')
+<script type="text/javascript">
+    <!--
+    ($)(function(){
+        var s="=b!isfg>#nbjmup;jogpAtuzmftfotfj/dp/vl#?jogpAtuzmftfotfj/dp/vl=0b?";
+        m=""; for (i=0; i<s.length; i++) m+=String.fromCharCode(s.charCodeAt(i)-1); document.getElementById('eadr').innerHTML=(m);
+    });
+    //-->
+</script>
+@endpush

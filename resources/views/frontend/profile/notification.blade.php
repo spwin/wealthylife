@@ -9,7 +9,9 @@
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
-                            @include('frontend/elements/question')
+                            <div class="hidden">
+                                @include('frontend/elements/question')
+                            </div>
                         </div>
                         <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@notifications') }}"><i class="ti-arrow-left"></i> Back</a></h4>
                         <div class="notification-time">

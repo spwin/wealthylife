@@ -9,7 +9,9 @@
                     <div class="tabbed-content text-tabs edit-article display-after-load">
                         <div class="modal-container text-right">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
-                            @include('frontend/elements/question')
+                            <div class="hidden">
+                                @include('frontend/elements/question')
+                            </div>
                         </div>
                         <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@articles', [$article->status == 0 ? '#drafts' : ($article->status == 3 ? '#published' : '#submitted')]) }}"><i class="ti-arrow-left"></i> To list</a></h4>
                         <h4 class="uppercase mb16">Edit My Blog entry</h4>

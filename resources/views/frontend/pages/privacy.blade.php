@@ -1,4 +1,6 @@
 @extends('frontend/frame')
+@section('page-title', trans('seo.policy.title'))
+@section('meta-description', trans('seo.policy.description'))
 @section('nav-style', 'nav-authorize-question')
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
@@ -119,8 +121,8 @@
                     <div class='innerText'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&bull;</strong> Monitor third-party email marketing services for compliance, if one is used.</div>
                     <div class='innerText'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&bull;</strong> Honor opt-out/unsubscribe requests quickly.</div>
                     <div class='innerText'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>&bull;</strong> Allow users to unsubscribe by using the link at the bottom of each email.</div>
-                    <div class='innerText'><strong><br>If at any time you would like to unsubscribe from receiving future emails, you can email us at</strong></div>
-                    <div class='innerText'>info@stylesensei.co.uk and we will promptly remove you from <strong>ALL</strong> correspondence.</div>
+                    <div class='innerText'><strong><br>If at any time you would like to unsubscribe from receiving future emails, you can email us</strong></div>
+                    <div class='innerText'>and we will promptly remove you from <strong>ALL</strong> correspondence.</div>
                     <br><span id='ourCon'></span><br>
                     <div class='blueText'><strong>Contacting Us</strong></div>
                     <br />
@@ -129,7 +131,7 @@
                     <div class='innerText'>Kemp House 160 City Road</div>
                     London, EC1V 2NX
                     <div class='innerText'>United Kingdom</div>
-                    <div class='innerText'>info@stylesensei.co.uk</div>
+                    <div class='innerText'><span id="eadr">m<b>@</b>e@d<b>no</b>oma<b>.com</b>in.com</span></div>
                     <div class='innerText'><br>Last Edited on 2016-08-25</div>
                 </div>
             </div>
@@ -139,3 +141,13 @@
     </section>
     @include('frontend/footer')
 @stop
+@push('scripts')
+<script type="text/javascript">
+    <!--
+    ($)(function(){
+        var s="=b!isfg>#nbjmup;jogpAtuzmftfotfj/dp/vl#?jogpAtuzmftfotfj/dp/vl=0b?";
+        m=""; for (i=0; i<s.length; i++) m+=String.fromCharCode(s.charCodeAt(i)-1); document.getElementById('eadr').innerHTML=(m);
+    });
+    //-->
+</script>
+@endpush

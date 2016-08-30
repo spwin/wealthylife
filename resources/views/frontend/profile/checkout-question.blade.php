@@ -6,13 +6,19 @@
             <div class="row">
                 @include('frontend/profile/user-menu')
                 <div class="col-md-9">
-                    <div class="tabbed-content text-tabs display-after-load questions-container">
+                    <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right">
                             <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@questions', '#drafts') }}"><i class="ti-arrow-left"></i> Questions list</a></h4>
                         </div>
                         <h4 class="uppercase mb16">Question payment</h4>
                         <div class="question-body">
-                            <img src="{{ $question->image ? url()->to('/').'/photo/300x300/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}">
+                            @if($question->image)
+                                <a href="{{ url()->to('/').$question->image->path.$question->image->filename }}" data-lightbox="image-{{ $question->image->id }}" data-title="Question #{{ $question->id }}">
+                                    <img src="{{  url()->to('/').'/photo/300x300/'.$question->image->filename }}">
+                                </a>
+                            @else
+                                <img src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                            @endif
                             <div class="question-text">
                                 <p>{{ $question->question }}</p>
                             </div>

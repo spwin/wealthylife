@@ -19,7 +19,7 @@
     <div class="image-upload">
         <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
             <div class="question-image text-left">
-                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/200x200/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
@@ -33,7 +33,7 @@
         <div class="clear"></div>
     </div>
     <div class="upload-button">
-        {!! Form::file('image', ['onChange' => 'readURL('.(session()->has('question.image') ? 'true' : 'false').', this, "'.( session()->has('question.image') ? url()->to('/').'/images/session/temp/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png').'")', 'class' => 'image-input']) !!}
+        {!! Form::file('image', ['onChange' => 'readURL('.(session()->has('question.image') ? 'true' : 'false').', this, "'.( session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png').'")', 'class' => 'image-input']) !!}
     </div>
     <div class="textarea-holder">
         {!! Form::textarea('question', session()->has('question.content') ? session()->get('question.content') : null, ['class' => $errors->question->first('question', 'field-error ').'mt-1px', 'placeholder' => 'What would you like to ask?', 'onKeyPress' => 'countChar(this,event)', 'onKeyUp' => 'countChar(this,event)']) !!}

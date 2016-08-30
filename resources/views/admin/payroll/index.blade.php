@@ -89,13 +89,13 @@
                                     $now = \Carbon\Carbon::now();
                                     $lasts = str_replace('before', '', $created->diffForHumans($now));
                                 ?>
-                                <tr>
-                                    <td>#{{ $period->id }}</td>
-                                    <td>{{ date('d M, Y H:i', strtotime($period->starts_at )) }}</td>
-                                    <td>{{ date('d M, Y H:i', strtotime($period->ends_at )) }}</td>
-                                    <td>{{ $lasts }}</td>
-                                    <td>{{ $period->answers()->count() }}</td>
-                                    <td>{{ $period->paid_at == null ? '-' : date('d M, Y H:i', strtotime($period->paid_at )) }}</td>
+                                <tr class="periods">
+                                    <td onclick="window.location.href = '{{ action('AdminController@viewPayroll', ['id' => $period->id]) }}';">#{{ $period->id }}</td>
+                                    <td onclick="window.location.href = '{{ action('AdminController@viewPayroll', ['id' => $period->id]) }}';">{{ date('d M, Y H:i', strtotime($period->starts_at )) }}</td>
+                                    <td onclick="window.location.href = '{{ action('AdminController@viewPayroll', ['id' => $period->id]) }}';">{{ date('d M, Y H:i', strtotime($period->ends_at )) }}</td>
+                                    <td onclick="window.location.href = '{{ action('AdminController@viewPayroll', ['id' => $period->id]) }}';">{{ $lasts }}</td>
+                                    <td onclick="window.location.href = '{{ action('AdminController@viewPayroll', ['id' => $period->id]) }}';">{{ $period->answers()->count() }}</td>
+                                    <td onclick="window.location.href = '{{ action('AdminController@viewPayroll', ['id' => $period->id]) }}';">{{ $period->paid_at == null ? '-' : date('d M, Y H:i', strtotime($period->paid_at )) }}</td>
                                     <td>
                                         @if($period->paid_at == null)
                                             {!! Form::open([

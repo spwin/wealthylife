@@ -49,19 +49,25 @@
                         </thead>
                         <tbody>
                         @foreach($users as $user)
-                            <tr onclick="window.location.href = '{{ action('AdminController@detailsConsultant', ['id' => $user->id]) }}';">
+                            @php($average = array())
+                            <tr>
                                 <td>{{ $user->id }}</td>
                                 <td><i class="fa fa-circle text-success"></i> Online</td>
                                 <td>
                                     <a href="{{ action('AdminController@detailsConsultant', $user->id) }}">
-                                        {{ $user->userData()->first()->first_name }} {{ $user->userData()->first()->last_name }}
+                                        {{ $user->userData->first_name }} {{ $user->userData->last_name }}
                                     </a>
                                 </td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->questions()->where(['status' => 1])->count() }}</td>
                                 <td>{{ $user->answers()->where(['payroll_id' => $current->id])->count() }}</td>
-                                <td>30 min</td>
-                                <td>{{ $total += ($price->value * $user->answers()->where(['payroll_id' => $current->id])->count()) }}</td>
+                                @foreach($user->questions()->join('answers', 'answers.question_id', '=', 'questions.id')
+                                        ->where(['answers.payroll_id' => $current->id, 'questions.status' => 2])->get() as $question)
+                                    @php($average[] = round(abs(strtotime($question->answered_at) - strtotime($question->asked_at)) / 60,2))
+                                @endforeach
+                                <td>{{ count($average) > 0 ? round(array_sum($average) / count($average), 2).' min' : '-' }}</td>
+                                @php($total += ($price->value * $user->answers()->where(['payroll_id' => $current->id])->count()))
+                                <td>{{ $price->value * $user->answers()->where(['payroll_id' => $current->id])->count() }}</td>
                             </tr>
                         @endforeach
                         <tr>

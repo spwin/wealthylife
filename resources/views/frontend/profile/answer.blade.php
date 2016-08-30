@@ -9,9 +9,11 @@
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
-                            @include('frontend/elements/question')
+                            <div class="hidden">
+                                @include('frontend/elements/question')
+                            </div>
                         </div>
-                        <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@questions', ['#answered']) }}"><i class="ti-arrow-left"></i> Back</a></h4>
+                        <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@questions', [$question->status == 1 ? '#pending' : '#answered']) }}"><i class="ti-arrow-left"></i> Back</a></h4>
                         @if (Session::has('flash_notification.answer.message'))
                             <div class="alert alert-{{ Session::get('flash_notification.answer.level') }} alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -24,9 +26,13 @@
                         <div class="your-question mb16">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <a target="_blank" href="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : '#' }}">
-                                        <img src="{{ $question->image()->first() ? url()->to('/').'/photo/300x200/'.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}">
-                                    </a>
+                                    @if($question->image)
+                                        <a href="{{ url()->to('/').$question->image->path.$question->image->filename }}"  data-lightbox="image-{{ $question->image->id }}" data-title="Question #{{ $question->id }}">
+                                            <img src="{{ url()->to('/').'/photo/300x200/'.$question->image->filename }}">
+                                        </a>
+                                    @else
+                                        <img src="{{ $question->image ? url()->to('/').'/photo/300x200/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}">
+                                    @endif
                                 </div>
                                 <div class="col-md-8">
                                     <div class="question-body">{{ $question->question }}</div>
@@ -34,10 +40,14 @@
                             </div>
                         </div>
                         <hr/>
-                        <h4 class="uppercase mb16">Answer</h4>
-                        {!! $answer->answer !!}
+                        @if($answer)
+                            <h4 class="uppercase mb16">Answer</h4>
+                            {!! $answer->answer !!}
+                        @else
+                            <h4 class="uppercase mb16">The answer is not ready yet, we are working on it.</h4>
+                        @endif
                     </div>
-                    @if(!$answer->rated)
+                    @if($answer && !$answer->rated)
                         <div class="col-md-6 no-padding answer-rating display-after-load">
                             <hr/>
                             @if (count($errors->answer) > 0)

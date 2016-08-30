@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>@yield('page-title', 'Professional image and style consultation online only £20')</title>
-    <meta name="description" content="@yield('meta-description', 'Finding an answer to your style related questions has never been easier. With only few mouse clicks you can get great advice about your outfit from expert team.')">
+    <title>@yield('page-title', trans('seo.main.title'))</title>
+    <meta name="description" content="@yield('meta-description', trans('seo.main.title'))">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="alternate" href="{{ url()->to('/') }}" hreflang="en-GB" />
     <link href="{{ URL::to('/') }}/css/front-plugins.css" rel="stylesheet">
@@ -14,6 +14,12 @@
 <body class="scroll-assist">
 @yield('after-body-snippet')
 @yield('wrapper')
+<div class="modal-container text-right">
+    <a class="btn-modal" href="#"><div id="feedback-icon"></div></a>
+    <div class="hidden">
+        @include('frontend/elements/feedback')
+    </div>
+</div>
 <script src="{{ URL::to('/') }}/js/front-plugins.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

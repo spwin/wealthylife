@@ -4,15 +4,27 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center col-sm-12">
+                <div class="col-md-offset-2 col-md-9 text-center col-sm-12">
                     <h2 class="uppercase mb24 bold">Your question</h2>
-                    <p class="question-body">
-                        <img src="{{ url()->to('/').'/'.$question['image'] }}">
-                        {{ $question['content'] }}
-                    </p>
-                    <div class="modal-container inline-block">
-                        <a class="btn btn-modal btn-filled" href="#">Edit</a>
-                        @include('frontend/elements/question')
+                    <div class="question-body">
+                        @if($question['image_exists'])
+                            <a href="{{ url()->to('/').'/'.$question['image'] }}" data-lightbox="image-question" data-title="Question temp">
+                                <img src="{{ url()->to('/').'/'.$question['image'] }}">
+                            </a>
+                        @else
+                            <img src="{{ url()->to('/').'/'.$question['image'] }}">
+                        @endif
+                        <div class="question-text">
+                            <p>{{ $question['content'] }}</p>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="modal-container inline-block">
+                            <a class="btn btn-modal btn-filled" href="#">Edit</a>
+                            <div class="hidden">
+                                @include('frontend/elements/question')
+                            </div>
+                        </div>
+                        <div class="clear"></div>
                     </div>
                     <hr class="visible-xs">
                 </div>

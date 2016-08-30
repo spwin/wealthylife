@@ -9,7 +9,9 @@
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
-                            @include('frontend/elements/question')
+                            <div class="hidden">
+                                @include('frontend/elements/question')
+                            </div>
                         </div>
                         <h4 class="uppercase mb16">Buy credits</h4>
                         @if (count($errors->credits) > 0)
@@ -71,7 +73,7 @@
                                     <h4>Ask More Questions, Enjoy Better Deals!</h4>
                                     <p>
                                         Looking to get fashion advice without having to pay each time? At Stylesensei, we make your wishes come true. You can also ask us any style and fashion related questions without paying for it through your credit card. The more credits you buy, the higher will be your reward.
-                                        We offer perks to our loyal customers by giving them a chance to collect credits each time they invite a friend using unique referral link. And when you have collected enough credits, you can utilise them to ask questions for free. It just gets better with us!
+                                        We offer perks to our loyal customers by giving them a chance to collect credits each time they invite a friend using <a href="{{ action('FrontendController@referral') }}">unique referral link</a>. And when you have collected enough credits, you can utilise them to ask questions for free. It just gets better with us!
                                     </p>
 
                                     <h4>We Protect Your Credit Details</h4>

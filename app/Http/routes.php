@@ -82,7 +82,7 @@ Route::group(['middleware' => ['ip']], function () {
     Route::get('email-confirm/{key}', 'UserController@confirmation');
     Route::get('blog', 'FrontendController@blog');
     Route::get('contact-us', 'FrontendController@contacts');
-    Route::get('about', 'FrontendController@about');
+    Route::get('about-us', 'FrontendController@about');
     Route::get('privacy-policy', 'FrontendController@privacy');
     Route::get('terms-and-conditions', 'FrontendController@terms');
     Route::get('the-team', 'FrontendController@team');
@@ -115,6 +115,7 @@ Route::group(['middleware' => ['ip']], function () {
 
     Route::get('referral-program', 'FrontendController@referral');
     Route::get('accept-referral', 'FrontendController@acceptReferral');
+    Route::post('leave-feedback', 'UserController@leaveFeedback');
 // LOGGED
 
     Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
@@ -126,6 +127,7 @@ Route::group(['middleware' => ['ip']], function () {
         Route::get('notifications', 'FrontendController@notifications');
         Route::get('notifications/{id}', 'FrontendController@showNotification');
         Route::get('questions', 'FrontendController@questions');
+        Route::get('{id}/question', 'FrontendController@viewQuestion');
         Route::group(['prefix' => 'articles'], function () {
             Route::get('/', 'FrontendController@articles');
             Route::get('new', 'FrontendController@newArticle');
@@ -220,6 +222,7 @@ Route::group(['middleware' => ['ip']], function () {
         });
         Route::group(['prefix' => 'payroll'], function () {
             Route::get('/', 'AdminController@payroll');
+            Route::get('view/{id}', 'AdminController@viewPayroll');
             Route::post('pay-payroll/{id}', 'AdminController@payPayroll');
             Route::post('end-payroll/{id}', 'AdminController@endPayroll');
         });

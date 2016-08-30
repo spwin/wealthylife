@@ -701,4 +701,16 @@ class AdminController extends Controller
         Flash::success('The article has been '.$done.' successfully!');
         return Redirect::action('AdminController@articles', ['type' => $type]);
     }
+
+    public function viewPayroll($id){
+        $payroll = Payroll::findOrFail($id);
+        $consultants = User::with('userData')->where(['type' => 'consultant'])->get();
+        $price = Settings::where(['name' => 'gross_consultant'])->first();
+        return view('admin/payroll/view')->with([
+            'users' => $consultants,
+            'current' => $payroll,
+            'price' => $price,
+            'total' => 0
+        ]);
+    }
 }

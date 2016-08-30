@@ -8,7 +8,9 @@
                 <div class="col-md-9">
                     <div class="modal-container text-right">
                         <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
-                        @include('frontend/elements/question')
+                        <div class="hidden">
+                            @include('frontend/elements/question')
+                        </div>
                     </div>
                     <h4 class="uppercase mb16">Payment process</h4>
                     <div class="col-md-12 text-center col-sm-12">
