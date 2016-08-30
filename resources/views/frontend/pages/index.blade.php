@@ -24,7 +24,9 @@
                             <p>
                                 <div class="modal-container inline-block">
                                     <a class="btn btn-modal" href="#">Ask question</a>
-                                    @include('frontend/elements/question')
+                                    <div class="hidden">
+                                        @include('frontend/elements/question')
+                                    </div>
                                 </div>
                             </p>
                         </div>

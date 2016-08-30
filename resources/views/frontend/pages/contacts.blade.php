@@ -21,9 +21,7 @@
             <div class="row">
                 <div class="col-sm-6 col-md-5">
                     <h4 class="uppercase">Get In Touch</h4>
-                    <p>
-                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
-                    </p>
+                    <p>Have something to share with us: a piece of advice, feedback, or a problem? Just fill out our form and we will get back to you shortly with the answer that you have been looking for. And trust me, we are quick!</p>
                     <hr>
                     <p>
                         <strong>Pixsens LTD</strong>

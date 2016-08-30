@@ -14,8 +14,20 @@
                         <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@articles') }}"><i class="ti-arrow-left"></i> Back</a></h4>
                         <h4 class="uppercase mb16">Create blog entry</h4>
                         <div class="col-md-12">
+                            <h4>Dos and Don’ts of Posting on Style Blog</h4>
                             <p>
-                                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+                                We are pleased to offer a social platform for all our users who are into style and fashion. However, in order to post entries on Style Blog, you must remember the following instructions:
+                                <ul>
+                                    <li>- Use public appropriate language and photos in blogs.</li>
+                                    <li>- Do not use photos of others.</li>
+                                    <li>- Refrain from abusive language or content.</li>
+                                    <li>- Do not add negative, discriminating, and racist comments in your entry.</li>
+                                    <li>- Be nice to those you address.</li>
+                                    <li>- All entries must belong to the subject of fashion, style, and image.</li>
+                                    <li>- No entry with advertising or marketing messages will be entertained or published on our Style Blog.</li>
+                                </ul>
+                                Every blog entry that you make is first screened and checked by our team and if they find any of the above issues in your entries, your entry will not be accepted.
+                                We are positive that you will note down our blog writing criteria and submit your entries accordingly. We highly welcome any kind of fun stuff that is related to fashion on Style Blog. So, get started by filling out this form.
                             </p>
                         </div>
                         <div class="col-md-12">
@@ -103,6 +115,8 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
+
+                            <h5>Share your fashion secrets with others on our fun and entertaining blogging platform!</h5>
 
                             <input type="submit" class="btn profile-button" value="Continue">
 

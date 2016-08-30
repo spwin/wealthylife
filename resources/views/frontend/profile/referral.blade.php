@@ -41,6 +41,7 @@
                                             <li><b>TRACK</b> - You can check the number of registered and confirmed referrals on this page</li>
                                         </ul>
                                     </p>
+                                    <h5>LET THE STYLE BEGIN</h5>
                                 </div>
                             </div>
                         </section>

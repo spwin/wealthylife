@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Discounts;
 use App\Images;
 use App\Notifications;
+use App\OrderDrafts;
 use App\PasswordResets;
 use App\PriceSchemes;
 use App\Questions;
@@ -105,7 +107,7 @@ class FrontendController extends Controller
                     }
                 }
                 session()->forget('question');
-                return Redirect::action('FrontendController@paymentQuestion', ['id' => $question->id]);
+                return Redirect::action('FrontendController@checkoutQuestion', ['id' => $question->id]);
             } else {
                 $question = array();
                 $question['content'] = session()->get('question.content');
@@ -127,36 +129,63 @@ class FrontendController extends Controller
         }
     }
 
-    public function paymentQuestion(Request $request, $id){
+    public function checkoutQuestion($id){
         $question = Questions::where(['id' => $id])->first();
         if($question && $user = Auth::guard('user')->user()) {
             if($question->status == 0) {
                 $price = Settings::where(['name' => 'question_price'])->first();
                 $question_price = $price ? $price->value : env('DEFAULT_QUESTION_PRICE');
-                $difference = $question_price - $user->points;
-                if ($user->points >= $question_price) {
-                    return view('frontend/profile/points-question')->with([
-                        'question' => $question,
-                        'user_balance' => $user->points,
-                        'question_price' => $question_price,
-                        'difference' => $difference
-                    ]);
-                } else {
-                    $creditCardToken = ClientToken::generate();
-                    return view('frontend/profile/payment-question')->with([
-                        'question' => $question,
-                        'token' => $creditCardToken,
-                        'user_balance' => $user->points,
-                        'question_price' => $question_price,
-                        'difference' => $difference
-                    ]);
+                $discount = Discounts::where(['user_id' => $user->id, 'used' => 0])->orderBy('created_at', 'DESC')->first();
+                if($discount){
+                    if($discount->type == 'percent'){
+                        $discount->amount = round(($question_price/100)*$discount->percent);
+                    } else {
+                        $discount->amount = $discount->fixed;
+                    }
                 }
+                return view('frontend/profile/checkout-question')->with([
+                    'question_price' => $question_price,
+                    'question' => $question,
+                    'user' => $user,
+                    'discount' => $discount
+                ]);
             } else {
                 return Redirect::action('FrontendController@questions');
             }
         } else {
             return Redirect::action('FrontendController@index');
         }
+    }
+
+    public function paymentQuestion(Request $request, $id){
+        $order_draft = OrderDrafts::where(['id' => $id, 'token' => $request->get('token')])->first();
+        if($user = Auth::guard('user')->user()) {
+            if ($order_draft && $question = Questions::where(['id' => $order_draft->question_id])->first()) {
+                if ($question->status == 0) {
+                    if($order_draft->to_pay > 0){
+                        $creditCardToken = ClientToken::generate();
+                        return view('frontend/profile/payment-question')->with([
+                            'user' => $user,
+                            'question' => $question,
+                            'token' => $creditCardToken,
+                            'user_balance' => $user->points,
+                            'order_draft' => $order_draft
+                        ]);
+                    } else {
+                        return view('frontend/profile/points-question')->with([
+                            'user' => $user,
+                            'question' => $question,
+                            'user_balance' => $user->points,
+                            'order_draft' => $order_draft
+                        ]);
+                    }
+                }
+            }
+            Session::flash('flash_notification.question.message', 'Something went wrong with your order, try again or contact us');
+            Session::flash('flash_notification.question.level', 'danger');
+            return Redirect::action('FrontendController@questions', '#drafts');
+        }
+        return Redirect::action('FrontendController@index');
     }
 
     public function viewAnswer($id){

@@ -56,11 +56,12 @@ elixir(function(mix) {
         '../foundry/css/flexslider.css',
         '../foundry/css/lightbox.min.css',
         '../foundry/css/ytplayer.css',
-        '../plugins/datepicker/datepicker3.css'
+        '../plugins/datepicker/datepicker3.css',
+        '../plugins/bootstrap-slider/slider.css'
     ], 'public/css/front-plugins.css');
     mix.styles([
         'frontend/tinymce.css'
-    ], 'public/css/tinymce.css')
+    ], 'public/css/tinymce.css');
     mix.styles([
         'frontend/custom.css'
     ], 'public/css/front-custom.css')
@@ -77,6 +78,7 @@ elixir(function(mix) {
         '../foundry/js/ytplayer.min.js',
         '../foundry/js/smooth-scroll.min.js',
         '../plugins/datepicker/bootstrap-datepicker.js',
+        '../plugins/bootstrap-slider/bootstrap-slider.js',
         '../foundry/js/parallax.js',
         '../foundry/js/scripts.js',
         'frontend/custom.js'

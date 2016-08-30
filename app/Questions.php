@@ -34,4 +34,8 @@ class Questions extends Model
     public function answer(){
         return $this->hasOne('App\Answers', 'question_id', 'id');
     }
+
+    public function orderDrafts(){
+        return $this->hasMany('App\OrderDrafts', 'question_id', 'id');
+    }
 }

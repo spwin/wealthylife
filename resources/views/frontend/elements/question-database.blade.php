@@ -1,6 +1,6 @@
 <div class="foundry_modal text-center" {{ Session::has('modal') && Session::get('modal') == 'question-database' ? 'data-time-delay=10' : '' }}>
     <h3 class="uppercase">Edit question</h3>
-    @if (count($errors->question) > 0)
+    @if (count($errors->question_database) > 0)
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->question_database->all() as $error)
@@ -11,7 +11,7 @@
     @endif
     {!! Form::open([
         'role' => 'form',
-        'url' => action('UserController@updateQuestion', ['id' => $question->id]),
+        'url' => action('UserController@updateQuestion', ['id' => $question->id, 'url' => Route::currentRouteAction()]),
         'files' => true,
         'class' => 'question-form2',
         'method' => 'POST'
@@ -37,9 +37,13 @@
         {!! Form::file('image', ['onChange' => 'readURL('.($question->image ? 'true' : 'false').', this, "'.( $question->image ? url()->to('/').'/photo/200x200/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png').'")', 'class' => 'image-input']) !!}
     </div>
     <div class="textarea-holder">
-        {!! Form::textarea('question', $question->question ? $question->question : null, ['class' => $errors->question->first('question_database', 'field-error ').'mt-1px', 'placeholder' => 'What would you like to ask?', 'onKeyPress' => 'countChar(this,event)', 'onKeyUp' => 'countChar(this,event)']) !!}
+        {!! Form::textarea('question', $question->question ? $question->question : null, ['class' => $errors->question_database->first('question', 'field-error ').'mt-1px', 'placeholder' => 'What would you like to ask?', 'onKeyPress' => 'countChar(this,event)', 'onKeyUp' => 'countChar(this,event)']) !!}
         <div class="charNum">
-            {{ $question->question ? 250 - strlen($question->question) : 250 }}
+            @if(old())
+                {{ old('question') ? 250 - strlen(old('question')) : 250 }}
+            @else
+                {{ $question->question ? 250 - strlen($question->question) : 250 }}
+            @endif
         </div>
     </div>
     <div>

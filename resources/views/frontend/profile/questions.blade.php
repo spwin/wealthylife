@@ -39,8 +39,8 @@
                                     @if($pending->total() > 0)
                                         <table class="table">
                                             @foreach($pending as $question)
-                                                <tr class="text-center">
-                                                    <td>
+                                                <tr>
+                                                    <td class="text-center">
                                                         @if($question->image)
                                                             <a href="{{ url()->to('/').$question->image->path.$question->image->filename }}" data-lightbox="image-{{ $question->image->id }}" data-title="Question #{{ $question->id }}">
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$question->image->filename }}">
@@ -49,7 +49,7 @@
                                                             <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                         @endif
                                                     </td>
-                                                    <td>{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
+                                                    <td class="text-center">{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
                                                 </tr>
                                             @endforeach
@@ -77,8 +77,8 @@
                                     @if($answered->total() > 0)
                                         <table class="table">
                                             @foreach($answered as $question)
-                                                <tr class="text-center {{ $question->answer->seen ? '' : 'bold' }}" >
-                                                    <td>
+                                                <tr class="{{ $question->answer->seen ? '' : 'bold' }}" >
+                                                    <td class="text-center">
                                                         @if($question->image)
                                                             <a href="{{ url()->to('/').$question->image->path.$question->image->filename }}" data-lightbox="image-{{ $question->image->id }}" data-title="Question #{{ $question->id }}">
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$question->image->filename }}">
@@ -87,9 +87,9 @@
                                                             <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                         @endif
                                                     </td>
-                                                    <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
+                                                    <td class="text-center">{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)) }}</td>
-                                                    <td class="w170px"><a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="btn btn-sm show-answer-btn">Show answer</a></td>
+                                                    <td class="w170px text-center"><a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="btn btn-sm show-answer-btn">Show answer</a></td>
                                                 </tr>
                                             @endforeach
                                         </table>
@@ -116,8 +116,8 @@
                                     @if($drafts->total() > 0)
                                         <table class="table">
                                             @foreach($drafts as $question)
-                                                <tr class="text-center">
-                                                    <td>
+                                                <tr>
+                                                    <td class="text-center">
                                                         @if($question->image)
                                                             <a href="{{ url()->to('/').$question->image->path.$question->image->filename }}" data-lightbox="image-{{ $question->image->id }}" data-title="Question #{{ $question->id }}">
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$question->image->filename }}">
@@ -126,9 +126,9 @@
                                                             <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                         @endif
                                                     </td>
-                                                    <td>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
+                                                    <td class="text-center">{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
-                                                    <td class="w170px">
+                                                    <td class="w195px text-center controls">
                                                         {!! Form::open([
                                                             'method' => 'POST',
                                                             'action' => ['UserController@deleteQuestion', $question->id],
@@ -137,7 +137,7 @@
                                                             ]) !!}
                                                             <button type="submit" class="delete-draft-question">Delete</button>
                                                         {!! Form::close() !!}
-                                                        <a href="{{ action('FrontendController@paymentQuestion', ['id' => $question->id]) }}" class="btn btn-sm hovered mb-0px">Send</a>
+                                                        <a href="{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}" class="btn btn-sm hovered mb-0px">Proceed</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

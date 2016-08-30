@@ -4,29 +4,61 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-6 text-right text-left-xs col-sm-6">
-                    <h2 class="uppercase mb24 bold italic">Your question</h2>
-                    <p class="question-body">
-                        <img align="right" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}">
-                        {{ $question->question }}
-                    </p>
-                    <div class="modal-container inline-block">
-                        <a class="btn btn-modal" href="#">Edit</a>
-                        {{-- Edit current question from database --}}
-                        @include('frontend/elements/question-database', ['question' => $question])
+                @include('frontend/profile/user-menu')
+                <div class="col-md-9">
+                    <div class="tabbed-content text-tabs questions-container">
+                        <div class="modal-container text-right">
+                            <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}"><i class="ti-arrow-left"></i> Back</a></h4>
+                        </div>
+                        <h4 class="uppercase mb16">Question payment</h4>
+                        <div class="col-md-4 small-question-preview">
+                            <p class="question-body">
+                                <img src="{{ $question->image ? url()->to('/').'/photo/300x300/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}">
+                                {{ $question->question }}
+                            </p>
+                        </div>
+                        <div class="col-md-8">
+                            <table class="last-payment-preview">
+                                <tr class="question-price">
+                                    <td>Question price:</td>
+                                    <td class="text-right w100px">£20</td>
+                                </tr>
+                                @if($order_draft->discount)
+                                    <tr>
+                                        <td>{{ $order_draft->discount->name }}</td>
+                                        <td class="text-right">- £{{ $order_draft->discount->type == 'percent' ? ($order_draft->price/100)*$order_draft->discount->percent : $order_draft->discount->fixed }}</td>
+                                    </tr>
+                                @endif
+                                @if($order_draft->points > 0)
+                                    <tr>
+                                        <td>{{ round($order_draft->points) }} Credits used</td>
+                                        <td class="text-right">- £{{ round($order_draft->points) }}</td>
+                                    </tr>
+                                @else
+                                    <tr class="dimmed">
+                                        <td>No credits used</td>
+                                        <td class="text-right">-</td>
+                                    </tr>
+                                @endif
+                                <tr class="total-price">
+                                    <td class="text-right">TOTAL:</td>
+                                    <td class="text-right">£{{ $order_draft->to_pay }}</td>
+                                </tr>
+                            </table>
+                            <p class="only-point-message">
+                                As you use your credits to pay for your question you just need to confirm it. {{ $order_draft->points }} will be taken from your balance.
+                            </p>
+                            {!! Form::open([
+                            'method' => 'POST',
+                            'action' => ['UserController@pointsPayment', $order_draft->id],
+                            'class' => 'payment-form'
+                            ]) !!}
+                            <button type="submit" class="btn btn-filled">Confirm</button>
+                            {!! Form::close() !!}
+                        </div>
                     </div>
-                    <hr class="visible-xs">
                 </div>
-                <div class="col-md-6 col-sm-6">
-                    <h4 class="mb24">£{{ $question_price }} will be taken from your balance.</h4>
-                    {!! Form::open([
-                    'method' => 'POST',
-                    'action' => ['UserController@pointsPayment', $question->id]
-                    ]) !!}
-                    <input type="submit" value="Confirm and proceed">
-                    {!! Form::close() !!}
-                </div>
-            </div><!--end of row-->
+            </div>
         </div><!--end of container-->
     </section>
     @include('frontend/footer')

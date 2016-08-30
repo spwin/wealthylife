@@ -393,6 +393,7 @@
 			var sliderTrackLow, sliderTrackHigh;
 			var sliderMinHandle;
 			var sliderMaxHandle;
+			var sliderTrack;
 
 			if (this.sliderElem) {
 				updateSlider = true;
@@ -402,8 +403,8 @@
 				this.sliderElem.className = "slider";
 
 				/* Create slider track elements */
-				var sliderTrack = document.createElement("div");
-				sliderTrack.className = "slider-track";
+				this.sliderTrack = document.createElement("div");
+				this.sliderTrack.className = "slider-track";
 
 				sliderTrackLow = document.createElement("div");
 				sliderTrackLow.className = "slider-track-low";
@@ -426,9 +427,9 @@
 				sliderMaxHandle.setAttribute('aria-valuemin', this.options.min);
 				sliderMaxHandle.setAttribute('aria-valuemax', this.options.max);
 
-				sliderTrack.appendChild(sliderTrackLow);
-				sliderTrack.appendChild(sliderTrackSelection);
-				sliderTrack.appendChild(sliderTrackHigh);
+				this.sliderTrack.appendChild(sliderTrackLow);
+				this.sliderTrack.appendChild(sliderTrackSelection);
+				this.sliderTrack.appendChild(sliderTrackHigh);
 
 				/* Add aria-labelledby to handle's */
 				var isLabelledbyArray = Array.isArray(this.options.labelledby);
@@ -451,14 +452,14 @@
 						tick.className = 'slider-tick';
 
 						this.ticks.push(tick);
-						sliderTrack.appendChild(tick);
+						this.sliderTrack.appendChild(tick);
 					}
 
 					sliderTrackSelection.className += " tick-slider-selection";
 				}
 
-				sliderTrack.appendChild(sliderMinHandle);
-				sliderTrack.appendChild(sliderMaxHandle);
+				this.sliderTrack.appendChild(sliderMinHandle);
+				this.sliderTrack.appendChild(sliderMaxHandle);
 
 				this.tickLabels = [];
 				if (Array.isArray(this.options.ticks_labels) && this.options.ticks_labels.length > 0) {
@@ -508,7 +509,7 @@
 
 
 				/* Append components to sliderElem */
-				this.sliderElem.appendChild(sliderTrack);
+				this.sliderElem.appendChild(this.sliderTrack);
 				this.sliderElem.appendChild(sliderTooltip);
 				this.sliderElem.appendChild(sliderTooltipMin);
 				this.sliderElem.appendChild(sliderTooltipMax);
@@ -691,8 +692,8 @@
 				this.showTooltip = this._showTooltip.bind(this);
 				this.hideTooltip = this._hideTooltip.bind(this);
 
-				this.sliderElem.addEventListener("mouseenter", this.showTooltip, false);
-				this.sliderElem.addEventListener("mouseleave", this.hideTooltip, false);
+				this.sliderTrack.addEventListener("mouseenter", this.showTooltip, false);
+				this.sliderTrack.addEventListener("mouseleave", this.hideTooltip, false);
 
 				this.handle1.addEventListener("focus", this.showTooltip, false);
 				this.handle1.addEventListener("blur", this.hideTooltip, false);
@@ -1125,7 +1126,7 @@
 					if (this.options.orientation === 'vertical') {
 						this._css(this.tooltip, 'margin-top', -this.tooltip.offsetHeight / 2 + 'px');
 					} else {
-						this._css(this.tooltip, 'margin-left', -this.tooltip.offsetWidth / 2 + 'px');
+						this._css(this.tooltip, 'margin-left', '-27.5px');
 					}
 				}
 

@@ -120,6 +120,7 @@ Route::group(['middleware' => ['ip']], function () {
     Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
         Route::get('welcome', 'UserController@welcome');
         Route::get('/', 'FrontendController@profile');
+        Route::get('{id}/checkout-question', 'FrontendController@checkoutQuestion');
         Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
         Route::get('{id}/view-answer', 'FrontendController@viewAnswer');
         Route::get('notifications', 'FrontendController@notifications');
@@ -136,6 +137,7 @@ Route::group(['middleware' => ['ip']], function () {
         });
         Route::get('credits', 'FrontendController@credits');
         Route::get('logout', 'Auth\AuthController@getUserLogout');
+        Route::post('{id}/process-question', 'UserController@processQuestion');
         Route::post('{id}/question-delete', 'UserController@deleteQuestion');
         Route::post('{id}/question-update', 'UserController@updateQuestion');
         Route::post('{id}/update-profile-login/{type}', 'UserController@updateProfileLogin');

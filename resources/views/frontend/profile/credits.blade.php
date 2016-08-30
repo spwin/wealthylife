@@ -58,10 +58,28 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h2 class="uppercase mb16">How it works</h2>
-                                    <p class="lead mb48">Get more pay less!</p>
+                                    <h4>1 credit = £1</h4>
                                     <p>
-                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+                                        Want to know how to get started? Follow the steps given below:<br/>
+                                        <ul>
+                                            <li>1. Choose – Choose one of the credit options you’d like..</li>
+                                            <li>2. Pay – Complete your request by paying for the purchased credits entering your credit/debit card details or simply use PayPal on checkout.</li>
+                                            <li>3. Ask – Use your purchased credits by asking style-experts’ questions.</li>
+                                        </ul>
                                     </p>
+
+                                    <h4>Ask More Questions, Enjoy Better Deals!</h4>
+                                    <p>
+                                        Looking to get fashion advice without having to pay each time? At Stylesensei, we make your wishes come true. You can also ask us any style and fashion related questions without paying for it through your credit card. The more credits you buy, the higher will be your reward.
+                                        We offer perks to our loyal customers by giving them a chance to collect credits each time they invite a friend using unique referral link. And when you have collected enough credits, you can utilise them to ask questions for free. It just gets better with us!
+                                    </p>
+
+                                    <h4>We Protect Your Credit Details</h4>
+                                    <p>
+                                        Stylesensei site is encrypted with SSL certificate. This means that you don’t need to worry about entering your credit details at the time of checkout. We ensure 100% website safety and security for our customers, giving them a chance to make use of our service without any hassle.
+                                    </p>
+
+                                    <h5>Purchase credits and get all your style problems solved!</h5>
                                 </div>
                             </div>
                         </section>

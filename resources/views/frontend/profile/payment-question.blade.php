@@ -4,38 +4,59 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center col-sm-12">
-                    <h2 class="uppercase mb24 bold italic">Your question</h2>
-                    <p class="question-body">
-                        <img src="{{ $question->image ? url()->to('/').'/photo/300x300/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}">
-                        {{ $question->question }}
-                    </p>
-                    <div class="modal-container inline-block">
-                        <a class="btn btn-modal btn-filled" href="#">Edit</a>
-                        {{-- Edit current question from database --}}
-                        @include('frontend/elements/question-database', ['question' => $question])
+                @include('frontend/profile/user-menu')
+                <div class="col-md-9">
+                    <div class="tabbed-content text-tabs questions-container">
+                        <div class="modal-container text-right">
+                            <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}"><i class="ti-arrow-left"></i> Back</a></h4>
+                        </div>
+                        <h4 class="uppercase mb16">Question payment</h4>
+                        <div class="col-md-4 small-question-preview">
+                            <p class="question-body">
+                                <img src="{{ $question->image ? url()->to('/').'/photo/300x300/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}">
+                                {{ $question->question }}
+                            </p>
+                        </div>
+                        <div class="col-md-8">
+                            <table class="last-payment-preview">
+                                <tr class="question-price">
+                                    <td>Question price:</td>
+                                    <td class="text-right w100px">£20</td>
+                                </tr>
+                                @if($order_draft->discount)
+                                    <tr>
+                                        <td>{{ $order_draft->discount->name }}</td>
+                                        <td class="text-right">- £{{ $order_draft->discount->type == 'percent' ? ($order_draft->price/100)*$order_draft->discount->percent : $order_draft->discount->fixed }}</td>
+                                    </tr>
+                                @endif
+                                @if($order_draft->points > 0)
+                                    <tr>
+                                        <td>{{ round($order_draft->points) }} Credits used</td>
+                                        <td class="text-right">- £{{ round($order_draft->points) }}</td>
+                                    </tr>
+                                @else
+                                    <tr class="dimmed">
+                                        <td>No credits used</td>
+                                        <td class="text-right">-</td>
+                                    </tr>
+                                @endif
+                                <tr class="total-price">
+                                    <td class="text-right">TOTAL:</td>
+                                    <td class="text-right">£{{ $order_draft->to_pay }}</td>
+                                </tr>
+                            </table>
+                            {!! Form::open([
+                            'method' => 'POST',
+                            'action' => ['UserController@payment', $order_draft->id],
+                            'class' => 'payment-form'
+                            ]) !!}
+                            <div id="payment-form"></div>
+                            <button type="submit" class="btn btn-filled">Confirm and Pay</button>
+                            {!! Form::close() !!}
+                        </div>
                     </div>
-                    <hr class="visible-xs">
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 col-sm-12 text-center">
-                    <h2 class="uppercase mb24 bold italic">Price: £{{ $question_price }}</h2>
-                    @if($difference == $question_price)
-                        <h4 class="mb24">You need to pay £{{ $difference }} for your question.</h4>
-                    @else
-                        <h4 class="mb24">Your balance is £{{ $user_balance }}. You need to pay extra £{{ $difference }} for your question.</h4>
-                    @endif
-                    {!! Form::open([
-                    'method' => 'POST',
-                    'action' => ['UserController@payment', $question->id],
-                    'class' => 'payment-form'
-                    ]) !!}
-                    <div id="payment-form"></div>
-                    <button type="submit" class="btn btn-filled">Confirm and Pay</button>
-                    {!! Form::close() !!}
-                </div>
-            </div><!--end of row-->
         </div><!--end of container-->
     </section>
     @include('frontend/footer')

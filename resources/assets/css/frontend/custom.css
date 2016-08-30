@@ -162,6 +162,10 @@ table td.w170px{
     width: 170px;
 }
 
+table td.w195px{
+    width: 195px;
+}
+
 input[type="password"].mb-5px{
     margin-bottom: 5px;
 }
@@ -206,17 +210,31 @@ a.question-btn, input.question-btn{
     margin-bottom: 0;
 }
 
-p.question-body{
+div.question-body{
     font-size: 17px;
     clear: both;
-    max-width: 600px;
-    margin: 20px auto;
+    position: relative;
 }
 
-p.question-body img{
-    padding: 0 0 10px 0;
+div.question-body img{
+    padding: 18px 0 10px 0;
     display: block;
-    margin: auto;
+    max-width: 250px;
+    margin-right: 50px;
+    float: left;
+}
+
+div.question-body .modal-container{
+    float: right;
+}
+
+div.question-body .question-text{
+    display: inline-block;
+    width: 540px;
+}
+
+div.question-body p{
+
 }
 
 .question-authenticate{
@@ -1198,4 +1216,119 @@ p.discount span.round{
     position: absolute;
     top: -35px;
     right: 0;
+}
+
+.question-payment{
+    width: 100%;
+    margin-top: 50px;
+}
+
+.question-payment tr td{
+    padding: 10px;
+    font-size: 16px;
+}
+.question-payment tr:not(:last-child){
+    border-bottom: 1px solid gray;
+}
+.question-payment tr.inactive{
+    color: darkgray;
+}
+.question-payment tr.question-price td{
+    font-size: 20px;
+}
+.question-payment tr.question-total td:first-child{
+    text-align: right;
+}
+.question-payment tr.question-total td{
+    font-weight: bold;
+    font-size: 24px;
+}
+.slider-credits{
+    display: none;
+    width: 50%;
+    margin-top: 20px;
+    padding-right: 20px;
+    overflow: visible;
+}
+.slider .tooltip{
+    display: none;
+}
+.slider .tooltip.in{
+    display: block;
+}
+.choose-credits input,
+.choose-credits label{
+    cursor: pointer;
+}
+.choose-credits .switcher{
+    margin-bottom: 0;
+}
+.price-row{
+    width: 100px;
+}
+.question-total #total_pay{
+    font-weight: inherit;
+}
+.question-checkout input[type="submit"]{
+    max-width: 200px;
+}
+.small-question-preview .question-body{
+    text-align: justify;
+}
+.small-question-preview .question-body img{
+    margin-bottom: 20px;
+}
+.small-question-preview{
+    border-right: 1px solid #CCCCCC;
+}
+
+.last-payment-preview{
+    width: 100%;
+    margin: 10px;
+    max-width: 500px;
+}
+.last-payment-preview tr.dimmed td{
+    color: darkgray;
+}
+.last-payment-preview tr td{
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+.last-payment-preview .question-price td{
+    font-size: 20px;
+}
+.last-payment-preview tr.total-price td{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.only-point-message{
+    font-size: 16px;
+}
+.w100px{
+    width: 100px;
+}
+
+.questions-container table tr{
+    cursor: pointer;
+}
+.questions-container table tr:hover{
+    background-color: #FEFFF0;
+}
+
+.terms-conditions ul{
+    padding-left: 40px;
+}
+.terms-conditions p{
+    margin-bottom: 15px;
+}
+.terms-conditions li:first-child{
+    margin-top: 15px;
+}
+.terms-conditions li{
+    margin-bottom:15px;
+}
+.terms-conditions h4{
+    margin-top: 60px;
 }

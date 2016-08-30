@@ -34,6 +34,12 @@
                         @endif
                         <section class="pt-20px pb-20px">
                             <div class="row">
+                                <div class="col-md-12">
+                                    <h4>A Special Gift for a Special Someone!</h4>
+                                    <p>Are you looking for the perfect gift to surprise a loved one? At Stylesensei, we have the most unique and special gift for you to put a smile on a special friend’s face.</p>
+                                    <p>You can get your hands on our gift voucher to give a friend or a family member a chance to get style advice from our team of experts. Our gift vouchers are exceptional and fun, especially if you want a friend to feel confident in their style . By making use of our gift voucher, you can give others an opportunity to get expert advice on fashion, styling, and look.</p>
+                                    <h5>So, choose the voucher you desire and turn someone’s day around by giving them a chance to be stylish.</h5>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="pricing-table pt-1 text-center">
                                         <p class="voucher-back"><i class="ti-gift"></i></p>
@@ -69,9 +75,16 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h2 class="uppercase mb16">How it works</h2>
-                                    <p class="lead mb48">Bring the joy to someone's heart</p>
                                     <p>
-                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+                                        Let a loved one enjoy free style advice by following the steps given below:
+                                        <ul>
+                                            <li>1. Create Voucher –Fill out the details in our voucher form and move to the payment.</li>
+                                            <li>2. Voucher Code –Send the voucher code with a personalised message to your loved one or let us handle it on your behalf and send the code to the email address you provided alongside a copy of the message to your email address.</li>
+                                            <li>3. Claim Voucher Credits – Receivers will get the code which they will need to enter after registering with us.</li>
+                                            <li>4. Get Set, Go –Recipients will then have the chance to get fashion advice and styling tips from our experts by making use of the available credits.</li>
+                                            <li>*The voucher code expires in 6 months.</li>
+                                        </ul>
+                                        <h5>Buy our gift vouchers to help a loved one get fashion advice for free!</h5>
                                     </p>
                                 </div>
                             </div>

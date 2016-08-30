@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Answers;
 use App\Article;
+use App\Discounts;
 use App\Helpers\Helpers;
 use App\Images;
+use App\OrderDrafts;
 use App\Orders;
 use App\PasswordResets;
 use App\PriceSchemes;
@@ -51,6 +53,19 @@ class UserController extends Controller
         return $redirectUrl;
     }
 
+    function createDiscount($id, $type){
+        if($type == 'referral'){
+            $discount = new Discounts();
+            $discount->fill([
+                'user_id' => $id,
+                'name' => 'Referral first question discount (20%)',
+                'type' => 'percent',
+                'percent' => 20
+            ]);
+            $discount->save();
+        }
+    }
+
     public function createUser(Request $request){
         $v = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email,0,local,local,1',
@@ -83,9 +98,11 @@ class UserController extends Controller
 
         $ref_key = session()->get('referral.key');
         $ref_user = session()->get('referral.user');
+        $create_discount = false;
         if($ref_key && $ref_user){
             $referral = User::where(['id' => $ref_user, 'referral_key' => $ref_key])->first();
             if($referral){
+                $create_discount = true;
                 $input['referral_id'] = $referral->id;
                 $referral->referrals_registered = $referral->referrals_registered + 1;
                 $referral->save();
@@ -95,6 +112,14 @@ class UserController extends Controller
 
         $user->fill($input);
         $user->save();
+
+        if($create_discount){
+            $this->createDiscount($user->id, 'referral');
+        }
+
+        if($user->status == 0){
+            Helpers::sendNotification('notifications.registration.welcome.', $user, ['link' => action('FrontendController@contacts')]);
+        }
 
         $input['user_id'] = $user->id;
 
@@ -179,9 +204,11 @@ class UserController extends Controller
 
         $ref_key = session()->get('referral.key');
         $ref_user = session()->get('referral.user');
+        $create_discount = false;
         if($ref_key && $ref_user){
             $referral = User::where(['id' => $ref_user, 'referral_key' => $ref_key])->first();
             if($referral){
+                $create_discount = true;
                 $input['referral_id'] = $referral->id;
                 $referral->referrals_registered = $referral->referrals_registered + 1;
                 $referral->save();
@@ -192,6 +219,10 @@ class UserController extends Controller
         $user = new User();
         $user->fill($input);
         $user->save();
+
+        if($create_discount){
+            $this->createDiscount($user->id, 'referral');
+        }
 
         if(array_key_exists('gender', $user_object->user)) {
             $gender = $user_object->user['gender'];
@@ -208,6 +239,9 @@ class UserController extends Controller
         $user_data = new UserData();
         $user_data->fill($input);
         $user_data->save();
+
+        Helpers::sendNotification('notifications.registration.welcome.', $user, ['link' => action('FrontendController@contacts')]);
+        Helpers::sendEmail('notifications.registration.welcome.', $user->email, $user, ['user' => $user->userData]);
 
         return $user;
     }
@@ -531,7 +565,7 @@ class UserController extends Controller
             });
             if ($v->fails()) {
                 $request->session()->flash('modal', 'question-database');
-                return Redirect::action($this->getRoute())->withErrors($v->errors(), 'question_database')->withInput();
+                return Redirect::action($this->getRoute(), ['id' => $question->id])->withErrors($v->errors(), 'question_database')->withInput();
             }
             $input = $request->all();
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -560,19 +594,17 @@ class UserController extends Controller
             }
             $question->question = $input['question'];
             $question->save();
-            return Redirect::action('FrontendController@paymentQuestion', $question->id);
+            return Redirect::action('FrontendController@checkoutQuestion', $question->id);
         } else {
             return Redirect::action('FrontendController@index');
         }
     }
 
     public function payment(Request $request, $id){
-        $question = Questions::findOrFail($id);
+        $order_draft = OrderDrafts::findOrFail($id);
+        $question = Questions::findOrFail($order_draft->question_id);
         if($user = Auth::guard('user')->user()) {
             if ($request->has('payment_method_nonce')) {
-                $price = Settings::where(['name' => 'question_price'])->first();
-                $question_price = $price ? $price->value : env('DEFAULT_QUESTION_PRICE');
-                $difference = $question_price - $user->points;
                 $nonceFromTheClient = $request->get('payment_method_nonce');
                 $order = new Orders();
                 $data = [
@@ -586,7 +618,7 @@ class UserController extends Controller
                 $order->fill($data);
                 $order->save();
                 $result = Transaction::sale([
-                    'amount' => $difference,
+                    'amount' => $order_draft->to_pay,
                     'customFields' => [
                         'order' => $order->id
                     ],
@@ -596,12 +628,20 @@ class UserController extends Controller
                     'paymentMethodNonce' => $nonceFromTheClient
                 ]);
                 if ($result->success){
+                    if($order_draft->discount){
+                        $discount = Discounts::findOrFail($order_draft->discount_id);
+                        $discount->fill([
+                            'used' => 1,
+                            'used_at' => date('Y-m-d H:i:s', time())
+                        ]);
+                        $discount->save();
+                    }
                     $user->referral_rewarded = $this->addReferralPoints($user);
                     $changes['braintree_id'] = $result->transaction->id;
                     $changes['status'] = 1;
                     $order->fill($changes);
                     $order->save();
-                    $user->points = $user->points - ($question_price - $difference);
+                    $user->points = $user->points - $order_draft->points;
                     $user->save();
                     $question->status = 1;
                     $question->save();
@@ -622,11 +662,10 @@ class UserController extends Controller
     }
 
     public function pointsPayment(Request $request, $id){
-        $question = Questions::findOrFail($id);
+        $order_draft = OrderDrafts::findOrFail($id);
+        $question = Questions::findOrFail($order_draft->question_id);
         if($user = Auth::guard('user')->user()){
-            $price = Settings::where(['name' => 'question_price'])->first();
-            $question_price = $price ? $price->value : env('DEFAULT_QUESTION_PRICE');
-            $user->points = $user->points - $question_price;
+            $user->points = $user->points - $order_draft->points;
             $user->save();
             $question->status = 1;
             $question->save();
@@ -1078,6 +1117,57 @@ class UserController extends Controller
             }
         } else {
             return 0;
+        }
+    }
+
+    public function processQuestion(Request $request, $id){
+        $question = Questions::where(['id' => $id])->first();
+        if ($question && $user = Auth::guard('user')->user()) {
+            if($question->status == 0) {
+                //get question price
+                $price = Settings::where(['name' => 'question_price'])->first();
+                $question_price = $price ? $price->value : env('DEFAULT_QUESTION_PRICE');
+
+                // get discount details
+                $discount = Discounts::where(['user_id' => $user->id, 'used' => 0])->orderBy('created_at', 'DESC')->first();
+                if ($discount) {
+                    if ($discount->type == 'percent') {
+                        $discount->amount = round(($question_price / 100) * $discount->percent);
+                    } else {
+                        $discount->amount = $discount->fixed;
+                    }
+                }
+
+                // get points
+                $points = 0;
+                if($request->get('use_credits')){
+                    $points = 1;
+                    if($request->has('credits')){
+                        $points = $request->get('credits');
+                    }
+                }
+                if($user->points < $points){
+                    return Redirect::action('FrontendController@checkoutQuestion', ['id' => $question->id]);
+                }
+
+                $order_draft = new OrderDrafts();
+                $token = bin2hex(random_bytes(10));
+                $order_draft->fill([
+                    'price' => $question_price,
+                    'user_id' => $user->id,
+                    'discount_id' => $discount ? $discount->id : null,
+                    'question_id' => $question->id,
+                    'points' => $points,
+                    'to_pay' => $question_price - ($discount ? $discount->amount : 0) - $points,
+                    'token' => $token
+                ]);
+                $order_draft->save();
+                return Redirect::action('FrontendController@paymentQuestion', ['id' => $order_draft->id, 'token' => $token]);
+            } else {
+                return Redirect::action('FrontendController@questions');
+            }
+        } else {
+            return Redirect::action('FrontendController@index');
         }
     }
 }

@@ -2,8 +2,8 @@
 return [
     'registration.welcome.topic' => 'Welcome!',
     'registration.welcome.subject' => 'Welcome!',
-    'registration.welcome.content' => 'You are now part of our stylesensei family. If you would like to read more about stylesensei all you need to do is click here. We are looking forward to help you with any style questions. We hope you like our services and would like to share your experience with your friends. We would be extremely happy to receive any feedback about our service as we are always looking forward to improve.',
-    'registration.welcome.email' => 'welcome',
+    'registration.welcome.content' => 'You are now part of our stylesensei family. If you would like to read more about stylesensei all you need to do is click <a href=":link">here</a>. We are looking forward to help you with any style questions. We hope you like our services and would like to share your experience with your friends. We would be extremely happy to receive any feedback about our service as we are always looking forward to improve.',
+    'registration.welcome.email' => 'emails.welcome',
 
     'registration.confirmation.topic' => 'Email confirmation link',
     'registration.confirmation.subject' => 'Email confirmation link',

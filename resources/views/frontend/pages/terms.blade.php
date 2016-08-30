@@ -19,66 +19,134 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="entry drop-shadow curved ">
-                        <p>Šios taisyklės (toliau – Taisyklės) nustato stiliaus konsultavimo paslaugų, teikiamų internetinėje svetainėje <a href="http://www.StyleSensei.co.uk/">www.StyleSensei.co.uk</a> (toliau – svetainė StyleSensei.co.uk) 4 punkte aprašytais būdais ir pagal 5 punkte nurodytas konsultavimo sritis (toliau – Paslaugos), teikimo tvarką bei sąlygas.</p>
-                        <p>1. Paslaugų teikėjas yra Pixsens LTD, įmonės kodas 302753042,&nbsp;registracijos adresas: Gedimino&nbsp;pr. 20, LT-01103 Vilnius, el. paštas <a href="mailto:info@StyleSensei.co.uk">info@StyleSensei.co.uk</a>.</p>
-                        <p>2. Paslaugomis pradedama naudotis susipažinus su Taisyklėmis bei svetainėje StyleSensei.co.uk pažymėjus varnelę prie teiginio „Susipažinau su svetainės StyleSensei.co.uk taisyklėmis ir su jomis sutinku“.</p>
-                        <p>3. Paslaugos pradedamos teikti iš anksto už jas apmokėjus šiai būdais:<br>
-                            3.1 &nbsp; Iš anksto įgytais virtualiais kreditiniais pinigais (kreditais);<br>
-                            3.2 &nbsp;Tiesioginiu pavedimu, atliktu per Lietuvos elektroninės bankininkystės sistemas arba PayPal.</p>
-                        <p style="text-align: justify;">4.&nbsp;Paslaugos teikimo būdai:<br>
-                            4.1 virtualioje erdvėje, t.y. raštu komunikuojant svetainėje StyleSensei.co.uk esančia programa “Chat”;<br>
-                            4.2 elektroniniu paštu, t.y. raštu iš el. pašto dėžutės <a href="mailto:info@StyleSensei.co.uk">info@StyleSensei.co.uk</a> siunčiant konsultacinio turinio žinutę.</p>
-                        <p style="text-align: justify;">5. Paslaugas apimančios sritys:<br>
-                            5.1 Konsultavimo paslaugos aprangos stiliaus klausimais.<br>
-                            5.2 Konsultavimo paslaugos išvaizdos stiliaus klausimais.</p>
-                        <p style="text-align: justify;">6. Kliento sąskaita:<br>
-                            6.1 Naudojimusi Paslaugomis atsiskaitoma 3 punkte nurodytais būdais,<br>
-                            6.2 Kreditais atsiskaitoma tik tuo atveju, jei Kliento sąskaitoje yra pakankamas kreditų likutis;<br>
-                            6.3 Paslaugos kreditan Klientui nėra teikiamos ir kredito limitas nėra nustatomas;<br>
-                            6.4 Paslaugos yra teikiamos Klientams turintiems galiojančią sąskaitą.</p>
-                        <p style="text-align: justify;">7. Paslaugų sąlygos<br>
-                            7.1 Paslaugos bei naudojimosi jomis tvarka yra apibūdinta ir nurodyta svetainėje StyleSensei.co.uk, o Paslaugų kainos ir apmokėjimo už jas būdai nurodyti kiekvienos konkrečios Paslaugos užsakymo puslapyje.<br>
-                            7.2 Klientas supranta ir sutinka, kad Paslaugos gali būti teikiamos tik po to, kai Klientas sumoka Paslaugų teikėjui už Paslaugą svetainėje StyleSensei.co.uk nurodyta tvarka. Paslaugų teikėjas turi teisę bet kada vienašališkai pakeisti užmokesčio už bet kurią Paslaugą dydį bei mokėjimo tvarką.<br>
-                            7.3 Apribojus ar sustabdžius Kliento galimybę naudotis Paslaugomis ar Klientui negavus, ar laiku negavus Paslaugų dėl kitų priežasčių nei Kliento įvykdytas šių Taisyklių pažeidimas, Paslaugos teikėjas Kliento prašymu, įsipareigoja nemokamą Paslaugų teikimą Klientui ta apimtimi, kuria nebuvo suteiktos Paslaugos.<br>
-                            7.4 Paslaugų teikėjas turi teisę profilaktinių svetainėje StyleSensei.co.uk vykdomų darbų metu apriboti ar nutraukti Paslaugų teikimą Klientui.<br>
-                            7.5 Paslaugų teikėjas suteikia Klientui virtualią erdvę, kurioje Klientas turi galimybę gauti patarimą, konsultaciją prieš tai svetainėje StyleSensei.co.uk Paslaugų teikėjui uždavęs klausimą, susijusį su 5 punkte nurodytomis konsultavimo sritimis.<br>
-                            7.6 Visos intelektinės nuosavybės teisės į svetainę StyleSensei.co.uk ir visą jos turinį, įskaitant autorių teises, pramoninės intelektinės nuosavybės teises, firmų vardus, know-how, komercines ir gamybines paslaptis, priklauso Paslaugų teikėjui, kuris teisėtai naudojasi trečiųjų asmenų suteiktomis teisėmis.<br>
-                            7.7 Naudodamasis svetaine StyleSensei.co.uk ir/ar Paslaugomis ir teikdamas, įvesdamas ar kitaip siųsdamas bet kokią informaciją, duomenis į svetainę StyleSensei.co.uk Klientas neatlygintinai, neribotam laikui ir neribotoje teritorijoje perduoda Paslaugos teikėjui teises naudoti šią informaciją, duomenis.</p>
-                        <p style="text-align: justify;">8. Kliento įsipareigojimai<br>
-                            8.1 Klientas, siekdamas gauti kokybiškas Paslaugas, įsipareigoja:<br>
-                            8.1.1 pateikti teisingą savo el. pašto adresą;<br>
-                            8.1.2 nenaudoti svetainės StyleSensei.co.uk ir/ar Paslaugų neteisėtiems veiksmams ar sandoriams vykdyti arba sukčiavimui;<br>
-                            8.1.3 užtikrinti, kad pateikiama informacija ir duomenys:<br>
-                            – nėra klaidinanti ar neteisinga;<br>
-                            – nepažeidžia trečiųjų asmenų turtinių ar asmeninių teisių (įskaitant teises į intelektinę nuosavybę);<br>
-                            – neprieštarauja viešajai tvarkai ir moralės normoms.<br>
-                            8.1.4 saugoti Kliento prisijungimo vardą ir slaptažodį, kad jo nesužinotų tretieji asmenys;<br>
-                            8.1.5 nedelsdamas el. paštu pranešti Paslaugų teikėjui, jei Kliento vartotojo vardas ir/ar slaptažodis, kurie reikalingi naudotis svetainėje StyleSensei.co.uk, buvo prarasti ar tapo žinomi tretiesiems asmenims;<br>
-                            8.2 Apmokėdamas už Paslaugą 3.2 punkte nurodytu būdu, Klientas patvirtina, kad jis/ji:<br>
-                            8.2.1 yra veiksnus fizinis asmuo (ar juridinio asmens atstovas), turintis visus įgaliojimus ir teises vykdyti sandorius, siūlomus svetainėje StyleSensei.co.uk;<br>
-                            8.2.2 supranta ir sutinka, kad tarp Kliento ir Paslaugų teikėjo sukuriami tik tokie teisiniai santykiai, kuriuos tiesiogiai ir aiškiai numato šios Taisyklės;<br>
-                            8.2.3 supranta ir sutinka, kad tuo atveju, jei vartotojo vardas ir slaptažodis taps žinomi tretiesiems asmenims, tokie tretieji asmenys gali prisiimti įsipareigojimus, kurie taps privalomais Klientui, Klientas įsipareigoja tokius įsipareigojimus prisiimti ir tinkamai vykdyti, o Paslaugos teikėjas neturi pareigos jokiu kitu būdu, išskyrus vartotojo vardo ir slaptažodžio patikrinimą, tikrinti vartotojo tapatybės;<br>
-                            8.2.4&nbsp;patvirtina, kad prisiima galimą konfidencialios informacijos atskleidimo riziką tretiesiems asmenims, kuri gali atsirasti su Paslaugos suteikimu susijusią informaciją siunčiant elektroniniu paštu.<br>
-                            8.2.5 supranta ir sutinka, kad Paslaugos teikėjas tvarkytų ir valdytų Kliento asmens duomenis vadovaudamasi Lietuvos Respublikos teisės aktais.<br>
-                            8.3 Klientas sutinka, kad Paslaugos teikėjas turi teisę bet kada be išankstinio įspėjimo nutraukti svetainės StyleSensei.co.uk veiklą.</p>
-                        <p style="text-align: justify;">9. Paslaugos teikėjo teisės ir pareigos:<br>
-                            9.1 Paslaugos teikėjas turi teisę savo nuožiūra apriboti arba nutraukti Kliento teisę ar galimybę naudotis svetaine StyleSensei.co.uk, įskaitant bet kokios informacijos, kurią Klientas pateikė į svetainę StyleSensei.co.uk, pakeitimu, Kliento prieigos panaikinimu ir uždraudimu Klientui iš naujo užsiregistruoti svetainėje StyleSensei.co.uk, jei:<br>
-                            9.1.1 Kliento klausimai ir/ar komentarai yra nesusiję su svetainėje StyleSensei.co.uk aprašytomis Paslaugomis, nekultūringi, įžeidžiantys, skatina smurtą, neapykantą ar kitaip pažeidžia įstatymus;<br>
-                            9.1.2 Klientas pateikė neteisingą, nepilną ir/ar klaidinančią informaciją registruodamasis ar naudodamasis svetaine StyleSensei.co.uk;<br>
-                            9.1.3 tyčia ir sąmoningai skleidžia apgaulingą ar neteisingą informaciją svetainėje StyleSensei.co.uk, įžeidinėja kitus asmenis, apgaudinėja kitus Klientus, nevykdo prisiimtų įsipareigojimų dėl Paslaugų pateikimo bei apmokėjimo ar kitaip netinkamai elgiasi;<br>
-                            9.2 Paslaugų teikėjas turi teisę tirti Taisyklių pažeidimus, teisę (bet ne pareigą) stebėti Kliento veiksmus svetainėje StyleSensei.co.uk;<br>
-                            9.3 Paslaugų teikėjas turi teisę bet kada pakeisti ar pertvarkyti svetainę StyleSensei.co.uk, kad ja visoms suinteresuotoms šalims būtų patogiau naudotis.<br>
-                            9.4 Paslaugos teikėjas turi teisę gauti užmokestį už suteikiamas Paslaugas pagal svetainėje StyleSensei.co.uk nurodytas kainas. Klientui pareikalavus, pateiks Klientui sąskaitą.<br>
-                            9.5 Paslaugos teikėjas turi teisę Klientui siųsti komercinius ir kitus pasiūlymus, o Klientas turi teisę atsisakyti gauti tokius pasiūlymus.<br>
-                            9.6 Paslaugų teikėjas, siekdamas užtikrinti teikiamų paslaugų kokybę, turi teisę saugoti teikiamos Paslaugų turinio informaciją bei garantuoti jos konfidencialumą ir apsaugą.<br>
-                            9.7 Paslaugų teikėjas&nbsp;išlaiko visos asmeninės Kliento informacijos, kuri yra perduodama tiesiogiai StyleSensei.co.uk, konfidencialumą.</p>
-                        <p style="text-align: justify;">10. Teisės ir intelektinė nuosavybė:<br>
-                            10.1&nbsp;Svetainėje StyleSensei.co.uk&nbsp;viešai publikuojamos nuotraukos (autoriniai kūriniai) priklauso Pixsens LTD arba autoriams, su kuriais įmonė bendradarbiavo ir turi dalines autorines teises. Griežtai draudžiama šiuos kūrinius panaudoti kitose interneto svetainėse, žiniasklaidos priemonėse arba platinti kokiu nors kitu pavidalu be Pixsens LTD ir atitinkamo autoriaus-partnerio sutikimo.<br>
-                            10.2&nbsp;Paslaugų teikėjas&nbsp;negarantuoja, kad Paslaugų funkcionavimas bus nepertraukiamas ir be klaidų, kad defektai bus ištaisyti, ar kad paslauga bus apsaugota nuo virusų ar kitų kenksmingų komponentų. Jūs suprantate ir sutinkate, kad bet kokia medžiaga, kurią jūs skaitote, atsisiunčiate ar kitaip gaunate naudodamiesi Paslaugomis, yra išimtinai jūsų nuožiūra bei rizika, ir tik jūs atsakote už žalą, padarytą jūsų sveikatai, kompiuterinei sistemai, jūs tai pat prisiimate visas išlaidas būtinoms aptarnavimo paslaugoms, remontui ar pataisoms.</p>
-                        <p style="text-align: justify;">11. Baigiamosios nuostatos:<br>
-                            11.1 Taisyklėms yra taikoma Lietuvos Respublikos teisė.<br>
-                            11.2 Visi tarp Paslaugų teikėjo ir Kliento kilę nesutarimai dėl šių Taisyklių vykdymo yra sprendžiami derybų keliu. Šalims neišsprendus ginčo derybų būdu toks ginčas galutinai sprendžiamas Lietuvos Respublikos įstatymų nustatyta tvarka teismuose pagal Paslaugų teikėjo buveinės vietą.</p>
+                    <div class="entry drop-shadow curved terms-conditions">
+                        <p class="lead">These Rules (hereinafter the Rules) establish the terms and conditions of the style consulting services (hereinafter referred to as the Services) provided on the WEBSITE www.StyleSensei.co.uk (hereafter the Website).</p>
+                        <h4>I. GENERAL PROVISIONS</h4>
+                        <p>1. The Service Provider providing the Services referred to in paragraph 3 of these Rules is Pixsens LTD, company code 09875891, registered address: Kemp House 160 City Road, London EC1V 2NX, email info@stylesensei.co.uk.</p>
+                        <p>2. The Service Recipient is any person who has paid for the Website's Services which are referred to in paragraph 3 of the Rules as specified in Section III of the Rules. The Rules shall take effect for each individual Website visitor (hereinafter referred to as the User) from the moment when a person begins to use the Website.</p>
+                        <p>3. The services shall include:
+                            <ul>
+                                <li>3.1 Advisory services clothing style issues;</li>
+                                <li>3.2 Consulting services on appearance style issues.</li>
+                            </ul>
+                        </p>
+
+                        <h4>II. TERMS AND CONDITIONS OF SERVICES</h4>
+                        <p>4. The Services will be provided only to persons with a valid virtual user account (hereinafter referred to as the User Account) which is acquired by each person by creating a personal User Account on the Website.</p>
+                        <p>5. The Services will be provided to the Service Recipient only after payment in advance.</p>
+                        <p>6. The Service Provider, before separate order of the Service Recipient, shall have the right to unilaterally change the amount of fees and payment procedures for any Service.</p>
+                        <p>7. The Services will be provided in virtual space, i.e. by communicating in writing on the Website;</p>
+
+                        <h4>III. PAYMENT FOR THE SERVICES</h4>
+                        <p>8. The price of Services is determined by the Service Provider. It is shown on the Website on the page for each service.</p>
+                        <p>
+                            9. The Service Recipient shall pay for the Services in the following ways:
+                            <ul>
+                                <li>9.1. With virtual credit money acquired an the Website in advance (hereinafter referred to as the Credits);</li>
+                                <li>9.2. By direct transfers through Braintree or PayPal.</li>
+                            </ul>
+                        </p>
+                        <p>10. The Service Recipient is entitled to pay with credits for the service and full only if he has sufficient credit balance on the User Account.</p>
+                        <p>11. The Service Recipient is entitled to pay part of the price for the Services in Credits and another part – in cash.</p>
+                        <p>12. If the Service Recipient as insufficient credit balance in his personal User Account when paying for the Service, the difference must be paid by direct transfer via PayPal or Braintree.</p>
+
+                        <h4>IV. GUARANTEES AND REPRESENTATIONS OF THE PARTIES</h4>
+                        <p>13. The parties hereby represent and guarantee to each other the following:</p>
+                        <p>
+                            <ul>
+                                <li>13.1. Each of them is a legally capable person who has the right to enter into and carry out transactions on the Website;</li>
+                                <li>13.2. Understands and agrees that only the legal relations directly and clearly referred to in these Rules are created between them;</li>
+                                <li>13.3. Understands and agrees that if the Service Recipient's User name and password become known to a third party, such third parties may commit, and the commitments will become mandatory to the Service Recipient. The Service Recipient undertakes to assume and discharge such commitments in a proper manner, and the Service Provider shall have no obligation in any method other than verifying the User name and password, to verify the User identity;</li>
+                                <li>13.4. Bears the potential risk of disclosure of confidential information to third parties, which may arise by sending the service-related information by e-mail.</li>
+                                <li>13.5. Understands and agrees that any of them shall have the right at any time to suspend its activities on the Website, i.e. the Service Provider shall have the right to terminate the Website activities and the Service Recipient shall have the right to remove his User Account on the Website.</li>
+                                <li>13.6. Understands and agrees for the Service Provider to process the Customer's personal data in accordance with the legislation of the Data Protection Act.</li>
+                                <li>13.7. Any material, which the Service Recipient reads, downloads or otherwise receives in using the Service shall be solely used at his sole discretion and risk, and he will be solely responsible for damage caused to his health or property.</li>
+                            </ul>
+                        </p>
+
+                        <h4>V. RIGHTS AND OBLIGATIONS OF THE PARTIES</h4>
+                        <p>14. Rights and obligations of the Service Recipient:
+                            <ul>
+                                <li>14.1. The Service Recipient shall be entitled:
+                                    <ul>
+                                        <li>14.1.1. Timely obtain the Services ordered;</li>
+                                        <li>14.1.2. To manage User Account and credits on the in his sole discretion. In order to remove the User Account, it is necessary to contact the Service Provider;</li>
+                                        <li>14.1.3. Present Credits to others by sending them a voucher the value whereof is equivalent to the amount of granted Credits, in accordance with the Website procedures. The voucher is valid for 6 months. After the expiration of this term the Credits are not refundable.</li>
+                                        <li>14.1.4. Refuse to receive commercial and other proposals sent to him by the Service Provider;</li>
+                                        <li>14.1.5. To create own blog on the topics of fashion, style and (or) appearance. Entries in the Blog are published through the Service Provider and must meet these requirements; in case of failure to meet them, the Service Provider will have the right not to publish the entry and (or) to remove it in case of publication:
+                                            <ul>
+                                                <li>14.1.5.1. The content must meet the topics of fashion, style and (or) appearance, the general ethical and public policy requirements;</li>
+                                                <li>14.1.5.2. The content cannot be used for other personal portrayal;</li>
+                                                <li>14.1.5.3. Videos cannot be used for advertising.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>14.2. The Service Recipient undertakes:
+                                    <ul>
+                                        <li>14.2.1. To provide the correct information to the Service Provider, which is necessary to provide the Services;</li>
+                                        <li>14.2.2. Not to use the Website or the Services for illegal actions, transactions or fraud;</li>
+                                        <li>14.2.3. To ensure that the information and data provided:
+                                            <ul>
+                                                <li>14.2.3.1. Is not misleading or inaccurate;</li>
+                                                <li>14.2.3.2. Is without prejudice to the property or personal rights of third parties (including the rights to intellectual property);</li>
+                                                <li>14.2.3.3. Is not contrary to public order and good morals.</li>
+                                                <li>14.2.3.4. To protect the login name and password from transferring it to the third parties;</li>
+                                                <li>14.2.3.5. Shall immediately notify the Service Provider by e-mail if the User name and (or) the password, which are necessary for using the Website, have been lost or become known to any third party;</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </p>
+                        <p>15. Rights and Obligations of the Service Provider:
+                            <ul>
+                                <li>15.1. Rights of the Service Provider:
+                                    <ul>
+                                        <li>15.1.1. The Service Provider shall have the right in its sole discretion, to restrict, suspend or terminate the Website User's access to the Website and the Services, including changes to any information that the User has submitted to the Website, deletion of the User Account, and banning the User to repeatedly sign up on the Website. The Service Provider has the right to perform the actions referred to in this paragraph, when:
+                                            <ul>
+                                                <li>15.1.1.1. User questions and (or) comments on the Website not related to the Services described on the Website, are immoral, defamatory, promote violence, hatred or otherwise violate the law;</li>
+                                                <li>15.1.1.2. The User has provided false, incomplete and (or) misleading information when signing up or using the Website;</li>
+                                                <li>15.1.1.3. The User is intentionally and deliberately spreading false information on the Website, insulting others, deceiving other users and fails to fulfil the obligations concerning the submission and payment of the Services or otherwise act inappropriately;</li>
+                                            </ul>
+                                        </li>
+                                        <li>15.1.2. The Service Provider shall have the right to investigate violations of the Rules and to monitor User activities on the Website;</li>
+                                        <li>15.1.3. The Service Provider shall have the right to change, rearrange, or stop the Website operation;</li>
+                                        <li>15.1.4. The Service Provider shall be entitled, during the preventive work on the Website, to limit or suspend the provision of the Services to the Service Recipient.</li>
+                                        <li>15.1.5. The Service Provider shall have the right to get remuneration for the Services based on the prices referred to an the Website.</li>
+                                        <li>15.1.6. The Service Provider shall have the right to send commercial and other proposals to the User;</li>
+                                        <li>15.1.7. The Service Provider, in order to ensure the quality of the Services, shall have the right to store information on the content of the Services provided.</li>
+                                        <li>15.1.8. The Service Provider, as referred to in paragraph 13.1.4 of the Rules, shall have the right not to publish and (or) to remove the Service Recipient's entry in the Blog.</li>
+                                    </ul>
+                                </li>
+                                <li>15.2. The Service Provider undertakes:
+                                    <ul>
+                                        <li>15.2.1. To provide high quality Services in the responsible manner, applying all the necessary efforts;</li>
+                                        <li>15.2.2. At the latest within 24 hours to provide the Service in accordance with the request of the Service Recipient;</li>
+                                        <li>15.2.3. To ensure the uninterrupted operation of the Website;</li>
+                                        <li>15.2.4. In accordance with the request from the Service Recipient to submit him an invoice for the Services rendered to him;</li>
+                                        <li>15.2.5. To guarantee the protection and confidentiality of information of the content of the Services;</li>
+                                        <li>15.2.6. To maintain the confidentiality of all personal information of the User transferred directly on the Website.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </p>
+
+                        <h4>VI. LIABILITY OF THE PARTIES</h4>
+                        <p>16. In the case of the infringement of those Rules, as provided for in paragraph 14.1.1, the Service Provider shall have the right to restrict, suspend or terminate the right of the Service Recipient or his access to the Website and the Services.</p>
+                        <p>17. If the Service Recipient does not receive the Services or does not receive them on time for reasons other than the violation by the Service Recipient of these Rules, the Service Provider shall, at the request of the Service Recipient, compensate for losses by providing free Services to the Service Recipient to the extent to which the Services have not been provided.</p>
+                        <p>18. None of the parties shall be liable for their failure to discharge obligations under the Contract due to force majeure circumstances, as stipulated in the laws of the Republic of Lithuania. The party unable to fulfil its contractual obligations due to the force majeure circumstances shall as soon as possible but no later than in 24 hours notify the other party in writing of these circumstances. In this case, the discharge of obligations is suspended until such force majeure circumstances possessed.</p>
+                        <p>19. The Service Recipient shall be fully responsible for the damage caused by his fault or negligence, to the Service Provider.</p>
+                        <p>20. The Service Provider shall not be liable for any Credits unused on the Website, if the activity of the Website is suspended.</p>
+                        <p>21. The Service Provider is not liable for information made public by the Users on the Website. The Service Provider shall not verify or delete such information arbitrary.</p>
+
+                        <h4>VII. CONFIDENTIAL INFORMATION AND INTELLECTUAL PROPERTY</h4>
+                        <p>22. Photos (author works) published on the Website belong to the Service Provider or authors, with whom he has collaborated, and has partial copyrights. It is strictly forbidden to use these works on other websites, in the media or to distribute in any other form without the consent of the Service Provider and the corresponding author-partner.</p>
+
+                        <h4>VIII. FINAL PROVISIONS</h4>
+                        <p>23. These terms and conditions are governed by and construed in accordance with the laws of England and Wales.</p>
+                        <p>24. Any dispute you have which relates to these terms and conditions, or your use of StyleSensei.co.uk, will be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+
                         <div class="clearboth">&nbsp;</div>
                         <div class='innerText'><br>Last Edited on 2016-08-25</div>
                     </div>
