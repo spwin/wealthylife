@@ -1,11 +1,11 @@
-@extends('consultant/frame')
+@extends('admin/frame')
 @section('content-header')
     <h1>
-        Questions
+        Answers
         <small>list</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{ action('ConsultantController@index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="{{ action('AdminController@index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Questions</li>
     </ol>
 @stop
@@ -46,22 +46,10 @@
                                     <td class="w40px">#{{ $question->id }}</td>
                                     <td class="w100px"><img class="admin-user-questions" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
                                     <td>{{ $question->question }}</td>
-                                    <td><a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a></td>
+                                    <td><a href="{{ action('AdminController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a></td>
                                     <td>{{ $question->ip }}</td>
-                                    <td class="w100px">
-                                        @if($question->status == 1)
-                                            {{ date('d M, Y H:i', strtotime($question->updated_at)) }}
-                                        @else
-                                            {{ $question->answer()->first() ? ($question->answer()->first()->seen ? 'YES' : 'NO') : 'NO' }}
-                                        @endif
-                                    </td>
-                                    <td class="w100px">
-                                        @if($question->status == 1)
-                                            <a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-success">Answer</a>
-                                        @else
-                                            <a href="{{ action('ConsultantController@answerPreview', $question->answer()->first() ? $question->answer()->first()->id : '') }}" class="btn btn-primary">Show answer</a>
-                                        @endif
-                                    </td>
+                                    <td class="w100px">{{ $question->answer ? ($question->answer->seen ? 'YES' : 'NO') : 'NO' }}</td>
+                                    <td class="w100px"><a href="{{ action('AdminController@showAnswer', ['id' => $question->answer->id]) }}" class="btn btn-primary">Show answer</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

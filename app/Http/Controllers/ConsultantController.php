@@ -55,7 +55,7 @@ class ConsultantController extends Controller
     }
 
     public function listPending(){
-        $questions = Questions::where(['status' => 1])->get();
+        $questions = Questions::where(['status' => 1])->orderBy('asked_at', 'DESC')->paginate(20);
         return view('consultant/questions/list')->with([
             'questions' => $questions,
             'status' => 'Pending',
@@ -64,7 +64,7 @@ class ConsultantController extends Controller
     }
 
     public function listAnswered(){
-        $questions = Questions::where(['status' => 2])->get();
+        $questions = Questions::where(['status' => 2])->orderBy('asked_at', 'DESC')->paginate(20);
         return view('consultant/questions/list')->with([
             'questions' => $questions,
             'status' => 'Answered',

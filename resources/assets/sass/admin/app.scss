@@ -21,12 +21,21 @@
   text-align: center;
 }
 
+.w110px{
+  width: 110px;
+  text-align: center;
+}
+
 .w40px{
   width: 40px;
 }
 
 .w60px{
   width: 60px;
+}
+
+.w85px{
+  width: 85px;
 }
 
 .admin-user-questions{
@@ -132,4 +141,16 @@ span.article-current-status{
 
 tr.periods {
   cursor: pointer;
+}
+
+.rating-stars{
+  i{
+    color: #DAA520;
+    display: inline-block;
+    //margin-right: 5px;
+  }
+}
+
+.italic{
+  font-style: italic;
 }

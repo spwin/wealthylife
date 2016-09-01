@@ -35,6 +35,12 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+            <li class="{{ (Request::is('admin/answers*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@answers') }}">
+                    <i class="fa fa-suitcase"></i>
+                    <span>Answers</span>
+                </a>
+            </li>
             <li class="{{ (Request::is('admin/users*') ? 'active' : '') }} treeview">
                 <a href="#">
                     <i class="fa fa-users"></i>
@@ -65,6 +71,53 @@
                     <i class="fa fa-money"></i>
                     <span>Payroll</span>
                 </a>
+            </li>
+            <li class="{{ (Request::is('admin/phrases*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@phrases') }}">
+                    <i class="fa fa-graduation-cap"></i>
+                    <span>Phrases</span>
+                </a>
+            </li>
+            <li class="{{ (Request::is('admin/vouchers*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@vouchers') }}">
+                    <i class="fa fa-gift"></i>
+                    <span>Vouchers</span>
+                </a>
+            </li>
+            <li class="{{ (Request::is('admin/discounts*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@discounts') }}">
+                    <i class="fa fa-percent"></i>
+                    <span>Discounts</span>
+                </a>
+            </li>
+            <li class="{{ (Request::is('admin/orders*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@orders') }}">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span>Orders</span>
+                </a>
+            </li>
+            <li class="{{ (Request::is('admin/prices*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@prices') }}">
+                    <i class="fa fa-gbp"></i>
+                    <span>Prices</span>
+                </a>
+            </li>
+            <li class="{{ (Request::is('admin/ratings*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@ratings') }}">
+                    <i class="fa fa-star"></i>
+                    <span>Ratings</span>
+                </a>
+            </li>
+            <li class="{{ (Request::is('admin/feedback*') ? 'active' : '') }} treeview">
+                <a href="#">
+                    <i class="fa fa-bullhorn"></i>
+                    <span>Feedback</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ (Request::is('admin/feedback/unseen*') ? 'active' : '') }}"><a href="{{ action('AdminController@feedback', ['type' => 'unseen']) }}"><i class="fa fa-circle-o"></i> Unseen</a></li>
+                    <li class="{{ (Request::is('admin/feedback/all*') ? 'active' : '') }}"><a href="{{ action('AdminController@feedback', ['type' => 'all']) }}"><i class="fa fa-circle-o"></i> All</a></li>
+                </ul>
             </li>
         </ul>
     </section>

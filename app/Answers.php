@@ -20,7 +20,7 @@ class Answers extends Model
     }
 
     public function consultant(){
-        return $this->belongsTo('App\User', 'id', 'consultant_id');
+        return $this->hasOne('App\User', 'id', 'consultant_id');
     }
 
     public function payroll(){

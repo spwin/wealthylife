@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Answers;
 use App\Article;
+use App\Feedback;
 use App\Helpers\Helpers;
 use App\Images;
 use App\Notifications;
 use App\Payroll;
+use App\PriceSchemes;
+use App\Questions;
 use App\Settings;
 use App\User;
 use App\UserData;
@@ -711,6 +715,89 @@ class AdminController extends Controller
             'current' => $payroll,
             'price' => $price,
             'total' => 0
+        ]);
+    }
+
+    public function answers(){
+        $questions = Questions::where(['status' => 2])->orderBy('asked_at', 'DESC')->paginate(10);
+        return view('admin/answers/list')->with([
+            'questions' => $questions,
+            'status' => 'Answered',
+            'stat' => 2
+        ]);
+    }
+
+    public function showAnswer($id){
+        $answer = Answers::findOrFail($id);
+        return view('admin/answers/show')->with([
+            'answer' => $answer,
+            'question' => $answer->question()->first()
+        ]);
+    }
+
+    public function phrases(){
+        echo 'phrases';
+    }
+
+    public function vouchers(){
+        echo 'vouchers';
+    }
+
+    public function discounts(){
+        echo 'discounts';
+    }
+
+    public function orders(){
+        echo 'orders';
+    }
+
+    public function prices(){
+        $prices = PriceSchemes::paginate(20);
+        return view('admin/prices/list')->with([
+            'prices' => $prices
+        ]);
+    }
+
+    public function savePrice(Request $request){
+        $v = Validator::make($request->all(), [
+            'id' => 'required'
+        ]);
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors(), 'authenticate');
+        }
+    }
+
+    public function createPrice(){
+        return view('admin/prices/create');
+    }
+
+    public function deletePrice($id){
+        $price = PriceSchemes::findOrFail($id);
+        $price->delete();
+        Flash::success('Password has been successfully changed');
+        return Redirect::action('AdminController@prices');
+    }
+
+    public function ratings(){
+        $ratings = Answers::where('rating', '>', 0)->orWhere('feedback', '<>', '')->orderBy('created_at', 'DESC')->paginate(20);
+        return view('admin/ratings/index')->with([
+            'ratings' => $ratings
+        ]);
+    }
+
+    public function feedback($type){
+        if($type == 'all') {
+            $feedback = Feedback::orderBy('created_at', 'DESC')->paginate(20);
+        } elseif($type == 'unseen'){
+            $feedback = Feedback::where(['seen' => 0])->orderBy('created_at', 'DESC')->get();
+        }
+        foreach($feedback as $f){
+            $f->seen = 1;
+            $f->save();
+        }
+        return view('admin/feedback/index')->with([
+            'feedback' => $feedback,
+            'type' => $type
         ]);
     }
 }

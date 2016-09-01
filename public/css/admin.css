@@ -9513,11 +9513,18 @@ table.text-center, table.text-center td, table.text-center th {
   width: 100px;
   text-align: center; }
 
+.w110px {
+  width: 110px;
+  text-align: center; }
+
 .w40px {
   width: 40px; }
 
 .w60px {
   width: 60px; }
+
+.w85px {
+  width: 85px; }
 
 .admin-user-questions {
   max-width: 100px;
@@ -9601,5 +9608,12 @@ span.article-current-status {
 
 tr.periods {
   cursor: pointer; }
+
+.rating-stars i {
+  color: #DAA520;
+  display: inline-block; }
+
+.italic {
+  font-style: italic; }
 
 /*# sourceMappingURL=admin.css.map */

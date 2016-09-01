@@ -226,6 +226,34 @@ Route::group(['middleware' => ['ip']], function () {
             Route::post('pay-payroll/{id}', 'AdminController@payPayroll');
             Route::post('end-payroll/{id}', 'AdminController@endPayroll');
         });
+        Route::group(['prefix' => 'answers'], function () {
+            Route::get('/', 'AdminController@answers');
+            Route::get('preview/{id}', 'AdminController@showAnswer');
+        });
+        Route::group(['prefix' => 'phrases'], function () {
+            Route::get('/', 'AdminController@phrases');
+        });
+        Route::group(['prefix' => 'vouchers'], function () {
+            Route::get('/', 'AdminController@vouchers');
+        });
+        Route::group(['prefix' => 'discounts'], function () {
+            Route::get('/', 'AdminController@discounts');
+        });
+        Route::group(['prefix' => 'orders'], function () {
+            Route::get('/', 'AdminController@orders');
+        });
+        Route::group(['prefix' => 'prices'], function () {
+            Route::get('/', 'AdminController@prices');
+            Route::get('create-price', 'AdminController@createPrice');
+            Route::post('save-price', 'AdminController@savePrice');
+            Route::post('delete-price/{id}', 'AdminController@deletePrice');
+        });
+        Route::group(['prefix' => 'ratings'], function () {
+            Route::get('/', 'AdminController@ratings');
+        });
+        Route::group(['prefix' => 'feedback'], function () {
+            Route::get('{type}', 'AdminController@feedback');
+        });
         Route::get('logout', 'Auth\AuthController@getAdminLogout');
     });
 });
