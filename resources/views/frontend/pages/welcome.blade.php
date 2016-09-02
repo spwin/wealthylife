@@ -13,21 +13,21 @@
                         </p>
                         <a href="{{ action('FrontendController@authorizeQuestion') }}" class="btn btn-hover">Continue</a>
                         <ul class="list-inline social-list">
-                            <li>
+                            {{--<li>
                                 <a href="#">
                                     <i class="icon icon-sm ti-twitter-alt"></i>
                                 </a>
-                            </li>
+                            </li>--}}
                             <li>
                                 <a href="#">
                                     <i class="icon icon-sm ti-facebook"></i>
                                 </a>
                             </li>
-                            <li>
+                            {{--<li>
                                 <a href="#">
                                     <i class="icon icon-sm ti-instagram"></i>
                                 </a>
-                            </li>
+                            </li>--}}
                         </ul>
                     </div>
                 </div>

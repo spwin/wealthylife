@@ -12,14 +12,23 @@
                             @include('frontend/elements/question')
                         </div>
                     </div>
+                    <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@credits') }}"><i class="ti-arrow-left"></i> See all packages</a></h4>
                     <h4 class="uppercase mb16">Payment process</h4>
-                    <div class="col-md-12 text-center col-sm-12">
-                        <h2 class="uppercase mb24 bold italic">{{ $scheme->credits }} Credits</h2>
-                        <p>Your are about to buy {{ $scheme->credits }} credits</p>
-                        <hr class="visible-xs">
+                    <div class="col-md-4">
+                        <div class="credits-preview pricing-table pt-1 text-center boxed">
+                            <H5 class="uppercase">{{ $scheme->credits }} credits for</H5>
+                            <span class="price">£{{ round($scheme->price) }}</span>
+                            <p class="discount"><span class="round">- {{ round(100 - ($scheme->price*100/$scheme->credits)) }}%</span></p>
+                            <p class="lead">{{ $scheme->questions }} questions</p>
+                        </div>
                     </div>
-                    <div class="col-md-12 col-sm-12 text-center">
-                        <h2 class="uppercase mb24 bold italic">Price: £{{ $scheme->price }}</h2>
+                    <div class="col-md-8">
+                        <table class="last-payment-preview">
+                            <tr class="total-price">
+                                <td class="text-left">TOTAL TO PAY:</td>
+                                <td class="text-left">£{{ $scheme->price }}</td>
+                            </tr>
+                        </table>
                         {!! Form::open([
                         'method' => 'POST',
                         'action' => ['UserController@checkoutCredits', $scheme->id],

@@ -25,15 +25,15 @@ return [
     'credits.paid.content' => '',
     'credits.paid.email' => '',
 
-    'voucher.coupon.topic' => '',
-    'voucher.coupon.subject' => '',
-    'voucher.coupon.content' => '',
-    'voucher.coupon.email' => '',
+    'voucher.coupon.topic' => 'Voucher Details',
+    'voucher.coupon.subject' => 'You Received a Gift Voucher',
+    'voucher.coupon.content' => 'Your gift voucher has been successfully sent to :email. They will receive the voucher code together with your message shortly. We have sent you a copy of the email as well.',
+    'voucher.coupon.email' => 'emails.voucher',
 
     'voucher.copy.topic' => '',
-    'voucher.copy.subject' => '',
+    'voucher.copy.subject' => 'Your Copy of a Gift Voucher',
     'voucher.copy.content' => '',
-    'voucher.copy.email' => '',
+    'voucher.copy.email' => 'emails.voucher-copy',
 
     'password.recovery.topic' => 'Password reset link',
     'password.recovery.subject' => 'Password reset link',

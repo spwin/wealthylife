@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>@yield('page-title', trans('seo.main.title'))</title>
-    <meta name="description" content="@yield('meta-description', trans('seo.main.title'))">
+    <meta name="description" content="@yield('meta-description', trans('seo.main.description'))">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="alternate" href="{{ url()->to('/') }}" hreflang="en-GB" />
     <link href="{{ URL::to('/') }}/css/front-plugins.css" rel="stylesheet">

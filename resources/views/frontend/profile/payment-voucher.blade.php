@@ -13,13 +13,22 @@
                         </div>
                     </div>
                     <h4 class="uppercase mb16">Payment process</h4>
-                    <div class="col-md-12 text-center col-sm-12">
-                        <h2 class="uppercase mb24 bold italic">Voucher details</h2>
-                        {{ dump($voucher) }}
-                        <hr class="visible-xs">
+                    <h4 class="uppercase mb24 bold italic">Summary</h4>
+                    <div class="col-md-12">
+                        <p class="lead">Send to: <span class="bold">{{ $voucher->receiver_email }}</span></p>
+                        @if($voucher->message)
+                            <p class="lead">Your message:</p>
+                            <p>{{ $voucher->message }}</p>
+                        @endif
                     </div>
-                    <div class="col-md-12 col-sm-12 text-center">
-                        <h2 class="uppercase mb24 bold italic">Price: £{{ $voucher->price }}</h2>
+                    <div class="col-md-4 voucher-summary">
+                        <div class="pricing-table pt-1 text-center">
+                            <H5 class="uppercase">Total to pay:</H5>
+                            <span class="price">£{{ round($voucher->price) }}</span>
+                            <p class="lead">Gift of {{ $voucher->credits }} credits</p>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
                         {!! Form::open([
                         'method' => 'POST',
                         'action' => ['UserController@checkoutVoucher', $voucher->id],

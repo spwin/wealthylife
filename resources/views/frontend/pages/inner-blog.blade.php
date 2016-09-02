@@ -25,17 +25,19 @@
                                 <i class="ti-calendar"></i>
                                 <span class="number">{{ date('d M, Y', strtotime($article->created_at)) }}</span>
                             </li>
-                            @if(!$article->hide_name)
-                                <li>
-                                    <i class="ti-user"></i>
-                                    <span>Written by <strong>{{ $article->user->userData->first_name.' '.$article->user->userData->last_name }}</strong></span>
-                                </li>
-                            @endif
-                            @if(!$article->hide_email)
-                                <li>
-                                    <i class="ti-email"></i>
-                                    <span>{!! \App\Helpers\Helpers::hideEmail($article->user->email) !!}</span>
-                                </li>
+                            @if($article->user)
+                                @if(!$article->hide_name)
+                                    <li>
+                                        <i class="ti-user"></i>
+                                        <span>Written by <strong>{{ $article->user->userData->first_name.' '.$article->user->userData->last_name }}</strong></span>
+                                    </li>
+                                @endif
+                                @if(!$article->hide_email)
+                                    <li>
+                                        <i class="ti-email"></i>
+                                        <span>{!! \App\Helpers\Helpers::hideEmail($article->user->email) !!}</span>
+                                    </li>
+                                @endif
                             @endif
                         </ul>
                         <a href="{{ url()->to('/').$article->image->path.$article->image->filename }}" data-lightbox="image-{{ $article->image->id }}" data-title="{{ $article->title }}">

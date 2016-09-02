@@ -23,7 +23,7 @@
             <div>
                 <h4>The Fashion-Forward Team of Stylesensei</h4>
                 <p>Stylesensei is run by a group of highly talented fashion-forward individuals who have the unique creativity needed to style you on a daily basis. Our team consists of individuals who are true fashion fanatics, and keep tabs on the latest trends, fashion icons, and styling ideas to forward them to our customers. Whether you want to dress up to impress your new boss at a job interview or simply want to head out to a party with friends, we have got you covered.</p>
-                <p>Ask us anything about fashion and styling, and we will answer giving you the best advice to look and feel great. Our style advice is meant to make you stand out in the crowd and look effortlessly chic and on-point.Want to know more about our stylish team members? Click here to meet them!</p>
+                <p>Ask us anything about fashion and styling, and we will answer giving you the best advice to look and feel great. Our style advice is meant to make you stand out in the crowd and look effortlessly chic and on-point.</p>
             </div>
 
             <div>

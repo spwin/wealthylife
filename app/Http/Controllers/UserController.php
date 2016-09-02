@@ -76,6 +76,11 @@ class UserController extends Controller
             'last_name' => 'required',
             'gender' => 'required'
         ]);
+        $v->after(function($v) use ($request){
+            if($request->get('birthday') || !$request->get('city')) {
+                $v->errors()->add('birthday', 'Are you sure you are not a robot?');
+            }
+        });
         if ($v->fails()) {
             $request->session()->flash('modal', 'signup');
             return Redirect::action($this->getRoute())->withErrors($v->errors(), 'signup')->withInput();
@@ -119,7 +124,7 @@ class UserController extends Controller
         }
 
         if($user->status == 0){
-            Helpers::sendNotification('notifications.registration.welcome.', $user, ['link' => action('FrontendController@contacts')]);
+            Helpers::sendNotification('notifications.registration.welcome.', $user, ['link' => action('FrontendController@about')]);
         }
 
         $input['user_id'] = $user->id;
@@ -241,7 +246,7 @@ class UserController extends Controller
         $user_data->fill($input);
         $user_data->save();
 
-        Helpers::sendNotification('notifications.registration.welcome.', $user, ['link' => action('FrontendController@contacts')]);
+        Helpers::sendNotification('notifications.registration.welcome.', $user, ['link' => action('FrontendController@about')]);
         Helpers::sendEmail('notifications.registration.welcome.', $user->email, $user, ['user' => $user->userData]);
 
         return $user;
@@ -778,7 +783,7 @@ class UserController extends Controller
         $v = Validator::make($request->all(), [
             'voucher_value' => 'required',
             'receiver_email' => 'required|max:255',
-            'message' => 'max:500'
+            'message' => 'max:2000'
         ]);
         if ($v->fails()) {
             return Redirect::back()->withErrors($v->errors(), 'voucher')->withInput();
@@ -812,12 +817,16 @@ class UserController extends Controller
     public function formPaymentVoucher($id){
         $voucher = Vouchers::findOrFail($id);
         if($user = Auth::guard('user')->user()){
-            $creditCardToken = ClientToken::generate();
-            return view('frontend/profile/payment-voucher')->with([
-                'user' => $user,
-                'voucher' => $voucher,
-                'token' => $creditCardToken
-            ]);
+            if($voucher->status == 0 && $voucher->user_id = $user->id) {
+                $creditCardToken = ClientToken::generate();
+                return view('frontend/profile/payment-voucher')->with([
+                    'user' => $user,
+                    'voucher' => $voucher,
+                    'token' => $creditCardToken
+                ]);
+            } else {
+                return Redirect::action('FrontendController@vouchers');
+            }
         } else {
             return Redirect::action('FrontendController@index');
         }
@@ -858,9 +867,12 @@ class UserController extends Controller
                     $order->save();
                     $voucher->status = 1;
                     $voucher->save();
-                    Session::flash('flash_notification.general.message', 'You payment was completed, please check your email for more info');
-                    Session::flash('flash_notification.general.level', 'success');
-                    return Redirect::action('FrontendController@notifications');
+                    Helpers::sendNotification('notifications.voucher.coupon.', $user, ['email' => $voucher->receiver_email]);
+                    Helpers::sendEmail('notifications.voucher.coupon.', $voucher->receiver_email, $user, ['user' => $user->userData, 'voucher' => $voucher]);
+                    Helpers::sendEmail('notifications.voucher.copy.', $user->email, $user, ['user' => $user->userData, 'voucher' => $voucher]);
+                    Session::flash('flash_notification.voucher.message', 'You payment was completed, please check your email for more info');
+                    Session::flash('flash_notification.voucher.level', 'success');
+                    return Redirect::action('FrontendController@vouchers');
                 } else {
                     Session::flash('flash_notification.question.message', $result->message);
                     Session::flash('flash_notification.question.level', 'danger');
@@ -888,9 +900,9 @@ class UserController extends Controller
                 $voucher->save();
                 $user->points = $user->points + $voucher->credits;
                 $user->save();
-                Session::flash('flash_notification.general.message', 'Congratulations! You hve successfully used your '.$voucher->credits.' credits gift voucher.');
-                Session::flash('flash_notification.general.level', 'success');
-                return Redirect::action('FrontendController@notifications');
+                Session::flash('flash_notification.voucher.message', 'Congratulations! You hve successfully used your '.$voucher->credits.' credits gift voucher.');
+                Session::flash('flash_notification.voucher.level', 'success');
+                return Redirect::action('FrontendController@vouchers');
             } else {
                 Session::flash('flash_notification.voucher.message', 'You have entered wrong voucher number');
                 Session::flash('flash_notification.voucher.level', 'danger');
@@ -1181,6 +1193,12 @@ class UserController extends Controller
 
         $request->session()->flash('modal', 'feedback');
 
+        $v->after(function($v) use ($request){
+            if($request->get('birthday') || !$request->get('city')) {
+                $v->errors()->add('birthday', 'Are you sure you are not a robot?');
+            }
+        });
+
         if ($v->fails()) {
             return Redirect::action($this->getRoute())->withErrors($v->errors(), 'feedback')->withInput();
         }
@@ -1193,7 +1211,7 @@ class UserController extends Controller
         $feedback->fill($input);
         $feedback->save();
 
-        Session::flash('flash_notification.feedback.message', 'Your feedback is valuable in helping us build better products.');
+        Session::flash('flash_notification.feedback.message', 'Your feedback is important to us.');
         Session::flash('flash_notification.feedback.level', 'success');
         return Redirect::action($this->getRoute());
     }

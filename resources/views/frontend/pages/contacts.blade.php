@@ -66,6 +66,10 @@
                         'class' => 'form-contacts',
                         'method' => 'POST'
                     ]) !!}
+                        <div class="hidden">
+                            {!! Form::text('birthday', null) !!}
+                            {!! Form::text('city', 'London') !!}
+                        </div>
                         {!! Form::text('name', null, ['placeholder' => 'Your Name']) !!}
                         {!! Form::text('email', null, ['placeholder' => 'Email Address']) !!}
                         {!! Form::textarea('message', null, ['rows' => 4, 'placeholder' => 'Message']) !!}

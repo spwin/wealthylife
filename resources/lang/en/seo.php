@@ -1,6 +1,6 @@
 <?php
 return [
-    'main.title' => 'Professional online image and style consultation only £20',
+    'main.title' => 'Professional image and style consultation for only £20',
     'main.description' => 'Finding an answer to your style related questions has never been easier. With only few mouse clicks you can get great advice about your outfit from expert team.',
 
     'about.title' => 'About | Stylesensei',

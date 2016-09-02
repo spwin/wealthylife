@@ -34,21 +34,21 @@
             </div>
             <div class="col-sm-6 text-right">
                 <ul class="list-inline social-list">
-                    <li>
+                    {{--<li>
                         <a href="#">
                             <i class="ti-twitter-alt"></i>
                         </a>
-                    </li>
+                    </li>--}}
                     <li>
                         <a href="#">
                             <i class="ti-facebook"></i>
                         </a>
                     </li>
-                    <li>
+                    {{--<li>
                         <a href="#">
                             <i class="ti-instagram"></i>
                         </a>
-                    </li>
+                    </li>--}}
                 </ul>
             </div>
         </div>

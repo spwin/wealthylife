@@ -1376,3 +1376,12 @@ p.discount span.round{
     display: block;
     margin-bottom: 20px;
 }
+.pricing-table .btn-lg{
+    min-width: 0;
+}
+.credits-preview{
+    margin-top: 72px;
+}
+.voucher-summary table{
+    width: 100%;
+}

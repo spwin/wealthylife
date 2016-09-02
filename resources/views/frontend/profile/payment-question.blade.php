@@ -7,7 +7,7 @@
                 @include('frontend/profile/user-menu')
                 <div class="col-md-9">
                     <div class="tabbed-content text-tabs questions-container">
-                        <div class="modal-container text-right">
+                        <div class="text-right">
                             <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}"><i class="ti-arrow-left"></i> Back</a></h4>
                         </div>
                         <h4 class="uppercase mb16">Question payment</h4>

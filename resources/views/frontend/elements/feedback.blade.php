@@ -23,8 +23,12 @@
             'class' => 'feedback-form',
             'method' => 'POST'
         ]) !!}
+        <div class="hidden">
+            {!! Form::text('birthday', null) !!}
+            {!! Form::text('city', 'London') !!}
+        </div>
         <div class="textarea-holder">
-            {!! Form::textarea('content', null, ['class' => $errors->feedback->first('content', 'field-error ').'mt-1px', 'placeholder' => 'How can we improve?']) !!}
+            {!! Form::textarea('content', null, ['class' => $errors->feedback->first('content', 'field-error ').'mt-1px', 'placeholder' => 'How did we do?']) !!}
         </div>
         <input type="submit" class="question-btn pull-right" value="Send feedback">
         {!! Form::close() !!}

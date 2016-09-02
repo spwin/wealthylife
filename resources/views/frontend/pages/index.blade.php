@@ -17,10 +17,8 @@
                 <div class="container v-align-transform">
                     <div class="row">
                         <div class="col-sm-12 text-center">
-                            <h1 class="large">Your future you create today</h1>
-                            <p class="lead">
-                                The best personal fitness knowledge and motivation source online
-                            </p>
+                            <h1 class="large" {{ $phrase->style ? 'style="'.$phrase->style.'"' : '' }}>{{ $phrase->text }}</h1>
+                            <p class="lead">― {{ $phrase->author }}</p>
                             <p>
                                 <div class="modal-container inline-block">
                                     <a class="btn btn-modal" href="#">Ask question</a>

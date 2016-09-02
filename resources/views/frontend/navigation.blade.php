@@ -172,6 +172,10 @@
                                                     'class' => '',
                                                     'method' => 'POST'
                                                 ]) !!}
+                                                    <div class="hidden">
+                                                        {!! Form::text('birthday', null) !!}
+                                                        {!! Form::text('city', 'London') !!}
+                                                    </div>
                                                     <div class="double-column">
                                                         {!! Form::text('first_name', null, ['class' => $errors->signup->first('first_name', 'field-error ').'mt-1px', 'placeholder' => 'First name']) !!}
                                                         {!! Form::text('last_name', null, ['class' => $errors->signup->first('last_name', 'field-error ').'mt-1px', 'placeholder' => 'Last name']) !!}

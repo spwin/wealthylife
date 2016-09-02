@@ -8,11 +8,13 @@ use App\Images;
 use App\Notifications;
 use App\OrderDrafts;
 use App\PasswordResets;
+use App\Phrases;
 use App\PriceSchemes;
 use App\Questions;
 use App\Settings;
 use App\User;
 use App\UserData;
+use App\Vouchers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -36,9 +38,11 @@ class FrontendController extends Controller
         if($page != null){
             return $page;
         }*/
+        $phrase = Phrases::where(['enabled' => 1])->inRandomOrder()->first();
         $videos = ['market', 'tree', 'yoga', 'sky', 'bike'];
         $view = view('frontend/pages/index')->with([
-            'video' => $videos[array_rand($videos)]
+            'video' => $videos[array_rand($videos)],
+            'phrase' => $phrase
         ])->render();
 
         //Cache::put('home', $view, 1200);
@@ -332,6 +336,11 @@ class FrontendController extends Controller
             'name' => 'max:100',
             'message' => 'required|max:1000'
         ]);
+        $v->after(function($v) use ($request){
+            if($request->get('birthday') || !$request->get('city')) {
+                $v->errors()->add('birthday', 'Are you sure you are not a robot?');
+            }
+        });
         if ($v->fails()) {
             return Redirect::action('FrontendController@contacts')->withErrors($v->errors(), 'contacts')->withInput();
         }
@@ -375,7 +384,7 @@ class FrontendController extends Controller
         return view('frontend/pages/soon')->with([]);
     }
 
-    public function buyVoucher(){
+    public function buyVoucher(Request $request){
         if($user = Auth::guard('user')->user()){
             $priceSchemes = PriceSchemes::where(['type' => 'vouchers'])->get();
             return view('frontend/profile/buy-voucher')->with([
