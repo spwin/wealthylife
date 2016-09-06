@@ -113,7 +113,6 @@ Route::group(['middleware' => ['ip']], function () {
     Route::post('reset-process', 'UserController@resetPassword');
     Route::post('save-password/{id}', 'UserController@savePassword');
 
-    Route::get('referral-program', 'FrontendController@referral');
     Route::get('accept-referral', 'FrontendController@acceptReferral');
     Route::post('leave-feedback', 'UserController@leaveFeedback');
 // LOGGED
@@ -121,6 +120,7 @@ Route::group(['middleware' => ['ip']], function () {
     Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
         Route::get('welcome', 'UserController@welcome');
         Route::get('/', 'FrontendController@profile');
+        Route::get('referral-program', 'FrontendController@referral');
         Route::get('{id}/checkout-question', 'FrontendController@checkoutQuestion');
         Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
         Route::get('{id}/view-answer', 'FrontendController@viewAnswer');
