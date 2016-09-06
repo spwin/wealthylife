@@ -28,7 +28,7 @@
             <li {{ (Request::is('*profile/articles*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@articles') }}"><i class="ti-arrow-right"></i> Blog entries</a></li>
             <li {{ (Request::is('*profile/credits*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@credits') }}"><i class="ti-arrow-right"></i> Buy credits</a></li>
             <li {{ (Request::is('*profile/vouchers*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@vouchers') }}"><i class="ti-arrow-right"></i> Gift vouchers</a></li>
-            <li {{ (Request::is('*profile/referral*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@referral') }}"><i class="ti-arrow-right"></i> Referral rewards</a></li>
+            <li {{ (Request::is('*profile/referral-program*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@referral') }}"><i class="ti-arrow-right"></i> Referral rewards</a></li>
         </ul>
     </div>
     <div class="widget">
