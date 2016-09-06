@@ -47,9 +47,9 @@
                                         <p class="voucher-back"><i class="ti-gift"></i></p>
                                         <H5 class="uppercase">Go here to</H5>
                                         <span class="price">Buy</span>
-                                        <p class="lead">£20 - £100 gift vouchers</p>
-                                        <p>Great gift for your loved one</p>
-                                        <a class="btn btn-filled btn-lg" href="{{ action('FrontendController@buyVoucher') }}">Make someone happy</a>
+                                        <p class="lead">£20 - £100 Gift Vouchers</p>
+                                        <p>Perfect Present for a Loved One</p>
+                                        <a class="btn btn-filled btn-lg" href="{{ action('FrontendController@buyVoucher') }}">Make Someone Smile</a>
                                     </div>
                                     <!--end of pricing table-->
                                 </div>
@@ -64,8 +64,8 @@
                                             'method' => 'POST',
                                             'class' => 'login-profile'
                                         ]) !!}
-                                        <p class="lead"><input type="text" name="code" class="voucher-claim" placeholder="Enter your code here"></p>
-                                        <input type="submit" class="btn btn-filled btn-lg voucher-check" value="Confirm and continue">
+                                        <p class="lead"><input type="text" name="code" class="voucher-claim" placeholder="Enter Code Here"></p>
+                                        <input type="submit" class="btn btn-filled btn-lg voucher-check" value="Confirm And Continue">
                                         {!! Form::close() !!}
                                     </div>
                                     <!--end of pricing table-->
