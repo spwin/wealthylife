@@ -17,7 +17,7 @@
                 <div class="container v-align-transform">
                     <div class="row">
                         <div class="col-sm-12 text-center">
-                            <h1 class="large" {{ $phrase->style ? 'style="'.$phrase->style.'"' : '' }}>{{ $phrase->text }}</h1>
+                            <h1 class="large" style="{{ $phrase->style }}">{{ $phrase->text  }}</h1>
                             <p class="lead">― {{ $phrase->author }}</p>
                             <p>
                                 <div class="modal-container inline-block">

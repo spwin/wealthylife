@@ -40,8 +40,10 @@
                                     <div class="pricing-table pt-1 text-center boxed">
                                         <H5 class="uppercase">{{ $scheme->credits }} credits for</H5>
                                         <span class="price">£{{ round($scheme->price) }}</span>
-                                        <p class="discount"><span class="round">- {{ round(100 - ($scheme->price*100/$scheme->credits)) }}%</span></p>
-                                        <p class="lead">{{ $scheme->questions }} questions</p>
+                                        @if($scheme->price != $scheme->credits)
+                                            <p class="discount"><span class="round">- {{ round(100 - ($scheme->price*100/$scheme->credits)) }}%</span></p>
+                                        @endif
+                                        <p class="lead">{{ $scheme->questions ? $scheme->questions.' questions' : 'Some credits, huh?' }}</p>
                                         {!! Form::open([
                                             'role' => 'form',
                                             'url' => action('UserController@paymentCredits'),

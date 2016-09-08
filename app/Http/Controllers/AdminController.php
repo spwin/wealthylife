@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Answers;
 use App\Article;
+use App\Discounts;
 use App\Feedback;
 use App\Helpers\Helpers;
 use App\Images;
 use App\Notifications;
+use App\Orders;
 use App\Payroll;
+use App\Phrases;
 use App\PriceSchemes;
 use App\Questions;
 use App\Settings;
 use App\User;
 use App\UserData;
+use Braintree\Discount;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -736,7 +740,76 @@ class AdminController extends Controller
     }
 
     public function phrases(){
-        echo 'phrases';
+        $phrases = Phrases::orderBy('created_at')->paginate(20);
+        return view('admin/phrases/list')->with([
+            'phrases' => $phrases
+        ]);
+    }
+
+    public function processPhrases(Request $request){
+        $v = Validator::make($request->all(), [
+            'author' => 'required',
+            'text' => 'required|max:500',
+            'style' => 'max:500'
+        ]);
+
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors())->withInput();
+        }
+
+        $input = $request->all();
+        if(!$request->has('enabled')){
+            $input['enabled'] = 0;
+        }
+
+        $phrase = new Phrases();
+        $phrase->fill($input);
+        $phrase->save();
+
+        Flash::success('The phrase has been added successfully');
+        return Redirect::action('AdminController@phrases');
+    }
+
+    public function changePhrase($id, $action){
+        $phrase = Phrases::findOrFail($id);
+        if($action == 'disable'){
+            $phrase->enabled = 0;
+        } else {
+            $phrase->enabled = 1;
+        }
+        $phrase->save();
+        return Redirect::action('AdminController@phrases');
+    }
+
+    public function editPhrase($id){
+        $phrase = Phrases::findOrFail($id);
+        return view('admin/phrases/edit')->with([
+            'phrase' => $phrase
+        ]);
+    }
+
+    public function updatePhrase(Request $request, $id){
+        $v = Validator::make($request->all(), [
+            'author' => 'required',
+            'text' => 'required|max:500',
+            'style' => 'max:500'
+        ]);
+
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors())->withInput();
+        }
+
+        $input = $request->all();
+        if(!$request->has('enabled')){
+            $input['enabled'] = 0;
+        }
+
+        $phrase = Phrases::findOrFail($id);
+        $phrase->fill($input);
+        $phrase->save();
+
+        Flash::success('The phrase has been successfully saved');
+        return Redirect::action('AdminController@phrases');
     }
 
     public function vouchers(){
@@ -744,11 +817,55 @@ class AdminController extends Controller
     }
 
     public function discounts(){
-        echo 'discounts';
+        $discounts = Discounts::orderBy('created_at', 'DESC')->paginate(20);
+        return view('admin/discounts/list')->with([
+            'discounts' => $discounts
+        ]);
+    }
+
+    public function createDiscount(){
+        return view('admin/discounts/create');
+    }
+
+    public function saveDiscount(Request $request){
+        $v = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'type' => 'required',
+            'name' => 'required|max:500',
+            'value' => 'required|numeric'
+        ]);
+
+        $user = User::where(['email' => $request->get('email')])->first();
+
+        $v->after(function($v) use ($user, $request) {
+            if (!$user) {
+                $v->errors()->add('email', 'There is no user with email: '.$request->get('email'));
+            }
+        });
+
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors())->withInput();
+        }
+
+        $input = $request->all();
+        $input[$input['type']] = $input['value'];
+        $input['user_id'] = $user->id;
+
+        $discount = new Discounts();
+        $discount->fill($input);
+        $discount->save();
+
+        Flash::success('New discount has been successfully created');
+        return Redirect::action('AdminController@discounts');
     }
 
     public function orders(){
-        echo 'orders';
+        $orders = Orders::orderBy('created_at', 'DESC')->paginate(20);
+        $price = Settings::select('value')->where(['name' => 'question_price'])->first();
+        return view('admin/orders/list')->with([
+            'orders' => $orders,
+            'price' => $price
+        ]);
     }
 
     public function prices(){
@@ -760,15 +877,51 @@ class AdminController extends Controller
 
     public function savePrice(Request $request){
         $v = Validator::make($request->all(), [
-            'id' => 'required'
+            'order' => 'required',
+            'credits' => 'required',
+            'price' => 'required',
+            'comment' => 'max:1000'
         ]);
         if ($v->fails()) {
-            return Redirect::back()->withErrors($v->errors(), 'authenticate');
+            return Redirect::back()->withErrors($v->errors());
         }
+
+        $scheme = new PriceSchemes();
+        $scheme->fill($request->all());
+        $scheme->save();
+
+        Flash::success('New price scheme was successfully created');
+        return Redirect::action('AdminController@prices');
     }
 
     public function createPrice(){
         return view('admin/prices/create');
+    }
+
+    public function editPrice($id){
+        $scheme = PriceSchemes::findOrFail($id);
+        return view('admin/prices/edit')->with([
+            'scheme' => $scheme
+        ]);
+    }
+
+    public function updatePrice(Request $request, $id){
+        $scheme = PriceSchemes::findOrFail($id);
+        $v = Validator::make($request->all(), [
+            'order' => 'required',
+            'credits' => 'required',
+            'price' => 'required',
+            'comment' => 'max:1000'
+        ]);
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors());
+        }
+
+        $scheme->fill($request->all());
+        $scheme->save();
+
+        Flash::success('New price scheme was successfully updated');
+        return Redirect::action('AdminController@prices');
     }
 
     public function deletePrice($id){

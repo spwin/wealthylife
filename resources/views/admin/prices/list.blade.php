@@ -65,7 +65,7 @@
                                             ]) !!}
                                         <button type="submit" class="btn btn-danger btn-xs">Delete</button>
                                         {!! Form::close() !!}
-                                        <a href="#" class="btn btn-success btn-xs">Edit</a>
+                                        <a href="{{ action('AdminController@editPrice', ['id' => $price->id]) }}" class="btn btn-success btn-xs">Edit</a>
                                     </td>
                                 </tr>
                             @endforeach

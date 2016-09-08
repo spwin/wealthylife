@@ -12,7 +12,7 @@ class Orders extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'question_id', 'status', 'braintree_id', 'price_scheme_id', 'voucher_id'
+        'user_id', 'question_id', 'status', 'braintree_id', 'price_scheme_id', 'voucher_id', 'type'
     ];
 
     public function user(){

@@ -1,19 +1,19 @@
 @extends('admin/frame')
 @section('content-header')
     <h1>
-        Create Price
+        Edit Price
         <small>SCHEME</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ action('AdminController@index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="{{ action('AdminController@prices') }}">Prices</a></li>
-        <li class="active">Create</li>
+        <li class="active">Edit</li>
     </ol>
     @stop
     @section('content')
-    {!! Form::open([
+    {!! Form::model($scheme, [
         'role' => 'form',
-        'url' => action('AdminController@savePrice'),
+        'url' => action('AdminController@updatePrice', ['id' => $scheme->id]),
         'method' => 'POST'
     ]) !!}
         <div class="row">

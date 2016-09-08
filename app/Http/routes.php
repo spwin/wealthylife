@@ -232,12 +232,18 @@ Route::group(['middleware' => ['ip']], function () {
         });
         Route::group(['prefix' => 'phrases'], function () {
             Route::get('/', 'AdminController@phrases');
+            Route::get('edit/{id}', 'AdminController@editPhrase');
+            Route::post('process', 'AdminController@processPhrases');
+            Route::post('update/{id}', 'AdminController@updatePhrase');
+            Route::post('change/{id}/{action}', 'AdminController@changePhrase');
         });
         Route::group(['prefix' => 'vouchers'], function () {
             Route::get('/', 'AdminController@vouchers');
         });
         Route::group(['prefix' => 'discounts'], function () {
             Route::get('/', 'AdminController@discounts');
+            Route::get('create', 'AdminController@createDiscount');
+            Route::post('save', 'AdminController@saveDiscount');
         });
         Route::group(['prefix' => 'orders'], function () {
             Route::get('/', 'AdminController@orders');
@@ -245,8 +251,10 @@ Route::group(['middleware' => ['ip']], function () {
         Route::group(['prefix' => 'prices'], function () {
             Route::get('/', 'AdminController@prices');
             Route::get('create-price', 'AdminController@createPrice');
+            Route::get('edit-price/{id}', 'AdminController@editPrice');
             Route::post('save-price', 'AdminController@savePrice');
             Route::post('delete-price/{id}', 'AdminController@deletePrice');
+            Route::post('update-price/{id}', 'AdminController@updatePrice');
         });
         Route::group(['prefix' => 'ratings'], function () {
             Route::get('/', 'AdminController@ratings');

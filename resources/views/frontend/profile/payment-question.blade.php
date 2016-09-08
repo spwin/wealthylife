@@ -32,7 +32,7 @@
                                 @if($order_draft->discount)
                                     <tr>
                                         <td>{{ $order_draft->discount->name }}</td>
-                                        <td class="text-right">- £{{ $order_draft->discount->type == 'percent' ? ($order_draft->price/100)*$order_draft->discount->percent : $order_draft->discount->fixed }}</td>
+                                        <td class="text-right">- £{{ $order_draft->discount->type == 'percent' ? round(($order_draft->price/100)*$order_draft->discount->percent) : $order_draft->discount->fixed }}</td>
                                     </tr>
                                 @endif
                                 @if($order_draft->points > 0)
