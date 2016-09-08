@@ -5,7 +5,7 @@
     <title>@yield('page-title', trans('seo.main.title'))</title>
     <meta name="description" content="@yield('meta-description', trans('seo.main.description'))">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="alternate" href="{{ url()->to('/') }}" hreflang="en-GB" />
+{{--<link rel="alternate" href="{{ url()->to('/') }}" hreflang="en-GB" />--}}
     <link href="{{ URL::to('/') }}/css/front-plugins.css" rel="stylesheet">
     <link href="{{ URL::to('/') }}/css/frontend.css" rel="stylesheet">
     <link href="{{ URL::to('/') }}/css/front-custom.css" rel="stylesheet">
