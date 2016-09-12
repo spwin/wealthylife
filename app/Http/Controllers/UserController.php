@@ -926,6 +926,7 @@ class UserController extends Controller
         if ($v->fails()) {
             return Redirect::back()->withErrors($v->errors(), 'answer')->withInput();
         }
+
         $answer = Answers::findOrFail($id);
         $answer->fill([
             'rated' => 1,

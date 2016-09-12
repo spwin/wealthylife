@@ -70,15 +70,15 @@
                                 'class' => 'rate-answer'
                             ]) !!}
                             <div class="rating-wrapper">
-                                <input type="radio" class="rating-input" id="rating-input-1-5" name="stars" value="1"/>
+                                <input type="radio" class="rating-input" id="rating-input-1-5" name="stars" value="5"/>
                                 <label for="rating-input-1-5" class="rating-star"></label>
-                                <input type="radio" class="rating-input" id="rating-input-1-4" name="stars" value="2"/>
+                                <input type="radio" class="rating-input" id="rating-input-1-4" name="stars" value="4"/>
                                 <label for="rating-input-1-4" class="rating-star"></label>
                                 <input type="radio" class="rating-input" id="rating-input-1-3" name="stars" value="3"/>
                                 <label for="rating-input-1-3" class="rating-star"></label>
-                                <input type="radio" class="rating-input" id="rating-input-1-2" name="stars" value="4"/>
+                                <input type="radio" class="rating-input" id="rating-input-1-2" name="stars" value="2"/>
                                 <label for="rating-input-1-2" class="rating-star"></label>
-                                <input type="radio" class="rating-input" id="rating-input-1-1" name="stars" value="5"/>
+                                <input type="radio" class="rating-input" id="rating-input-1-1" name="stars" value="1"/>
                                 <label for="rating-input-1-1" class="rating-star"></label>
                             </div>
                             <div class="input-with-label text-left">
