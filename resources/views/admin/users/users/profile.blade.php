@@ -93,6 +93,7 @@
                     <li {{ $tab == '2' ? 'class=active' : '' }}><a href="#password" data-toggle="tab">Login details</a></li>
                     <li {{ $tab == '3' ? 'class=active' : '' }}><a href="#social" data-toggle="tab">Social</a></li>
                     <li {{ $tab == '4' ? 'class=active' : '' }}><a href="#notifications" data-toggle="tab">Notifications</a></li>
+                    <li {{ $tab == '5' ? 'class=active' : '' }}><a href="#balance" data-toggle="tab">Balance</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane {{ $tab == '1' ? 'active' : '' }}" id="general">
@@ -312,6 +313,46 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+
+                    <div class="tab-pane {{ $tab == '5' ? 'active' : '' }}" id="balance">
+                        {!! Form::open([
+                            'role' => 'form',
+                            'url' => action('AdminController@addProfileBalance', ['id' => $user->id]),
+                            'files' => true,
+                            'method' => 'POST'
+                        ]) !!}
+                            <div class="form-group {{ $errors->first('credits', 'has-error') }}"><span class="text-danger">*</span>
+                                {!! Form::label('credits', 'Credits amount') !!}
+                                {!! Form::input('number','credits', old('credits'), ['class' => 'form-control']) !!}
+                                <span class="help-block">{{ $errors->first('credits') }}</span>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add to balance</button>
+                        {!! Form::close() !!}
+                        <table class="table table-bordered table-hover mt-15px">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Before</th>
+                                <th>After</th>
+                                <th>Credits</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if($balance = $user->balance)
+                                @foreach($balance as $bal)
+                                    <tr>
+                                        <td>#{{ $bal->id }}</td>
+                                        <td>{{ date('d M, Y H:i', strtotime($bal->created_at)) }}</td>
+                                        <td>{{ $bal->before }}</td>
+                                        <td>{{ $bal->after }}</td>
+                                        <td>{{ $bal->credits }}</td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                            </tbody>
+                        </table>
                     </div>
                     <!-- /.tab-pane -->
                 </div>

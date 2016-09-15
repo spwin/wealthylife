@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Vouchers extends Model
+class Balance extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'vouchers';
+    protected $table = 'balance';
 
     /**
      * The attributes that are mass assignable.
@@ -19,14 +19,10 @@ class Vouchers extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'receiver_email', 'code', 'url_key', 'price', 'credits', 'message', 'anonymous', 'status'
+        'user_id', 'credits', 'before', 'after'
     ];
 
     public function user(){
         return $this->hasOne('App\User', 'id', 'user_id');
-    }
-
-    public function orders(){
-        return $this->hasMany('App\Orders', 'voucher_id', 'id');
     }
 }

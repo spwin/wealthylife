@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Answers;
 use App\Article;
+use App\Balance;
 use App\Discounts;
 use App\Feedback;
 use App\Helpers\Helpers;
@@ -17,6 +18,7 @@ use App\Questions;
 use App\Settings;
 use App\User;
 use App\UserData;
+use App\Vouchers;
 use Braintree\Discount;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -406,10 +408,24 @@ class AdminController extends Controller
         return Redirect::action('AdminController@listConsultants');
     }
 
-    public function listUsers(){
-        $users = User::with('userData')->where(['type' => 'user'])->orderBy('created_at', 'DESC')->get();
+    public function listUsers(Request $request){
+        $key = '';
+        if($request->has('search') && $search = strtolower($request->get('search'))){
+            $key = $search;
+            $users = User::with('userData')->where(['type' => 'user'])->whereHas('userData', function($q) use($search)
+            {
+                $q->whereRaw('LOWER(first_name) LIKE ?', array('%'.$search.'%'));
+                $q->orWhereRaw('LOWER(last_name) LIKE ?', array('%'.$search.'%'));
+                $q->orWhereRaw('LOWER(email) LIKE ?', array('%'.$search.'%'));
+
+            })->orderBy('users.created_at', 'DESC')->get();
+            //$users = User::with('userData')->join('user_data', 'user_data.user_id', '=', 'users.id')->where(['type' => 'user'])->whereRaw('LOWER(first_name) LIKE ?', array('%'.$search.'%'))->orWhereRaw('LOWER(last_name) LIKE ?', array('%'.$search.'%'))->orWhereRaw('LOWER(email) LIKE ?', array('%'.$search.'%'))->orderBy('users.created_at', 'DESC')->get();
+        } else {
+            $users = User::with('userData')->where(['type' => 'user'])->orderBy('created_at', 'DESC')->get();
+        }
         return view('admin/users/users/list')->with([
-            'users' => $users
+            'users' => $users,
+            'search' => $key
         ]);
     }
 
@@ -813,7 +829,18 @@ class AdminController extends Controller
     }
 
     public function vouchers(){
-        echo 'vouchers';
+        $vouchers = Vouchers::where('status', '>', 0)->orderBy('created_at', 'DESC')->paginate(20);
+        return view('admin/vouchers/list')->with([
+            'vouchers' => $vouchers
+        ]);
+    }
+
+    public function voucherDetails($id){
+        $voucher = Vouchers::findOrFail($id);
+        return view('admin/vouchers/details')->with([
+            'voucher' => $voucher
+        ]);
+
     }
 
     public function discounts(){
@@ -952,5 +979,74 @@ class AdminController extends Controller
             'feedback' => $feedback,
             'type' => $type
         ]);
+    }
+
+    public function balance(){
+        return view('admin/balance/index');
+    }
+
+    public function addBalance(Request $request){
+        $v = Validator::make($request->all(), [
+            'email' => 'required|email|max:100',
+            'credits' => 'required|numeric|max:1000'
+        ]);
+
+        $user = User::where(['email' => $request->get('email')])->first();
+
+        $v->after(function($v) use ($user, $request) {
+            if (!$user) {
+                $v->errors()->add('email', 'There is no user with email: '.$request->get('email'));
+            }
+        });
+
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors())->withInput();
+        }
+
+        $credits = $request->get('credits');
+        $before = $user->points;
+        $user->points = $before + $credits;
+        $user->save();
+
+        $balance = new Balance();
+        $balance->fill([
+            'user_id' => $user->id,
+            'credits' => $credits,
+            'before' => $before,
+            'after' => $user->points
+        ]);
+        $balance->save();
+
+        Flash::success($credits.' credits have been successfully added for user '.$user->email.'. Current balance: '.$user->points);
+        return Redirect::action('AdminController@balance');
+    }
+
+    public function addProfileBalance(Request $request, $id){
+        $v = Validator::make($request->all(), [
+            'credits' => 'required|numeric|max:1000'
+        ]);
+
+        $user = User::findOrFail($id);
+
+        if ($v->fails()) {
+            return redirect()->action('AdminController@detailsUser', ['id' => $id, 't' => 5])->withErrors($v->errors())->withInput();
+        }
+
+        $credits = $request->get('credits');
+        $before = $user->points;
+        $user->points = $before + $credits;
+        $user->save();
+
+        $balance = new Balance();
+        $balance->fill([
+            'user_id' => $user->id,
+            'credits' => $credits,
+            'before' => $before,
+            'after' => $user->points
+        ]);
+        $balance->save();
+
+        Flash::success($credits.' credits have been successfully added for user '.$user->email.'. Current balance: '.$user->points);
+        return Redirect::action('AdminController@detailsUser', ['id' => $user->id, 't' => 5]);
     }
 }

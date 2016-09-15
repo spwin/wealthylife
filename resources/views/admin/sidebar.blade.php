@@ -66,6 +66,12 @@
                     <li class="{{ (Request::is('admin/articles/archived*') ? 'active' : '') }}"><a href="{{ action('AdminController@articles', ['type' => 'archived']) }}"><i class="fa fa-circle-o"></i> Archived</a></li>
                 </ul>
             </li>
+            <li class="{{ (Request::is('admin/balance*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@balance') }}">
+                    <i class="fa fa-balance-scale"></i>
+                    <span>Balance</span>
+                </a>
+            </li>
             <li class="{{ (Request::is('admin/payroll*') ? 'active' : '') }}">
                 <a href="{{ action('AdminController@payroll') }}">
                     <i class="fa fa-money"></i>
