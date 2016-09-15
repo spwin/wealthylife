@@ -39,17 +39,17 @@
                                     @if(!$article->hide_name)
                                     <li>
                                         <i class="ti-user"></i>
-                                        <span>Written by <strong>{{ $article->user()->first()->userData()->first()->first_name.' '.$article->user()->first()->userData()->first()->last_name }}</strong></span>
+                                        <span>Written by <strong>{{ $article->user->userData->first_name.' '.$article->user->userData->last_name }}</strong></span>
                                     </li>
                                     @endif
                                     @if(!$article->hide_email)
                                     <li>
                                         <i class="ti-email"></i>
-                                        <span>spwinprp@gmail.com</span>
+                                        <span>{{ $article->user->email }}</span>
                                     </li>
                                     @endif
                                 </ul>
-                                <img src="{{ url()->to('/').'/blog/500x500/'.$article->image()->first()->filename }}"/>
+                                <img src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
                                 {!! $article->content !!}
                             </div>
                             <!--end of post snippet-->
