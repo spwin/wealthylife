@@ -220,6 +220,11 @@ Route::group(['middleware' => ['ip']], function () {
             Route::get('/details/{id}', 'AdminController@detailsArticle');
             Route::post('/edit/{id}', 'AdminController@editArticle');
         });
+        Route::group(['prefix' => 'balance'], function () {
+            Route::get('/', 'AdminController@balance');
+            Route::post('add-credits', 'AdminController@addBalance');
+            Route::post('add-balance/{id}', 'AdminController@addProfileBalance');
+        });
         Route::group(['prefix' => 'payroll'], function () {
             Route::get('/', 'AdminController@payroll');
             Route::get('view/{id}', 'AdminController@viewPayroll');
@@ -239,6 +244,7 @@ Route::group(['middleware' => ['ip']], function () {
         });
         Route::group(['prefix' => 'vouchers'], function () {
             Route::get('/', 'AdminController@vouchers');
+            Route::get('detils/{id}', 'AdminController@voucherDetails');
         });
         Route::group(['prefix' => 'discounts'], function () {
             Route::get('/', 'AdminController@discounts');

@@ -9526,6 +9526,9 @@ table.text-center, table.text-center td, table.text-center th {
 .w85px {
   width: 85px; }
 
+.w200px {
+  width: 200px; }
+
 .admin-user-questions {
   max-width: 100px;
   max-height: 100px; }

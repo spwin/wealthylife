@@ -99,4 +99,8 @@ class User extends Authenticatable
     public function feedback(){
         return $this->hasMany('App\Feedback', 'user_id', 'id');
     }
+
+    public function balance(){
+        return $this->hasMany('App\Balance', 'user_id', 'id')->orderBy('created_at', 'DESC');
+    }
 }
