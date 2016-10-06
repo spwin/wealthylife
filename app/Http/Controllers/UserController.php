@@ -315,13 +315,15 @@ class UserController extends Controller
     public function socialCallback($provider){
         if($user = Socialite::with($provider)->user()){
             $input = $this->getInput($user);
-            if($user_db = User::where(['email' => $user->getEmail()])->first()){
-                if($social_provider = $user_db->social()->where(['user_id' => $user_db->id, 'provider' => $provider])->first()){
+            if($user_db = User::where(['email' => $user->getEmail()])->first()) {
+                if ($social_provider = $user_db->social()->where(['user_id' => $user_db->id, 'provider' => $provider])->first()) {
                     $social_provider->social_id = $this->socialGetId($user);
                     $social_provider->save();
                 } else {
                     $this->createProvider($user_db, $provider, $this->socialGetId($user)); // create provider for user
                 }
+            } elseif(!$input['email']){
+                return 'You cannot login using '.$provider.' as your email is not confirmed.';
             } else {
                 $user_db = $this->createNewUser($user, $input); // create user
                 $this->createProvider($user_db, $provider, $this->socialGetId($user)); // create provider for user
