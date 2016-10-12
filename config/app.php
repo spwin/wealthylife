@@ -163,6 +163,7 @@ return [
 	    Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Roumen\Sitemap\SitemapServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
     ],
 
     /*
@@ -215,6 +216,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
 	    'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
     ],
 
 ];

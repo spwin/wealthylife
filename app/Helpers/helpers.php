@@ -5,9 +5,19 @@ namespace App\Helpers;
 use App\Notifications;
 use App\Settings;
 use Illuminate\Support\Facades\Mail;
+use Jenssegers\Agent\Agent;
 
 class Helpers
 {
+    public static function isMobile(){
+        $Agent = new Agent();
+        if ($Agent->isMobile()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static function getSetting($name){
         $setting = Settings::where(['name' => $name])->first();
         if($setting){
