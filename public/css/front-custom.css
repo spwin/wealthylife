@@ -17,7 +17,7 @@
     transition: none;
     margin-left: 16px;
     padding: 0;
-}
+}/*
 .profile-dropdown:after {
     position: absolute;
     top: 0;
@@ -31,7 +31,7 @@
     font-weight: normal;
     font-variant: normal;
     text-transform: none;
-}
+}*/
 .profile-dropdown.logged:after {
     content: "\e602";
 }
@@ -195,8 +195,9 @@ input[type="password"].mb-5px{
 }
 
 nav .nav-home, nav .nav-home .menu > li ul{
-    background-color: rgba(34, 34, 34, 0.2);
+    background-color: rgba(0,0,0, 0.4);
 }
+
 
 nav .nav-blog, nav .nav-blog .menu > li ul{
     background-color: #525252;
@@ -1001,9 +1002,6 @@ section.pt-20px{
 section.pb-0px{
     padding-bottom: 0;
 }
-footer.bg-dark span{
-    color: #939393;
-}
 .form-contacts button{
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
@@ -1357,13 +1355,32 @@ p.discount span.round{
 }
 
 #feedback-icon{
-    background: url("../images/feedback.png") 0 0 no-repeat transparent;
-    height: 67px;
-    width: 67px;
+    background: url("../images/feedback.svg") 0 0 no-repeat;
+    height: 100px;
+    width: 102px;
     position: fixed;
     bottom: 0;
     right: 0;
     z-index: 10;
+}
+#feedback-icon:after {
+    content: "";
+    opacity: 0;
+    display:block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: url("../images/feedback-hover.svg") 0 0 no-repeat;
+    -moz-transition: all .4s ease;
+    -webkit-transition: all .4s ease;
+    -ms-transition: all .4s ease;
+    -o-transition: all .4s ease;
+    transition: all .4s ease;
+}
+#feedback-icon:hover:after {
+    opacity: 1;
 }
 
 .feedback-thank-you{
@@ -1385,4 +1402,20 @@ p.discount span.round{
 .voucher-summary table{
     width: 100%;
 }
+
+/********/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*# sourceMappingURL=front-custom.css.map */

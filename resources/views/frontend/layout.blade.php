@@ -11,7 +11,7 @@
     <link href="{{ URL::to('/') }}/css/front-custom.css" rel="stylesheet">
     <link href="{{ URL::to('/') }}/css/fonts.css" rel="stylesheet">
 </head>
-<body class="scroll-assist">
+<body class="scroll-assist @yield('body-class', 'default-class')">
 @yield('after-body-snippet')
 @yield('wrapper')
 <div class="modal-container text-right">

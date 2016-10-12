@@ -1,24 +1,33 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-home')
+@section('body-class', 'front-page')
+@section('after-body-snippet')
+    <div class="background-image-holder">
+        <img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/{{ $video }}.jpg">
+    </div>
+@stop
 @section('content')
     <section class="cover fullscreen image-slider slider-all-controls">
         <ul class="slides">
             <li class="vid-bg image-bg overlay">
-                <div class="background-image-holder">
-                    <img alt="Background Image" class="background-image" src="https://unsplash.imgix.net/photo-1425321395722-b1dd54a97cf3?q=75&amp;fm=jpg&amp;w=1080&amp;fit=max&amp;s=9e4ce3e023621d6f94259eea8fa3b856">
-                </div>
+                <!--div class="background-image-holder">
+                    <img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/{{ $video }}.jpg">
+                </div-->
                 <div class="fs-vid-background">
+                    <!--
                     <video muted="" loop="">
                         <source src="video/{{ $video }}.mp4" type="video/mp4">
                         <source src="video/{{ $video }}.webm" type="video/webm">
                         <source src="video/{{ $video }}.ogv" type="video/ogg">
                     </video>
+                    -->
+                    <div class="full-back"></div>
                 </div>
                 <div class="container v-align-transform">
                     <div class="row">
                         <div class="col-sm-12 text-center">
                             @if($phrase)
-                                <h1 class="large" style="{{ $phrase->style }}">{{ $phrase->text  }}</h1>
+                                <h1 class="large" style="{{ $phrase->style }}"><img class="simplicity" src="{{ url()->to('/') }}/images/SIMPLICITY.svg">{{ $phrase->text  }}</h1>
                                 <p class="lead">― {{ $phrase->author }}</p>
                             @endif
                             <p>
@@ -43,6 +52,7 @@
                 </span>
             </a>
         </span>--}}
+
     </section>
     @include('frontend/footer')
 @stop

@@ -39,7 +39,7 @@ class FrontendController extends Controller
             return $page;
         }*/
         $phrase = Phrases::where(['enabled' => 1])->inRandomOrder()->first();
-        $videos = ['market', 'tree', 'yoga', 'sky', 'bike'];
+        $videos = ['black-satin', 'red-satin'];
         $view = view('frontend/pages/index')->with([
             'video' => $videos[array_rand($videos)],
             'phrase' => $phrase

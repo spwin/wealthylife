@@ -4,8 +4,7 @@
         <div class="nav-bar @yield('nav-style', 'nav-home')">
             <div class="module left">
                 <a href="{{ URL::to('/') }}">
-                    <img class="logo logo-light" alt="Foundry" src="{{ URL::to('/') }}/images/logo-light.svg">
-                    <img class="logo logo-dark" alt="Foundry" src="{{ URL::to('/') }}/images/logo-dark.svg">
+                    <img class="logo logo-light" alt="Foundry" src="{{ URL::to('/') }}/images/LOGO-header.svg">
                 </a>
             </div>
             <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
@@ -117,7 +116,14 @@
                                         <div class="modal-container login-modal">
                                             <a class="btn-modal" href="#">Log in</a>
                                             <div class="foundry_modal text-center" {{ (Session::has('modal') && (Session::get('modal') == 'login' && count($errors->login) || Session::get('modal') == 'need-login')) > 0 ? 'data-time-delay=10' : '' }}>
-                                                <h3 class="uppercase">Log in</h3>
+                                                <div class="login-header-back">
+                                                    <div class="login-header">
+                                                        <img src="{{ URL::to('/') }}/images/log-in-symbol.svg" alt="small logo">
+                                                        <h5 class="uppercase"><span class="ftw600">Log</span>in</h5>
+                                                        <p>Choose Your way to log in</p>
+                                                    </div>
+                                                </div>
+
                                                 @if (count($errors->login) > 0)
                                                     <div class="alert alert-danger">
                                                         <ul>
@@ -141,9 +147,9 @@
                                                 </div>
                                                 <input type="submit" value="Log in">
                                                 {!! Form::close() !!}
-                                                <a class="btn btn-lg social-login google" href="{{ action('UserController@socialLogin', ['provider' => 'google']) }}"><i class="ti-google"></i> Log in with Google</a>
-                                                <a class="btn btn-lg social-login facebook" href="{{ action('UserController@socialLogin', ['provider' => 'facebook']) }}"><i class="ti-facebook"></i> Log in with Facebook</a>
-                                                <a class="btn btn-lg social-login twitter" href="{{ action('UserController@socialLogin', ['provider' => 'twitter']) }}"><i class="ti-twitter"></i> Log in with Twitter</a>
+                                                <a class="btn btn-lg social-login google" href="{{ action('UserController@socialLogin', ['provider' => 'google']) }}">Log in with Google</a>
+                                                <a class="btn btn-lg social-login facebook" href="{{ action('UserController@socialLogin', ['provider' => 'facebook']) }}">Log in with Facebook</a>
+                                                <a class="btn btn-lg social-login twitter" href="{{ action('UserController@socialLogin', ['provider' => 'twitter']) }}">Log in with Twitter</a>
                                                 <a href="#" onclick="openModal('signup')">Create account</a>
                                             </div>
                                         </div>
@@ -152,10 +158,17 @@
                                         <div class="modal-container signup-modal">
                                             <a class="btn-modal" href="#">Sign up</a>
                                             <div class="foundry_modal text-center" {{ Session::has('modal') && Session::get('modal') == 'signup' && count($errors->signup) > 0 ? 'data-time-delay=10' : '' }}>
-                                                <h3 class="uppercase">Sign Up</h3>
+                                                <div class="login-header-back">
+                                                    <div class="login-header">
+                                                        <img src="{{ URL::to('/') }}/images/log-in-symbol.svg" alt="small logo">
+                                                        <h5 class="uppercase"><span class="ftw600">Sign</span> up</h5>
+                                                        <p>Please fill all the fields</p>
+                                                    </div>
+                                                </div>
+                                                <!--h3 class="uppercase">Sign Up</h3>
                                                 <p class="lead mb48">
                                                     Please fill all the fields.
-                                                </p>
+                                                </p-->
                                                 @if (count($errors->signup) > 0)
                                                     <div class="alert alert-danger">
                                                         <ul>

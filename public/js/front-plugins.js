@@ -5051,4 +5051,27 @@ function insertAvatar(input, defaultUrl){
         submit.prop('disabled', true);
     }
 }
+
+// MAIN PHRASE TOP POSITION ON SCROLL/*
+
+if ( $(window).width() > 768 ) {
+    var scrollfactor = 21;
+    var imgtop = 34 - 1 * ($(window).scrollTop() / scrollfactor ) ;
+    $('.front-page .container.v-align-transform').css('top', imgtop + '%');
+    $(window).scroll(function() {
+            var imgtop = 34 - 1 * ($(window).scrollTop() / scrollfactor ) ;
+            $('.front-page .container.v-align-transform').css('top', imgtop + '%');
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
 //# sourceMappingURL=front-plugins.js.map

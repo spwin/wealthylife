@@ -6,7 +6,13 @@
             {{ Session::get('flash_notification.feedback.message') }}
         </div>
     @else
-        <h3 class="uppercase">Feedback</h3>
+        <div class="login-header-back">
+            <div class="login-header">
+                <img src="{{ URL::to('/') }}/images/log-in-symbol.svg" alt="small logo">
+                <h5 class="uppercase"><span class="ftw600">Feed</span>back</h5>
+                <p>We'll be glad to hear from You!</p>
+            </div>
+        </div>
         @if (count($errors->feedback) > 0)
             <div class="alert alert-danger">
                 <ul>
