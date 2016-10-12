@@ -14,14 +14,11 @@ use App\Questions;
 use App\Settings;
 use App\User;
 use App\UserData;
-use App\Vouchers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
