@@ -22,50 +22,6 @@
         'class' => 'question-form1',
         'method' => 'POST'
     ]) !!}
-    <div class="image-info-block mb8">
-        <p>Please upload only <strong>jpeg, png</strong> or <strong>gif</strong> files.</p>
-        <p>Maximum image size is <strong>5MB</strong>.</p>
-    </div>
-    <div class="image-upload ask left">
-        <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
-            <div class="question-image text-left">
-                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
-            </div>
-        </div>
-        <div class="image-actions right">
-
-            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}');">remove</a>
-
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="image-upload ask">
-        <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
-            <div class="question-image text-left">
-                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
-            </div>
-        </div>
-        <div class="image-actions right">
-
-            <a href="#" class="btn image-button upload" onclick="uploadImage(this);">select</a>
-
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="image-upload ask right">
-        <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
-            <div class="question-image text-left">
-                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
-            </div>
-        </div>
-        <div class="image-actions right">
-
-            <a href="#" class="btn image-button upload" onclick="uploadImage(this);">select</a>
-
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
     <div class="upload-button">
         {!! Form::file('image', ['onChange' => 'readURL('.(session()->has('question.image') ? 'true' : 'false').', this, "'.( session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png').'")', 'class' => 'image-input']) !!}
     </div>
@@ -75,7 +31,50 @@
             {{ session()->has('question.content') ? 250 - strlen(session()->get('question.content')) : 250 }}
         </div>
     </div>
-    <div class="double-column">
+    <div class="image-info-block mb24">
+        <p>Please upload only <strong>jpeg, png</strong> or <strong>gif</strong> files.</p>
+        <p>Maximum image size is <strong>5MB</strong>.</p>
+    </div>
+    <div class="image-upload mobile">
+        <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
+            <div class="question-image text-left">
+                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+            </div>
+        </div>
+        <div class="image-actions right">
+
+            <a href="#" class="btn image-button upload" onclick="uploadImage(this);">select</a>
+            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}');">remove</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="image-upload mobile">
+        <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
+            <div class="question-image text-left">
+                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+            </div>
+        </div>
+        <div class="image-actions right">
+
+            <a href="#" class="btn image-button upload" onclick="uploadImage(this);">select</a>
+            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}');">remove</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="image-upload mobile">
+        <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
+            <div class="question-image text-left">
+                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+            </div>
+        </div>
+        <div class="image-actions right">
+
+            <a href="#" class="btn image-button upload" onclick="uploadImage(this);">select</a>
+            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}');">remove</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="double-column mobile">
         <a href="#" class="btn question-btn" onclick="clearForm('question-form1', event, '{{ action('UserController@clearQuestion') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}');">Clear</a>
         <input type="submit" class="question-btn" value="Confirm">
     </div>

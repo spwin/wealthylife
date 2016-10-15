@@ -7,6 +7,11 @@
                     <img class="logo logo-light" alt="Foundry" src="{{ URL::to('/') }}/images/LOGO-header.svg">
                 </a>
             </div>
+            <div class="mob-menu-logo">
+                <a href="{{ URL::to('/') }}">
+                    <img alt="Foundry" src="{{ URL::to('/') }}/images/LOGO-header.svg">
+                </a>
+            </div>
             <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
                 <i class="ti-menu"></i>
             </div>
@@ -222,7 +227,7 @@
                     </ul>
                 </div>
             </div>
-
+            <div class="nav-menu-logo"></div>
         </div>
     </nav>
 </div>

@@ -11,7 +11,7 @@ class Helpers
 {
     public static function isMobile(){
         $Agent = new Agent();
-        if ($Agent->isMobile()) {
+        if ($Agent->isMobile() || $Agent->isTablet()) {
             return true;
         } else {
             return false;

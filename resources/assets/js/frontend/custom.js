@@ -311,7 +311,10 @@ if ( $(window).width() > 768 ) {
     });
 }
 
-
+$('.mobile-toggle').click(function() {
+    $('nav.transparent').toggleClass('menu-bott');
+    $('.mobile-toggle i').toggleClass('ti-menu').toggleClass('ti-close');
+});
 
 
 

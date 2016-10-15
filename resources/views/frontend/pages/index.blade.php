@@ -27,14 +27,18 @@
                     <div class="row">
                         <div class="col-sm-12 text-center">
                             @if($phrase)
-                                <h1 class="large" style="{{ $phrase->style }}"><img class="simplicity" src="{{ url()->to('/') }}/images/SIMPLICITY.svg">{{ $phrase->text  }}</h1>
+                                <h1 class="large" style="{{ $phrase->style }}"><div class="simplicity"></div><!--img class="simplicity" src="{{ url()->to('/') }}/images/SIMPLICITY.svg"-->{{ $phrase->text  }}</h1>
                                 <p class="lead">― {{ $phrase->author }}</p>
                             @endif
                             <p>
                                 <div class="modal-container inline-block">
                                     <a class="btn btn-modal" href="#">Ask question</a>
                                     <div class="hidden">
-                                        @include('frontend/elements/question')
+                                        @if(\App\Helpers\Helpers::isMobile())
+                                            @include('mobile/frontend/elements/question')
+                                        @else
+                                            @include('frontend/elements/question')
+                                        @endif
                                     </div>
                                 </div>
                             </p>
