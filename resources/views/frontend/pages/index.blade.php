@@ -27,8 +27,8 @@
                     <div class="row">
                         <div class="col-sm-12 text-center">
                             @if($phrase)
-                                <h1 class="large" style="{{ $phrase->style }}">{{ $phrase->text  }}</h1>
-                                <p class="lead">― {{ $phrase->author }}</p>
+                                <h1 class="large" style="{{ $phrase->style }}">{!! $phrase->text !!}</h1>
+                                <p class="lead">― {!! $phrase->author !!}</p>
                             @endif
                             <p>
                                 <div class="modal-container inline-block">
