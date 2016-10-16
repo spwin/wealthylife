@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-sm-12 text-center">
                             @if($phrase)
-                                <h1 class="large" style="{{ $phrase->style }}"><div class="simplicity"></div><!--img class="simplicity" src="{{ url()->to('/') }}/images/SIMPLICITY.svg"-->{{ $phrase->text  }}</h1>
+                                <h1 class="large" style="{{ $phrase->style }}">{{ $phrase->text  }}</h1>
                                 <p class="lead">― {{ $phrase->author }}</p>
                             @endif
                             <p>
