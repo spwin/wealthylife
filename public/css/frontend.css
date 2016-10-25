@@ -654,8 +654,8 @@ footer.bg-dark h6,
   left: 0;
   z-index: 1;
   background: #292929;
-  background-size: cover !important;
-  background-position: 50% 50% !important;
+  background-size: cover;
+  background-position: 50% 50%;
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -5678,14 +5678,16 @@ footer.bg-dark a {
 /***********************
 WHERE MAGIC HAPPENS
 **********************/
-body {
-  height: 100%;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-}
 .background-image-holder {
-  height: 100%;
-  overflow: hidden;
+  background-size: cover !important;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  height: 100% !important;
+  width: 100% !important;
+  position: fixed !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
 }
 #feedback-icon {
   background: url("../images/feedback.svg") 0 0 no-repeat;
