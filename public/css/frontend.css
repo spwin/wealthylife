@@ -5678,6 +5678,9 @@ footer.bg-dark a {
 /***********************
 WHERE MAGIC HAPPENS
 **********************/
+.background-image-holder {
+  transition: height 999999s;
+}
 #feedback-icon {
   background: url("../images/feedback.svg") 0 0 no-repeat;
   height: 100px;

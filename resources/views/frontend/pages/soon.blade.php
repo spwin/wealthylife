@@ -58,3 +58,13 @@
         </section>
     </div>
 @stop
+@push('scripts')
+<script>
+    var bg = jQuery(".background-image-holder");
+    jQuery(window).resize("resizeBackground");
+    function resizeBackground() {
+        bg.height(jQuery(window).height() + 60);
+    }
+    resizeBackground();
+</script>
+@endpush
