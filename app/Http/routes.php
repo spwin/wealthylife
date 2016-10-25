@@ -76,6 +76,7 @@ Route::get('sitemap.xml', 'FrontendController@sitemap');
 
 // FRONTEND
 Route::get('soon', 'FrontendController@soon');
+Route::post('soon/submit', 'FrontendController@soonSubmit');
 Route::group(['middleware' => ['ip']], function () {
     Route::get('/', 'FrontendController@index');
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Discounts;
 use App\Images;
+use App\Newsletter;
 use App\Notifications;
 use App\OrderDrafts;
 use App\PasswordResets;
@@ -378,7 +379,34 @@ class FrontendController extends Controller
     }
 
     public function soon(){
-        return view('frontend/pages/soon')->with([]);
+        $backgrounds = [
+            'back1.jpg', 'back2.jpg', 'back3.jpg', 'back4.jpg',
+            'back5.jpg', 'back6.jpg', 'back7.jpg'
+        ];
+        return view('frontend/pages/soon')->with([
+            'background' => $backgrounds[array_rand($backgrounds)]
+        ]);
+    }
+
+    public function soonSubmit(Request $request){
+        $v = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+        if ($v->fails()) {
+            return Redirect::action('FrontendController@soon')->withErrors($v->errors(), 'soon')->withInput();
+        }
+        $current = Newsletter::where(['email' => $request->get('email')])->first();
+        if($current){
+            Session::flash('flash_notification.general.message', 'Glad to see you again, your email is already in our database.');
+        } else {
+            $input = $request->all();
+            $newsletter = new Newsletter();
+            $newsletter->fill($input);
+            $newsletter->save();
+            Session::flash('flash_notification.general.message', 'Thanks for your submission, we will be in touch shortly.');
+        }
+        Session::flash('flash_notification.general.level', 'success');
+        return Redirect::action('FrontendController@soon');
     }
 
     public function buyVoucher(Request $request){

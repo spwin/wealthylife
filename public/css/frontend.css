@@ -4613,9 +4613,22 @@ section + .portfolio-pullup {
   line-height: 64px;
   font-weight: 100;
   text-transform: uppercase;
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .image-bg .countdown {
   color: #fff;
+}
+.launch p {
+  font-size: 15px;
+}
+.launch .alert-danger {
+  background-color: #c64444;
+  margin-top: 10px;
+}
+.launch .alert-success {
+  background-color: #47b475;
+  color: #FFF;
+  margin-top: 10px;
 }
 @media all and (max-width: 990px) {
   .countdown {

@@ -81,6 +81,7 @@ elixir(function(mix) {
         '../plugins/bootstrap-slider/bootstrap-slider.js',
         '../foundry/js/parallax.js',
         '../foundry/js/scripts.js',
+        '../foundry/js/countdown.min.js',
         'frontend/custom.js'
     ], 'public/js/front-plugins.js');
 });
