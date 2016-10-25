@@ -1934,16 +1934,14 @@ footer.bg-dark a{ color: #fff; }
 /***********************
 WHERE MAGIC HAPPENS
 **********************/
-body
-{
-	height:100%;
-	overflow: scroll;
-	-webkit-overflow-scrolling: touch;
+
+html {
+	height: 100vh; /* set viewport constraint */
+	min-height: 100%; /* enforce height */
 }
 
 .background-image-holder{
-	height: 100%;
-	overflow: hidden;
+	-webkit-background-size: cover; /* safari may need this */
 }
 
 #feedback-icon{
