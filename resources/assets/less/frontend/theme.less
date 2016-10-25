@@ -1934,9 +1934,16 @@ footer.bg-dark a{ color: #fff; }
 /***********************
 WHERE MAGIC HAPPENS
 **********************/
+body
+{
+	height:100%;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+}
 
 .background-image-holder{
-	transition: height 999999s;
+	height: 100%;
+	overflow: hidden;
 }
 
 #feedback-icon{

@@ -17,19 +17,6 @@
                 <!--end of row-->
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 text-center launch">
-                        <p>
-                            We'll be launching our new site in the coming months. Hit the form below to get notified as we launch. Thanks for your interest!
-                        </p>
-                        {!! Form::open([
-                            'role' => 'form',
-                            'url' => action('FrontendController@soonSubmit'),
-                            'class' => 'halves',
-                            'method' => 'POST'
-                        ]) !!}
-                            {!! Form::text('email', null, ['class' => 'mb16 validate-required validate-email signup-email-field', 'placeholder' => 'Email Address']) !!}
-                            <button class="mb16" type="submit">Notify Me</button>
-                            <span>*We won't share your email with third parties.</span>
-                        {!! Form::close() !!}
                         @if (Session::has('flash_notification.general.message'))
                             <div class="alert alert-{{ Session::get('flash_notification.general.level') }} alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -50,6 +37,19 @@
                                 </ul>
                             </div>
                         @endif
+                        <p>
+                            We'll be launching our new site in the coming months. Hit the form below to get notified as we launch. Thanks for your interest!
+                        </p>
+                        {!! Form::open([
+                            'role' => 'form',
+                            'url' => action('FrontendController@soonSubmit'),
+                            'class' => 'halves',
+                            'method' => 'POST'
+                        ]) !!}
+                            {!! Form::text('email', null, ['class' => 'mb16 validate-required validate-email signup-email-field', 'placeholder' => 'Email Address']) !!}
+                            <button class="mb16" type="submit">Notify Me</button>
+                            <span>*We won't share your email with third parties.</span>
+                        {!! Form::close() !!}
                     </div>
                 </div>
                 <!--end of row-->
@@ -58,13 +58,3 @@
         </section>
     </div>
 @stop
-@push('scripts')
-<script>
-    var bg = jQuery(".background-image-holder");
-    jQuery(window).resize("resizeBackground");
-    function resizeBackground() {
-        bg.height(jQuery(window).height() + 60);
-    }
-    resizeBackground();
-</script>
-@endpush

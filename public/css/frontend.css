@@ -5678,8 +5678,14 @@ footer.bg-dark a {
 /***********************
 WHERE MAGIC HAPPENS
 **********************/
+body {
+  height: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
 .background-image-holder {
-  transition: height 999999s;
+  height: 100%;
+  overflow: hidden;
 }
 #feedback-icon {
   background: url("../images/feedback.svg") 0 0 no-repeat;
