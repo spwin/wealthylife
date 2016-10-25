@@ -1935,13 +1935,16 @@ footer.bg-dark a{ color: #fff; }
 WHERE MAGIC HAPPENS
 **********************/
 
-html {
-	height: 100vh; /* set viewport constraint */
-	min-height: 100%; /* enforce height */
-}
-
 .background-image-holder{
-	-webkit-background-size: cover; /* safari may need this */
+	background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	background-position: center center;
+	background-repeat: no-repeat;
 }
 
 #feedback-icon{
