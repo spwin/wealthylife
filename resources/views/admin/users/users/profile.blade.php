@@ -50,9 +50,6 @@
                             <b>Balance</b> <span class="pull-right">£ {{ $user->points }}</span>
                         </li>
                         <li class="list-group-item">
-                            <b>Spent</b> <span class="pull-right">£ 50200</span>
-                        </li>
-                        <li class="list-group-item">
                             <b>Created</b> <span class="pull-right">{{ date('d/m/Y', strtotime($user->created_at)) }}</span>
                         </li>
                         <li class="list-group-item">
@@ -65,10 +62,7 @@
                             <b>Asked</b> <span class="badge bg-light-blue pull-right">{{ $user->questions() && $user->questions()->first() ? $user->questions()->where('status', '>', 0)->count() : 0 }}</span>
                         </li>
                         <li class="list-group-item">
-                            <b>Articles</b> <span class="badge bg-light-blue pull-right">0</span>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Comments</b> <span class="badge bg-light-blue pull-right">13</span>
+                            <b>Articles</b> <span class="badge bg-light-blue pull-right">{{ $user->articles() && $user->articles()->first() ? $user->articles()->where('status', '>', 0)->count() : 0 }}</span>
                         </li>
                     </ul>
                     <div class="text-center">

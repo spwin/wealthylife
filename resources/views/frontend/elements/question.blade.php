@@ -26,48 +26,47 @@
         <p>Please upload only <strong>jpeg, png</strong> or <strong>gif</strong> files.</p>
         <p>Maximum image size is <strong>5MB</strong>.</p>
     </div>
-    <div class="image-upload ask left">
-        <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
+    <div class="image-upload ask left no-1 {{ session()->has('question.image1') ? 'remove-button-enabled' : '' }}">
+        <div class="drop-zone left {{ session()->has('question.image1') ? '' : 'empty' }}" onclick="uploadImage(this,1);">
             <div class="question-image text-left">
-                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ session()->has('question.image1') ? url()->to('/').'/temp/228x228/'.session()->get('question.image1') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
-
-            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}');">remove</a>
-
+            <a href="#" class="btn image-button upload" onclick="uploadImage(this,1);">select</a>
+            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}', 1);">remove</a>
         </div>
         <div class="clear"></div>
     </div>
-    <div class="image-upload ask">
-        <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
+    <div class="image-upload ask no-2 {{ session()->has('question.image2') ? 'remove-button-enabled' : '' }}">
+        <div class="drop-zone left {{ session()->has('question.image2') ? '' : 'empty' }}" onclick="uploadImage(this,2);">
             <div class="question-image text-left">
-                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ session()->has('question.image2') ? url()->to('/').'/temp/228x228/'.session()->get('question.image2') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
-
-            <a href="#" class="btn image-button upload" onclick="uploadImage(this);">select</a>
-
+            <a href="#" class="btn image-button upload" onclick="uploadImage(this,2);">select</a>
+            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}', 2);">remove</a>
         </div>
         <div class="clear"></div>
     </div>
-    <div class="image-upload ask right">
-        <div class="drop-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
+    <div class="image-upload ask right no-3 {{ session()->has('question.image3') ? 'remove-button-enabled' : '' }}">
+        <div class="drop-zone left {{ session()->has('question.image3') ? '' : 'empty' }}" onclick="uploadImage(this,3);">
             <div class="question-image text-left">
-                <img src="{{ session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ session()->has('question.image3') ? url()->to('/').'/temp/228x228/'.session()->get('question.image3') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
-
-            <a href="#" class="btn image-button upload" onclick="uploadImage(this);">select</a>
-
+            <a href="#" class="btn image-button upload" onclick="uploadImage(this,3);">select</a>
+            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}', 3);">remove</a>
         </div>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
     <div class="upload-button">
-        {!! Form::file('image', ['onChange' => 'readURL('.(session()->has('question.image') ? 'true' : 'false').', this, "'.( session()->has('question.image') ? url()->to('/').'/temp/228x228/'.session()->get('question.image') : url()->to('/').'/images/avatars/no_image.png').'")', 'class' => 'image-input']) !!}
+        {!! Form::file('image1', ['onChange' => 'readURL('.(session()->has('question.image1') ? 'true' : 'false').', this, "'.( session()->has('question.image1') ? url()->to('/').'/temp/228x228/'.session()->get('question.image1') : url()->to('/').'/images/avatars/no_image.png').'", 1)', 'class' => 'image-input-1']) !!}
+        {!! Form::file('image2', ['onChange' => 'readURL('.(session()->has('question.image2') ? 'true' : 'false').', this, "'.( session()->has('question.image2') ? url()->to('/').'/temp/228x228/'.session()->get('question.image2') : url()->to('/').'/images/avatars/no_image.png').'", 2)', 'class' => 'image-input-2']) !!}
+        {!! Form::file('image3', ['onChange' => 'readURL('.(session()->has('question.image3') ? 'true' : 'false').', this, "'.( session()->has('question.image3') ? url()->to('/').'/temp/228x228/'.session()->get('question.image3') : url()->to('/').'/images/avatars/no_image.png').'", 3)', 'class' => 'image-input-3']) !!}
     </div>
     <div class="textarea-holder">
         {!! Form::textarea('question', session()->has('question.content') ? session()->get('question.content') : null, ['class' => $errors->question->first('question', 'field-error ').'mt-1px', 'placeholder' => 'What would you like to ask?', 'onKeyPress' => 'countChar(this,event)', 'onKeyUp' => 'countChar(this,event)']) !!}

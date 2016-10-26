@@ -336,14 +336,41 @@ class UserController extends Controller
         }
     }
 
+    function saveImages($request){
+        $this->saveImage($request, 'image1');
+        $this->saveImage($request, 'image2');
+        $this->saveImage($request, 'image3');
+    }
+
+    function saveImage($request, $name){
+        if ($request->hasFile($name) && $request->file($name)->isValid()) {
+            $destinationPath = 'uploads/session/temp/'.date('Y-m-d',time());
+            $fileName = 'image_'.session()->getId().'_'.$request->file($name)->getClientOriginalName();
+            $img = Image::make($request->file($name));
+            if(!File::exists($destinationPath)){
+                File::makeDirectory($destinationPath, $mode = 0775, true, true);
+            }
+            $img->save($destinationPath.'/'.$fileName, 90);
+            session()->put('question.'.$name, date('Y-m-d',time()).'/'.$fileName);
+        } elseif(!session()->has('question.'.$name)) {
+            session()->put('question.'.$name, null);
+        }
+    }
+
     public function questionCreate(Request $request){
         $v = Validator::make($request->all(), [
             'question' => 'required|max:250',
-            'image' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png'
+            'image1' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png',
+            'image2' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png',
+            'image3' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png'
         ]);
         $v->after(function($v) use ($request) {
-            if ($request->file('image') && $request->file('image')->getError()) {
-                $v->errors()->add('image', 'The image may not be greater than '.$this->max_filesize.' kilobytes (php).');
+            if ($request->file('image1') && $request->file('image1')->getError()) {
+                $v->errors()->add('image1', 'The image may not be greater than '.$this->max_filesize.' kilobytes (php).');
+            } elseif ($request->file('image2') && $request->file('image2')->getError()){
+                $v->errors()->add('image2', 'The image may not be greater than '.$this->max_filesize.' kilobytes (php).');
+            } elseif ($request->file('image3') && $request->file('image3')->getError()){
+                $v->errors()->add('image3', 'The image may not be greater than '.$this->max_filesize.' kilobytes (php).');
             }
         });
         if ($v->fails()) {
@@ -351,18 +378,9 @@ class UserController extends Controller
             return Redirect::action($this->getRoute())->withErrors($v->errors(), 'question')->withInput();
         }
         $input = $request->all();
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $destinationPath = 'uploads/session/temp/'.date('Y-m-d',time());
-            $fileName = 'image_'.session()->getId().'_'.$request->file('image')->getClientOriginalName();
-            $img = Image::make($request->file('image'));
-            if(!File::exists($destinationPath)){
-                File::makeDirectory($destinationPath, $mode = 0775, true, true);
-            }
-            $img->save($destinationPath.'/'.$fileName, 90);
-            session()->put('question.image', date('Y-m-d',time()).'/'.$fileName);session()->put('question.image', date('Y-m-d',time()).'/'.$fileName);
-        } elseif(!session()->has('question.image')) {
-            session()->put('question.image', null);
-        }
+
+        $this->saveImages($request);
+
         session()->put('question.status', 1);
         session()->put('question.content', $input['question']);
 
@@ -387,8 +405,8 @@ class UserController extends Controller
         return json_encode('success');
     }
 
-    public function clearImage(){
-        session()->forget('question.image');
+    public function clearImage(Request $request){
+        session()->forget('question.image'.$request->get('num'));
         return json_encode('success');
     }
 
@@ -953,8 +971,8 @@ class UserController extends Controller
                     $v->errors()->add('image', 'The image may not be greater than ' . $this->max_filesize . ' kilobytes.');
                 }
 
-                if(str_word_count(strip_tags($request->get('content'))) > 500){
-                    $v->errors()->add('content', 'Content field must not exceed 500 words.');
+                if(str_word_count(strip_tags($request->get('content'))) > 5000){
+                    $v->errors()->add('content', 'Content field must not exceed 5000 words.');
                 }
             });
             if ($v->fails()) {

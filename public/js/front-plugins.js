@@ -4828,6 +4828,7 @@ function clearForm(form_name, e, url, token, image){
             dataType: 'JSON',
             success: function () {
                 form.trigger( "reset" );
+                form.find('.image-upload').removeClass('remove-button-enabled');
                 form.find('input').not(':input[type=submit], :input[type=hidden]').val('');
                 form.find('textarea').html('');
                 form.find('.drop-zone').addClass('empty');
@@ -4839,17 +4840,18 @@ function clearForm(form_name, e, url, token, image){
 }
 
 // Question clear
-function clearImage(form_name, e, url, token, image){
+function clearImage(form_name, e, url, token, image, num){
     e.preventDefault();
     var form = $('.'+form_name);
     $.ajax({
         method: "POST",
         url: url,
-        data: {_token: token},
+        data: {_token: token, num: num},
         dataType: 'JSON',
         success: function () {
-            form.find('.drop-zone').addClass('empty');
-            form.find('.question-image img').attr('src', image);
+            form.find('.no-'+num+' .drop-zone').addClass('empty');
+            form.find('.no-'+num).removeClass('remove-button-enabled');
+            form.find('.no-'+num+' .question-image img').attr('src', image);
         }
     });
 }
@@ -4903,13 +4905,14 @@ function openModal(type){
     return false;
 }
 
-function readURL(defined, input, defaultUrl) {
-    var img = $('.image-preview');
-    var container = $('.drop-zone');
+function readURL(defined, input, defaultUrl, num) {
+    var img = $('.no-'+num+' .image-preview');
+    var container = $('.no-'+num+' .drop-zone');
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
             container.removeClass('empty');
+            container.parent().addClass('remove-button-enabled');
             img.attr('src', e.target.result);
             img.show();
         };
@@ -4919,6 +4922,7 @@ function readURL(defined, input, defaultUrl) {
         if(!defined){
             img.hide();
             container.addClass('empty');
+            container.parent().removeClass('remove-button-enabled');
         }
         img.attr('src', defaultUrl);
     }
@@ -4945,9 +4949,9 @@ function readArticleURL(defined, input, defaultUrl) {
     }
 }
 
-function uploadImage(elem){
+function uploadImage(elem, num){
     var form = $(elem).closest('form');
-    form.find('.image-input').click();
+    form.find('.image-input-'+num).click();
 }
 
 function uploadAvatar(elem){

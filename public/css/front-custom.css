@@ -1383,6 +1383,16 @@ p.discount span.round{
     width: 100%;
 }
 
+.image-upload.remove-button-enabled a.upload,
+.image-upload a.remove{
+    display: none;
+}
+
+.image-upload.remove-button-enabled a.remove,
+.image-upload a.upload{
+    display: block;
+}
+
 /********/
 
 
