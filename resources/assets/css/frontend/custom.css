@@ -198,6 +198,10 @@ nav .nav-home, nav .nav-home .menu > li ul{
     background-color: rgba(0,0,0, 0.4);
 }
 
+nav .nav-profile, nav .nav-profile .menu > li ul{
+    background-color: rgba(0,0,0, 0.7);
+}
+
 nav .nav-open .menu > li ul{
     background-color: transparent;
     margin: 0 auto;
@@ -1340,6 +1344,10 @@ p.discount span.round{
     width: 100px;
 }
 
+.w150px{
+    width: 170px;
+}
+
 .questions-container table tr{
     cursor: pointer;
 }
@@ -1383,16 +1391,26 @@ p.discount span.round{
     width: 100%;
 }
 
-.image-upload.remove-button-enabled a.upload,
-.image-upload a.remove{
+.ask.image-upload.remove-button-enabled a.upload,
+.ask.image-upload a.remove{
     display: none;
 }
 
-.image-upload.remove-button-enabled a.remove,
-.image-upload a.upload{
+.ask.image-upload.remove-button-enabled a.remove,
+.ask.image-upload a.upload{
     display: block;
 }
 
+.mobile.image-upload:not(.remove-button-enabled) a.remove{
+    border-color: #e3e3e3;
+    color: #c2c2c2;
+    background-color: transparent;
+}
+
+.upload-button input{
+    margin: 0;
+    padding: 0;
+}
 /********/
 
 

@@ -12,10 +12,12 @@
                         </div>
                         <h4 class="uppercase mb16">Question payment</h4>
                         <div class="question-body">
-                            @if($question->image)
-                                <a href="{{ url()->to('/').$question->image->path.$question->image->filename }}" data-lightbox="image-{{ $question->image->id }}" data-title="Question #{{ $question->id }}">
-                                    <img src="{{  url()->to('/').'/photo/300x300/'.$question->image->filename }}">
-                                </a>
+                            @if(count($question->images) > 0)
+                                @foreach($question->images as $image)
+                                    <a href="{{ url()->to('/').$image->path.$image->filename }}" data-lightbox="image-{{ $image->id }}" data-title="Question #{{ $question->id }}">
+                                        <img src="{{  url()->to('/').'/photo/300x300/'.$image->filename }}">
+                                    </a>
+                                @endforeach
                             @else
                                 <img src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                             @endif

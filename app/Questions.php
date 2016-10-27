@@ -23,8 +23,10 @@ class Questions extends Model
         return $this->hasOne('App\User', 'consultant_id', 'id');
     }
 
-    public function image(){
-        return $this->hasOne('App\Images', 'id', 'image_id');
+    public function images(){
+        return $this->belongsToMany('App\Images', 'image_question','question_id', 'image_id')
+            ->withPivot('sort')
+            ->withTimestamps();
     }
 
     public function orders(){

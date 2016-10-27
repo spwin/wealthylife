@@ -41,7 +41,7 @@ class UserController extends Controller
 {
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
-    private $max_filesize = 5120;
+    private $max_filesize = 10240;
 
     function getRoute(){
         $redirectUrl = 'FrontendController@index';
@@ -350,7 +350,7 @@ class UserController extends Controller
             if(!File::exists($destinationPath)){
                 File::makeDirectory($destinationPath, $mode = 0775, true, true);
             }
-            $img->save($destinationPath.'/'.$fileName, 90);
+            $img->resize(800, 800, function ($constraint) {$constraint->aspectRatio();$constraint->upsize();})->save($destinationPath.'/'.$fileName, 90);
             session()->put('question.'.$name, date('Y-m-d',time()).'/'.$fileName);
         } elseif(!session()->has('question.'.$name)) {
             session()->put('question.'.$name, null);
@@ -360,9 +360,9 @@ class UserController extends Controller
     public function questionCreate(Request $request){
         $v = Validator::make($request->all(), [
             'question' => 'required|max:250',
-            'image1' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png',
-            'image2' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png',
-            'image3' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png'
+            'image1' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png,gif',
+            'image2' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png,gif',
+            'image3' => 'image|max:'.$this->max_filesize.'|mimes:jpeg,png,gif'
         ]);
         $v->after(function($v) use ($request) {
             if ($request->file('image1') && $request->file('image1')->getError()) {
@@ -562,13 +562,13 @@ class UserController extends Controller
         }
     }
 
-    function removeCurrentImage($question){
-        if($current_image = $question->image()->first()){
+    function removeCurrentImage($question, $number){
+        if($current_image = $question->images->where('pivot.sort', $number)->first()){
             $old_file = base_path('public'.$current_image->path).$current_image->filename;
             if(File::exists($old_file)){
                 File::delete($old_file);
             }
-            $question->image_id = null;
+            $question->images()->detach($current_image->id);
             $question->save();
             return DB::table('images')->where(['id' => $current_image->id])->delete();
         } else {
@@ -576,17 +576,55 @@ class UserController extends Controller
         }
     }
 
-    public function updateQuestion(Request $request, $id)
-    {
+    function updateImages($input, $request, $question, $user){
+        $this->updateImage($input, $request, $question, $user, 1);
+        $this->updateImage($input, $request, $question, $user, 2);
+        $this->updateImage($input, $request, $question, $user, 3);
+    }
+
+    function updateImage($input, $request, $question, $user, $number){
+        if ($request->hasFile('image'.$number) && $request->file('image'.$number)->isValid()) {
+            $file = $request->file('image'.$number)->getClientOriginalName();
+            $parts = explode('.', $file);
+            $extension = $parts[count($parts) - 1];
+            $filename = $question->id . '_' . $user->id . '_' . date('TmdHis', time()) . '_' . $number . '.' . $extension;
+            $destinationPath = 'uploads/questions';
+            $img = Image::make($request->file('image'.$number));
+            if (!File::exists($destinationPath)) {
+                File::makeDirectory($destinationPath, $mode = 0775, true, true);
+            }
+            $this->removeCurrentImage($question, $number);
+            if($img->resize(800, 800, function ($constraint) {$constraint->aspectRatio();$constraint->upsize();})->save($destinationPath . '/' . $filename, 90)){
+                $image = new Images();
+                $image->fill([
+                    'path' => '/'.$destinationPath.'/',
+                    'filename' => $filename
+                ]);
+                $image->save();
+                $question->images()->attach($image->id, ['sort' => $number]);
+                $question->save();
+            }
+        } elseif ($input['cleared-image-'.$number] == 1) {
+            $this->removeCurrentImage($question, $number);
+        }
+    }
+
+    public function updateQuestion(Request $request, $id){
         if ($user = Auth::guard('user')->user()) {
             $question = Questions::findOrFail($id);
             $v = Validator::make($request->all(), [
                 'question' => 'required|max:250',
-                'image' => 'image|max:' . $this->max_filesize . '|mimes:jpeg,png'
+                'image1' => 'image|max:' . $this->max_filesize . '|mimes:jpeg,png,gif',
+                'image2' => 'image|max:' . $this->max_filesize . '|mimes:jpeg,png,gif',
+                'image3' => 'image|max:' . $this->max_filesize . '|mimes:jpeg,png,gif'
             ]);
             $v->after(function ($v) use ($request) {
-                if ($request->file('image') && $request->file('image')->getError()) {
-                    $v->errors()->add('image', 'The image may not be greater than ' . $this->max_filesize . ' kilobytes.');
+                if ($request->file('image1') && $request->file('image1')->getError()) {
+                    $v->errors()->add('image1', 'The image may not be greater than ' . $this->max_filesize . ' kilobytes.');
+                } elseif ($request->file('image2') && $request->file('image2')->getError()) {
+                    $v->errors()->add('image2', 'The image may not be greater than ' . $this->max_filesize . ' kilobytes.');
+                } elseif ($request->file('image3') && $request->file('image3')->getError()) {
+                    $v->errors()->add('image3', 'The image may not be greater than ' . $this->max_filesize . ' kilobytes.');
                 }
             });
             if ($v->fails()) {
@@ -594,30 +632,10 @@ class UserController extends Controller
                 return Redirect::action($this->getRoute(), ['id' => $question->id])->withErrors($v->errors(), 'question_database')->withInput();
             }
             $input = $request->all();
-            if ($request->hasFile('image') && $request->file('image')->isValid()) {
-                $file = $request->file('image')->getClientOriginalName();
-                $parts = explode('.', $file);
-                $extension = $parts[count($parts) - 1];
-                $filename = $question->id . '_' . $user->id . '_' . date('TmdHis', time()) . '.' . $extension;
-                $destinationPath = 'uploads/questions';
-                $img = Image::make($request->file('image'));
-                if (!File::exists($destinationPath)) {
-                    File::makeDirectory($destinationPath, $mode = 0775, true, true);
-                }
-                $this->removeCurrentImage($question);
-                if($img->save($destinationPath . '/' . $filename, 90)){
-                    $image = new Images();
-                    $image->fill([
-                        'path' => '/'.$destinationPath.'/',
-                        'filename' => $filename
-                    ]);
-                    $image->save();
-                    $question->image_id = $image->id;
-                    $question->save();
-                }
-            } elseif ($input['cleared-image'] == 1) {
-                $this->removeCurrentImage($question);
-            }
+            echo '<pre>';
+            print_r($input);
+            echo '</pre>';
+            $this->updateImages($input, $request, $question, $user);
             $question->question = $input['question'];
             $question->save();
             return Redirect::action('FrontendController@checkoutQuestion', $question->id);
@@ -983,7 +1001,7 @@ class UserController extends Controller
                 $destinationPath = 'uploads/blog';
                 $fileName = 'user' . $user->id . '-a' . '-' . str_replace(' ', '-', $request->file('image')->getClientOriginalName());
                 $img = Image::make($request->file('image'));
-                $img->save($destinationPath . '/' . $fileName, 90);
+                $img->resize(800, 800, function ($constraint) {$constraint->aspectRatio();$constraint->upsize();})->save($destinationPath . '/' . $fileName, 90);
                 $image_data['filename'] = $fileName;
             } else {
                 $image_data['filename'] = 'no_image.png';
@@ -1033,8 +1051,8 @@ class UserController extends Controller
                     $v->errors()->add('image', 'The image may not be greater than ' . $this->max_filesize . ' kilobytes.');
                 }
 
-                if(str_word_count(strip_tags($request->get('content'))) > 500){
-                    $v->errors()->add('content', 'Content field must not exceed 500 words.');
+                if(str_word_count(strip_tags($request->get('content'))) > 5000){
+                    $v->errors()->add('content', 'Content field must not exceed 5000 words.');
                 }
             });
             if ($v->fails()) {
@@ -1047,7 +1065,7 @@ class UserController extends Controller
                 $destinationPath = 'uploads/blog';
                 $fileName = 'user' . $user->id . '-a' . $article->id . '-' . str_replace(' ', '-', $request->file('image')->getClientOriginalName());
                 $img = Image::make($request->file('image'));
-                $img->save($destinationPath . '/' . $fileName, 90);
+                $img->resize(800, 800, function ($constraint) {$constraint->aspectRatio();$constraint->upsize();})->save($destinationPath . '/' . $fileName, 90);
                 $image_data['filename'] = $fileName;
                 $image_data['path'] = '/uploads/blog/';
                 $image = new Images();

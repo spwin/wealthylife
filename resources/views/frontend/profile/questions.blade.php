@@ -42,9 +42,11 @@
                                         <table class="table">
                                             @foreach($pending as $question)
                                                 <tr>
-                                                    <td class="text-center w100px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
-                                                        @if($question->image)
-                                                            <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$question->image->filename }}">
+                                                    <td class="text-left w150px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                                        @if(count($question->images) > 0)
+                                                            @foreach($question->images as $image)
+                                                                <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
+                                                            @endforeach
                                                         @else
                                                             <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                         @endif
@@ -78,9 +80,11 @@
                                         <table class="table">
                                             @foreach($answered as $question)
                                                 <tr class="{{ $question->answer->seen ? '' : 'bold' }}" >
-                                                    <td class="text-center w100px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
-                                                        @if($question->image)
-                                                            <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$question->image->filename }}">
+                                                    <td class="text-left w150px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                                        @if(count($question->images) > 0)
+                                                            @foreach($question->images as $image)
+                                                                <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
+                                                            @endforeach
                                                         @else
                                                             <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                         @endif
@@ -115,9 +119,11 @@
                                         <table class="table">
                                             @foreach($drafts as $question)
                                                 <tr>
-                                                    <td class="text-center w100px" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
-                                                        @if($question->image)
-                                                            <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$question->image->filename }}">
+                                                    <td class="text-left w150px" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
+                                                        @if(count($question->images) > 0)
+                                                            @foreach($question->images as $image)
+                                                                <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
+                                                            @endforeach
                                                         @else
                                                             <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                         @endif

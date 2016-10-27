@@ -9513,6 +9513,9 @@ table.text-center, table.text-center td, table.text-center th {
   width: 100px;
   text-align: center; }
 
+.w300px {
+  width: 310px; }
+
 .w110px {
   width: 110px;
   text-align: center; }

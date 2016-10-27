@@ -44,7 +44,15 @@
                             @foreach($questions as $question)
                                 <tr>
                                     <td class="w40px">#{{ $question->id }}</td>
-                                    <td class="w100px"><img class="admin-user-questions" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}"></td>
+                                    <td class="w300px">
+                                        @if(count($question->images) > 0)
+                                            @foreach($question->images as $image)
+                                                <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                            @endforeach
+                                        @else
+                                            <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                        @endif
+                                    </td>
                                     <td>{{ $question->question }}</td>
                                     <td><a href="{{ action('AdminController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a></td>
                                     <td>{{ $question->ip }}</td>

@@ -8,11 +8,13 @@
                     <h2 class="uppercase mb24 bold">Your question</h2>
                     <div class="question-body">
                         @if($question['image_exists'])
-                            <a href="{{ url()->to('/').'/'.$question['image'] }}" data-lightbox="image-question" data-title="Question temp">
-                                <img src="{{ url()->to('/').'/'.$question['image'] }}">
-                            </a>
+                            @foreach($question['images'] as $image)
+                                <a href="{{ url()->to('/').'/'.$image['original'] }}" data-lightbox="image-question" data-title="Question image">
+                                    <img src="{{ url()->to('/').'/'.$image['thumb'] }}">
+                                </a>
+                            @endforeach
                         @else
-                            <img src="{{ url()->to('/').'/'.$question['image'] }}">
+                            <img src="{{ url()->to('/').'/'.$question['empty'] }}">
                         @endif
                         <div class="question-text">
                             <p>{{ $question['content'] }}</p>

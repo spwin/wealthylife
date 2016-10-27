@@ -30,9 +30,15 @@
                         <h3 class="box-title">Question</h3>
                     </div>
                     <div class="box-body box-profile">
-                        <a target="_blank" href="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : '#' }}">
-                            <img class="answer-question-image" src="{{ $question->image()->first() ? url()->to('/').$question->image()->first()->path.$question->image()->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}">
-                        </a>
+                        @if(count($question->images) > 0)
+                            @foreach($question->images as $image)
+                                <div class="col-md-4">
+                                    <a target="_blank" href="{{ url()->to('/').$image->path.$image->filename }}">
+                                        <img class="answer-question-image" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                    </a>
+                                </div>
+                            @endforeach
+                        @endif
                         <div class="question-date mt-15px">{{ date('Y, M d H:i', strtotime($question->updated_at)) }}</div>
                         <div class="question-ip">IP: {{ $question->ip }}</div>
                         <div class="question-body">{{ $question->question }}</div>

@@ -25,17 +25,19 @@
                         <h4 class="uppercase mb16">Your Question</h4>
                         <div class="your-question mb16">
                             <div class="row">
-                                <div class="col-md-4">
-                                    @if($question->image)
-                                        <a href="{{ url()->to('/').$question->image->path.$question->image->filename }}"  data-lightbox="image-{{ $question->image->id }}" data-title="Question #{{ $question->id }}">
-                                            <img src="{{ url()->to('/').'/photo/300x200/'.$question->image->filename }}">
-                                        </a>
-                                    @else
-                                        <img src="{{ $question->image ? url()->to('/').'/photo/300x200/'.$question->image->filename : url()->to('/').'/images/avatars/no_image.png' }}">
-                                    @endif
-                                </div>
-                                <div class="col-md-8">
+                                <div class="col-md-12 mb-25px">
                                     <div class="question-body">{{ $question->question }}</div>
+                                </div>
+                                <div class="col-md-12 mb-25px">
+                                    @if($question->images)
+                                        @foreach($question->images as $image)
+                                            <div class="col-md-4">
+                                                <a href="{{ url()->to('/').$image->path.$image->filename }}"  data-lightbox="image-{{ $image->id }}" data-title="Question #{{ $question->id }}">
+                                                    <img src="{{ url()->to('/').'/photo/300x200/'.$image->filename }}">
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>

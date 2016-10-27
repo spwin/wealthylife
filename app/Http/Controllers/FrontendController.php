@@ -75,6 +75,37 @@ class FrontendController extends Controller
         }
     }
 
+    function saveImagesToDisk($question, $user)
+    {
+        $this->saveImageToDisk(1, $question, $user);
+        $this->saveImageToDisk(2, $question, $user);
+        $this->saveImageToDisk(3, $question, $user);
+    }
+
+    function saveImageToDisk($number, $question, $user)
+    {
+        if (session()->has('question.image'.$number) && $file = session()->get('question.image'.$number))
+        {
+            $file = base_path('public/uploads/session/temp/').$file;
+            $parts = explode('.',$file);
+            $extension = $parts[count($parts)-1];
+            $filename = $question->id.'_'.$user->id.'_'.date('TmdHis', time()).'_'.$number.'.'.$extension;
+            $path = '/uploads/questions/';
+            $destination = base_path('public'.$path).$filename;
+            if(File::copy($file, $destination)){
+                $image = new Images();
+                $image->fill([
+                    'path' => $path,
+                    'filename' => $filename
+                ]);
+                $image->save();
+                $question->images()->attach($image->id, ['sort' => $number]);
+                $question->save();
+                Storage::delete($file);
+            }
+        }
+    }
+
     public function authorizeQuestion(Request $request){
         if(session()->has('question.content') && session()->has('question.status')) {
             if($user = Auth::guard('user')->user()){
@@ -88,33 +119,36 @@ class FrontendController extends Controller
                 //$this->getRegionByIp($data);
                 $question->fill($data);
                 $question->save();
-                if (session()->has('question.image') && $file = session()->get('question.image'))
-                {
-                    $file = base_path('public/uploads/session/temp/').$file;
-                    $parts = explode('.',$file);
-                    $extension = $parts[count($parts)-1];
-                    $filename = $question->id.'_'.$user->id.'_'.date('TmdHis', time()).'.'.$extension;
-                    $path = '/uploads/questions/';
-                    $destination = base_path('public'.$path).$filename;
-                    if(File::copy($file, $destination)){
-                        $image = new Images();
-                        $image->fill([
-                            'path' => $path,
-                            'filename' => $filename
-                        ]);
-                        $image->save();
-                        $question->image_id = $image->id;
-                        $question->save();
-                        Storage::delete($file);
-                    }
-                }
+                $this->saveImagesToDisk($question, $user);
                 session()->forget('question');
                 return Redirect::action('FrontendController@checkoutQuestion', ['id' => $question->id]);
             } else {
                 $question = array();
                 $question['content'] = session()->get('question.content');
-                $question['image_exists'] = session()->has('question.image') ? true : false;
-                $question['image'] = session()->has('question.image') ? 'temp/300x300/'.session()->get('question.image') : 'images/avatars/no_image.png';
+                $question['image_exists'] = false;
+                $question['images'] = array();
+                if(session()->has('question.image1')){
+                    $question['images'][] = array(
+                        'thumb' => 'temp/300x300/'.session()->get('question.image1'),
+                        'original' => 'uploads/session/temp/'.session()->get('question.image1')
+                    );
+                    $question['image_exists'] = true;
+                }
+                if(session()->has('question.image2')){
+                    $question['images'][] = array(
+                        'thumb' => 'temp/300x300/'.session()->get('question.image2'),
+                        'original' => 'uploads/session/temp/'.session()->get('question.image2')
+                    );
+                    $question['image_exists'] = true;
+                }
+                if(session()->has('question.image3')){
+                    $question['images'][] = array(
+                        'thumb' => 'temp/300x300/'.session()->get('question.image3'),
+                        'original' => 'uploads/session/temp/'.session()->get('question.image3')
+                    );
+                    $question['image_exists'] = true;
+                }
+                $question['empty'] = 'images/avatars/no_image.png';
                 $question['status'] = session()->get('question.status');
                 return view('frontend/pages/authorize-question')->with([
                     'question' => $question
@@ -260,9 +294,9 @@ class FrontendController extends Controller
     public function questions(){
         if($user = Auth::guard('user')->user()){
             $per_page = 15;
-            $pending = $user->questions()->with('image')->where(['status' => 1])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'pending_page', null);
-            $answered = $user->questions()->with('image')->where(['status' => 2])->orderBy('answered_at', 'DESC')->paginate($per_page, ['*'], 'answered_page', null);
-            $drafts = $user->questions()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
+            $pending = $user->questions()->with('images')->where(['status' => 1])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'pending_page', null);
+            $answered = $user->questions()->with('images')->where(['status' => 2])->orderBy('answered_at', 'DESC')->paginate($per_page, ['*'], 'answered_page', null);
+            $drafts = $user->questions()->with('images')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
             return view('frontend/profile/questions')->with([
                 'user' => $user,
                 'pending' => $pending,

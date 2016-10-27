@@ -4849,6 +4849,7 @@ function clearImage(form_name, e, url, token, image, num){
         data: {_token: token, num: num},
         dataType: 'JSON',
         success: function () {
+            form.find('.image-input-'+num).val('');
             form.find('.no-'+num+' .drop-zone').addClass('empty');
             form.find('.no-'+num).removeClass('remove-button-enabled');
             form.find('.no-'+num+' .question-image img').attr('src', image);
@@ -4865,15 +4866,16 @@ function clearArticleImage(form_name, e, image){
     form.find('.article-image img').attr('src', image);
 }
 
-function clearEditedImage(form_name, e, image){
+function clearEditedImage(form_name, e, image, num){
     e.preventDefault();
     var form = $('.'+form_name);
-    form.find('.cleared-image').val(1);
-    form.find('.drop-zone').addClass('empty');
-    form.find('.question-image img').attr('src', image);
+    form.find('.cleared-image-'+num).val(1);
+    form.find('.no-'+num+' .drop-zone').addClass('empty');
+    form.find('.no-'+num).removeClass('remove-button-enabled');
+    form.find('.no-'+num+' .question-image img').attr('src', image);
 }
 
-function countChar(val, e) {
+function countChar(val, e){
     var limit = 250;
     var len = val.value.length;
     var chars = $('.charNum');

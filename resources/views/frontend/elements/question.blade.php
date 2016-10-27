@@ -24,41 +24,41 @@
     ]) !!}
     <div class="image-info-block mb8">
         <p>Please upload only <strong>jpeg, png</strong> or <strong>gif</strong> files.</p>
-        <p>Maximum image size is <strong>5MB</strong>.</p>
+        <p>Maximum image size is <strong>10MB</strong>.</p>
     </div>
     <div class="image-upload ask left no-1 {{ session()->has('question.image1') ? 'remove-button-enabled' : '' }}">
         <div class="drop-zone left {{ session()->has('question.image1') ? '' : 'empty' }}" onclick="uploadImage(this,1);">
             <div class="question-image text-left">
-                <img src="{{ session()->has('question.image1') ? url()->to('/').'/temp/228x228/'.session()->get('question.image1') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ session()->has('question.image1') ? url()->to('/').'/temp/228x228/'.session()->get('question.image1') : '#' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
             <a href="#" class="btn image-button upload" onclick="uploadImage(this,1);">select</a>
-            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}', 1);">remove</a>
+            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '#', 1);">remove</a>
         </div>
         <div class="clear"></div>
     </div>
     <div class="image-upload ask no-2 {{ session()->has('question.image2') ? 'remove-button-enabled' : '' }}">
         <div class="drop-zone left {{ session()->has('question.image2') ? '' : 'empty' }}" onclick="uploadImage(this,2);">
             <div class="question-image text-left">
-                <img src="{{ session()->has('question.image2') ? url()->to('/').'/temp/228x228/'.session()->get('question.image2') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ session()->has('question.image2') ? url()->to('/').'/temp/228x228/'.session()->get('question.image2') : '#' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
             <a href="#" class="btn image-button upload" onclick="uploadImage(this,2);">select</a>
-            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}', 2);">remove</a>
+            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '#', 2);">remove</a>
         </div>
         <div class="clear"></div>
     </div>
     <div class="image-upload ask right no-3 {{ session()->has('question.image3') ? 'remove-button-enabled' : '' }}">
         <div class="drop-zone left {{ session()->has('question.image3') ? '' : 'empty' }}" onclick="uploadImage(this,3);">
             <div class="question-image text-left">
-                <img src="{{ session()->has('question.image3') ? url()->to('/').'/temp/228x228/'.session()->get('question.image3') : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ session()->has('question.image3') ? url()->to('/').'/temp/228x228/'.session()->get('question.image3') : '#' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
             <a href="#" class="btn image-button upload" onclick="uploadImage(this,3);">select</a>
-            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}', 3);">remove</a>
+            <a href="#" class="btn image-button remove" onclick="clearImage('question-form1', event, '{{ action('UserController@clearImage') }}', '{{ csrf_token() }}', '#', 3);">remove</a>
         </div>
         <div class="clear"></div>
     </div>
@@ -75,7 +75,7 @@
         </div>
     </div>
     <div class="double-column">
-        <a href="#" class="btn question-btn" onclick="clearForm('question-form1', event, '{{ action('UserController@clearQuestion') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/images/avatars/no_image.png' }}');">Clear</a>
+        <a href="#" class="btn question-btn" onclick="clearForm('question-form1', event, '{{ action('UserController@clearQuestion') }}', '{{ csrf_token() }}', '#');">Clear</a>
         <input type="submit" class="question-btn" value="Confirm">
     </div>
     {!! Form::close() !!}
