@@ -128,7 +128,14 @@
                                                         <p>Choose Your way to log in</p>
                                                     </div>
                                                 </div>
-
+                                                @if (Session::has('flash_notification.login.message'))
+                                                    <div class="alert alert-{{ Session::get('flash_notification.login.level') }} alert-dismissible" role="alert">
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                        {{ Session::get('flash_notification.login.message') }}
+                                                    </div>
+                                                @endif
                                                 @if (count($errors->login) > 0)
                                                     <div class="alert alert-danger">
                                                         <ul>

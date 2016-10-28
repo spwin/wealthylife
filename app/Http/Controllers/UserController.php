@@ -312,18 +312,41 @@ class UserController extends Controller
         return $user->getId();
     }
 
+    function customError($message){
+        $v = Validator::make(array(), array());
+        $v->after(function($v) use ($message){
+            $v->errors()->add('login', $message);
+        });
+        return $v;
+    }
+
     public function socialCallback($provider){
-        if($user = Socialite::with($provider)->user()){
+        try {
+            $user = Socialite::with($provider)->user();
+        } catch(\Exception $e) {
+            $error = $this->customError('There was an error while logging with '.$provider);
+            Session::flash('modal', 'login');
+            return Redirect::action($this->getRoute())->withErrors($error->errors(), 'login')->withInput();
+        }
+        if($user){
             $input = $this->getInput($user);
-            if($user_db = User::where(['email' => $user->getEmail()])->first()) {
-                if ($social_provider = $user_db->social()->where(['user_id' => $user_db->id, 'provider' => $provider])->first()) {
-                    $social_provider->social_id = $this->socialGetId($user);
-                    $social_provider->save();
+            if(!isset($input['email']) || !$input['email'] || $input['email'] == '' || $input['email'] == null){
+                $error = $this->customError('You cannot login using this '.$provider.' account as you need to confirm your email with them first.');
+                Session::flash('modal', 'login');
+                return Redirect::action($this->getRoute())->withErrors($error->errors(), 'login')->withInput();
+            } elseif($user_db = User::where(['email' => $user->getEmail()])->first()) {
+                if($user_db->type != 'user'){
+                    $error = $this->customError('You cannot use this '.$provider.' account, '.$user_db->email.' is currently registered as '.$user_db->type);
+                    Session::flash('modal', 'login');
+                    return Redirect::action($this->getRoute())->withErrors($error->errors(), 'login')->withInput();
                 } else {
-                    $this->createProvider($user_db, $provider, $this->socialGetId($user)); // create provider for user
+                    if ($social_provider = $user_db->social()->where(['user_id' => $user_db->id, 'provider' => $provider])->first()) {
+                        $social_provider->social_id = $this->socialGetId($user);
+                        $social_provider->save();
+                    } else {
+                        $this->createProvider($user_db, $provider, $this->socialGetId($user)); // create provider for user
+                    }
                 }
-            } elseif(!$input['email']){
-                return 'You cannot login using '.$provider.' as your email is not confirmed.';
             } else {
                 $user_db = $this->createNewUser($user, $input); // create user
                 $this->createProvider($user_db, $provider, $this->socialGetId($user)); // create provider for user
