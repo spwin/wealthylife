@@ -132,26 +132,44 @@ function openModal(type){
     return false;
 }
 
+function readImage(img, container, input){
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        container.removeClass('empty');
+        container.parent().addClass('remove-button-enabled');
+        img.attr('src', e.target.result);
+        img.show();
+    };
+    
+    reader.readAsDataURL(input.files[0]);
+}
+
+function falseImage(defined, img, defaultUrl, container, input){
+    var control = $(input);
+    if(!defined){
+        img.hide();
+        container.addClass('empty');
+        container.parent().removeClass('remove-button-enabled');
+    }
+    control.replaceWith( control = control.clone( true ) );
+    img.attr('src', defaultUrl);
+}
+
 function readURL(defined, input, defaultUrl, num) {
     var img = $('.no-'+num+' .image-preview');
     var container = $('.no-'+num+' .drop-zone');
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            container.removeClass('empty');
-            container.parent().addClass('remove-button-enabled');
-            img.attr('src', e.target.result);
-            img.show();
-        };
-
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        if(!defined){
-            img.hide();
-            container.addClass('empty');
-            container.parent().removeClass('remove-button-enabled');
+        var fname = input.files[0].name;
+        var FileExtension =  fname.substr((~-fname.lastIndexOf(".") >>> 0) + 2);
+        if(FileExtension.toLowerCase() == "jpeg" || FileExtension.toLowerCase() == "png" ||
+        FileExtension.toLowerCase() == "jpg" || FileExtension.toLowerCase() == "gif")
+        {
+            readImage(img, container, input);
+        } else {
+            falseImage(defined, img, defaultUrl, container, input);
         }
-        img.attr('src', defaultUrl);
+    } else {
+        falseImage(defined, img, defaultUrl, container, input);
     }
 }
 
