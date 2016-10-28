@@ -1415,14 +1415,14 @@ p.discount span.round{
 .loading-bg{
     display: block;
     margin: 0 auto;
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
 }
 
 body.front-page{
-    background-color: #212121;
+    background-color: #2B2C2F;
 }
 /********/
 
