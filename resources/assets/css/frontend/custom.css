@@ -1411,6 +1411,19 @@ p.discount span.round{
     margin: 0;
     padding: 0;
 }
+
+.loading-bg{
+    display: block;
+    margin: 0 auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+body.front-page{
+    background-color: #212121;
+}
 /********/
 
 

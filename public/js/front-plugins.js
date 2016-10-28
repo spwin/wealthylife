@@ -3393,18 +3393,27 @@ $(document).ready(function() {
 
     $('.background-image-holder').each(function() {
         var imgSrc = $(this).children('img').attr('src');
-        $(this).css('background', 'url("' + imgSrc + '")');
-        $(this).children('img').hide();
-        $(this).css('background-position', 'initial');
+
+        /*var loading = $('<img src="images/loading-bg.gif" class="loading-bg" />');
+        $('body').append(loading);*/
+
+        var image = $('<img>').attr('src', imgSrc);
+        var container = $(this);
+
+        image.bind('load', function(data){
+            container.css('background-image',"url("+this.src+")");
+            //loading.remove();
+            container.addClass('fadeIn');
+        });
     });
 
     // Fade in background images
 
-    setTimeout(function() {
+    /*setTimeout(function() {
         $('.background-image-holder').each(function() {
             $(this).addClass('fadeIn');
         });
-    }, 200);
+    }, 200);*/
 
     // Initialize Tooltips
 
