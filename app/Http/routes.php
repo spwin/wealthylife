@@ -120,7 +120,8 @@ Route::group(['middleware' => ['ip']], function () {
 
     Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
         Route::get('welcome', 'UserController@welcome');
-        Route::get('/', 'FrontendController@profile');
+        Route::get('/', 'FrontendController@summary');
+        Route::get('account', 'FrontendController@profile');
         Route::get('referral-program', 'FrontendController@referral');
         Route::get('{id}/checkout-question', 'FrontendController@checkoutQuestion');
         Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
@@ -178,6 +179,9 @@ Route::group(['middleware' => ['ip']], function () {
             Route::post('pending/{id}/save', 'ConsultantController@answerSave');
             Route::post('pending/{id}/send', 'ConsultantController@answerSend');
         });
+        Route::group(['prefix' => 'timetable'], function () {
+            Route::get('/', 'ConsultantController@timetable');
+        });
     });
 
 // ADMIN
@@ -201,6 +205,7 @@ Route::group(['middleware' => ['ip']], function () {
                 Route::post('save', 'AdminController@saveConsultant');
                 Route::get('profile/{id}', 'AdminController@detailsConsultant');
                 Route::post('update-data/{id}', 'AdminController@updateConsultantData');
+                Route::post('update-timetable/{id}', 'AdminController@updateConsultantTimetable');
                 Route::post('update-login/{id}/{type}', 'AdminController@updateConsultantLogin');
                 Route::delete('delete-profile/{id}', 'AdminController@destroyConsultant');
             });
@@ -220,6 +225,9 @@ Route::group(['middleware' => ['ip']], function () {
             Route::get('/{type}', 'AdminController@articles');
             Route::get('/details/{id}', 'AdminController@detailsArticle');
             Route::post('/edit/{id}', 'AdminController@editArticle');
+        });
+        Route::group(['prefix' => 'timetable'], function () {
+            Route::get('/', 'AdminController@timetable');
         });
         Route::group(['prefix' => 'balance'], function () {
             Route::get('/', 'AdminController@balance');

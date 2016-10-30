@@ -171,3 +171,70 @@ tr.periods {
 .phrase-add{
   margin-top: 20px;
 }
+
+#timetable .box-footer input{
+  width: 40px;
+}
+
+.btn-timetable{
+  padding: 0 12px;
+  line-height: 1.72;
+  vertical-align: top;
+  margin-left: 10px;
+}
+
+.time-table{
+  width: 100%;
+  margin-bottom: 20px;
+}
+.time-table tr th{
+  height: 30px;
+  text-align: center;
+  width: 14.285714286%
+}
+.time-table tr td .empty,
+.time-table tr td .busy{
+  padding: 0;
+  margin: 0;
+  height: 10px;
+  display: block;
+  float: left;
+}
+.time-table tr td .empty{
+  background-color: transparent;
+}
+.time-table tr td .busy{
+  background-color: green;
+  cursor: pointer;
+}
+.time-table tr td .busy:hover{
+  background-color: #00b400;
+}
+.time-table tr td{
+  position:relative;
+  border-right: 1px solid black;
+}
+.time-table tr td:first-child{
+  border-left: 1px solid black;
+}
+.time-table tr td .zero-hour{
+  position: absolute;
+  bottom: -20px;
+  left: -10px;
+}
+.time-table tr td .right-stick{
+  right: -10px;
+  position: absolute;
+  bottom: -20px;
+}
+.time-table tr td .slot-tooltip{
+  position: absolute;
+  padding: 1px 5px;
+  color: white;
+  background-color: black;
+  top: -30px;
+  font-size: 14px;
+  display: none;
+  width: 85px;
+  border-radius: 5px;
+}

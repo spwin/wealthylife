@@ -53,6 +53,12 @@
                     <li class="{{ (Request::is('admin/users/users*') ? 'active' : '') }}"><a href="{{ action('AdminController@listUsers') }}"><i class="fa fa-circle-o"></i> Users</a></li>
                 </ul>
             </li>
+            <li class="{{ (Request::is('admin/timetable*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@timetable') }}">
+                    <i class="fa fa-coffee"></i>
+                    <span>Timetable</span>
+                </a>
+            </li>
             <li class="{{ (Request::is('admin/articles*') ? 'active' : '') }} treeview">
                 <a href="#">
                     <i class="fa fa-newspaper-o"></i>

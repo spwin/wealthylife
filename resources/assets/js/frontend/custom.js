@@ -194,6 +194,12 @@ function readArticleURL(defined, input, defaultUrl) {
     }
 }
 
+function uploadSingleImage(elem){
+    event.preventDefault();
+    var form = $(elem).closest('form');
+    form.find('.image-input').click();
+}
+
 function uploadImage(elem, num){
     var form = $(elem).closest('form');
     form.find('.image-input-'+num).click();

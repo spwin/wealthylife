@@ -52,6 +52,12 @@
                     <li class="{{ (Request::is('consultant/questions/answered*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listAnswered') }}"><i class="fa fa-circle-o"></i> Answered</a></li>
                 </ul>
             </li>
+            <li class="{{ (Request::is('consultant/timetable*') ? 'active' : '') }}">
+                <a href="{{ action('ConsultantController@timetable') }}">
+                    <i class="fa fa-coffee"></i>
+                    <span>Timetable</span>
+                </a>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

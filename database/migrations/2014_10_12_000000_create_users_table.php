@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->enum('type', ['user', 'consultant', 'admin']);
             $table->string('email')->unique();
             $table->string('password');
+            $table->text('timetable');
             $table->boolean('referral_rewarded')->default(0);
             $table->string('referral_key');
             $table->integer('referral_id')->nullable()->unsigned();

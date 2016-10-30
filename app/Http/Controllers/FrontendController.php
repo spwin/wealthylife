@@ -16,6 +16,7 @@ use App\Settings;
 use App\User;
 use App\UserData;
 use Illuminate\Http\Request;
+use App\Helpers\consultantSlot;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
@@ -114,7 +115,8 @@ class FrontendController extends Controller
                 $data['question'] = session()->get('question.content');
                 $data['status'] = 0;
                 $data['ip'] = \Request::ip();
-                $consultant = User::where(['type' => 'consultant'])->inRandomOrder()->first();
+                $slotCalculator = new consultantSlot;
+                $consultant = $slotCalculator->getRightConsultant();
                 $data['consultant_id'] = $consultant ? $consultant->id : 1;
                 //$this->getRegionByIp($data);
                 $question->fill($data);
@@ -156,13 +158,13 @@ class FrontendController extends Controller
             }
         } else {
             //$request->session()->flash('modal', 'question');
-            if($this->checkUserDetails()){
-                return Redirect::action('FrontendController@index');
-            } else {
+            //if($this->checkUserDetails()){
+            return Redirect::action('FrontendController@summary');
+            /*} else {
                 Session::flash('flash_notification.general.message', 'Please fill all the data so consultant could provide you with better answer');
                 Session::flash('flash_notification.general.level', 'warning');
                 return Redirect::action('FrontendController@profile');
-            }
+            }*/
         }
     }
 
@@ -259,6 +261,18 @@ class FrontendController extends Controller
                 'user' => $user,
                 'user_data' => $user_data,
                 'bd' => $this->getBirthDate($user_data->birth_date)
+            ]);
+        }
+        return Redirect::action('FrontendController@index');
+    }
+
+    public function summary(){
+        if($user = Auth::guard('user')->user()){
+            $user_data = UserData::where(['user_id' => $user->id])->first();
+            return view('frontend/profile/summary')->with([
+                'user' => $user,
+                'user_data' => $user_data,
+                'fill_info' => $this->checkUserDetails($user)
             ]);
         }
         return Redirect::action('FrontendController@index');

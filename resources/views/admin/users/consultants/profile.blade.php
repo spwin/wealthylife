@@ -57,6 +57,7 @@
                 <ul class="nav nav-tabs">
                     <li {{ $tab == '1' ? 'class=active' : '' }}><a href="#settings" data-toggle="tab">General</a></li>
                     <li {{ $tab == '2' ? 'class=active' : '' }}><a href="#password" data-toggle="tab">Login details</a></li>
+                    <li {{ $tab == '3' ? 'class=active' : '' }}><a href="#timetable" data-toggle="tab">Timetable</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane {{ $tab == '1' ? 'active' : '' }}" id="settings">
@@ -166,6 +167,40 @@
                         {!! Form::close() !!}
                     </div>
                     <!-- /.tab-pane -->
+                    <div class="tab-pane {{ $tab == '3' ? 'active' : '' }}" id="timetable">
+                        {!! Form::open([
+                            'role' => 'form',
+                            'url' => action('AdminController@updateConsultantTimetable', ['id' => $user->id]),
+                            'method' => 'POST',
+                            'class' => 'timetable-form'
+                        ]) !!}
+                        @foreach(json_decode($user->timetable) as $day => $slots)
+                            <div class="col-md-12">
+                                <div class="box {{ $day }}">
+                                    <div class="box-header">{{ $matcher[$day] }}</div>
+                                    <div class="box-body">
+                                        @php($counter = 0)
+                                        @foreach($slots as $slot)
+                                            <div class="time-slot">{{ $slot->from.' - '.$slot->to }}<input type="hidden" name="days[{{ $day }}][{{ $counter }}][from]" value="{{ $slot->from }}">
+                                                <input type="hidden" name="days[{{ $day }}][{{ $counter }}][to]" value="{{ $slot->to }}">
+                                                <span class="btn btn-timetable btn-danger remove-slot" onclick="removeSlot(event, this)">remove</span>
+                                            </div>
+                                            @php($counter++)
+                                        @endforeach
+                                    </div>
+                                    <div class="box-footer">
+                                        <input class="slot-from" type="text"> - <input class="slot-to" type="text">
+                                        <button id="send" data-day="{{ $day }}" class="btn btn-timetable btn-success">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                        <div class="clearfix"></div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
                 </div>
                 <!-- /.tab-content -->
             </div>
@@ -176,7 +211,48 @@
 @stop
 @push('scripts')
 <script>
+    function removeSlot(e, button){
+        e.preventDefault();
+        $(button).parent().remove();
+    }
+
     $(function() {
+        var timetable = function(){
+            var button;
+            var from;
+            var to;
+            var container;
+            var slotNumber = $('.time-slot').length;
+            return {
+                init: function(b,f,t,c){
+                    button = b;
+                    from = f;
+                    to = t;
+                    container = c;
+                    timetable.bind();
+                },
+                addTime: function(day){
+                    var slotFrom = $('.'+day+' '+from).val();
+                    var slotTo = $('.'+day+' '+to).val();
+                    var timeSlot = '<div class="time-slot">'+slotFrom+' - '+slotTo;
+                    var inputFrom = '<input type="hidden" name="days['+day+']['+slotNumber+'][from]" value="'+slotFrom+'">';
+                    var inputTo = '<input type="hidden" name="days['+day+']['+slotNumber+'][to]" value="'+slotTo+'">';
+                    var removeButton = '<span class="btn btn-timetable btn-danger remove-slot" onclick="removeSlot(event, this);"">remove</span>';
+                    timeSlot = timeSlot+inputFrom+inputTo+removeButton+'</div>';
+                    $('.'+day+' '+container).append(timeSlot);
+                    slotNumber++;
+                },
+                bind: function(){
+                    $(button).on('click', function(e){
+                        e.preventDefault();
+                        timetable.addTime($(this).attr('data-day'));
+                    });
+                }
+            }
+        }();
+
+        timetable.init('button#send', 'input.slot-from', 'input.slot-to', '.box-body');
+
         //Date picker
         $('#datepicker').datepicker({
             format: 'dd/mm/yyyy',

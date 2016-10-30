@@ -93,6 +93,9 @@
                                 <a href="#">{{ Auth::guard('user')->user()->userData->first_name ? Auth::guard('user')->user()->userData->first_name : 'profile' }} (£ {{ Auth::guard('user')->user()->points }})</a>
                                 <ul>
                                     <li>
+                                        <a href="{{ action('FrontendController@summary') }}">Summary</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ action('FrontendController@profile') }}">My profile</a>
                                     </li>
                                     <li>

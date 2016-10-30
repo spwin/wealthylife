@@ -67,7 +67,7 @@
                                 <div class="input-with-label text-left">
                                     <h5 class="uppercase"><span class="text-red">*</span> Image:</h5>
                                     <div class="image-upload">
-                                        <div class="drop-article-zone left" onclick="uploadImage(this);">
+                                        <div class="drop-article-zone left" onclick="uploadSingleImage(this);">
                                             <div class="article-image text-left">
                                                 <img src="{{ url()->to('/').'/blog/500x500/'.$article->image()->first()->filename }}" class="image-article-preview">
                                             </div>
@@ -75,9 +75,9 @@
                                         <div class="image-actions right">
                                             <div class="image-info-block">
                                                 <p>Please upload only <strong>jpeg, png</strong> or <strong>gif</strong> files.</p>
-                                                <p>Maximum image size is <strong>5MB</strong>.</p>
+                                                <p>Maximum image size is <strong>10MB</strong>.</p>
                                             </div>
-                                            <a href="#" class="btn image-button upload" onclick="uploadImage(this);"><i class="ti-export"></i> select</a>
+                                            <a href="#" class="btn image-button upload" onclick="uploadSingleImage(this);"><i class="ti-export"></i> select</a>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
