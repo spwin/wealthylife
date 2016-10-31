@@ -1430,7 +1430,8 @@ p.discount span.round{
     bottom: 0;
 }
 
-body.front-page{
+body.front-page,
+body.soon-page{
     background-color: #2B2C2F;
 }
 /********/

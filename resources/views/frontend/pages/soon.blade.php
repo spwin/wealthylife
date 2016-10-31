@@ -1,4 +1,5 @@
 @extends('frontend/layout')
+@section('body-class', 'soon-page')
 @section('wrapper')
     <div class="main-container">
         <section class="cover fullscreen image-bg overlay">
