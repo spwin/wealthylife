@@ -424,6 +424,7 @@ $(document).ready(function() {
         	linkedModal.find('iframe').attr('src', (linkedModal.find('iframe').attr('data-src') + autoplayMsg));
         }
         linkedModal.toggleClass('reveal-modal');
+        $('.trigger-catcher').trigger('question-modal');
         return false;
     });
 

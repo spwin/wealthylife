@@ -20,6 +20,7 @@
         @include('frontend/elements/feedback')
     </div>
 </div>
+<div class="trigger-catcher"></div>
 <script src="{{ URL::to('/') }}/js/front-plugins.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
