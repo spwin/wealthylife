@@ -4,12 +4,14 @@ var questionNotification = function(){
     var token;
     var interval = 10000; //10 sec
     var audio;
+    var soundButton = $('#notification-sound');
     return {
         init: function(p, u, t, a){
             url = u;
             token = t;
             pending = p;
             audio = new Audio(a);
+            questionNotification.bind();
             setInterval(function(){
                 questionNotification.callAjax();
             }, interval);
@@ -26,10 +28,16 @@ var questionNotification = function(){
                         setTimeout(function(){
                             $('.ajax-notification').fadeOut(300, function() { $(this).remove(); });
                         },2000);
-                        audio.play();
+                        soundButton.click();
                         pending = data.pending;
                     }
                 }
+            });
+        },
+        bind: function(){
+            soundButton.on('click', function(e){
+                e.preventDefault();
+                audio.play();
             });
         }
     }
