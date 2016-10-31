@@ -28,57 +28,57 @@
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
-                                    Please fill all the data so consultant could provide you with better answer. <a href="{{ action('FrontendController@profile', '#general') }}">Fill now</a>
+                                    Complete your profile for better answers. <a href="{{ action('FrontendController@profile', '#general') }}">Click here</a>
                                 </div>
                             @endif
                             <div class="col-md-6">
-                                <div class="header">Account</div>
+                                <div class="header">My Account</div>
                                 <ul>
-                                    <li><a href="{{ action('FrontendController@profile', '#general') }}">Change general details</a></li>
-                                    <li><a href="{{ action('FrontendController@profile', '#login') }}">Change login data</a></li>
+                                    <li><a href="{{ action('FrontendController@profile', '#general') }}">My account details</a></li>
+                                    <li><a href="{{ action('FrontendController@profile', '#login') }}">Change password</a></li>
                                 </ul>
 
                                 <div class="header">Blog</div>
                                 <ul>
-                                    <li><a href="{{ action('FrontendController@newArticle') }}">Create Blog entry</a></li>
-                                    <li><a href="{{ action('FrontendController@articles') }}">My entries</a></li>
-                                    @if(($count = ($user->articles ? $user->articles()->where(['status' => 3])->count() : 0)) > 0)
-                                        <li><a href="{{ action('FrontendController@articles', '#published') }}">Published ({{ $count }})</a></li>
+                                    <li><a href="{{ action('FrontendController@newArticle') }}">Create</a></li>
+                                    {{--<li><a href="{{ action('FrontendController@articles') }}">My entries</a></li>--}}
+                                    @if(($count = ($user->articles ? $user->articles()->where(['status' => 0])->count() : 0)) > 0)
+                                        <li><a href="{{ action('FrontendController@articles', '#drafts') }}">Drafts ({{ $count }})</a></li>
                                     @endif
                                     @if(($count = ($user->articles ? $user->articles()->where(['status' => 1])->orWhere(['status' => 2])->count() : 0)) > 0)
                                         <li><a href="{{ action('FrontendController@articles', '#submitted') }}">Submitted ({{ $count }})</a></li>
                                     @endif
-                                    @if(($count = ($user->articles ? $user->articles()->where(['status' => 0])->count() : 0)) > 0)
-                                        <li><a href="{{ action('FrontendController@articles', '#drafts') }}">Drafts ({{ $count }})</a></li>
+                                    @if(($count = ($user->articles ? $user->articles()->where(['status' => 3])->count() : 0)) > 0)
+                                        <li><a href="{{ action('FrontendController@articles', '#published') }}">Published ({{ $count }})</a></li>
                                     @endif
                                 </ul>
 
                                 <div class="header">Gift vouchers</div>
                                 <ul>
-                                    <li><a href="{{ action('FrontendController@buyVoucher') }}">Buy voucher</a></li>
-                                    <li><a href="{{ action('FrontendController@vouchers') }}">Use voucher</a></li>
+                                    <li><a href="{{ action('FrontendController@buyVoucher') }}">Buy a gift voucher</a></li>
+                                    <li><a href="{{ action('FrontendController@vouchers') }}">Use a gift voucher</a></li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <div class="header">Questions</div>
                                 <ul>
-                                    <li><a href="#" class="new-question">New question</a></li>
-                                    @if(($count = ($user->questions ? $user->questions()->where(['status' => 2])->count() : 0)) > 0)
-                                        <li><a href="{{ action('FrontendController@questions', '#answered') }}">Answered ({{ $count }})</a></li>
+                                    <li><a href="#" class="new-question">New</a></li>
+                                    @if(($count = ($user->questions ? $user->questions()->where(['status' => 0])->count() : 0)) > 0)
+                                        <li><a href="{{ action('FrontendController@questions', '#drafts') }}">Drafts ({{ $count }})</a></li>
                                     @endif
                                     @if(($count = ($user->questions ? $user->questions()->where(['status' => 1])->count() : 0)) > 0)
                                         <li><a href="{{ action('FrontendController@questions', '#pending') }}">Pending ({{ $count }})</a></li>
                                     @endif
-                                    @if(($count = ($user->questions ? $user->questions()->where(['status' => 0])->count() : 0)) > 0)
-                                        <li><a href="{{ action('FrontendController@questions', '#drafts') }}">Drafts ({{ $count }})</a></li>
+                                    @if(($count = ($user->questions ? $user->questions()->where(['status' => 2])->count() : 0)) > 0)
+                                        <li><a href="{{ action('FrontendController@questions', '#answered') }}">Answered ({{ $count }})</a></li>
                                     @endif
-                                    <li><a href="{{ action('FrontendController@questions') }}">My questions</a></li>
+                                    {{--<li><a href="{{ action('FrontendController@questions') }}">My questions</a></li>--}}
                                 </ul>
 
-                                <div class="header">My credits</div>
+                                <div class="header">Credits</div>
                                 <ul>
                                     <li><a href="{{ action('FrontendController@credits') }}">Buy credits</a></li>
-                                    <li><a href="{{ action('FrontendController@credits', '#how-it-works') }}">What are the benefits?</a></li>
+                                    <li><a href="{{ action('FrontendController@credits', '#how-it-works') }}">Why use credits?</a></li>
                                 </ul>
 
                                 <div class="header">Referral reward program</div>

@@ -80,6 +80,8 @@ Route::post('soon/submit', 'FrontendController@soonSubmit');
 Route::group(['middleware' => ['ip']], function () {
     Route::get('/', 'FrontendController@index');
 
+    Route::post('/get-answer-time', 'FrontendController@ajaxCheckAnswerTime');
+
     Route::get('email-confirm/{key}', 'UserController@confirmation');
     Route::get('blog', 'FrontendController@blog');
     Route::get('contact-us', 'FrontendController@contacts');

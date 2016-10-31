@@ -589,4 +589,26 @@ class FrontendController extends Controller
             return Redirect::action('FrontendController@index');
         }
     }
+
+    public function ajaxCheckAnswerTime(Request $request){
+        $slotCalculator = new consultantSlot;
+        $time = $slotCalculator->getExpectedTime();
+        $response = 'Unable to calculate, sorry';
+        if($time){
+            $today = date('Ymd');
+            $hours = date('H:i', $time);
+            $answer_day = date('Ymd', $time);
+            $tomorrow = date('Ymd', strtotime('tomorrow'));
+            if($today == $answer_day){
+                $response = 'Today, '.$hours;
+            } elseif($tomorrow == $answer_day){
+                $response = 'Tomorrow, '.$hours;
+            } elseif($time < strtotime("+7 day")){
+                $response = date('l', $time).', '.$hours;
+            } else {
+                $response = date('F j, H:i', $time);
+            }
+        }
+        return json_encode($response);
+    }
 }

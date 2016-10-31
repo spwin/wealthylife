@@ -125,7 +125,7 @@ class ConsultantSlot
         $current = '9999999999';
         foreach($consultants as $consultant){
             $days = json_decode($consultant->timetable);
-            $pending_questions = 20;
+            $pending_questions = $consultant->questions()->where(['status' => 1])->count();
             $qt = 30;
             $busyness = $pending_questions * $qt;
             $slotCalculator = new consultantSlot;
@@ -138,6 +138,32 @@ class ConsultantSlot
         }
         if(!$result){
             $result = User::where(['type' => 'consultant'])->inRandomOrder()->first();
+        }
+        return $result;
+    }
+
+    public function getExpectedTime(){
+        date_default_timezone_set("Europe/London");
+        $consultants = User::where(['type' => 'consultant'])->get();
+        $now = time();
+        $current = '9999999999';
+        $found = false;
+        foreach($consultants as $consultant){
+            $days = json_decode($consultant->timetable);
+            $pending_questions = $consultant->questions()->where(['status' => 1])->count();
+            $qt = 30;
+            $busyness = $pending_questions * $qt;
+            $slotCalculator = new consultantSlot;
+            $firstEmptyTime = $slotCalculator->getFirstEmptyTime($days, $now, $busyness, $qt);
+            $timestampResult = strtotime($firstEmptyTime);
+            if($timestampResult < $current){
+                $found = true;
+                $current = $timestampResult;
+            }
+        }
+        $result = false;
+        if($found){
+            $result = $current;
         }
         return $result;
     }

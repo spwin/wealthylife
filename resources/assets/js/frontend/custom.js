@@ -329,6 +329,19 @@ function insertAvatar(input, defaultUrl){
     }
 }
 
+function checkAnswerTime(e,button,token, url){
+    e.preventDefault();
+    $.ajax({
+        method: "POST",
+        url: url,
+        data: {_token: token},
+        dataType: 'JSON',
+        success: function (data) {
+            $(button).parent().find('.answer-time-result').html(data);
+        }
+    });
+}
+
 // MAIN PHRASE TOP POSITION ON SCROLL/*
 
 if ( $(window).width() > 768 ) {
