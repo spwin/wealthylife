@@ -24,7 +24,7 @@
 
             <div class="col-md-3 col-sm-4 mt2">
                 <ul>
-                    <li><a href="{{ action('FrontendController@profile') }}"><h5 class="uppercase mb5 fade-on-hover">Profile</h5></a></li>
+                    <li><a href="{{ action('FrontendController@summary') }}"><h5 class="uppercase mb5 fade-on-hover">Profile</h5></a></li>
                     <li><a href="{{ action('FrontendController@privacy') }}"><h5 class="uppercase mb5 fade-on-hover">Privacy policy</h5></a></li>
                     <li><a href="{{ action('FrontendController@terms') }}"><h5 class="uppercase mb5 fade-on-hover">Terms and conditions</h5></a></li>
                 </ul>
