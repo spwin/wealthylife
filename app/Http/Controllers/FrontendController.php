@@ -21,6 +21,7 @@ use App\Helpers\consultantSlot;
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
@@ -38,9 +39,10 @@ class FrontendController extends Controller
             return $page;
         }*/
         $phrase = Phrases::where(['enabled' => 1])->inRandomOrder()->first();
-        $videos = ['back1', 'back2', 'back3', 'back4', 'back5', 'back6', 'back7'];
+        $backgrounds = ['back1', 'back2', 'back3', 'back4', 'back5', 'back6', 'back7'];
+
         $view = view('frontend/pages/index')->with([
-            'video' => $videos[array_rand($videos)],
+            'background' => $backgrounds[array_rand($backgrounds)],
             'phrase' => $phrase
         ])->render();
 
@@ -431,9 +433,12 @@ class FrontendController extends Controller
             'back1.jpg', 'back2.jpg', 'back3.jpg', 'back4.jpg',
             'back5.jpg', 'back6.jpg', 'back7.jpg'
         ];
-        return view('frontend/pages/soon')->with([
+
+        $view = view('frontend/pages/soon')->with([
             'background' => $backgrounds[array_rand($backgrounds)]
-        ]);
+        ])->render();
+
+        return $view;
     }
 
     public function soonSubmit(Request $request){
