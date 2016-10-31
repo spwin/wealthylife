@@ -9694,4 +9694,17 @@ tr.periods {
   width: 85px;
   border-radius: 5px; }
 
+.ajax-notification {
+  top: 58px;
+  right: 20px;
+  position: fixed;
+  z-index: 9999;
+  background-color: white;
+  padding: 10px 29px;
+  border: 1px solid #E1E1E1;
+  border-radius: 10px; }
+
+.ajax-notification .new-messages {
+  font-weight: bold; }
+
 /*# sourceMappingURL=admin.css.map */

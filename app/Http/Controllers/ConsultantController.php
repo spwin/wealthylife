@@ -194,4 +194,15 @@ class ConsultantController extends Controller
         $question->save();
         return Redirect::action('ConsultantController@listPending');
     }
+
+    public function ajaxPending(Request $request){
+        $pending = 0;
+        if($request->has('pending')){
+            $pending = $request->get('pending');
+        }
+        if($user = Auth::guard('consultant')->user()){
+            $pending = Questions::where(['consultant_id' => $user->id, 'status' => 1])->count();
+        }
+        return json_encode(['pending' => $pending]);
+    }
 }

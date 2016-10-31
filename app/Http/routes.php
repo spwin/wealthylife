@@ -167,6 +167,7 @@ Route::group(['middleware' => ['ip']], function () {
     Route::group(['prefix' => 'consultant', 'middleware' => 'auth:consultant'], function () {
         Route::get('/', 'ConsultantController@index');
         Route::get('logout', 'Auth\AuthController@getConsultantLogout');
+        Route::post('ajax-pending', 'ConsultantController@ajaxPending');
         Route::group(['prefix' => 'users'], function () {
             Route::get('list', 'ConsultantController@listUsers');
             Route::get('profile/{id}', 'ConsultantController@detailsUser');
