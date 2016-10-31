@@ -76,7 +76,7 @@
     </div>
     <div class="check-answer-time">
         Expected answer time:
-        <button class="btn btn-sm" onclick="checkAnswerTime(event, this, '{{ csrf_token() }}', '{{ action('FrontendController@ajaxCheckAnswerTime') }}')">check</button>
+        <span class="btn btn-sm" onclick="checkAnswerTime(event, this, '{{ csrf_token() }}', '{{ action('FrontendController@ajaxCheckAnswerTime') }}')">check</span>
         <div class="answer-time-result"></div>
     </div>
     <div class="double-column">

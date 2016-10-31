@@ -5132,7 +5132,7 @@ function checkAnswerTime(e,button,token, url){
 
 $('.trigger-catcher').on('question-modal', function(){
     $('.answer-time-result').html('');
-    $('.check-answer-time button').show();
+    $('.check-answer-time span').show();
 });
 
 // MAIN PHRASE TOP POSITION ON SCROLL/*
