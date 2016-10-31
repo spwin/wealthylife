@@ -21,7 +21,6 @@
 <body class="@yield('body-class')">
 @yield('header')
 @yield('wrapper')
-<button id="notification-sound"></button>
 <script src="{{ URL::to('/') }}/js/jquery.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script src="{{ URL::to('/') }}/js/admin/bootstrap.min.js"></script>
