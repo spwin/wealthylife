@@ -9,7 +9,7 @@
                     <section class="pt-20px pb-20px">
                         <div class="tabbed-content text-tabs display-after-load">
                             <div class="modal-container text-right">
-                                <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
+                                <a class="btn btn-modal hovered mb-0px" id="ask-question-button" href="#">Ask question</a>
                                 <div class="hidden">
                                     @include('frontend/elements/question')
                                 </div>
@@ -62,7 +62,7 @@
                             <div class="col-md-6">
                                 <div class="header">Questions</div>
                                 <ul>
-                                    <li><a href="#">New question</a></li>
+                                    <li><a href="#" class="new-question">New question</a></li>
                                     @if(($count = ($user->questions ? $user->questions()->where(['status' => 2])->count() : 0)) > 0)
                                         <li><a href="{{ action('FrontendController@questions', '#answered') }}">Answered ({{ $count }})</a></li>
                                     @endif
@@ -94,3 +94,13 @@
     </section>
     @include('frontend/footer')
 @stop
+@push('scripts')
+<script>
+    ($)(function(){
+        $('.new-question').on('click', function(e){
+            e.preventDefault();
+            $('#ask-question-button').click();
+        });
+    });
+</script>
+@endpush

@@ -42,7 +42,7 @@
                                         <table class="table">
                                             @foreach($pending as $question)
                                                 <tr>
-                                                    <td class="text-left w150px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w170px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
@@ -51,7 +51,7 @@
                                                             <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                         @endif
                                                     </td>
-                                                    <td class="text-center w250px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
+                                                    <td class="text-center w150px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
                                                     <td onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
                                                 </tr>
                                             @endforeach
@@ -80,7 +80,7 @@
                                         <table class="table">
                                             @foreach($answered as $question)
                                                 <tr class="{{ $question->answer->seen ? '' : 'bold' }}" >
-                                                    <td class="text-left w150px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w170px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
@@ -89,7 +89,7 @@
                                                             <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                         @endif
                                                     </td>
-                                                    <td class="text-center w250px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
+                                                    <td class="text-center w150px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
                                                     <td class="w170px text-center"><a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="btn btn-sm show-answer-btn">Show answer</a></td>
                                                 </tr>
@@ -119,7 +119,7 @@
                                         <table class="table">
                                             @foreach($drafts as $question)
                                                 <tr>
-                                                    <td class="text-left w150px" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w170px" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
@@ -128,9 +128,9 @@
                                                             <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                         @endif
                                                     </td>
-                                                    <td class="text-center w250px" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
+                                                    <td class="text-center w150px" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
                                                     <td onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
-                                                    <td class="w195px text-center controls">
+                                                    <td class="w205px text-center controls">
                                                         {!! Form::open([
                                                             'method' => 'POST',
                                                             'action' => ['UserController@deleteQuestion', $question->id],

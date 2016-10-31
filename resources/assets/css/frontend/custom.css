@@ -175,6 +175,10 @@ table td.w195px{
     width: 195px;
 }
 
+table td.w205px{
+    width: 205px;
+}
+
 input[type="password"].mb-5px{
     margin-bottom: 5px;
 }
@@ -1182,6 +1186,7 @@ span.text-red{
 }
 
 .facebook-blog{
+    margin-top: 10px;
     margin-bottom: 15px;
     height: 28px;
     position: relative;
@@ -1344,8 +1349,12 @@ p.discount span.round{
     width: 100px;
 }
 
-.w150px{
+.w170px{
     width: 170px;
+}
+
+.w150px{
+    width: 150px;
 }
 
 .questions-container table tr{

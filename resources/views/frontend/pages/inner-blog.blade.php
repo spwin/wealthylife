@@ -46,6 +46,7 @@
                         {!! $article->content !!}
                     </div>
                     <!--end of post snippet-->
+                    <div class="clear"></div>
                     <div class="facebook-blog">
                         <div class="fb-like" data-href="{{ request()->fullUrl() }}" data-layout="standard" data-action="like" data-size="large" data-show-faces="false" data-share="true"></div>
                     </div>

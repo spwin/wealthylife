@@ -38,7 +38,7 @@
                             @endif
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-9">
+                            <div class="col-md-10">
                                 {!! Form::model($article, [
                                     'role' => 'form',
                                     'url' => action('UserController@saveArticle', ['id' => $article->id]),
@@ -88,7 +88,7 @@
 
                                 <div class="input-with-label text-left">
                                     <h5 class="weight uppercase"><span class="text-red">*</span> Content</h5>
-                                    <p class="label_description">Try to not exceed 500 words.</p>
+                                    <p class="label_description">Try to not exceed 5000 words.</p>
                                     {!! Form::textarea('content', null, ['size' => '30x5', 'placeholder' => 'Create something amazing..', 'id' => 'wysiwyg']) !!}
                                 </div>
 
@@ -141,8 +141,14 @@
     tinymce.init({
         selector: '#wysiwyg',
         content_css : "/css/tinymce.css",
-        menubar:false,
-        height : "260"
+        menubar: false,
+        height : "260",
+        plugins: [
+            'advlist autolink lists image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools codesample'
+        ]
     });
 </script>
 @endpush

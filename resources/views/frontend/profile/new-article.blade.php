@@ -46,7 +46,7 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-10">
                             {!! Form::open([
                                 'role' => 'form',
                                 'url' => action('UserController@createArticle'),
@@ -138,7 +138,13 @@
         selector: '#wysiwyg',
         content_css : "/css/tinymce.css",
         menubar:false,
-        height : "260"
+        height : "260",
+        plugins: [
+            'advlist autolink lists image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools codesample'
+        ]
     });
 </script>
 @endpush
