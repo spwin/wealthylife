@@ -92,29 +92,38 @@ class ConsultantSlot
         return false;
     }
 
+    protected function isWorking($days){
+        $found = false;
+        foreach($days as $slots){
+            if(count($slots) > 0) $found = true;
+        }
+        return $found;
+    }
+
     protected function getFirstEmptyTime($days, $now, $busyness, $qt){
         $day = 0;
         $nowHI = date('H:i', $now);
         $current_weekday = strtolower(date('D', $now + $day * 86400));
         if(isset($days->$current_weekday)) {
             $current_day_slots = $days->$current_weekday;
-            $todayTime = $this->getTodayTime($current_day_slots, $nowHI);
-            if ($todayTime > ($busyness + $qt)) {
-                $result = $this->getExactTodayTime($busyness, $qt, $current_day_slots, $nowHI);
-            } else {
-                $day++;
-                $busyness -= $todayTime;
-                $dayTime = array();
-                while (($currentTime = $this->getDayTime($dayTime, $day, $now, $days)) < ($busyness + $qt)) {
+            if($this->isWorking($days)) {
+                $todayTime = $this->getTodayTime($current_day_slots, $nowHI);
+                if ($todayTime > ($busyness + $qt)) {
+                    $result = $this->getExactTodayTime($busyness, $qt, $current_day_slots, $nowHI);
+                } else {
                     $day++;
-                    $busyness -= $currentTime;
+                    $busyness -= $todayTime;
+                    $dayTime = array();
+                    while (($currentTime = $this->getDayTime($dayTime, $day, $now, $days)) < ($busyness + $qt)) {
+                        $day++;
+                        $busyness -= $currentTime;
+                    }
+                    $result = $this->getExactTime($day, $busyness, $qt, $days, $now);
                 }
-                $result = $this->getExactTime($day, $busyness, $qt, $days, $now);
+                return date('Y-m-d', $now + $day * 86400) . ' ' . $result;
             }
-            return date('Y-m-d', $now + $day * 86400) . ' ' . $result;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public function getRightConsultant(){
