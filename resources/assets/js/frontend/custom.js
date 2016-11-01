@@ -194,6 +194,12 @@ function readArticleURL(defined, input, defaultUrl) {
     }
 }
 
+function uploadSingleImage(elem){
+    event.preventDefault();
+    var form = $(elem).closest('form');
+    form.find('.image-input').click();
+}
+
 function uploadImage(elem, num){
     var form = $(elem).closest('form');
     form.find('.image-input-'+num).click();
@@ -322,6 +328,27 @@ function insertAvatar(input, defaultUrl){
         submit.prop('disabled', true);
     }
 }
+
+function checkAnswerTime(e,button,token, url){
+    e.preventDefault();
+    if($(button).is(":visible")) {
+        $.ajax({
+            method: "POST",
+            url: url,
+            data: {_token: token},
+            dataType: 'JSON',
+            success: function (data) {
+                $(button).parent().find('.answer-time-result').html(data);
+                $(button).hide();
+            }
+        });
+    }
+}
+
+$('.trigger-catcher').on('question-modal', function(){
+    $('.answer-time-result').html('');
+    $('.check-answer-time span').show();
+});
 
 // MAIN PHRASE TOP POSITION ON SCROLL/*
 

@@ -42,7 +42,7 @@
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->answers()->where(['payroll_id' => $current->id])->count() }}</td>
                                 @php($total += ($price->value * $user->answers()->where(['payroll_id' => $current->id])->count()))
-                                <td>{{ $price->value * $user->answers()->where(['payroll_id' => $current->id])->count() }}</td>
+                                <td>£{{ $price->value * $user->answers()->where(['payroll_id' => $current->id])->count() }}</td>
                             </tr>
                         @endforeach
                         <tr>

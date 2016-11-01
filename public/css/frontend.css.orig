@@ -42,9 +42,15 @@
 /*!---------- 1. GLOBAL STYLES ----------*/
 body {
   /*-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;*/
+<<<<<<< HEAD
   font-size: 16px;
   line-height: 24px;
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
+=======
+  font-size: 13px;
+  line-height: 24px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
   color: #666;
   overflow-x: hidden;
 }
@@ -1173,7 +1179,11 @@ nav .cart-overview a {
   height: auto;
 }
 .language .menu > li ul {
+<<<<<<< HEAD
+  max-width: 150px;
+=======
   max-width: 180px;
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
   right: -24px;
   /*border-bottom: 1px solid #fe4902;*/
 }
@@ -5916,6 +5926,7 @@ a.btn.twitter {
 .foundry_modal[modal-link="3"] {
   padding-bottom: 48px;
 }
+<<<<<<< HEAD
 /******************
 ABOUT
 *******************/
@@ -6032,6 +6043,8 @@ span.arrow {
   padding-left: 50px;
   height: 70px;
 }
+=======
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
 /************************
 DESKTOP FIXES
 *****************************/
@@ -6441,6 +6454,8 @@ MOBILE
     font-size: 17px;
   }
 }
+<<<<<<< HEAD
+=======
 .summary-profile .header {
   font-size: 16px;
 }
@@ -6450,5 +6465,6 @@ MOBILE
 .alert-warning a {
   color: #D88519;
 }
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
 
 /*# sourceMappingURL=frontend.css.map */

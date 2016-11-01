@@ -3780,7 +3780,10 @@ $(document).ready(function() {
         	linkedModal.find('iframe').attr('src', (linkedModal.find('iframe').attr('data-src') + autoplayMsg));
         }
         linkedModal.toggleClass('reveal-modal');
+<<<<<<< HEAD
+=======
         $('.trigger-catcher').trigger('question-modal');
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
         return false;
     });
 
@@ -4979,12 +4982,15 @@ function readArticleURL(defined, input, defaultUrl) {
     }
 }
 
+<<<<<<< HEAD
+=======
 function uploadSingleImage(elem){
     event.preventDefault();
     var form = $(elem).closest('form');
     form.find('.image-input').click();
 }
 
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
 function uploadImage(elem, num){
     var form = $(elem).closest('form');
     form.find('.image-input-'+num).click();
@@ -5114,6 +5120,8 @@ function insertAvatar(input, defaultUrl){
     }
 }
 
+<<<<<<< HEAD
+=======
 function checkAnswerTime(e,button,token, url){
     e.preventDefault();
     if($(button).is(":visible")) {
@@ -5135,6 +5143,7 @@ $('.trigger-catcher').on('question-modal', function(){
     $('.check-answer-time span').show();
 });
 
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
 // MAIN PHRASE TOP POSITION ON SCROLL/*
 
 if ( $(window).width() > 768 ) {

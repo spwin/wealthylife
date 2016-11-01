@@ -20,6 +20,7 @@
         @include('frontend/elements/feedback')
     </div>
 </div>
+<div class="trigger-catcher"></div>
 <script src="{{ URL::to('/') }}/js/front-plugins.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -27,7 +28,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-82199046-1', 'auto');
+  ga('create', 'UA-82199046-1', 'auto', {'legacyCookieDomain': '{{ url()->to('/') }}'});
   ga('send', 'pageview');
 
 </script>

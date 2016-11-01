@@ -26,7 +26,13 @@
 <script src="{{ URL::to('/') }}/js/admin/bootstrap.min.js"></script>
 <script src="{{ URL::to('/') }}/js/admin/app.min.js"></script>
 <script src="{{ URL::to('/') }}/js/plugins.js"></script>
+<script src="{{ URL::to('/') }}/js/consultant/custom.js"></script>
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+<script>
+    ($)(function(){
+        questionNotification.init('{{ App\Helpers\Helpers::getPending() }}', '{{ action('ConsultantController@ajaxPending') }}', '{{ csrf_token() }}', '{{ url()->to('/').'/sounds/notification_sound.mp3' }}');
+    });
+</script>
 @stack('scripts')
 </body>
 </html>

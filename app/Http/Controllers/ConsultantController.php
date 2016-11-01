@@ -7,6 +7,7 @@ use App\Payroll;
 use App\Questions;
 use App\User;
 use App\UserData;
+use App\Helpers\consultantSlot;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -21,6 +22,83 @@ class ConsultantController extends Controller
 
     public function login(){
         return view('consultant/login');
+    }
+
+    function hoursToMins($hours){
+        $parts = explode(':', $hours);
+        return $parts[0]*60+$parts[1];
+    }
+
+    function createSlot(&$slots, $mins, $type, $percent, $from, $to){
+        if($mins > 0) {
+            $slot = [
+                'amount' => round($mins / $percent, 2),
+                'type' => $type,
+                'tooltip' => $from.' - '.$to
+            ];
+            $slots[] = $slot;
+        }
+    }
+
+    function formatFromMins($total){
+        $hours = floor($total/60);
+        return $hours.'h '.($total - $hours * 60).'min';
+    }
+
+    public function timetable(){
+        $days_matcher = [
+            'mon' => 'Monday',
+            'tue' => 'Tuesday',
+            'wed' => 'Wednesday',
+            'thu' => 'Thursday',
+            'fri' => 'Friday',
+            'sat' => 'Saturday',
+            'sun' => 'Sunday'
+        ];
+
+        $timetable = null;
+        $consultant_time = false;
+        if($user = Auth::guard('consultant')->user()){
+            $timetable = json_decode($user->timetable);
+            $slots = array();
+            $mins_per_day = 1440;
+            $percent_min = $mins_per_day/100;
+            $total_consultant = 0;
+            $totals = array();
+            foreach($timetable as $day => $times){
+                $first = true;
+                $count = 0;
+                $total_day = 0;
+                if(count($times) > 0){
+                    foreach($times as $time){
+                        if($first){
+                            $this->createSlot($slots[$day], $this->hoursToMins($time->from), 'empty', $percent_min, 0, $time->from);
+                            $first = false;
+                        }
+                        $mins = $this->hoursToMins($time->to) - $this->hoursToMins($time->from);
+                        $this->createSlot($slots[$day], $mins, 'busy', $percent_min, $time->from, $time->to);
+                        $total_day += $mins;
+                        $count++;
+                        if(count($times) == $count){
+                            $this->createSlot($slots[$day], $mins_per_day - $this->hoursToMins($times[count($times) - 1]->to), 'empty', $percent_min, $times[count($times) - 1]->to, $mins_per_day);
+                        } else {
+                            $this->createSlot($slots[$day], $this->hoursToMins($times[$count]->from) - $this->hoursToMins($time->to), 'empty', $percent_min, $times[$count]->from, $time->to);
+                        }
+
+                    }
+                } else {
+                    $slots[$day][] = ['amount' => 100, 'type' => 'empty', 'tooltip' => '0:00 - 24:00'];
+                }
+                $totals[$day] = $this->formatFromMins($total_day);
+                $total_consultant += $total_day;
+            }
+            $consultant_time = ['slots' => $slots, 'totals' => $totals, 'total' => $this->formatFromMins($total_consultant)];
+        }
+
+        return view('consultant/timetable/timetable')->with([
+            'matcher' => $days_matcher,
+            'timetable' => $consultant_time
+        ]);
     }
 
     public function listUsers(){
@@ -55,7 +133,8 @@ class ConsultantController extends Controller
     }
 
     public function listPending(){
-        $questions = Questions::where(['status' => 1])->orderBy('asked_at', 'DESC')->paginate(20);
+        $consultant = Auth::guard('consultant')->user();
+        $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->orderBy('asked_at', 'ASC')->paginate(20);
         return view('consultant/questions/list')->with([
             'questions' => $questions,
             'status' => 'Pending',
@@ -64,7 +143,8 @@ class ConsultantController extends Controller
     }
 
     public function listAnswered(){
-        $questions = Questions::where(['status' => 2])->orderBy('asked_at', 'DESC')->paginate(20);
+        $consultant = Auth::guard('consultant')->user();
+        $questions = Questions::where(['status' => 2, 'consultant_id' => $consultant->id])->orderBy('asked_at', 'DESC')->paginate(20);
         return view('consultant/questions/list')->with([
             'questions' => $questions,
             'status' => 'Answered',
@@ -113,5 +193,16 @@ class ConsultantController extends Controller
         $question->status = 2;
         $question->save();
         return Redirect::action('ConsultantController@listPending');
+    }
+
+    public function ajaxPending(Request $request){
+        $pending = 0;
+        if($request->has('pending')){
+            $pending = $request->get('pending');
+        }
+        if($user = Auth::guard('consultant')->user()){
+            $pending = Questions::where(['consultant_id' => $user->id, 'status' => 1])->count();
+        }
+        return json_encode(['pending' => $pending]);
     }
 }

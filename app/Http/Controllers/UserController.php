@@ -169,15 +169,6 @@ class UserController extends Controller
         return Redirect::action($action)->withInput();
     }
 
-    function checkUserDetails($user){
-        if(!$user->userData()->first()->weight || !$user->userData()->first()->height ||
-            $user->userData()->first()->birth_date == '0000-00-00' || !$user->userData()->first()->gender){
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     public function loginUser(Request $request){
         $v = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -655,9 +646,6 @@ class UserController extends Controller
                 return Redirect::action($this->getRoute(), ['id' => $question->id])->withErrors($v->errors(), 'question_database')->withInput();
             }
             $input = $request->all();
-            echo '<pre>';
-            print_r($input);
-            echo '</pre>';
             $this->updateImages($input, $request, $question, $user);
             $question->question = $input['question'];
             $question->save();
@@ -751,12 +739,8 @@ class UserController extends Controller
             if($user->welcome) {
                 if(session()->has('question.status') && session()->has('question.content') && session()->get('question.status') == 1){
                     return Redirect::action('FrontendController@authorizeQuestion');
-                } elseif ($this->checkUserDetails($user)) {
-                    return Redirect::action('FrontendController@questions');
                 } else {
-                    Session::flash('flash_notification.general.message', 'Please fill all the data so consultant could provide you with better answer');
-                    Session::flash('flash_notification.general.level', 'warning');
-                    return Redirect::action('FrontendController@profile');
+                    return Redirect::action('FrontendController@summary');
                 }
             } else {
                 $user->welcome = 1;

@@ -3,7 +3,9 @@
 namespace App\Helpers;
 
 use App\Notifications;
+use App\Questions;
 use App\Settings;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Jenssegers\Agent\Agent;
 
@@ -80,4 +82,12 @@ class Helpers
         $script = "eval(\"".str_replace(array("\\",'"'),array("\\\\",'\"'), $script)."\")";
         $script = '<script type="text/javascript">/*<![CDATA[*/'.$script.'/*]]>*/</script>';
         return '<span id="'.$id.'" class ="something-cool">m<b>@</b>e@d<b>no</b>oma<b>.com</b>in.com</span>'.$script;}
+
+    public static function getPending(){
+        $pending = 0;
+        if($user = Auth::guard('consultant')->user()){
+            $pending = Questions::where(['consultant_id' => $user->id, 'status' => 1])->count();
+        }
+        return $pending;
+    }
 }

@@ -38,7 +38,7 @@
                             @endif
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-9">
+                            <div class="col-md-10">
                                 {!! Form::model($article, [
                                     'role' => 'form',
                                     'url' => action('UserController@saveArticle', ['id' => $article->id]),
@@ -67,7 +67,7 @@
                                 <div class="input-with-label text-left">
                                     <h5 class="uppercase"><span class="text-red">*</span> Image:</h5>
                                     <div class="image-upload">
-                                        <div class="drop-article-zone left" onclick="uploadImage(this);">
+                                        <div class="drop-article-zone left" onclick="uploadSingleImage(this);">
                                             <div class="article-image text-left">
                                                 <img src="{{ url()->to('/').'/blog/500x500/'.$article->image()->first()->filename }}" class="image-article-preview">
                                             </div>
@@ -75,9 +75,9 @@
                                         <div class="image-actions right">
                                             <div class="image-info-block">
                                                 <p>Please upload only <strong>jpeg, png</strong> or <strong>gif</strong> files.</p>
-                                                <p>Maximum image size is <strong>5MB</strong>.</p>
+                                                <p>Maximum image size is <strong>10MB</strong>.</p>
                                             </div>
-                                            <a href="#" class="btn image-button upload" onclick="uploadImage(this);"><i class="ti-export"></i> select</a>
+                                            <a href="#" class="btn image-button upload" onclick="uploadSingleImage(this);"><i class="ti-export"></i> select</a>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -88,7 +88,7 @@
 
                                 <div class="input-with-label text-left">
                                     <h5 class="weight uppercase"><span class="text-red">*</span> Content</h5>
-                                    <p class="label_description">Try to not exceed 500 words.</p>
+                                    <p class="label_description">Try to not exceed 5000 words.</p>
                                     {!! Form::textarea('content', null, ['size' => '30x5', 'placeholder' => 'Create something amazing..', 'id' => 'wysiwyg']) !!}
                                 </div>
 
@@ -141,8 +141,14 @@
     tinymce.init({
         selector: '#wysiwyg',
         content_css : "/css/tinymce.css",
-        menubar:false,
-        height : "260"
+        menubar: false,
+        height : "260",
+        plugins: [
+            'advlist autolink lists image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools codesample'
+        ]
     });
 </script>
 @endpush

@@ -74,6 +74,11 @@
             {{ session()->has('question.content') ? 250 - strlen(session()->get('question.content')) : 250 }}
         </div>
     </div>
+    <div class="check-answer-time">
+        Expected answer time:
+        <span class="btn btn-sm" onclick="checkAnswerTime(event, this, '{{ csrf_token() }}', '{{ action('FrontendController@ajaxCheckAnswerTime') }}')">check</span>
+        <div class="answer-time-result"></div>
+    </div>
     <div class="double-column">
         <a href="#" class="btn question-btn" onclick="clearForm('question-form1', event, '{{ action('UserController@clearQuestion') }}', '{{ csrf_token() }}', '#');">Clear</a>
         <input type="submit" class="question-btn" value="Confirm">

@@ -16,10 +16,12 @@ use App\Settings;
 use App\User;
 use App\UserData;
 use Illuminate\Http\Request;
+use App\Helpers\consultantSlot;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
@@ -37,9 +39,10 @@ class FrontendController extends Controller
             return $page;
         }*/
         $phrase = Phrases::where(['enabled' => 1])->inRandomOrder()->first();
-        $videos = ['back1', 'back2', 'back3', 'back4', 'back5', 'back6', 'back7'];
+        $backgrounds = ['back1', 'back2', 'back3', 'back4', 'back5', 'back6', 'back7'];
+
         $view = view('frontend/pages/index')->with([
-            'video' => $videos[array_rand($videos)],
+            'background' => $backgrounds[array_rand($backgrounds)],
             'phrase' => $phrase
         ])->render();
 
@@ -114,7 +117,8 @@ class FrontendController extends Controller
                 $data['question'] = session()->get('question.content');
                 $data['status'] = 0;
                 $data['ip'] = \Request::ip();
-                $consultant = User::where(['type' => 'consultant'])->inRandomOrder()->first();
+                $slotCalculator = new consultantSlot;
+                $consultant = $slotCalculator->getRightConsultant();
                 $data['consultant_id'] = $consultant ? $consultant->id : 1;
                 //$this->getRegionByIp($data);
                 $question->fill($data);
@@ -156,13 +160,13 @@ class FrontendController extends Controller
             }
         } else {
             //$request->session()->flash('modal', 'question');
-            if($this->checkUserDetails()){
-                return Redirect::action('FrontendController@index');
-            } else {
+            //if($this->checkUserDetails()){
+            return Redirect::action('FrontendController@summary');
+            /*} else {
                 Session::flash('flash_notification.general.message', 'Please fill all the data so consultant could provide you with better answer');
                 Session::flash('flash_notification.general.level', 'warning');
                 return Redirect::action('FrontendController@profile');
-            }
+            }*/
         }
     }
 
@@ -259,6 +263,18 @@ class FrontendController extends Controller
                 'user' => $user,
                 'user_data' => $user_data,
                 'bd' => $this->getBirthDate($user_data->birth_date)
+            ]);
+        }
+        return Redirect::action('FrontendController@index');
+    }
+
+    public function summary(){
+        if($user = Auth::guard('user')->user()){
+            $user_data = UserData::where(['user_id' => $user->id])->first();
+            return view('frontend/profile/summary')->with([
+                'user' => $user,
+                'user_data' => $user_data,
+                'fill_info' => $this->checkUserDetails($user)
             ]);
         }
         return Redirect::action('FrontendController@index');
@@ -417,9 +433,12 @@ class FrontendController extends Controller
             'back1.jpg', 'back2.jpg', 'back3.jpg', 'back4.jpg',
             'back5.jpg', 'back6.jpg', 'back7.jpg'
         ];
-        return view('frontend/pages/soon')->with([
+
+        $view = view('frontend/pages/soon')->with([
             'background' => $backgrounds[array_rand($backgrounds)]
-        ]);
+        ])->render();
+
+        return $view;
     }
 
     public function soonSubmit(Request $request){
@@ -569,5 +588,27 @@ class FrontendController extends Controller
         } else {
             return Redirect::action('FrontendController@index');
         }
+    }
+
+    public function ajaxCheckAnswerTime(Request $request){
+        $slotCalculator = new consultantSlot;
+        $time = $slotCalculator->getExpectedTime();
+        $response = 'Unable to calculate, sorry';
+        if($time){
+            $today = date('Ymd');
+            $hours = date('H:i', $time);
+            $answer_day = date('Ymd', $time);
+            $tomorrow = date('Ymd', strtotime('tomorrow'));
+            if($today == $answer_day){
+                $response = 'Today, '.$hours;
+            } elseif($tomorrow == $answer_day){
+                $response = 'Tomorrow, '.$hours;
+            } elseif($time < strtotime("+7 day")){
+                $response = date('l', $time).', '.$hours;
+            } else {
+                $response = date('F j, H:i', $time);
+            }
+        }
+        return json_encode($response);
     }
 }

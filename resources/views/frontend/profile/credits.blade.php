@@ -61,7 +61,7 @@
                         <section class="pt-20px pb-0px">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h2 class="uppercase mb16">How it works</h2>
+                                    <h2 class="uppercase mb16" id="how-it-works">How it works</h2>
                                     <h4>1 credit = £1</h4>
                                     <p>
                                         Want to know how to get started? Follow the steps given below:<br/>

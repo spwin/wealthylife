@@ -37,8 +37,10 @@ elixir(function(mix) {
         '../plugins/datepicker/bootstrap-datepicker.js'
     ], 'public/js/plugins.js')
         .copy('resources/assets/plugins/datatables/jquery.dataTables.min.js', 'public/js/admin')
-        .copy('resources/assets/plugins/datatables/dataTables.bootstrap.min.js', 'public/js/admin');
+        .copy('resources/assets/plugins/datatables/dataTables.bootstrap.min.js', 'public/js/admin')
+        .copy('resources/assets/js/consultant/custom.js', 'public/js/consultant');
 
+    mix.copy('resources/assets/sounds/notification_sound.mp3', 'public/sounds/');
 
     // CONSULTANT
 

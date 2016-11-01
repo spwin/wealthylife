@@ -46,7 +46,7 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-10">
                             {!! Form::open([
                                 'role' => 'form',
                                 'url' => action('UserController@createArticle'),
@@ -63,7 +63,7 @@
                             <div class="input-with-label text-left">
                                 <h5 class="uppercase"><span class="text-red">*</span> Image:</h5>
                                 <div class="image-upload">
-                                    <div class="drop-article-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadImage(this);">
+                                    <div class="drop-article-zone left {{ session()->has('question.image') ? '' : 'empty' }}" onclick="uploadSingleImage(this);">
                                         <div class="article-image text-left">
                                             <img src="{{ url()->to('/').'/images/avatars/no_image.png' }}" class="image-article-preview">
                                         </div>
@@ -71,9 +71,9 @@
                                     <div class="image-actions right">
                                         <div class="image-info-block">
                                             <p>Please upload only <strong>jpeg, png</strong> or <strong>gif</strong> files.</p>
-                                            <p>Maximum image size is <strong>5MB</strong>.</p>
+                                            <p>Maximum image size is <strong>10MB</strong>.</p>
                                         </div>
-                                        <a href="#" class="btn image-button upload" onclick="uploadImage(this);"><i class="ti-export"></i> select</a>
+                                        <a href="#" class="btn image-button upload" onclick="uploadSingleImage(this);"><i class="ti-export"></i> select</a>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -138,7 +138,13 @@
         selector: '#wysiwyg',
         content_css : "/css/tinymce.css",
         menubar:false,
-        height : "260"
+        height : "260",
+        plugins: [
+            'advlist autolink lists image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools codesample'
+        ]
     });
 </script>
 @endpush

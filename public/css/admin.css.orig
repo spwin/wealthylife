@@ -9630,6 +9630,8 @@ tr.periods {
 .phrase-add {
   margin-top: 20px; }
 
+<<<<<<< HEAD
+=======
 #timetable .box-footer input {
   width: 40px; }
 
@@ -9707,4 +9709,5 @@ tr.periods {
 .ajax-notification .new-messages {
   font-weight: bold; }
 
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
 /*# sourceMappingURL=admin.css.map */

@@ -80,6 +80,8 @@ Route::post('soon/submit', 'FrontendController@soonSubmit');
 Route::group(['middleware' => ['ip']], function () {
     Route::get('/', 'FrontendController@index');
 
+    Route::post('/get-answer-time', 'FrontendController@ajaxCheckAnswerTime');
+
     Route::get('email-confirm/{key}', 'UserController@confirmation');
     Route::get('blog', 'FrontendController@blog');
     Route::get('contact-us', 'FrontendController@contacts');
@@ -120,7 +122,8 @@ Route::group(['middleware' => ['ip']], function () {
 
     Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {
         Route::get('welcome', 'UserController@welcome');
-        Route::get('/', 'FrontendController@profile');
+        Route::get('/', 'FrontendController@summary');
+        Route::get('account', 'FrontendController@profile');
         Route::get('referral-program', 'FrontendController@referral');
         Route::get('{id}/checkout-question', 'FrontendController@checkoutQuestion');
         Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
@@ -166,6 +169,7 @@ Route::group(['middleware' => ['ip']], function () {
     Route::group(['prefix' => 'consultant', 'middleware' => 'auth:consultant'], function () {
         Route::get('/', 'ConsultantController@index');
         Route::get('logout', 'Auth\AuthController@getConsultantLogout');
+        Route::post('ajax-pending', 'ConsultantController@ajaxPending');
         Route::group(['prefix' => 'users'], function () {
             Route::get('list', 'ConsultantController@listUsers');
             Route::get('profile/{id}', 'ConsultantController@detailsUser');
@@ -177,6 +181,9 @@ Route::group(['middleware' => ['ip']], function () {
             Route::get('{id}/preview', 'ConsultantController@answerPreview');
             Route::post('pending/{id}/save', 'ConsultantController@answerSave');
             Route::post('pending/{id}/send', 'ConsultantController@answerSend');
+        });
+        Route::group(['prefix' => 'timetable'], function () {
+            Route::get('/', 'ConsultantController@timetable');
         });
     });
 
@@ -201,6 +208,7 @@ Route::group(['middleware' => ['ip']], function () {
                 Route::post('save', 'AdminController@saveConsultant');
                 Route::get('profile/{id}', 'AdminController@detailsConsultant');
                 Route::post('update-data/{id}', 'AdminController@updateConsultantData');
+                Route::post('update-timetable/{id}', 'AdminController@updateConsultantTimetable');
                 Route::post('update-login/{id}/{type}', 'AdminController@updateConsultantLogin');
                 Route::delete('delete-profile/{id}', 'AdminController@destroyConsultant');
             });
@@ -220,6 +228,9 @@ Route::group(['middleware' => ['ip']], function () {
             Route::get('/{type}', 'AdminController@articles');
             Route::get('/details/{id}', 'AdminController@detailsArticle');
             Route::post('/edit/{id}', 'AdminController@editArticle');
+        });
+        Route::group(['prefix' => 'timetable'], function () {
+            Route::get('/', 'AdminController@timetable');
         });
         Route::group(['prefix' => 'balance'], function () {
             Route::get('/', 'AdminController@balance');

@@ -175,10 +175,13 @@ table td.w195px{
     width: 195px;
 }
 
+<<<<<<< HEAD
+=======
 table td.w205px{
     width: 205px;
 }
 
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
 input[type="password"].mb-5px{
     margin-bottom: 5px;
 }
@@ -1186,7 +1189,10 @@ span.text-red{
 }
 
 .facebook-blog{
+<<<<<<< HEAD
+=======
     margin-top: 10px;
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
     margin-bottom: 15px;
     height: 28px;
     position: relative;
@@ -1349,6 +1355,12 @@ p.discount span.round{
     width: 100px;
 }
 
+<<<<<<< HEAD
+.w150px{
+    width: 170px;
+}
+
+=======
 .w170px{
     width: 170px;
 }
@@ -1357,6 +1369,7 @@ p.discount span.round{
     width: 150px;
 }
 
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
 .questions-container table tr{
     cursor: pointer;
 }
@@ -1430,8 +1443,12 @@ p.discount span.round{
     bottom: 0;
 }
 
+<<<<<<< HEAD
+body.front-page{
+=======
 body.front-page,
 body.soon-page{
+>>>>>>> 956e2f60158e66c3c5fd1042944792209410387e
     background-color: #2B2C2F;
 }
 /********/
@@ -1448,3 +1465,5 @@ body.soon-page{
 
 
 
+
+/*# sourceMappingURL=front-custom.css.map */

@@ -3,7 +3,7 @@
 @section('body-class', 'front-page')
 @section('after-body-snippet')
     <div class="background-image-holder">
-        <img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/{{ $video }}.jpg">
+        <img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/{{ $background }}.jpg">
     </div>
 @stop
 @section('content')

@@ -266,6 +266,7 @@ class AdminController extends Controller
         $input['email_confirmed'] = 1;
         $input['type'] = 'consultant';
         $input['password'] = bcrypt($input['password']);
+        $input['timetable'] = json_encode(['mon'=>[],'tue'=>[],'wed'=>[],'thu'=>[],'fri'=>[],'sat'=>[],'sun'=>[]]);
         $user = new User();
         $user->fill($input);
         $user->save();
@@ -299,14 +300,104 @@ class AdminController extends Controller
         return Redirect::action('AdminController@listConsultants');
     }
 
+    function hoursToMins($hours){
+        $parts = explode(':', $hours);
+        return $parts[0]*60+$parts[1];
+    }
+
+    function createSlot(&$slots, $mins, $type, $percent, $from, $to){
+        if($mins > 0) {
+            $slot = [
+                'amount' => round($mins / $percent, 2),
+                'type' => $type,
+                'tooltip' => $from.' - '.$to
+            ];
+            $slots[] = $slot;
+        }
+    }
+
+    function formatFromMins($total){
+        $hours = floor($total/60);
+        return $hours.'h '.($total - $hours * 60).'min';
+    }
+
+    public function timetable(){
+        $consultants = User::with('userData')->where(['type' => 'consultant'])->get();
+        $consultant_times = array();
+        if(count($consultants) > 0){
+            foreach($consultants as $consultant){
+                $timetable = json_decode($consultant->timetable);
+                $slots = array();
+                $mins_per_day = 1440;
+                $percent_min = $mins_per_day/100;
+                $total_consultant = 0;
+                $totals = array();
+                foreach($timetable as $day => $times){
+                    $first = true;
+                    $count = 0;
+                    $total_day = 0;
+                    if(count($times) > 0){
+                        foreach($times as $time){
+                            if($first){
+                                $this->createSlot($slots[$day], $this->hoursToMins($time->from), 'empty', $percent_min, 0, $time->from);
+                                $first = false;
+                            }
+                            $mins = $this->hoursToMins($time->to) - $this->hoursToMins($time->from);
+                            $this->createSlot($slots[$day], $mins, 'busy', $percent_min, $time->from, $time->to);
+                            $total_day += $mins;
+                            $count++;
+                            if(count($times) == $count){
+                                $this->createSlot($slots[$day], $mins_per_day - $this->hoursToMins($times[count($times) - 1]->to), 'empty', $percent_min, $times[count($times) - 1]->to, $mins_per_day);
+                            } else {
+                                $this->createSlot($slots[$day], $this->hoursToMins($times[$count]->from) - $this->hoursToMins($time->to), 'empty', $percent_min, $times[$count]->from, $time->to);
+                            }
+
+                        }
+                    } else {
+                        $slots[$day][] = ['amount' => 100, 'type' => 'empty', 'tooltip' => '0:00 - 24:00'];
+                    }
+                    $totals[$day] = $this->formatFromMins($total_day);
+                    $total_consultant += $total_day;
+                }
+                $consultant_times[] = ['consultant' => $consultant, 'slots' => $slots, 'totals' => $totals, 'total' => $this->formatFromMins($total_consultant)];
+            }
+        }
+        $days_matcher = [
+            'mon' => 'Monday',
+            'tue' => 'Tuesday',
+            'wed' => 'Wednesday',
+            'thu' => 'Thursday',
+            'fri' => 'Friday',
+            'sat' => 'Saturday',
+            'sun' => 'Sunday'
+        ];
+        return view('admin/timetable/index')->with([
+            'timetable' => $consultant_times,
+            'matcher' => $days_matcher
+        ]);
+    }
+
     public function detailsConsultant($id){
         $user = User::findOrFail($id);
         $tab = Input::has('t') ? Input::get('t') : 1;
         $user_data = UserData::findOrFail($user->id);
+        $days_matcher = [
+            'mon' => 'Monday',
+            'tue' => 'Tuesday',
+            'wed' => 'Wednesday',
+            'thu' => 'Thursday',
+            'fri' => 'Friday',
+            'sat' => 'Saturday',
+            'sun' => 'Sunday'
+        ];
+        $timetable = json_decode($user->timetable, true);
+
         return view('admin/users/consultants/profile')->with([
             'user' => $user,
             'user_data' => $user_data,
-            'tab' => $tab
+            'tab' => $tab,
+            'matcher' => $days_matcher,
+            'timetable' => $timetable
         ]);
     }
 
@@ -393,6 +484,30 @@ class AdminController extends Controller
         }
         $user->save();
         return Redirect::action('AdminController@detailsConsultant', ['id' => $id, 't' => 2]);
+    }
+
+    public function updateConsultantTimetable(Request $request, $id){
+        $consultant = User::findOrFail($id);
+        $timetable = json_decode($consultant->timetable, true);
+        if($request->has('days')) {
+            $data = $request->get('days');
+            foreach ($timetable as $day => $slots) {
+                if (array_key_exists($day, $data)) {
+                    $organised = $data[$day];
+                    usort($organised, function ($a, $b) {
+                        return $a['from'] - $b['from'];
+                    });
+                    $timetable[$day] = $organised;
+                }
+            }
+            $consultant->timetable = json_encode($timetable);
+            $consultant->save();
+        } else {
+            $consultant->timetable = json_encode(['mon'=>[],'tue'=>[],'wed'=>[],'thu'=>[],'fri'=>[],'sat'=>[],'sun'=>[]]);
+            $consultant->save();
+        }
+        Flash::success('Timetable has been successfully modified');
+        return Redirect::action('AdminController@detailsConsultant', ['id' => $id, 't' => 3]);
     }
 
     public function destroyConsultant($id){

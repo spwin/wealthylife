@@ -16,7 +16,8 @@
         <div class="user-email">{{ $user->email }}</div>
         <hr>
         <ul class="lead">
-            <li {{ (Request::is('*profile') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@profile') }}"><i class="ti-arrow-right"></i> Profile</a></li>
+            <li {{ (Request::is('*profile') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@summary') }}"><i class="ti-arrow-right"></i> Summary</a></li>
+            <li {{ (Request::is('*profile/account*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@profile') }}"><i class="ti-arrow-right"></i> Profile</a></li>
             <li {{ (Request::is('*profile/notifications*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@notifications') }}"><i class="ti-arrow-right"></i> Notifications{{ ($count = $user->notifications()->where(['seen' => 0])->count()) > 0 ? ' ('.$count.')' : '' }}</a></li>
             <li {{ (Request::is('*profile/questions*') ? 'class=um-active' : '') }}>
                 @if(($count = ($user->questions ? $user->questions()->join('answers', 'answers.question_id', '=', 'questions.id')->where(['questions.status' => 2, 'answers.seen' => 0])->count() : 0)) > 0)
