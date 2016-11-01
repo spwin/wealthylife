@@ -4,14 +4,14 @@
 @section('nav-style', 'nav-authorize-question')
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
-        <div class="background-image-holder fadeIn">
-            <img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover15.jpg" />
+        <div class="background-image-holder-about fadeIn">
+            <img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/about-back.jpg" />
         </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h2 class="uppercase mb8">About</h2>
-                    <p class="lead mb0">It's not about brand, it's about style.</p>
+                    <h2 class="uppercase mb8 page-h2">About</h2>
+                    <p class="lead mb0 below">It's not about brand, it's about style.</p>
                 </div>
             </div>
             <!--end of row-->
@@ -19,29 +19,51 @@
         <!--end of container-->
     </section>
     <section>
-        <div class="container">
-            <div>
-                <h4>Having trouble mixing and matching outfits?</h4>
-                <h4>In search of perfect footwear for your party dress?</h4>
-                <h4>Need help dressing up for date night?</h4>
-                <p>No matter what type of styling trouble you are in, at Stylesensei, we always have your back! We are your go-to team to answer all your styling-related questions. From helping you choose the perfect dress for your body type and picking out the right scarf to go with your dress, we are the one stop solution for all your style and fashion problems. Our stylists are prompt and eager to help you with any fashion questions that you might have. So, whenever you have trouble picking up the right outfit, just call us out for help and we will get back to you in little time.</p>
-                <h5>Click here to take a look at the type of questions our styling team can answer for you!</h5>
-            </div>
 
-            <div>
-                <h4>How It Works?</h4>
-                <p>
-                    Is there a fashion emergency that you want to solve? Here’s how you can get connected to our styling experts:
-                    <ul>
-                        <li>- Log into Stylesensei with your social account or create an account.</li>
-                        <li>- Tell us your problem or ask us a question.</li>
-                        <li>- Attach a picture of the item in question if you want to.</li>
-                        <li>- Proceed with your payment via Paypal or credit/debit card.</li>
-                        <li>- Get an email notification once our team answers your questions.</li>
-                        <li>- Check back into your Stylesensei account to find our answer.</li>
-                    </ul>
-                </p>
+        <div class="arrow-style">
+            <span class="top-arr arrow"></span>
+            <div class="container first-about-block">
+                <div class="row">
+                    <div class="half left about-block">
+                        <img class="bigger-image" alt="Black dotted dress" src="{{ url()->to('/') }}/images/black-dot-dress.png" >
+                    </div>
+                    <div class="half left about-block">
+                        <h3 class="uppercase">In search of perfect footwear for your <span class="pink-text">party dress?</span></h3>
+                        <h4 class="uppercase">Having trouble <span class="pink-text">mixing and matching</span> outfits?</h4>
+                        <h5 class="uppercase">Need help dressing up <span class="pink-text">for date night?</span></h5>
+                        <p class="phrase"><span class="bold700">No matter what type of styling trouble you are in,</span> at Stylesensei, we always have your back!</p>
+                        <p>We are your go-to team to answer all your styling-related questions. From helping you choose the perfect dress for your body type and picking out the right scarf to go with your dress, we are the one stop solution for all your style and fashion problems. Our stylists are prompt and eager to help you with any fashion questions that you might have. So, whenever you have trouble picking up the right outfit, just call us out for help and we will get back to you in little time.</p>
+                        <p>Click here to take a look at the type of questions our styling team can answer for you!</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="half left about-block">
+                        <h3 class="uppercase"><span class="pink-text">How It</span> Works?</h3>
+                        <p>
+                            <span class="bold700 phrase">Is there a fashion emergency that you want to solve?</span><br>Here’s how you can get connected to our styling experts:
+                        <ul class="how-it-works">
+                            <li>Log into Stylesensei with your social account or create an account.</li>
+                            <li>Tell us your problem or ask us a question.</li>
+                            <li>Attach a picture of the item in question if you want to.</li>
+                            <li>Proceed with your payment via Paypal or credit/debit card.</li>
+                            <li>Get an email notification once our team answers your questions.</li>
+                            <li>Check back into your Stylesensei account to find our answer.</li>
+                        </ul>
+                        </p>
+                    </div>
+                    <div class="half left about-block">
+
+                    </div>
+                </div>
+                <div class="clearboth"></div>
             </div>
+            <span class="bottom-arr arrow"><img alt="Black dotted dress" src="{{ url()->to('/') }}/images/blond-woman.jpg" ></span>
+        </div>
+
+
+
+
+        <div class="container">
 
             <div>
                 <h4>Our Mission</h4>
