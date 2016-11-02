@@ -32,16 +32,20 @@
                     <div class="box-body box-profile">
                         @if(count($question->images) > 0)
                             @foreach($question->images as $image)
-                                <div class="col-md-4">
+                                <div class="col-md-12 margin-bottom">
                                     <a target="_blank" href="{{ url()->to('/').$image->path.$image->filename }}">
-                                        <img class="answer-question-image" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                        <img class="answer-question-image" src="{{ url()->to('/').'/photo/200x200/'.$image->filename }}">
                                     </a>
                                 </div>
                             @endforeach
+                                <div class="clearfix"></div>
                         @endif
                         <div class="question-date mt-15px">{{ date('Y, M d H:i', strtotime($question->updated_at)) }}</div>
                         <div class="question-ip">IP: {{ $question->ip }}</div>
                         <div class="question-body">{{ $question->question }}</div>
+                    </div>
+                    <div class="box-footer">
+                        <a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a>
                     </div>
                 </div>
             </div>

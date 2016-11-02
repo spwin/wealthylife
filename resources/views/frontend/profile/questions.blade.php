@@ -42,7 +42,7 @@
                                         <table class="table">
                                             @foreach($pending as $question)
                                                 <tr>
-                                                    <td class="text-left w170px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w180px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
@@ -80,7 +80,7 @@
                                         <table class="table">
                                             @foreach($answered as $question)
                                                 <tr class="{{ $question->answer->seen ? '' : 'bold' }}" >
-                                                    <td class="text-left w170px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w180px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
@@ -119,7 +119,7 @@
                                         <table class="table">
                                             @foreach($drafts as $question)
                                                 <tr>
-                                                    <td class="text-left w170px" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w180px" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
@@ -168,7 +168,7 @@
                                         <table class="table">
                                             @foreach($rejected as $question)
                                                 <tr>
-                                                    <td class="text-left w170px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w180px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
@@ -186,7 +186,7 @@
                                         <p>You have no rejected questions.</p>
                                     @endif
                                     <div class="paginator">
-                                        {{ $rejected->fragment('rejected')->links() }}
+                                        {{ $rejected->fragment('pending')->links() }}
                                     </div>
                                 </div>
                             </li>

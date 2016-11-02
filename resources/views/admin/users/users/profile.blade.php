@@ -442,7 +442,7 @@
                                                 <td class="w300px">
                                                     @if(count($question->images) > 0)
                                                         @foreach($question->images as $image)
-                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                                         @endforeach
                                                     @else
                                                         <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
@@ -477,7 +477,7 @@
                                                 <td class="w300px">
                                                     @if(count($question->images) > 0)
                                                         @foreach($question->images as $image)
-                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                                         @endforeach
                                                     @else
                                                         <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
@@ -512,7 +512,7 @@
                                                 <td class="w300px">
                                                     @if(count($question->images) > 0)
                                                         @foreach($question->images as $image)
-                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                                         @endforeach
                                                     @else
                                                         <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
@@ -547,7 +547,7 @@
                                                 <td class="w300px">
                                                     @if(count($question->images) > 0)
                                                         @foreach($question->images as $image)
-                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                                         @endforeach
                                                     @else
                                                         <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">

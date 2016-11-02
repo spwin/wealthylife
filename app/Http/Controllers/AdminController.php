@@ -534,7 +534,6 @@ class AdminController extends Controller
                 $q->orWhereRaw('LOWER(email) LIKE ?', array('%'.$search.'%'));
 
             })->orderBy('users.created_at', 'DESC')->get();
-            //$users = User::with('userData')->join('user_data', 'user_data.user_id', '=', 'users.id')->where(['type' => 'user'])->whereRaw('LOWER(first_name) LIKE ?', array('%'.$search.'%'))->orWhereRaw('LOWER(last_name) LIKE ?', array('%'.$search.'%'))->orWhereRaw('LOWER(email) LIKE ?', array('%'.$search.'%'))->orderBy('users.created_at', 'DESC')->get();
         } else {
             $users = User::with('userData')->where(['type' => 'user'])->orderBy('created_at', 'DESC')->get();
         }

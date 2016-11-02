@@ -104,10 +104,23 @@ class ConsultantController extends Controller
         ]);
     }
 
-    public function listUsers(){
-        $users = User::with('userData')->where(['type' => 'user'])->orderBy('created_at', 'DESC')->get();
+    public function listUsers(Request $request){
+        $key = '';
+        if($request->has('search') && $search = strtolower($request->get('search'))){
+            $key = $search;
+            $users = User::with('userData')->where(['type' => 'user'])->whereHas('userData', function($q) use($search)
+            {
+                $q->whereRaw('LOWER(first_name) LIKE ?', array('%'.$search.'%'));
+                $q->orWhereRaw('LOWER(last_name) LIKE ?', array('%'.$search.'%'));
+                $q->orWhereRaw('LOWER(email) LIKE ?', array('%'.$search.'%'));
+
+            })->orderBy('users.created_at', 'DESC')->get();
+        } else {
+            $users = User::with('userData')->where(['type' => 'user'])->orderBy('created_at', 'DESC')->get();
+        }
         return view('consultant/users/list')->with([
-            'users' => $users
+            'users' => $users,
+            'search' => $key
         ]);
     }
 

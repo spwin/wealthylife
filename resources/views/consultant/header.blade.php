@@ -74,12 +74,6 @@
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="{{ Auth::guard('consultant')->user()->type == 'admin' ?
-                                        action('AdminController@detailsAdmin', Auth::guard('consultant')->user()->id) :
-                                        action('AdminController@detailsConsultant', Auth::guard('consultant')->user()->id) }}"
-                                   class="btn btn-default btn-flat">Profile</a>
-                            </div>
                             <div class="pull-right">
                                 <a href="{{ action('Auth\AuthController@getConsultantLogout') }}" class="btn btn-default btn-flat">Sign out</a>
                             </div>

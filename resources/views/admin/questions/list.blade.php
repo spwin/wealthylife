@@ -36,8 +36,6 @@
                             <th>Question</th>
                             <th>User</th>
                             <th>Consultant</th>
-                            <th>IP</th>
-                            <th class="w60px">{{ $stat == 1 ? 'Paid' : 'Seen' }}</th>
                             <th class="w100px">Action</th>
                         </tr>
                         </thead>
@@ -48,7 +46,7 @@
                                     <td class="w300px">
                                         @if(count($question->images) > 0)
                                             @foreach($question->images as $image)
-                                                <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                             @endforeach
                                         @else
                                             <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
@@ -57,8 +55,6 @@
                                     <td>{{ $question->question }}</td>
                                     <td><a href="{{ action('AdminController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a></td>
                                     <td><a href="{{ action('AdminController@detailsConsultant', ['id' => $question->consultant()->first()->id]) }}">{{ $question->consultant()->first()->email }}</a></td>
-                                    <td>{{ $question->ip }}</td>
-                                    <td class="w100px">{{ $question->answer ? ($question->answer->seen ? 'YES' : 'NO') : 'NO' }}</td>
                                     <td class="w100px">
                                         @if($question->status == 2)
                                             <a href="{{ action('AdminController@showAnswer', ['id' => $question->answer->id]) }}" class="btn btn-primary">Show answer</a>
