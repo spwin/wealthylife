@@ -13,7 +13,7 @@
                                 @include('frontend/elements/question')
                             </div>
                         </div>
-                        <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@questions', [$question->status == 1 ? '#pending' : '#answered']) }}"><i class="ti-arrow-left"></i> Back</a></h4>
+                        <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@questions', [$question->status == 1 ? '#pending' : ($question->status == 3 ? '#rejected' : '#answered')]) }}"><i class="ti-arrow-left"></i> Back</a></h4>
                         @if (Session::has('flash_notification.answer.message'))
                             <div class="alert alert-{{ Session::get('flash_notification.answer.level') }} alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -45,6 +45,11 @@
                         @if($answer)
                             <h4 class="uppercase mb16">Answer</h4>
                             {!! $answer->answer !!}
+                        @elseif($question->status == 3)
+                            <h4>Sorry, Your question was rejected.</h4>
+                            <h5 class="mb-0px">Reason:</h5>
+                            <p>{{ $question->rejection }}</p>
+                            <p>Your credits were refunded to your balance.</p>
                         @else
                             <h4 class="uppercase mb16">The answer is not ready yet, we are working on it.</h4>
                         @endif

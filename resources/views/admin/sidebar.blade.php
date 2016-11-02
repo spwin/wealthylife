@@ -41,6 +41,12 @@
                     <span>Answers</span>
                 </a>
             </li>
+            <li class="{{ (Request::is('admin/rejections*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@rejections') }}">
+                    <i class="fa fa-ban"></i>
+                    <span>Rejections </span>
+                </a>
+            </li>
             <li class="{{ (Request::is('admin/users*') ? 'active' : '') }} treeview">
                 <a href="#">
                     <i class="fa fa-users"></i>

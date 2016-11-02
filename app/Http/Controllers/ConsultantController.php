@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Answers;
 use App\Payroll;
 use App\Questions;
+use App\Settings;
 use App\User;
 use App\UserData;
+use App\Helpers\Helpers;
 use App\Helpers\consultantSlot;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Laracasts\Flash\Flash;
 
 class ConsultantController extends Controller
 {
@@ -152,6 +155,16 @@ class ConsultantController extends Controller
         ]);
     }
 
+    public function listRejected(){
+        $consultant = Auth::guard('consultant')->user();
+        $questions = Questions::where(['status' => 3, 'consultant_id' => $consultant->id])->orderBy('asked_at', 'DESC')->paginate(20);
+        return view('consultant/questions/list')->with([
+            'questions' => $questions,
+            'status' => 'Rejected',
+            'stat' => 3
+        ]);
+    }
+
     public function answerQuestion($id){
         $question = Questions::findOrFail($id);
         return view('consultant/questions/answer')->with([
@@ -183,6 +196,13 @@ class ConsultantController extends Controller
         ]);
     }
 
+    public function rejectionPreview($id){
+        $question = Questions::findOrFail($id);
+        return view('consultant/questions/rejection')->with([
+            'question' => $question
+        ]);
+    }
+
     public function answerSend($id){
         $answer = Answers::findOrFail($id);
         $current = Payroll::where(['current' => 1])->first();
@@ -204,5 +224,21 @@ class ConsultantController extends Controller
             $pending = Questions::where(['consultant_id' => $user->id, 'status' => 1])->count();
         }
         return json_encode(['pending' => $pending]);
+    }
+
+    public function rejectQuestion(Request $request, $id){
+        $question = Questions::findOrFail($id);
+        $reason = $request->get('reason');
+        $question->rejection = $reason;
+        $question->status = 3;
+        $question->save();
+        if($user = User::findOrFail($question->user_id)){
+            $price = Settings::select('value')->where(['name' => 'question_price'])->first();
+            $user->points = $user->points + $price->value;
+            $user->save();
+            Helpers::sendNotification('notifications.question.rejected.', $user, ['reason' => $reason, 'credits' => $price->value, 'link' => action('FrontendController@viewAnswer', ['id' => $question->id])]);
+        }
+        Flash::warning('The question was rejected and credits were returned to user');
+        return Redirect::action('ConsultantController@listPending');
     }
 }

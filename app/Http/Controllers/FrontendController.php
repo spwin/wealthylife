@@ -313,11 +313,13 @@ class FrontendController extends Controller
             $pending = $user->questions()->with('images')->where(['status' => 1])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'pending_page', null);
             $answered = $user->questions()->with('images')->where(['status' => 2])->orderBy('answered_at', 'DESC')->paginate($per_page, ['*'], 'answered_page', null);
             $drafts = $user->questions()->with('images')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
+            $rejected = $user->questions()->with('images')->where(['status' => 3])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'rejected_page', null);
             return view('frontend/profile/questions')->with([
                 'user' => $user,
                 'pending' => $pending,
                 'answered' => $answered,
-                'drafts' => $drafts
+                'drafts' => $drafts,
+                'rejected' => $rejected
             ]);
         }
         return Redirect::action('FrontendController@index');

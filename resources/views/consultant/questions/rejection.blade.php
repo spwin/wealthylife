@@ -2,11 +2,11 @@
 @section('content-header')
     <h1>
         Preview
-        <small>answer</small>
+        <small>rejection</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ action('ConsultantController@index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ action('ConsultantController@listPending') }}">Pending</a></li>
+        <li><a href="{{ action('ConsultantController@listRejected') }}">Rejected</a></li>
         <li class="active">Preview</li>
     </ol>
 @stop
@@ -56,28 +56,14 @@
                 <div class="box-body box-profile">
                     <div class="box-header">
                         <i class="fa fa-question-circle-o"></i>
-                        <h3 class="box-title">Answer</h3>
+                        <h3 class="box-title">Rejection reason</h3>
                     </div>
                     <div class="box-body box-profile">
-                        {!! $answer->answer !!}
+                        {!! $question->rejection !!}
                     </div>
-                    @if($answer->question()->first()->status == 1)
-                        <div class="box-footer">
-                            {!! Form::open([
-                                'role' => 'form',
-                                'url' => action('ConsultantController@answerSend', ['id' => $answer->id]),
-                                'method' => 'POST',
-                                'class' => 'inline'
-                            ]) !!}
-                            <button type="submit" class="btn btn-lg btn-success"><i class="fa fa-letter"></i> Send</button>
-                            {!! Form::close() !!}
-                            <a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-lg btn-default">Edit</a>
-                        </div>
-                    @else
-                        <div class="box-footer">
-                            <a href="{{ action('ConsultantController@listAnswered') }}" class="btn btn-default">Back to list</a>
-                        </div>
-                    @endif
+                    <div class="box-footer">
+                        <a href="{{ action('ConsultantController@listRejected') }}" class="btn btn-default">Back to list</a>
+                    </div>
                 </div>
             </div>
         </div>

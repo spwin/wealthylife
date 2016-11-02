@@ -855,7 +855,7 @@ class AdminController extends Controller
 
     public function answers(){
         $questions = Questions::where(['status' => 2])->orderBy('asked_at', 'DESC')->paginate(10);
-        return view('admin/answers/list')->with([
+        return view('admin/questions/list')->with([
             'questions' => $questions,
             'status' => 'Answered',
             'stat' => 2
@@ -864,9 +864,25 @@ class AdminController extends Controller
 
     public function showAnswer($id){
         $answer = Answers::findOrFail($id);
-        return view('admin/answers/show')->with([
+        return view('admin/questions/answer')->with([
             'answer' => $answer,
             'question' => $answer->question()->first()
+        ]);
+    }
+
+    public function rejections(){
+        $questions = Questions::where(['status' => 3])->orderBy('asked_at', 'DESC')->paginate(10);
+        return view('admin/questions/list')->with([
+            'questions' => $questions,
+            'status' => 'Rejected',
+            'stat' => 3
+        ]);
+    }
+
+    public function showRejection($id){
+        $question = Questions::findOrFail($id);
+        return view('admin/questions/rejection')->with([
+            'question' => $question
         ]);
     }
 

@@ -84,6 +84,38 @@
                         @endif
                     </div>
                 </div>
+                <div class="box-footer">
+                    <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#rejectionReason">
+                        Reject question
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="rejectionReason" tabindex="-1" role="dialog" aria-labelledby="rejectionReason">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                {!! Form::open([
+                                    'role' => 'form',
+                                    'url' => action('ConsultantController@rejectQuestion', ['id' => $question->id]),
+                                    'method' => 'POST'
+                                ]) !!}
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Rejection reason</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Credits will be returned to user after rejection.</h4>
+                                    <div class="form-group"><span class="text-danger">*</span>
+                                        {!! Form::label('reason', 'Please enter rejection reason here:') !!}
+                                        {!! Form::textarea('reason', null, ['class' => 'form-control', 'placeholder' => 'Rejection reason', 'size' => '30x4', 'id' => 'reject-reason', 'required' => true]) !!}
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Reject</button>
+                                </div>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="box box-success">
                 <div class="box-header">

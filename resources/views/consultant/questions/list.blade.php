@@ -66,6 +66,8 @@
                                     <td class="w100px">
                                         @if($question->status == 1)
                                             <a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-success">Answer</a>
+                                        @elseif($question->status == 3)
+                                            <a href="{{ action('ConsultantController@rejectionPreview', $question->id) }}" class="btn btn-primary">Check reason</a>
                                         @else
                                             <a href="{{ action('ConsultantController@answerPreview', $question->answer()->first() ? $question->answer()->first()->id : '') }}" class="btn btn-primary">Show answer</a>
                                         @endif

@@ -177,8 +177,11 @@ Route::group(['middleware' => ['ip']], function () {
         Route::group(['prefix' => 'questions'], function () {
             Route::get('pending', 'ConsultantController@listPending');
             Route::get('answered', 'ConsultantController@listAnswered');
+            Route::get('rejected', 'ConsultantController@listRejected');
             Route::get('pending/{id}/answer', 'ConsultantController@answerQuestion');
             Route::get('{id}/preview', 'ConsultantController@answerPreview');
+            Route::get('rejected/{id}/rejection', 'ConsultantController@rejectionPreview');
+            Route::post('pending/{id}/reject', 'ConsultantController@rejectQuestion');
             Route::post('pending/{id}/save', 'ConsultantController@answerSave');
             Route::post('pending/{id}/send', 'ConsultantController@answerSend');
         });
@@ -246,6 +249,10 @@ Route::group(['middleware' => ['ip']], function () {
         Route::group(['prefix' => 'answers'], function () {
             Route::get('/', 'AdminController@answers');
             Route::get('preview/{id}', 'AdminController@showAnswer');
+        });
+        Route::group(['prefix' => 'rejections'], function () {
+            Route::get('/', 'AdminController@rejections');
+            Route::get('preview/{id}', 'AdminController@showRejection');
         });
         Route::group(['prefix' => 'phrases'], function () {
             Route::get('/', 'AdminController@phrases');

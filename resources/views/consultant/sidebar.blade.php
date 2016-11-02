@@ -50,6 +50,7 @@
                 <ul class="treeview-menu">
                     <li class="{{ (Request::is('consultant/questions/pending*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listPending') }}"><i class="fa fa-circle-o"></i> Pending</a></li>
                     <li class="{{ (Request::is('consultant/questions/answered*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listAnswered') }}"><i class="fa fa-circle-o"></i> Answered</a></li>
+                    <li class="{{ (Request::is('consultant/questions/rejected*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listRejected') }}"><i class="fa fa-circle-o"></i> Rejected</a></li>
                 </ul>
             </li>
             <li class="{{ (Request::is('consultant/timetable*') ? 'active' : '') }}">

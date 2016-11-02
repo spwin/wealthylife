@@ -12,7 +12,7 @@ class Questions extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'consultant_id', 'question', 'status', 'ip', 'image_id', 'asked_at', 'answered_at'
+        'user_id', 'consultant_id', 'question', 'status', 'ip', 'image_id', 'asked_at', 'answered_at', 'rejection'
     ];
 
     public function user(){
@@ -20,7 +20,7 @@ class Questions extends Model
     }
 
     public function consultant(){
-        return $this->hasOne('App\User', 'consultant_id', 'id');
+        return $this->hasOne('App\User', 'id', 'consultant_id');
     }
 
     public function images(){
