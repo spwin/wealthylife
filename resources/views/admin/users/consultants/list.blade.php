@@ -52,7 +52,13 @@
                             @php($average = array())
                             <tr>
                                 <td>{{ $user->id }}</td>
-                                <td><i class="fa fa-circle text-success"></i> Online</td>
+                                <td>
+                                    @if($user->disable)
+                                        <i class="fa fa-circle text-warning"></i> Paused
+                                    @else
+                                        <i class="fa fa-circle text-success"></i> Active
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ action('AdminController@detailsConsultant', $user->id) }}">
                                         {{ $user->userData->first_name }} {{ $user->userData->last_name }}

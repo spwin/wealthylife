@@ -128,7 +128,7 @@ class ConsultantSlot
 
     public function getRightConsultant(){
         date_default_timezone_set("Europe/London");
-        $consultants = User::where(['type' => 'consultant'])->get();
+        $consultants = User::where(['type' => 'consultant', 'disable' => 0])->get();
         $result = false;
         $now = time();
         $current = '9999999999';
@@ -146,14 +146,14 @@ class ConsultantSlot
             }
         }
         if(!$result){
-            $result = User::where(['type' => 'consultant'])->inRandomOrder()->first();
+            $result = User::where(['type' => 'consultant', 'disable' => 0])->inRandomOrder()->first();
         }
         return $result;
     }
 
     public function getExpectedTime(){
         date_default_timezone_set("Europe/London");
-        $consultants = User::where(['type' => 'consultant'])->get();
+        $consultants = User::where(['type' => 'consultant', 'disable' => 0])->get();
         $now = time();
         $current = '9999999999';
         $found = false;

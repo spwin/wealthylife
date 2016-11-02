@@ -491,7 +491,7 @@ class FrontendController extends Controller
             $sitemap->add(URL::to('soon'), date('c', time()), '1.0', 'weekly');
 
             /*$sitemap->add(URL::to('/'), date('c', time()), '1.0', 'weekly');
-            $sitemap->add(URL::action('FrontendController@blog'), date('c', time()), '1.0', 'daily');
+            $sitemap->add(URL::action('FrontendController@blog'), date('c', time()), '1.0', 'hourly');
             $sitemap->add(URL::action('FrontendController@about'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@team'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@contacts'), date('c', time()), '1.0', 'weekly');
@@ -599,24 +599,51 @@ class FrontendController extends Controller
         }
     }
 
-    public function ajaxCheckAnswerTime(Request $request){
+    function getDayTime($hour){
+        if($hour < 12){
+            $response = ' Morning';
+        } elseif($hour < 17){
+            $response = ' Afternoon';
+        } elseif($hour < 21){
+            $response = ' Evening';
+        } else {
+            $response = ' Night';
+        }
+        return $response;
+    }
+
+    function getExpectedTimeString($time){
+        $now = time();
+        $today = date('Ymd');
+        $hour = date('H', $time);
+        $answer_day = date('Ymd', $time);
+        $tomorrow = date('Ymd', strtotime('tomorrow'));
+        $hours_diff = ceil(($time - $now)/3600);
+        if($today == $answer_day){
+            if($hours_diff < 1){
+                $response = 'In an hour';
+            } elseif($hours_diff < 5) {
+                $response = 'Within a few hours';
+            } else {
+                $response = 'This'.$this->getDayTime($hour);
+            }
+        } elseif($tomorrow == $answer_day){
+            $response = 'Tomorrow'.$this->getDayTime($hour);
+        } elseif($time < strtotime("+7 day")){
+            $response = date('l', $time).$this->getDayTime($hour);
+        } else {
+            $response = date('F j', $time).$this->getDayTime($hour);
+        }
+        return $response;
+    }
+
+    public function ajaxCheckAnswerTime(){
+        date_default_timezone_set("Europe/London");
         $slotCalculator = new consultantSlot;
         $time = $slotCalculator->getExpectedTime();
         $response = 'Unable to calculate, sorry';
         if($time){
-            $today = date('Ymd');
-            $hours = date('H:i', $time);
-            $answer_day = date('Ymd', $time);
-            $tomorrow = date('Ymd', strtotime('tomorrow'));
-            if($today == $answer_day){
-                $response = 'Today, '.$hours;
-            } elseif($tomorrow == $answer_day){
-                $response = 'Tomorrow, '.$hours;
-            } elseif($time < strtotime("+7 day")){
-                $response = date('l', $time).', '.$hours;
-            } else {
-                $response = date('F j, H:i', $time);
-            }
+            $response = $this->getExpectedTimeString($time);
         }
         return json_encode($response);
     }

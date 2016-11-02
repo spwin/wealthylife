@@ -25,7 +25,7 @@ var questionNotification = function(){
                         $('body').prepend('<div class="ajax-notification"><div class="new-messages">'+(data.pending - pending)+' new question</div><div class="pending-message">Pending ('+(data.pending)+')</div></div>');
                         setTimeout(function(){
                             $('.ajax-notification').fadeOut(300, function() { $(this).remove(); });
-                        },2000);
+                        },7000);
                         audio.play();
                         pending = data.pending;
                     }

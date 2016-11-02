@@ -214,6 +214,7 @@ Route::group(['middleware' => ['ip']], function () {
                 Route::post('update-timetable/{id}', 'AdminController@updateConsultantTimetable');
                 Route::post('update-login/{id}/{type}', 'AdminController@updateConsultantLogin');
                 Route::delete('delete-profile/{id}', 'AdminController@destroyConsultant');
+                Route::post('disable-profile/{id}/{disable}', 'AdminController@disableConsultant');
             });
             Route::group(['prefix' => 'users'], function () {
                 Route::get('list', 'AdminController@listUsers');
@@ -225,6 +226,7 @@ Route::group(['middleware' => ['ip']], function () {
                 Route::post('update-login/{id}/{type}', 'AdminController@updateUserLogin');
                 Route::post('force-login', 'AdminController@forceLoginUser');
                 Route::delete('delete-profile/{id}', 'AdminController@destroyUser');
+                Route::post('disable-profile/{id}/{disable}', 'AdminController@disableUser');
             });
         });
         Route::group(['prefix' => 'articles'], function () {

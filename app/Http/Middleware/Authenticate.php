@@ -50,6 +50,11 @@ class Authenticate
                         break;
                 }
             }
+            if($role == 'user' && $current == $role && Auth::guard($role)->user()->disable == 1){
+                Session::flash('flash_notification.suspended.message', 'Your account has been suspended! Please contact us for details at info@stylesensei.co.uk');
+                Session::flash('flash_notification.suspended.level', 'danger');
+                return redirect()->action('FrontendController@index');
+            }
         }
 
         return $next($request);

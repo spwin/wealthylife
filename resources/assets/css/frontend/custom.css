@@ -17,7 +17,12 @@
     transition: none;
     margin-left: 16px;
     padding: 0;
-}/*
+}
+.alert-filled{
+    background-color: #c64444;
+    color: #FFFFFF;
+}
+/*
 .profile-dropdown:after {
     position: absolute;
     top: 0;

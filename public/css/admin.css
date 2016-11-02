@@ -9707,4 +9707,13 @@ tr.periods {
 .ajax-notification .new-messages {
   font-weight: bold; }
 
+.inline-block {
+  display: inline-block; }
+
+.push-left {
+  float: left; }
+
+.push-right {
+  float: right; }
+
 /*# sourceMappingURL=admin.css.map */

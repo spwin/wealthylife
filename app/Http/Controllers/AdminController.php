@@ -1180,4 +1180,22 @@ class AdminController extends Controller
         Flash::success($credits.' credits have been successfully added for user '.$user->email.'. Current balance: '.$user->points);
         return Redirect::action('AdminController@detailsUser', ['id' => $user->id, 't' => 5]);
     }
+
+    public function disableConsultant($id, $disable){
+        if($consultant = User::where(['type' => 'consultant', 'id' => $id])->first()){
+            $consultant->disable = $disable;
+            $consultant->save();
+        }
+        Flash::success('Consultant profile has been '.($disable ? 'disabled' : 'enabled'));
+        return Redirect::action('AdminController@listConsultants');
+    }
+
+    public function disableUser($id, $disable){
+        if($user = User::where(['type' => 'user', 'id' => $id])->first()){
+            $user->disable = $disable;
+            $user->save();
+        }
+        Flash::success('User profile has been '.($disable ? 'disabled' : 'enabled'));
+        return Redirect::action('AdminController@detailsUser', $user->id);
+    }
 }

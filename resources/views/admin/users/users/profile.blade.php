@@ -31,20 +31,23 @@
 
                     <p class="text-muted text-center">{{ $user->email }}</p>
 
-                        {!! Form::open([
-                        'method' => 'POST',
-                        'target' => '_blank',
-                        'action' => ['AdminController@forceLoginUser']
-                        ]) !!}
-                        {!! Form::hidden('id', $user->id) !!}
-                        <p class="text-center">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login as this user</button>
-                        </p>
-                        {!! Form::close() !!}
+                    {!! Form::open([
+                    'method' => 'POST',
+                    'target' => '_blank',
+                    'action' => ['AdminController@forceLoginUser']
+                    ]) !!}
+                    {!! Form::hidden('id', $user->id) !!}
+                    <p class="text-center">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login as this user</button>
+                    </p>
+                    {!! Form::close() !!}
 
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
                             <b>ID</b> <span class="pull-right">#{{ $user->id }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Account</b> <span class="badge bg-{{ $user->disable == 1 ? 'red' : 'green' }} pull-right">{{ $user->disable == 1 ? 'suspended' : 'active' }}</span>
                         </li>
                         <li class="list-group-item">
                             <b>Balance</b> <span class="pull-right">£ {{ $user->points }}</span>
@@ -69,9 +72,22 @@
                         {!! Form::open([
                         'method' => 'DELETE',
                         'action' => ['AdminController@destroyUser', $user->id],
-                        'onclick'=> 'return confirm("Are you sure?")'
+                        'onclick'=> 'return confirm("Are you sure?")',
+                        'class' => 'push-left inline-block'
                         ]) !!}
                             <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete profile</button>
+                        {!! Form::close() !!}
+
+                        {!! Form::open([
+                        'method' => 'POST',
+                        'action' => ['AdminController@disableUser', $user->id, $user->disable ? 0 : 1],
+                        'class' => 'push-right inline-block'
+                        ]) !!}
+                        @if($user->disable)
+                            <button type="submit" class="btn btn-success">Activate</button>
+                        @else
+                            <button type="submit" class="btn btn-warning"><i class="fa fa-ban"></i> Suspend</button>
+                        @endif
                         {!! Form::close() !!}
                     </div>
                 </div>

@@ -42,9 +42,21 @@
                     {!! Form::open([
                     'method' => 'DELETE',
                     'action' => ['AdminController@destroyConsultant', $user->id],
-                    'onclick'=> 'return confirm("Are you sure?")'
+                    'onclick'=> 'return confirm("Are you sure?")',
+                    'class' => 'push-left inline-block'
                     ]) !!}
-                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete profile</button>
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                    {!! Form::close() !!}
+                    {!! Form::open([
+                    'method' => 'POST',
+                    'action' => ['AdminController@disableConsultant', $user->id, $user->disable ? 0 : 1],
+                    'class' => 'push-right inline-block'
+                    ]) !!}
+                    @if($user->disable)
+                        <button type="submit" class="btn btn-success">Enable</button>
+                    @else
+                        <button type="submit" class="btn btn-warning"><i class="fa fa-ban"></i> Disable</button>
+                    @endif
                     {!! Form::close() !!}
                 </div>
                 <!-- /.box-body -->

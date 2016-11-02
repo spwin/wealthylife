@@ -44,6 +44,7 @@
                                 <th></th>
                                 <th>ID</th>
                                 <th>Gender</th>
+                                <th>Status</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Questions</th>
@@ -59,6 +60,13 @@
                                 <td><i class="fa fa-angle-right hov-icon"></i></td>
                                 <td>#{{ $user->id }}</td>
                                 <td><i class="fa fa-{{ $user->userData()->first()->gender == 'male' ? 'mars' : ($user->userData()->first()->gender == null ? 'genderless' : 'venus') }}"></i></td>
+                                <td>
+                                    @if($user->disable)
+                                        <i class="fa fa-circle text-danger"></i> Suspended
+                                    @else
+                                        <i class="fa fa-circle text-success"></i> Active
+                                    @endif
+                                </td>
                                 <td>{{ $user->userData()->first()->first_name }} {{ $user->userData()->first()->last_name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->questions() ? $user->questions()->count() : 0 }}</td>

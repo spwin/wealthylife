@@ -12,6 +12,14 @@
             <li class="image-bg overlay">
                 <div class="container v-align-transform">
                     <div class="row">
+                        @if (Session::has('flash_notification.suspended.message'))
+                            <div class="alert alert-{{ Session::get('flash_notification.suspended.level') }} alert-filled" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                {{ Session::get('flash_notification.suspended.message') }}
+                            </div>
+                        @endif
                         <div class="col-sm-12 text-center">
                             @if($phrase)
                                 <h1 class="large" style="{{ $phrase->style }}">{!! $phrase->text !!}</h1>
