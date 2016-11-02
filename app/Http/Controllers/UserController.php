@@ -1293,4 +1293,11 @@ class UserController extends Controller
         Session::flash('flash_notification.feedback.level', 'success');
         return Redirect::action($this->getRoute());
     }
+
+    public function markNotifications(){
+        if($user = Auth::guard('user')->user()){
+            DB::table('notifications')->where('user_id', $user->id)->update(['seen' => 1]);
+        }
+        return Redirect::action('FrontendController@notifications');
+    }
 }

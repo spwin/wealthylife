@@ -129,6 +129,7 @@ Route::group(['middleware' => ['ip']], function () {
         Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
         Route::get('{id}/view-answer', 'FrontendController@viewAnswer');
         Route::get('notifications', 'FrontendController@notifications');
+        Route::get('notifications/mark-as-read', 'UserController@markNotifications');
         Route::get('notifications/{id}', 'FrontendController@showNotification');
         Route::get('questions', 'FrontendController@questions');
         Route::get('{id}/question', 'FrontendController@viewQuestion');
