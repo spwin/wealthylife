@@ -639,7 +639,6 @@ class FrontendController extends Controller
     }
 
     public function ajaxCheckAnswerTime(){
-        date_default_timezone_set("Europe/London");
         $slotCalculator = new consultantSlot;
         $time = $slotCalculator->getExpectedTime();
         $response = 'Unable to calculate, sorry';

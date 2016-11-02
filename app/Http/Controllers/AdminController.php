@@ -573,7 +573,7 @@ class AdminController extends Controller
     {
         $result = DB::table('questions')
             ->where('id', $id)
-            ->update(array('status' => 1));
+            ->update(array('status' => 1, 'asked_at' => date('Y-m-d H:i:s', time())));
         if ($result){
             Flash::success('Question #' . $id . ' has been successfully marked as paid.');
         } else {
@@ -852,12 +852,22 @@ class AdminController extends Controller
         ]);
     }
 
-    public function answers(){
-        $questions = Questions::where(['status' => 2])->orderBy('asked_at', 'DESC')->paginate(10);
+    public function answers(Request $request){
+        $key = '';
+        if($request->has('search') && $search = strtolower($request->get('search'))){
+            $key = $search;
+            $questions = Questions::where(['status' => 2])
+                ->whereRaw('LOWER(question) LIKE ?', array('%'.$search.'%'))->orderBy('asked_at', 'ASC')->paginate(20);
+        } else {
+            $questions = Questions::where(['status' => 2])->orderBy('asked_at', 'DESC')->paginate(20);
+        }
+        $routes = ['2' => 'answers', '3' => 'rejections'];
         return view('admin/questions/list')->with([
             'questions' => $questions,
             'status' => 'Answered',
-            'stat' => 2
+            'stat' => 2,
+            'routes' => $routes,
+            'search' => $key
         ]);
     }
 
@@ -869,12 +879,22 @@ class AdminController extends Controller
         ]);
     }
 
-    public function rejections(){
-        $questions = Questions::where(['status' => 3])->orderBy('asked_at', 'DESC')->paginate(10);
+    public function rejections(Request $request){
+        $key = '';
+        if($request->has('search') && $search = strtolower($request->get('search'))){
+            $key = $search;
+            $questions = Questions::where(['status' => 3])
+                ->whereRaw('LOWER(question) LIKE ?', array('%'.$search.'%'))->orderBy('asked_at', 'ASC')->paginate(20);
+        } else {
+            $questions = Questions::where(['status' => 3])->orderBy('asked_at', 'DESC')->paginate(20);
+        }
+        $routes = ['2' => 'answers', '3' => 'rejections'];
         return view('admin/questions/list')->with([
             'questions' => $questions,
             'status' => 'Rejected',
-            'stat' => 3
+            'stat' => 3,
+            'routes' => $routes,
+            'search' => $key
         ]);
     }
 

@@ -9533,7 +9533,7 @@ table.text-center, table.text-center td, table.text-center th {
   width: 200px; }
 
 .admin-user-questions {
-  max-width: 100px;
+  max-width: 95px;
   max-height: 100px; }
 
 .table-hover.users-table > tbody > tr:hover {

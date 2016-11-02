@@ -69,9 +69,8 @@
                                 <td>{{ $user->answers()->where(['payroll_id' => $current->id])->count() }}</td>
                                 @foreach($user->questions()->join('answers', 'answers.question_id', '=', 'questions.id')
                                         ->where(['answers.payroll_id' => $current->id, 'questions.status' => 2])->get() as $question)
-                                    @php($average[] = round(abs(strtotime($question->answered_at) - strtotime($question->asked_at)) / 60,2))
                                 @endforeach
-                                <td>{{ count($average) > 0 ? round(array_sum($average) / count($average), 2).' min' : '-' }}</td>
+                                <td>-</td>
                                 @php($total += ($price->value * $user->answers()->where(['payroll_id' => $current->id])->count()))
                                 <td>{{ $price->value * $user->answers()->where(['payroll_id' => $current->id])->count() }}</td>
                             </tr>

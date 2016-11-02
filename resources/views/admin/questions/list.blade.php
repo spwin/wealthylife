@@ -25,6 +25,15 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">{{ $status }}</h3>
+                    {!! Form::open([
+                        'role' => 'form',
+                        'url' => action('AdminController@'.$routes[$stat]),
+                        'files' => true,
+                        'method' => 'GET'
+                    ]) !!}
+                    {!! Form::text('search', $search, ['class' => 'form-control w200px inline']) !!}
+                    <input type="submit" value="Search" class="btn btn-sm btn-default">
+                    {!! Form::close() !!}
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
