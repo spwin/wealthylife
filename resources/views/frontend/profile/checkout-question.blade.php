@@ -34,6 +34,14 @@
                             <div class="clear"></div>
                         </div>
                         <hr class="visible-xs">
+                        @if (Session::has('flash_notification.question.message'))
+                            <div class="alert alert-{{ Session::get('flash_notification.question.level') }} alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                {{ Session::get('flash_notification.question.message') }}
+                            </div>
+                        @endif
                         {!! Form::open([
                             'role' => 'form',
                             'url' => action('UserController@processQuestion', ['id' => $question->id]),

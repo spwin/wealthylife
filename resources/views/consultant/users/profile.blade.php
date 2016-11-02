@@ -232,6 +232,14 @@
                                     @endif
                                 </a>
                             </li>
+                            <li class="">
+                                <a href="#questions_4" data-toggle="tab" aria-expanded="false">
+                                    Rejected
+                                    @if($user->questions() && $user->questions()->where(['status' => 3])->count() > 0)
+                                        (<span class="numbers">{{ $user->questions()->where(['status' => 3])->count() }}</span>)
+                                    @endif
+                                </a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="questions_1">
@@ -337,6 +345,40 @@
                                 </table>
                             </div>
                             <!-- /.tab-pane -->
+                            <div class="tab-pane" id="questions_4">
+                                <table id="questions-rejected" class="table table-bordered table-hover scripted-table">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Question</th>
+                                        <th class="w60px">Date</th>
+                                        <th class="w100px">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if($user->questions() && $user->questions()->where(['status' => 3])->count() > 0)
+                                        @foreach($user->questions()->where(['status' => 3])->get() as $question)
+                                            <tr>
+                                                <td class="w40px">#{{ $question->id }}</td>
+                                                <td class="w300px">
+                                                    @if(count($question->images) > 0)
+                                                        @foreach($question->images as $image)
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                        @endforeach
+                                                    @else
+                                                        <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                                    @endif
+                                                </td>
+                                                <td>{{ $question->question }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
+                                                <td class="w100px"><a href="{{ action('ConsultantController@rejectionPreview', ['id' => $question->id]) }}" class="btn btn-primary">Check reason</a></td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.tab-content -->
                     </div>

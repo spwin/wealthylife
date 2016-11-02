@@ -15,6 +15,7 @@ use App\Questions;
 use App\Settings;
 use App\User;
 use App\UserData;
+use Braintree\Exception;
 use Illuminate\Http\Request;
 use App\Helpers\consultantSlot;
 
@@ -204,7 +205,13 @@ class FrontendController extends Controller
             if ($order_draft && $question = Questions::where(['id' => $order_draft->question_id])->first()) {
                 if ($question->status == 0) {
                     if($order_draft->to_pay > 0){
-                        $creditCardToken = ClientToken::generate();
+                        try {
+                            $creditCardToken = ClientToken::generate();
+                        } catch (Exception $e) {
+                            Session::flash('flash_notification.question.message', 'Whoops! An Error occurred during Payment Process, please try again');
+                            Session::flash('flash_notification.question.level', 'danger');
+                            return Redirect::action('FrontendController@checkoutQuestion', ['id' => $question->id]);
+                        }
                         return view('frontend/profile/payment-question')->with([
                             'user' => $user,
                             'question' => $question,

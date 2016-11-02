@@ -48,6 +48,9 @@
                         <div class="question-ip">IP: {{ $question->ip }}</div>
                         <div class="question-body">{{ $question->question }}</div>
                     </div>
+                    <div class="box-footer">
+                        <a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -73,9 +76,28 @@
                             {!! Form::close() !!}
                             <a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-lg btn-default">Edit</a>
                         </div>
+                    @elseif($answer->question()->first()->status == 2)
+                        <div class="box-footer">
+                            <div class="rating-stars">
+                                @if($answer->rating)
+                                    @for ($i = 0; $i < $answer->rating; $i++)
+                                        <i class="fa fa-star"></i>
+                                    @endfor
+                                    @for ($i = 5; $i > $answer->rating; $i--)
+                                        <i class="fa fa-star-o"></i>
+                                    @endfor
+                                @endif
+                            </div>
+                            @if($answer->feedback)
+                                <div class="italic">"{{ $answer->feedback }}"</div>
+                            @endif
+                            <div class="pull-right">
+                                <a href="{{ action('ConsultantController@listAnswered') }}" class="btn btn-default">Show all answered</a>
+                            </div>
+                        </div>
                     @else
                         <div class="box-footer">
-                            <a href="{{ action('ConsultantController@listAnswered') }}" class="btn btn-default">Back to list</a>
+                            <a href="{{ action('ConsultantController@listAnswered') }}" class="btn btn-default">Show all answered</a>
                         </div>
                     @endif
                 </div>

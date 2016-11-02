@@ -20,6 +20,7 @@ use App\UserData;
 use App\UserSocial;
 use App\Vouchers;
 use Braintree\ClientToken;
+use Braintree\Exception;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -672,16 +673,23 @@ class UserController extends Controller
                 ];
                 $order->fill($data);
                 $order->save();
-                $result = Transaction::sale([
-                    'amount' => $order_draft->to_pay,
-                    'customFields' => [
-                        'order' => $order->id
-                    ],
-                    'options' => [
-                        'submitForSettlement' => true
-                    ],
-                    'paymentMethodNonce' => $nonceFromTheClient
-                ]);
+                try {
+                    $result = Transaction::sale([
+                        'amount' => $order_draft->to_pay,
+                        'customFields' => [
+                            'order' => $order->id
+                        ],
+                        'options' => [
+                            'submitForSettlement' => true
+                        ],
+                        'paymentMethodNonce' => $nonceFromTheClient
+                    ]);
+                } catch (Exception $e) {
+                    Session::flash('flash_notification.question.message', 'Whoops! An Error occurred during Payment Process, please try again');
+                    Session::flash('flash_notification.question.level', 'danger');
+                    return Redirect::action('FrontendController@checkoutQuestion', ['id' => $question->id]);
+                }
+
                 if ($result->success){
                     if($order_draft->discount){
                         $discount = Discounts::findOrFail($order_draft->discount_id);
@@ -707,7 +715,7 @@ class UserController extends Controller
                 } else {
                     Session::flash('flash_notification.question.message', $result->message);
                     Session::flash('flash_notification.question.level', 'danger');
-                    return Redirect::action('FrontendController@questions');
+                    return Redirect::action('FrontendController@checkoutQuestion', ['id' => $question->id]);
                 }
             } else {
                 return Redirect::action('FrontendController@profile');
@@ -763,7 +771,13 @@ class UserController extends Controller
         }
         if($user = Auth::guard('user')->user()) {
             $scheme = PriceSchemes::findOrFail($request->get('scheme'));
-            $creditCardToken = ClientToken::generate();
+            try {
+                $creditCardToken = ClientToken::generate();
+            } catch (Exception $e) {
+                Session::flash('flash_notification.credits.message', 'Whoops! An Error occurred during Payment Process, please try again');
+                Session::flash('flash_notification.credits.level', 'danger');
+                return Redirect::action('FrontendController@credits');
+            }
             return view('frontend/profile/payment-credits')->with([
                 'user' => $user,
                 'scheme' => $scheme,
@@ -790,16 +804,22 @@ class UserController extends Controller
                 ];
                 $order->fill($data);
                 $order->save();
-                $result = Transaction::sale([
-                    'amount' => $scheme->price,
-                    'customFields' => [
-                        'order' => $order->id
-                    ],
-                    'options' => [
-                        'submitForSettlement' => true
-                    ],
-                    'paymentMethodNonce' => $nonceFromTheClient
-                ]);
+                try {
+                    $result = Transaction::sale([
+                        'amount' => $scheme->price,
+                        'customFields' => [
+                            'order' => $order->id
+                        ],
+                        'options' => [
+                            'submitForSettlement' => true
+                        ],
+                        'paymentMethodNonce' => $nonceFromTheClient
+                    ]);
+                } catch (Exception $e) {
+                    Session::flash('flash_notification.credits.message', 'Whoops! An Error occurred during Payment Process, please try again');
+                    Session::flash('flash_notification.credits.level', 'danger');
+                    return Redirect::action('FrontendController@credits');
+                }
                 if ($result->success){
                     $user->referral_rewarded = $this->addReferralPoints($user);
                     $changes['braintree_id'] = $result->transaction->id;
@@ -863,7 +883,13 @@ class UserController extends Controller
         $voucher = Vouchers::findOrFail($id);
         if($user = Auth::guard('user')->user()){
             if($voucher->status == 0 && $voucher->user_id = $user->id) {
-                $creditCardToken = ClientToken::generate();
+                try {
+                    $creditCardToken = ClientToken::generate();
+                } catch (Exception $e) {
+                    Session::flash('flash_notification.voucher.message', 'Whoops! An Error occurred during Payment Process, please try again');
+                    Session::flash('flash_notification.voucher.level', 'danger');
+                    return Redirect::action('FrontendController@buyVoucher');
+                }
                 return view('frontend/profile/payment-voucher')->with([
                     'user' => $user,
                     'voucher' => $voucher,
@@ -894,16 +920,22 @@ class UserController extends Controller
                 ];
                 $order->fill($data);
                 $order->save();
-                $result = Transaction::sale([
-                    'amount' => $voucher->price,
-                    'customFields' => [
-                        'order' => $order->id
-                    ],
-                    'options' => [
-                        'submitForSettlement' => true
-                    ],
-                    'paymentMethodNonce' => $nonceFromTheClient
-                ]);
+                try {
+                    $result = Transaction::sale([
+                        'amount' => $voucher->price,
+                        'customFields' => [
+                            'order' => $order->id
+                        ],
+                        'options' => [
+                            'submitForSettlement' => true
+                        ],
+                        'paymentMethodNonce' => $nonceFromTheClient
+                    ]);
+                } catch (Exception $e) {
+                    Session::flash('flash_notification.voucher.message', 'Whoops! An Error occurred during Payment Process, please try again');
+                    Session::flash('flash_notification.voucher.level', 'danger');
+                    return Redirect::action('FrontendController@buyVoucher');
+                }
                 if ($result->success){
                     $user->referral_rewarded = $this->addReferralPoints($user);
                     $changes['braintree_id'] = $result->transaction->id;

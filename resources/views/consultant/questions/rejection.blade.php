@@ -48,6 +48,9 @@
                         <div class="question-ip">IP: {{ $question->ip }}</div>
                         <div class="question-body">{{ $question->question }}</div>
                     </div>
+                    <div class="box-footer">
+                        <a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,7 +65,7 @@
                         {!! $question->rejection !!}
                     </div>
                     <div class="box-footer">
-                        <a href="{{ action('ConsultantController@listRejected') }}" class="btn btn-default">Back to list</a>
+                        <a href="{{ action('ConsultantController@listRejected') }}" class="btn btn-default">Show all rejected</a>
                     </div>
                 </div>
             </div>
