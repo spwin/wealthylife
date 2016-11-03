@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Laracasts\Flash\Flash;
 
@@ -218,6 +219,8 @@ class ConsultantController extends Controller
 
     public function answerSave(Request $request, $id){
         $question = Questions::findOrFail($id);
+        $question->timer = $request->get('timer');
+        $question->save();
         $input = $request->all();
         $data = [];
         $data['answer'] = $input['answer'];
@@ -260,13 +263,32 @@ class ConsultantController extends Controller
 
     public function ajaxPending(Request $request){
         $pending = 0;
-        if($request->has('pending')){
-            $pending = $request->get('pending');
-        }
         if($user = Auth::guard('consultant')->user()){
             $pending = Questions::where(['consultant_id' => $user->id, 'status' => 1])->count();
         }
         return json_encode(['pending' => $pending]);
+    }
+
+    public function saveTimer(Request $request, $id){
+        $time = 0;
+        if($request->has('time') && ($user = Auth::guard('consultant')->user())){
+            $time = intval($request->get('time'));
+            DB::table('questions')->where('id', $id)->update(array('timer' => $time));
+        }
+        $input = $request->all();
+        $data = [];
+        $data['answer'] = $input['answer'];
+        $data['ip'] = \Request::ip();
+        $data['seen'] = 0;
+        $data['question_id'] = $id;
+        $data['consultant_id'] = Auth::guard('consultant')->user()->id;
+        $answer = Answers::firstOrNew(array('question_id' => $id));
+        $answer->fill($data);
+        $answer->save();
+        return json_encode(array(
+            'date' => date('H:i:s'),
+            'status' => 'success'
+        ));
     }
 
     public function rejectQuestion(Request $request, $id){

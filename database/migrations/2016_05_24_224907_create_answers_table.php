@@ -26,7 +26,6 @@ class CreateAnswersTable extends Migration
             $table->integer('rating')->default(0);
             $table->text('feedback');
             $table->string('ip');
-            $table->integer('time');
             $table->timestamps();
         });
     }

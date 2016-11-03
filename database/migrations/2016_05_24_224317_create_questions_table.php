@@ -24,6 +24,7 @@ class CreateQuestionsTable extends Migration
             $table->string('ip');
             $table->dateTime('asked_at');
             $table->dateTime('answered_at');
+            $table->integer('timer');
             $table->timestamps();
         });
 

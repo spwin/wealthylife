@@ -34,6 +34,7 @@ elixir(function(mix) {
 
     mix.scripts([
         '../plugins/iCheck/icheck.min.js',
+        '../foundry/js/timer.jquery.min.js',
         '../plugins/datepicker/bootstrap-datepicker.js'
     ], 'public/js/plugins.js')
         .copy('resources/assets/plugins/datatables/jquery.dataTables.min.js', 'public/js/admin')

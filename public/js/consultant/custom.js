@@ -2,7 +2,7 @@ var questionNotification = function(){
     var pending;
     var url;
     var token;
-    var interval = 10000; //10 sec
+    var interval = 30000; //30 sec
     var audio;
     return {
         init: function(p, u, t, a){
@@ -30,6 +30,53 @@ var questionNotification = function(){
                         pending = data.pending;
                     }
                 }
+            });
+        }
+    }
+}();
+
+var saveAnswerTimer = function(){
+    var time;
+    var exactTime;
+    var url;
+    var token;
+    var interval = 20000;
+    var container;
+    var form;
+    return {
+        init: function(f, c, u, t, k){
+            container = c;
+            url = u;
+            form = f;
+            time = exactTime = t;
+            token = k;
+            $(container).timer({
+                seconds: time
+            });
+            saveAnswerTimer.bind();
+            setInterval(function(){
+                exactTime++;
+            }, 1000);
+            setInterval(function(){
+                saveAnswerTimer.callAjax();
+            }, interval);
+        },
+        callAjax: function(){
+            time += (interval/1000);
+            var answer = CKEDITOR.instances['answer'].getData();
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: {_token: token, time: time, answer: answer},
+                dataType: 'JSON',
+                success: function (data) {
+                    $('#saved-msg').html('Saved at ' + data.date);
+                }
+            });
+        },
+        bind: function(){
+            $(form).on('submit', function(){
+                $('input#timer').val(exactTime);
             });
         }
     }

@@ -45,7 +45,7 @@
                         <div class="question-body">{{ $question->question }}</div>
                     </div>
                     <div class="box-footer">
-                        <a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a>
+                        <a href="{{ action('AdminController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a>
                     </div>
                 </div>
             </div>

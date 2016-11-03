@@ -59,6 +59,14 @@
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
+            <div class="box box-default">
+                <div class="box-body">
+                    <div id="answer-timer"></div>
+                </div>
+                <div class="box-footer saved-container">
+                    <div id="saved-msg"></div>
+                </div>
+            </div>
         </div>
         <div class="col-md-9">
             <div class="box box-primary">
@@ -127,8 +135,10 @@
                         {!! Form::open([
                             'role' => 'form',
                             'url' => action('ConsultantController@answerSave', ['id' => $question->id]),
-                            'method' => 'POST'
+                            'method' => 'POST',
+                            'class' => 'save-answer-form'
                         ]) !!}
+                        <input type="hidden" name="timer" id="timer">
                         <textarea class="textarea-ckeditor" id="answer" name="answer">{{ $question->answer()->first() ? $question->answer()->first()->answer : '' }}</textarea>
                         <button type="submit" class="btn btn-success mt-15px">Save & Preview</button>
                         {!! Form::close() !!}
@@ -145,6 +155,7 @@
         CKEDITOR.replace('answer', {
             height : '400px'
         });
+        saveAnswerTimer.init('.save-answer-form', '#answer-timer', '{{ action('ConsultantController@saveTimer', ['id' => $question->id]) }}', {{ $question->timer }}, '{{ csrf_token() }}');
     });
 </script>
 @endpush

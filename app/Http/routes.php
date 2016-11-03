@@ -171,6 +171,7 @@ Route::group(['middleware' => ['ip']], function () {
         Route::get('/', 'ConsultantController@index');
         Route::get('logout', 'Auth\AuthController@getConsultantLogout');
         Route::post('ajax-pending', 'ConsultantController@ajaxPending');
+        Route::post('ajax-timer/{id}', 'ConsultantController@saveTimer');
         Route::group(['prefix' => 'users'], function () {
             Route::get('list', 'ConsultantController@listUsers');
             Route::get('profile/{id}', 'ConsultantController@detailsUser');
