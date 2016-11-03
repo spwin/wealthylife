@@ -268,7 +268,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-primary">Answer</a></td>
                                             </tr>
                                         @endforeach
@@ -303,7 +303,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="{{ action('ConsultantController@answerPreview', $question->answer()->first() ? $question->answer()->first()->id : '') }}" class="btn btn-success">View answer</a></td>
                                             </tr>
                                         @endforeach
@@ -337,7 +337,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                             </tr>
                                         @endforeach
                                     @endif
@@ -371,7 +371,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="{{ action('ConsultantController@rejectionPreview', ['id' => $question->id]) }}" class="btn btn-primary">Check reason</a></td>
                                             </tr>
                                         @endforeach

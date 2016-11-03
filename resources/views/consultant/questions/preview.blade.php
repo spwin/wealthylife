@@ -44,7 +44,7 @@
                             @endif
                             <div class="clearfix"></div>
                         </div>
-                        <div class="question-date mt-15px">{{ date('Y, M d H:i', strtotime($question->updated_at)) }}</div>
+                        <div class="question-date mt-15px">{{ date('Y, M d H:i', strtotime($question->asked_at)) }}</div>
                         <div class="question-ip">IP: {{ $question->ip }}</div>
                         <div class="question-body">{{ $question->question }}</div>
                     </div>

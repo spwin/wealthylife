@@ -449,7 +449,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="#" class="btn btn-primary">Answer</a></td>
                                             </tr>
                                         @endforeach
@@ -484,7 +484,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="#" class="btn btn-success">View answer</a></td>
                                             </tr>
                                         @endforeach
@@ -519,7 +519,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="{{ action('AdminController@markPaidQuestion', ['id' => $question->id, 'user_id' => $user->id]) }}" class="btn btn-warning">Mark as paid</a></td>
                                             </tr>
                                         @endforeach
@@ -554,7 +554,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="{{ action('AdminController@showRejection', ['id' => $question->id]) }}" class="btn btn-warning">Check reason</a></td>
                                             </tr>
                                         @endforeach

@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Notifications;
+use App\Payroll;
 use App\Settings;
 use App\User;
 use Illuminate\Support\Facades\Mail;
@@ -126,6 +127,21 @@ class ConsultantSlot
         return false;
     }
 
+    protected function getAverageAnswerTime($consultant){
+        $payroll = Payroll::where(['current' => 1])->first();
+        $average = array();
+        foreach(
+            $consultant->questions()
+            ->join('answers', 'answers.question_id', '=', 'questions.id')
+            ->where(['answers.payroll_id' => $payroll->id, 'questions.status' => 2])
+            ->get() as $question
+        ){
+            $average[] = $question->timer;
+        }
+        $result = count($average) > 0 ? floor(round(array_sum($average) / count($average))/60) : 30;
+        return $result;
+    }
+
     public function getRightConsultant(){
         date_default_timezone_set("Europe/London");
         $consultants = User::where(['type' => 'consultant', 'disable' => 0])->get();
@@ -135,7 +151,7 @@ class ConsultantSlot
         foreach($consultants as $consultant){
             $days = json_decode($consultant->timetable);
             $pending_questions = $consultant->questions()->where(['status' => 1])->count();
-            $qt = 30;
+            $qt = $this->getAverageAnswerTime($consultant);
             $busyness = $pending_questions * $qt;
             $slotCalculator = new consultantSlot;
             $firstEmptyTime = $slotCalculator->getFirstEmptyTime($days, $now, $busyness, $qt);
@@ -160,7 +176,7 @@ class ConsultantSlot
         foreach($consultants as $consultant){
             $days = json_decode($consultant->timetable);
             $pending_questions = $consultant->questions()->where(['status' => 1])->count();
-            $qt = 30;
+            $qt = $this->getAverageAnswerTime($consultant);
             $busyness = $pending_questions * $qt;
             $slotCalculator = new consultantSlot;
             $firstEmptyTime = $slotCalculator->getFirstEmptyTime($days, $now, $busyness, $qt);

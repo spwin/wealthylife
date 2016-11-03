@@ -76,7 +76,7 @@
                 </div>
                 <div class="box-body box-profile">
                     <div class="col-md-12 margin-bottom">
-                        <div class="question-date">{{ date('Y, M d H:i', strtotime($question->updated_at)) }}</div>
+                        <div class="question-date">{{ date('Y, M d H:i', strtotime($question->asked_at)) }}</div>
                         <div class="question-ip">IP: {{ $question->ip }}</div>
                         <div class="question-body">{{ $question->question }}</div>
                     </div>
