@@ -24,9 +24,9 @@
             <!-- Profile Image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ $user->userData()->first()->image()->first() ? URL::to('/').$user->userData()->first()->image()->first()->path.$user->userData()->first()->image()->first()->filename : URL::to('/').'/images/avatars/no_image.png'}}" alt="User profile picture">
+                    <img class="profile-user-img img-responsive img-circle" src="{{ $user->userData->image ? URL::to('/').$user->userData->image->path.$user->userData->image->filename : URL::to('/').'/images/avatars/no_image.png'}}" alt="User profile picture">
 
-                    <h3 class="profile-username text-center">{{ $user->userData()->first()->first_name }} {{ $user->userData()->first()->last_name }}</h3>
+                    <h3 class="profile-username text-center">{{ $user->userData->first_name }} {{ $user->userData->last_name }}</h3>
 
                     <p class="text-muted text-center">{{ $user->email }}</p>
 
@@ -211,32 +211,32 @@
                             <li class="active">
                                 <a href="#questions_1" data-toggle="tab" aria-expanded="true">
                                     Pending
-                                    @if($user->questions() && $user->questions()->where(['status' => 1])->count() > 0)
-                                        (<span class="numbers">{{ $user->questions()->where(['status' => 1])->count() }}</span>)
+                                    @if($user->questions() && ($count = $user->questions()->where(['status' => 1])->count()) > 0)
+                                        (<span class="numbers">{{ $count }}</span>)
                                     @endif
                                 </a>
                             </li>
                             <li class="">
                                 <a href="#questions_2" data-toggle="tab" aria-expanded="false">
                                     Answered
-                                    @if($user->questions() && $user->questions()->where(['status' => 2])->count() > 0)
-                                        (<span class="numbers">{{ $user->questions()->where(['status' => 2])->count() }}</span>)
+                                    @if($user->questions() && ($count = $user->questions()->where(['status' => 2])->count()) > 0)
+                                        (<span class="numbers">{{ $count }}</span>)
                                     @endif
                                 </a>
                             </li>
                             <li class="">
                                 <a href="#questions_3" data-toggle="tab" aria-expanded="false">
                                     Drafts
-                                    @if($user->questions() && $user->questions()->where(['status' => 0])->count() > 0)
-                                        (<span class="numbers">{{ $user->questions()->where(['status' => 0])->count() }}</span>)
+                                    @if($user->questions() && ($count = $user->questions()->where(['status' => 0])->count()) > 0)
+                                        (<span class="numbers">{{ $count }}</span>)
                                     @endif
                                 </a>
                             </li>
                             <li class="">
                                 <a href="#questions_4" data-toggle="tab" aria-expanded="false">
                                     Rejected
-                                    @if($user->questions() && $user->questions()->where(['status' => 3])->count() > 0)
-                                        (<span class="numbers">{{ $user->questions()->where(['status' => 3])->count() }}</span>)
+                                    @if($user->questions() && ($count = $user->questions()->where(['status' => 3])->count()) > 0)
+                                        (<span class="numbers">{{ $count }}</span>)
                                     @endif
                                 </a>
                             </li>

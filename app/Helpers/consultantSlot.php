@@ -134,8 +134,7 @@ class ConsultantSlot
             $consultant->questions()
             ->join('answers', 'answers.question_id', '=', 'questions.id')
             ->where(['answers.payroll_id' => $payroll->id, 'questions.status' => 2])
-            ->get() as $question
-        ){
+            ->get() as $question){
             $average[] = $question->timer;
         }
         $result = count($average) > 0 ? floor(round(array_sum($average) / count($average))/60) : 30;
@@ -153,10 +152,9 @@ class ConsultantSlot
             $pending_questions = $consultant->questions()->where(['status' => 1])->count();
             $qt = $this->getAverageAnswerTime($consultant);
             $busyness = $pending_questions * $qt;
-            $slotCalculator = new consultantSlot;
-            $firstEmptyTime = $slotCalculator->getFirstEmptyTime($days, $now, $busyness, $qt);
+            $firstEmptyTime = $this->getFirstEmptyTime($days, $now, $busyness, $qt);
             $timestampResult = strtotime($firstEmptyTime);
-            if($timestampResult < $current){
+            if($timestampResult && $timestampResult < $current){
                 $result = $consultant;
                 $current = $timestampResult;
             }
@@ -181,7 +179,7 @@ class ConsultantSlot
             $slotCalculator = new consultantSlot;
             $firstEmptyTime = $slotCalculator->getFirstEmptyTime($days, $now, $busyness, $qt);
             $timestampResult = strtotime($firstEmptyTime);
-            if($timestampResult < $current){
+            if($timestampResult && $timestampResult < $current){
                 $found = true;
                 $current = $timestampResult;
             }

@@ -6,12 +6,12 @@
             <div class="pull-left image">
                 <img src="{{
                             URL::to('/')
-                            .Auth::guard('consultant')->user()->userData()->first()->image()->first()->path
-                            .Auth::guard('consultant')->user()->userData()->first()->image()->first()->filename
+                            .Auth::guard('consultant')->user()->userData->image->path
+                            .Auth::guard('consultant')->user()->userData->image->filename
                              }}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>{{ Auth::guard('consultant')->user()->userData()->first()->first_name.' '.Auth::guard('consultant')->user()->userData()->first()->last_name }}</p>
+                <p>{{ Auth::guard('consultant')->user()->userData->first_name.' '.Auth::guard('consultant')->user()->userData->last_name }}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>

@@ -63,13 +63,13 @@
                                         @endif
                                     </td>
                                     <td>{{ $question->question }}</td>
-                                    <td><a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a></td>
+                                    <td><a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user->id]) }}">{{ $question->user->email }}</a></td>
                                     <td>{{ $question->ip }}</td>
                                     <td class="w100px">
                                         @if($question->status == 1)
-                                            {{ date('d M, Y H:i', strtotime($question->updated_at)) }}
+                                            {{ date('d M, Y H:i', strtotime($question->asked_at)) }}
                                         @else
-                                            {{ $question->answer()->first() ? ($question->answer()->first()->seen ? 'YES' : 'NO') : 'NO' }}
+                                            {{ $question->answer()->first() ? ($question->answer->seen ? 'YES' : 'NO') : 'NO' }}
                                         @endif
                                     </td>
                                     <td class="w100px">
@@ -78,7 +78,7 @@
                                         @elseif($question->status == 3)
                                             <a href="{{ action('ConsultantController@rejectionPreview', $question->id) }}" class="btn btn-primary">Check reason</a>
                                         @else
-                                            <a href="{{ action('ConsultantController@answerPreview', $question->answer()->first() ? $question->answer()->first()->id : '') }}" class="btn btn-primary">Show answer</a>
+                                            <a href="{{ action('ConsultantController@answerPreview', $question->answer()->first() ? $question->answer->id : '') }}" class="btn btn-primary">Show answer</a>
                                         @endif
                                     </td>
                                 </tr>

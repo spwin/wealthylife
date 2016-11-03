@@ -57,8 +57,8 @@
                                 {{-- action('AdminController@detailsConsultant', $user->id) --}}
                                 <td><i class="fa fa-angle-right hov-icon"></i></td>
                                 <td>#{{ $user->id }}</td>
-                                <td><i class="fa fa-{{ $user->userData()->first()->gender == 'male' ? 'mars' : ($user->userData()->first()->gender == null ? 'genderless' : 'venus') }}"></i></td>
-                                <td>{{ $user->userData()->first()->first_name }} {{ $user->userData()->first()->last_name }}</td>
+                                <td><i class="fa fa-{{ $user->userData->gender == 'male' ? 'mars' : ($user->userData->gender == null ? 'genderless' : 'venus') }}"></i></td>
+                                <td>{{ $user->userData->first_name }} {{ $user->userData->last_name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->questions()->count() }}</td>
                                 <td>£{{ $user->points }}</td>
