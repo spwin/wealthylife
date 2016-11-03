@@ -3,7 +3,7 @@
 @section('wrapper')
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>FIT</b>sensei</a>
+            <a href="{{ url()->to('/') }}"><b>STYLE</b>sensei</a>
         </div>
         @if (count($errors->all()) > 0)
             <div class="alert alert-danger">
