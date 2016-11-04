@@ -1292,7 +1292,7 @@ class UserController extends Controller
 
         Session::flash('flash_notification.feedback.message', 'Your feedback is important to us.');
         Session::flash('flash_notification.feedback.level', 'success');
-        return Redirect::action($this->getRoute());
+        return Redirect::back();
     }
 
     public function markNotifications(){
