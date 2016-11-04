@@ -19,7 +19,7 @@ class Vouchers extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'receiver_email', 'code', 'url_key', 'price', 'credits', 'message', 'anonymous', 'status'
+        'user_id', 'receiver_email', 'code', 'url_key', 'price', 'credits', 'message', 'anonymous', 'status', 'generated'
     ];
 
     public function user(){
@@ -28,5 +28,9 @@ class Vouchers extends Model
 
     public function orders(){
         return $this->hasMany('App\Orders', 'voucher_id', 'id');
+    }
+
+    public function usedBy(){
+        return $this->hasOne('App\User', 'id', 'used_by');
     }
 }

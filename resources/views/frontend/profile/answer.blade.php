@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <hr/>
-                        @if($answer)
+                        @if($question->status == 2 && $answer)
                             <h4 class="uppercase mb16">Answer</h4>
                             {!! $answer->answer !!}
                         @elseif($question->status == 3)
@@ -54,7 +54,7 @@
                             <h4 class="uppercase mb16">The answer is not ready yet, we are working on it.</h4>
                         @endif
                     </div>
-                    @if($answer && !$answer->rated)
+                    @if($question->status == 2 && $answer && !$answer->rated)
                         <div class="col-md-6 no-padding answer-rating display-after-load">
                             <hr/>
                             @if (count($errors->answer) > 0)

@@ -863,7 +863,7 @@ class UserController extends Controller
                     $input['anonymous'] = 0;
                 }
                 $input['status'] = 0;
-                $input['code'] = bin2hex(random_bytes(4));
+                $input['code'] = bin2hex(random_bytes(5));
                 $input['url_key'] = bin2hex(random_bytes(20));
                 $voucher = new Vouchers();
                 $voucher->fill($input);
@@ -974,6 +974,7 @@ class UserController extends Controller
             $voucher = Vouchers::where(['code' => $request->get('code'), 'status' => 1])->first();
             if ($voucher) {
                 $voucher->status = 2;
+                $voucher->used_by = $user->id;
                 $voucher->save();
                 $user->points = $user->points + $voucher->credits;
                 $user->save();

@@ -38,6 +38,9 @@
                         <li class="list-group-item">
                             <b>Created</b> <a class="pull-right">{{ date('d/m/Y', strtotime($user->created_at)) }}</a>
                         </li>
+                        <li class="list-group-item">
+                            <b>Account</b> <span class="badge bg-{{ $user->disable == 1 ? 'red' : 'green' }} pull-right">{{ $user->disable == 1 ? 'paused' : 'active' }}</span>
+                        </li>
                     </ul>
                     {!! Form::open([
                     'method' => 'DELETE',

@@ -296,7 +296,6 @@ class AdminController extends Controller
         $user_data->fill($input);
         $user_data->save();
 
-        Flash::success('Consultant has been successfully added');
         return Redirect::action('AdminController@listConsultants');
     }
 
@@ -979,18 +978,57 @@ class AdminController extends Controller
     }
 
     public function vouchers(){
-        $vouchers = Vouchers::where('status', '>', 0)->orderBy('created_at', 'DESC')->paginate(20);
+        $vouchers = Vouchers::where('status', '>', 0)->where(['generated' => 0])->orderBy('created_at', 'DESC')->paginate(20);
         return view('admin/vouchers/list')->with([
             'vouchers' => $vouchers
         ]);
     }
 
+    public function createdVouchers(){
+        $vouchers = Vouchers::where('status', '>', 0)->where(['generated' => 1])->orderBy('created_at', 'DESC')->paginate(20);
+        return view('admin/vouchers/created')->with([
+            'vouchers' => $vouchers
+        ]);
+    }
+
+    public function createVoucher(Request $request){
+        $v = Validator::make($request->all(), [
+            'credits' => 'required|integer|min:0'
+        ]);
+
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors())->withInput();
+        }
+
+        $data = $request->all();
+        $data['code'] = bin2hex(random_bytes(5));
+        $data['generated'] = 1;
+        $data['status'] = 1;
+        $voucher = new Vouchers();
+        $voucher->fill($data);
+        $voucher->save();
+
+        return Redirect::action('AdminController@createdVouchers');
+    }
+
     public function voucherDetails($id){
         $voucher = Vouchers::findOrFail($id);
+        if($voucher->generated){
+            return Redirect::action('AdminController@vouchers');
+        }
         return view('admin/vouchers/details')->with([
             'voucher' => $voucher
         ]);
+    }
 
+    public function createdVoucherDetails($id){
+        $voucher = Vouchers::findOrFail($id);
+        if(!$voucher->generated){
+            return Redirect::action('AdminController@createdVouchers');
+        }
+        return view('admin/vouchers/created-details')->with([
+            'voucher' => $voucher
+        ]);
     }
 
     public function discounts(){
@@ -1205,8 +1243,7 @@ class AdminController extends Controller
             $consultant->disable = $disable;
             $consultant->save();
         }
-        Flash::success('Consultant profile has been '.($disable ? 'disabled' : 'enabled'));
-        return Redirect::action('AdminController@listConsultants');
+        return Redirect::action('AdminController@detailsConsultant', ['id' => $id]);
     }
 
     public function disableUser($id, $disable){

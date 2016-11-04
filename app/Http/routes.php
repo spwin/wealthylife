@@ -266,8 +266,11 @@ Route::group(['middleware' => ['ip']], function () {
             Route::post('change/{id}/{action}', 'AdminController@changePhrase');
         });
         Route::group(['prefix' => 'vouchers'], function () {
-            Route::get('/', 'AdminController@vouchers');
-            Route::get('detils/{id}', 'AdminController@voucherDetails');
+            Route::get('list', 'AdminController@vouchers');
+            Route::get('created', 'AdminController@createdVouchers');
+            Route::get('list/details/{id}', 'AdminController@voucherDetails');
+            Route::get('created/details/{id}', 'AdminController@createdVoucherDetails');
+            Route::post('created/create-voucher', 'AdminController@createVoucher');
         });
         Route::group(['prefix' => 'discounts'], function () {
             Route::get('/', 'AdminController@discounts');

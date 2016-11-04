@@ -96,11 +96,16 @@
                     <span>Phrases</span>
                 </a>
             </li>
-            <li class="{{ (Request::is('admin/vouchers*') ? 'active' : '') }}">
-                <a href="{{ action('AdminController@vouchers') }}">
+            <li class="{{ (Request::is('admin/vouchers*') ? 'active' : '') }} treeview">
+                <a href="#">
                     <i class="fa fa-gift"></i>
                     <span>Vouchers</span>
+                    <i class="fa fa-angle-left pull-right"></i>
                 </a>
+                <ul class="treeview-menu">
+                    <li class="{{ (Request::is('admin/vouchers/list*') ? 'active' : '') }}"><a href="{{ action('AdminController@vouchers') }}"><i class="fa fa-circle-o"></i> Gift Vouchers</a></li>
+                    <li class="{{ (Request::is('admin/vouchers/created*') ? 'active' : '') }}"><a href="{{ action('AdminController@createdVouchers') }}"><i class="fa fa-circle-o"></i> Created Vouchers</a></li>
+                </ul>
             </li>
             <li class="{{ (Request::is('admin/discounts*') ? 'active' : '') }}">
                 <a href="{{ action('AdminController@discounts') }}">
