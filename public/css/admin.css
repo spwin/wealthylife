@@ -7004,7 +7004,7 @@ a:hover, a:active, a:focus {
 .info-box-number {
   display: block;
   font-weight: bold;
-  font-size: 18px; }
+  font-size: 30px; }
 
 .progress-description, .info-box-text {
   display: block;
@@ -7721,14 +7721,15 @@ table.text-center, table.text-center td, table.text-center th {
   border-left-color: #00a65a; }
 
 .users-list > li {
-  width: 25%;
+  width: 20%;
   float: left;
   padding: 10px;
   text-align: center; }
 
 .users-list > li img {
   border-radius: 50%;
-  max-width: 100%;
+  max-width: 120px;
+  width: 100%;
   height: auto; }
 
 .users-list > li > a:hover, .users-list > li > a:hover .users-list-name {
@@ -9727,5 +9728,48 @@ tr.periods {
 
 .saved-container {
   height: 40px; }
+
+.pending-questions-count {
+  font-size: 140px;
+  line-height: 0.8;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #008B8B; }
+
+.box.pending-questions {
+  text-align: center; }
+
+.pending-questions .box-body {
+  padding-top: 0; }
+
+.box-body.dashboard-timetable .time-table tr td .empty,
+.box-body.dashboard-timetable .time-table tr td .busy {
+  height: 80px; }
+
+.box-body.dashboard-timetable .time-table tr td .busy {
+  background-color: #ceefce; }
+
+.box-body.dashboard-timetable .time-table tr td .busy:hover {
+  background-color: #d9fad9; }
+
+.box-body.dashboard-timetable .time-table tr th {
+  width: 100%;
+  font-size: 18px;
+  height: 55px; }
+
+.box-body.dashboard-timetable {
+  padding: 10px 20px; }
+
+.box-body.new-users {
+  height: 175px; }
+
+.summary-answers {
+  width: 100%; }
+
+.w150px {
+  width: 150px; }
+
+.w90px {
+  width: 90px; }
 
 /*# sourceMappingURL=admin.css.map */

@@ -272,3 +272,52 @@ tr.periods {
 .saved-container{
   height: 40px;
 }
+
+.pending-questions-count{
+  font-size: 140px;
+  line-height: 0.8;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #008B8B;
+}
+
+.box.pending-questions{
+  text-align: center;
+}
+
+.pending-questions .box-body{
+  padding-top: 0;
+}
+
+.box-body.dashboard-timetable .time-table tr td .empty,
+.box-body.dashboard-timetable .time-table tr td .busy{
+  height: 80px;
+}
+
+.box-body.dashboard-timetable .time-table tr td .busy {
+  background-color: rgb(206, 239, 206);
+}
+.box-body.dashboard-timetable .time-table tr td .busy:hover {
+  background-color: rgb(217, 250, 217);
+}
+.box-body.dashboard-timetable .time-table tr th{
+  width: 100%;
+  font-size: 18px;
+  height: 55px;
+}
+.box-body.dashboard-timetable{
+  padding: 10px 20px;
+}
+.box-body.new-users{
+  height: 175px;
+}
+.summary-answers{
+  width: 100%;
+}
+
+.w150px{
+  width: 150px;
+}
+.w90px{
+  width: 90px;
+}
