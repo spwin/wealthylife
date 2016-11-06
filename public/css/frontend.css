@@ -5941,7 +5941,6 @@ ABOUT
   height: 100%;
   top: 0;
   left: 0;
-  background: #000;
   opacity: 0.5;
   z-index: 2;
 }
@@ -6026,6 +6025,7 @@ ROTATION
   -moz-transform: rotate(6deg);
   -webkit-transform: rotate(6deg);
   -ms-transform: rotate(6deg);
+  -webkit-backface-visibility: hidden;
 }
 .right-bottom {
   bottom: 55px;
@@ -6034,6 +6034,7 @@ ROTATION
   -moz-transform: rotate(-6deg);
   -webkit-transform: rotate(-6deg);
   -ms-transform: rotate(-6deg);
+  -webkit-backface-visibility: hidden;
 }
 .top-part {
   background-color: white;
@@ -6045,8 +6046,8 @@ ROTATION
 .bottom-part {
   background-color: white;
   position: absolute;
-  bottom: 1px;
   width: 130%;
+  bottom: 0;
   height: 110px;
 }
 .curved-image-rb {
