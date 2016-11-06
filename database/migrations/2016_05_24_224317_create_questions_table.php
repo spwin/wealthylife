@@ -19,10 +19,12 @@ class CreateQuestionsTable extends Migration
             $table->integer('consultant_id')->nullable()->unsigned();
             $table->foreign('consultant_id')->references('id')->on('users')->onDelete('set null');
             $table->text('question');
+            $table->text('rejection');
             $table->string('status');
             $table->string('ip');
             $table->dateTime('asked_at');
             $table->dateTime('answered_at');
+            $table->integer('timer');
             $table->timestamps();
         });
 

@@ -31,20 +31,23 @@
 
                     <p class="text-muted text-center">{{ $user->email }}</p>
 
-                        {!! Form::open([
-                        'method' => 'POST',
-                        'target' => '_blank',
-                        'action' => ['AdminController@forceLoginUser']
-                        ]) !!}
-                        {!! Form::hidden('id', $user->id) !!}
-                        <p class="text-center">
-                            <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login as this user</button>
-                        </p>
-                        {!! Form::close() !!}
+                    {!! Form::open([
+                    'method' => 'POST',
+                    'target' => '_blank',
+                    'action' => ['AdminController@forceLoginUser']
+                    ]) !!}
+                    {!! Form::hidden('id', $user->id) !!}
+                    <p class="text-center">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-sign-in"></i> Login as this user</button>
+                    </p>
+                    {!! Form::close() !!}
 
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
                             <b>ID</b> <span class="pull-right">#{{ $user->id }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Account</b> <span class="badge bg-{{ $user->disable == 1 ? 'red' : 'green' }} pull-right">{{ $user->disable == 1 ? 'suspended' : 'active' }}</span>
                         </li>
                         <li class="list-group-item">
                             <b>Balance</b> <span class="pull-right">£ {{ $user->points }}</span>
@@ -69,9 +72,22 @@
                         {!! Form::open([
                         'method' => 'DELETE',
                         'action' => ['AdminController@destroyUser', $user->id],
-                        'onclick'=> 'return confirm("Are you sure?")'
+                        'onclick'=> 'return confirm("Are you sure?")',
+                        'class' => 'push-left inline-block'
                         ]) !!}
                             <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete profile</button>
+                        {!! Form::close() !!}
+
+                        {!! Form::open([
+                        'method' => 'POST',
+                        'action' => ['AdminController@disableUser', $user->id, $user->disable ? 0 : 1],
+                        'class' => 'push-right inline-block'
+                        ]) !!}
+                        @if($user->disable)
+                            <button type="submit" class="btn btn-success">Activate</button>
+                        @else
+                            <button type="submit" class="btn btn-warning"><i class="fa fa-ban"></i> Suspend</button>
+                        @endif
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -397,6 +413,14 @@
                                     @endif
                                 </a>
                             </li>
+                            <li class="">
+                                <a href="#questions_4" data-toggle="tab" aria-expanded="false">
+                                    Rejected
+                                    @if($user->questions() && $user->questions()->where(['status' => 3])->count() > 0)
+                                        (<span class="numbers">{{ $user->questions()->where(['status' => 3])->count() }}</span>)
+                                    @endif
+                                </a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="questions_1">
@@ -418,14 +442,14 @@
                                                 <td class="w300px">
                                                     @if(count($question->images) > 0)
                                                         @foreach($question->images as $image)
-                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                                         @endforeach
                                                     @else
                                                         <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="#" class="btn btn-primary">Answer</a></td>
                                             </tr>
                                         @endforeach
@@ -453,14 +477,14 @@
                                                 <td class="w300px">
                                                     @if(count($question->images) > 0)
                                                         @foreach($question->images as $image)
-                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                                         @endforeach
                                                     @else
                                                         <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="#" class="btn btn-success">View answer</a></td>
                                             </tr>
                                         @endforeach
@@ -488,14 +512,14 @@
                                                 <td class="w300px">
                                                     @if(count($question->images) > 0)
                                                         @foreach($question->images as $image)
-                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                                         @endforeach
                                                     @else
                                                         <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="{{ action('AdminController@markPaidQuestion', ['id' => $question->id, 'user_id' => $user->id]) }}" class="btn btn-warning">Mark as paid</a></td>
                                             </tr>
                                         @endforeach
@@ -504,6 +528,40 @@
                                 </table>
                             </div>
                             <!-- /.tab-pane -->
+                            <div class="tab-pane" id="questions_4">
+                                <table id="questions-rejected" class="table table-bordered table-hover scripted-table">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Question</th>
+                                        <th class="w60px">Date</th>
+                                        <th class="w100px">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if($user->questions() && $user->questions()->where(['status' => 3])->count() > 0)
+                                        @foreach($user->questions()->where(['status' => 3])->get() as $question)
+                                            <tr>
+                                                <td class="w40px">#{{ $question->id }}</td>
+                                                <td class="w300px">
+                                                    @if(count($question->images) > 0)
+                                                        @foreach($question->images as $image)
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
+                                                        @endforeach
+                                                    @else
+                                                        <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                                    @endif
+                                                </td>
+                                                <td>{{ $question->question }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
+                                                <td class="w100px"><a href="{{ action('AdminController@showRejection', ['id' => $question->id]) }}" class="btn btn-warning">Check reason</a></td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.tab-content -->
                     </div>

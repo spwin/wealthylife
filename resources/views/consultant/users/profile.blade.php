@@ -24,9 +24,9 @@
             <!-- Profile Image -->
             <div class="box box-primary">
                 <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="{{ $user->userData()->first()->image()->first() ? URL::to('/').$user->userData()->first()->image()->first()->path.$user->userData()->first()->image()->first()->filename : URL::to('/').'/images/avatars/no_image.png'}}" alt="User profile picture">
+                    <img class="profile-user-img img-responsive img-circle" src="{{ $user->userData->image ? URL::to('/').$user->userData->image->path.$user->userData->image->filename : URL::to('/').'/images/avatars/no_image.png'}}" alt="User profile picture">
 
-                    <h3 class="profile-username text-center">{{ $user->userData()->first()->first_name }} {{ $user->userData()->first()->last_name }}</h3>
+                    <h3 class="profile-username text-center">{{ $user->userData->first_name }} {{ $user->userData->last_name }}</h3>
 
                     <p class="text-muted text-center">{{ $user->email }}</p>
 
@@ -211,24 +211,32 @@
                             <li class="active">
                                 <a href="#questions_1" data-toggle="tab" aria-expanded="true">
                                     Pending
-                                    @if($user->questions() && $user->questions()->where(['status' => 1])->count() > 0)
-                                        (<span class="numbers">{{ $user->questions()->where(['status' => 1])->count() }}</span>)
+                                    @if($user->questions() && ($count = $user->questions()->where(['status' => 1])->count()) > 0)
+                                        (<span class="numbers">{{ $count }}</span>)
                                     @endif
                                 </a>
                             </li>
                             <li class="">
                                 <a href="#questions_2" data-toggle="tab" aria-expanded="false">
                                     Answered
-                                    @if($user->questions() && $user->questions()->where(['status' => 2])->count() > 0)
-                                        (<span class="numbers">{{ $user->questions()->where(['status' => 2])->count() }}</span>)
+                                    @if($user->questions() && ($count = $user->questions()->where(['status' => 2])->count()) > 0)
+                                        (<span class="numbers">{{ $count }}</span>)
                                     @endif
                                 </a>
                             </li>
                             <li class="">
                                 <a href="#questions_3" data-toggle="tab" aria-expanded="false">
                                     Drafts
-                                    @if($user->questions() && $user->questions()->where(['status' => 0])->count() > 0)
-                                        (<span class="numbers">{{ $user->questions()->where(['status' => 0])->count() }}</span>)
+                                    @if($user->questions() && ($count = $user->questions()->where(['status' => 0])->count()) > 0)
+                                        (<span class="numbers">{{ $count }}</span>)
+                                    @endif
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="#questions_4" data-toggle="tab" aria-expanded="false">
+                                    Rejected
+                                    @if($user->questions() && ($count = $user->questions()->where(['status' => 3])->count()) > 0)
+                                        (<span class="numbers">{{ $count }}</span>)
                                     @endif
                                 </a>
                             </li>
@@ -253,14 +261,14 @@
                                                 <td class="w300px">
                                                     @if(count($question->images) > 0)
                                                         @foreach($question->images as $image)
-                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                                         @endforeach
                                                     @else
                                                         <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-primary">Answer</a></td>
                                             </tr>
                                         @endforeach
@@ -288,14 +296,14 @@
                                                 <td class="w300px">
                                                     @if(count($question->images) > 0)
                                                         @foreach($question->images as $image)
-                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                                         @endforeach
                                                     @else
                                                         <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                                 <td class="w100px"><a href="{{ action('ConsultantController@answerPreview', $question->answer()->first() ? $question->answer()->first()->id : '') }}" class="btn btn-success">View answer</a></td>
                                             </tr>
                                         @endforeach
@@ -322,14 +330,14 @@
                                                 <td class="w300px">
                                                     @if(count($question->images) > 0)
                                                         @foreach($question->images as $image)
-                                                            <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                                         @endforeach
                                                     @else
                                                         <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->updated_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
                                             </tr>
                                         @endforeach
                                     @endif
@@ -337,6 +345,40 @@
                                 </table>
                             </div>
                             <!-- /.tab-pane -->
+                            <div class="tab-pane" id="questions_4">
+                                <table id="questions-rejected" class="table table-bordered table-hover scripted-table">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Question</th>
+                                        <th class="w60px">Date</th>
+                                        <th class="w100px">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if($user->questions() && $user->questions()->where(['status' => 3])->count() > 0)
+                                        @foreach($user->questions()->where(['status' => 3])->get() as $question)
+                                            <tr>
+                                                <td class="w40px">#{{ $question->id }}</td>
+                                                <td class="w300px">
+                                                    @if(count($question->images) > 0)
+                                                        @foreach($question->images as $image)
+                                                            <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
+                                                        @endforeach
+                                                    @else
+                                                        <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                                    @endif
+                                                </td>
+                                                <td>{{ $question->question }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
+                                                <td class="w100px"><a href="{{ action('ConsultantController@rejectionPreview', ['id' => $question->id]) }}" class="btn btn-primary">Check reason</a></td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.tab-content -->
                     </div>

@@ -16,14 +16,17 @@ class CreateVouchersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->nullable()->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->integer('used_by')->nullable()->unsigned();
+            $table->foreign('used_by')->references('id')->on('users')->onDelete('set null');
             $table->float('price');
             $table->string('receiver_email');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('url_key');
             $table->integer('credits');
             $table->text('message');
             $table->integer('anonymous');
             $table->integer('status');
+            $table->boolean('generated');
             $table->timestamps();
         });
     }

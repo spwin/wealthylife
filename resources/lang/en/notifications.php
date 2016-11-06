@@ -54,4 +54,9 @@ return [
     'referral.confirmed.subject' => '',
     'referral.confirmed.content' => 'You have been just rewarded £2 as your referral has been confirmed. You can check your referrals information <a href=":link">here</a>',
     'referral.confirmed.email' => '',
+
+    'question.rejected.topic' => 'Question rejected',
+    'question.rejected.subject' => '',
+    'question.rejected.content' => 'Your question was rejected.<br/><strong>Rejection reason:</strong> :reason<br/><strong>:credits credits</strong> have been returned to your balance.<br/><br/>You can see your question <a href=":link">here</a>.',
+    'question.rejected.email' => '',
 ];

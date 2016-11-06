@@ -52,7 +52,13 @@
                             @php($average = array())
                             <tr>
                                 <td>{{ $user->id }}</td>
-                                <td><i class="fa fa-circle text-success"></i> Online</td>
+                                <td>
+                                    @if($user->disable)
+                                        <i class="fa fa-circle text-warning"></i> Paused
+                                    @else
+                                        <i class="fa fa-circle text-success"></i> Active
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ action('AdminController@detailsConsultant', $user->id) }}">
                                         {{ $user->userData->first_name }} {{ $user->userData->last_name }}
@@ -63,9 +69,9 @@
                                 <td>{{ $user->answers()->where(['payroll_id' => $current->id])->count() }}</td>
                                 @foreach($user->questions()->join('answers', 'answers.question_id', '=', 'questions.id')
                                         ->where(['answers.payroll_id' => $current->id, 'questions.status' => 2])->get() as $question)
-                                    @php($average[] = round(abs(strtotime($question->answered_at) - strtotime($question->asked_at)) / 60,2))
+                                    @php($average[] = $question->timer)
                                 @endforeach
-                                <td>{{ count($average) > 0 ? round(array_sum($average) / count($average), 2).' min' : '-' }}</td>
+                                <td>{{ count($average) > 0 ? '~'.floor(round(array_sum($average) / count($average))/60).' min' : '-' }}</td>
                                 @php($total += ($price->value * $user->answers()->where(['payroll_id' => $current->id])->count()))
                                 <td>{{ $price->value * $user->answers()->where(['payroll_id' => $current->id])->count() }}</td>
                             </tr>

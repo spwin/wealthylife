@@ -1,8 +1,8 @@
 @extends('admin/frame')
 @section('content-header')
     <h1>
-        Answers
-        <small>list</small>
+        Questions
+        <small>{{ $status }}</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ action('AdminController@index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -25,6 +25,15 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">{{ $status }}</h3>
+                    {!! Form::open([
+                        'role' => 'form',
+                        'url' => action('AdminController@'.$routes[$stat]),
+                        'files' => true,
+                        'method' => 'GET'
+                    ]) !!}
+                    {!! Form::text('search', $search, ['class' => 'form-control w200px inline']) !!}
+                    <input type="submit" value="Search" class="btn btn-sm btn-default">
+                    {!! Form::close() !!}
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
@@ -35,8 +44,7 @@
                             <th>Image</th>
                             <th>Question</th>
                             <th>User</th>
-                            <th>IP</th>
-                            <th class="w60px">{{ $stat == 1 ? 'Paid' : 'Seen' }}</th>
+                            <th>Consultant</th>
                             <th class="w100px">Action</th>
                         </tr>
                         </thead>
@@ -47,7 +55,7 @@
                                     <td class="w300px">
                                         @if(count($question->images) > 0)
                                             @foreach($question->images as $image)
-                                                <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                             @endforeach
                                         @else
                                             <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
@@ -55,9 +63,14 @@
                                     </td>
                                     <td>{{ $question->question }}</td>
                                     <td><a href="{{ action('AdminController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a></td>
-                                    <td>{{ $question->ip }}</td>
-                                    <td class="w100px">{{ $question->answer ? ($question->answer->seen ? 'YES' : 'NO') : 'NO' }}</td>
-                                    <td class="w100px"><a href="{{ action('AdminController@showAnswer', ['id' => $question->answer->id]) }}" class="btn btn-primary">Show answer</a></td>
+                                    <td><a href="{{ action('AdminController@detailsConsultant', ['id' => $question->consultant()->first()->id]) }}">{{ $question->consultant()->first()->email }}</a></td>
+                                    <td class="w100px">
+                                        @if($question->status == 2)
+                                            <a href="{{ action('AdminController@showAnswer', ['id' => $question->answer->id]) }}" class="btn btn-primary">Show answer</a>
+                                        @elseif($question->status == 3)
+                                            <a href="{{ action('AdminController@showRejection', ['id' => $question->id]) }}" class="btn btn-primary">Check reason</a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

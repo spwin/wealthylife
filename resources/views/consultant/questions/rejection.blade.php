@@ -2,11 +2,11 @@
 @section('content-header')
     <h1>
         Preview
-        <small>answer</small>
+        <small>rejection</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ action('ConsultantController@index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="{{ action('ConsultantController@listPending') }}">Pending</a></li>
+        <li><a href="{{ action('ConsultantController@listRejected') }}">Rejected</a></li>
         <li class="active">Preview</li>
     </ol>
 @stop
@@ -59,47 +59,14 @@
                 <div class="box-body box-profile">
                     <div class="box-header">
                         <i class="fa fa-question-circle-o"></i>
-                        <h3 class="box-title">Answer</h3>
+                        <h3 class="box-title">Rejection reason</h3>
                     </div>
                     <div class="box-body box-profile">
-                        {!! $answer->answer !!}
+                        {!! $question->rejection !!}
                     </div>
-                    @if($answer->question()->first()->status == 1)
-                        <div class="box-footer">
-                            {!! Form::open([
-                                'role' => 'form',
-                                'url' => action('ConsultantController@answerSend', ['id' => $answer->id]),
-                                'method' => 'POST',
-                                'class' => 'inline'
-                            ]) !!}
-                            <button type="submit" class="btn btn-lg btn-success"><i class="fa fa-letter"></i> Send</button>
-                            {!! Form::close() !!}
-                            <a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-lg btn-default">Edit</a>
-                        </div>
-                    @elseif($answer->question()->first()->status == 2)
-                        <div class="box-footer">
-                            <div class="rating-stars">
-                                @if($answer->rating)
-                                    @for ($i = 0; $i < $answer->rating; $i++)
-                                        <i class="fa fa-star"></i>
-                                    @endfor
-                                    @for ($i = 5; $i > $answer->rating; $i--)
-                                        <i class="fa fa-star-o"></i>
-                                    @endfor
-                                @endif
-                            </div>
-                            @if($answer->feedback)
-                                <div class="italic">"{{ $answer->feedback }}"</div>
-                            @endif
-                            <div class="pull-right">
-                                <a href="{{ action('ConsultantController@listAnswered') }}" class="btn btn-default">Show all answered</a>
-                            </div>
-                        </div>
-                    @else
-                        <div class="box-footer">
-                            <a href="{{ action('ConsultantController@listAnswered') }}" class="btn btn-default">Show all answered</a>
-                        </div>
-                    @endif
+                    <div class="box-footer">
+                        <a href="{{ action('ConsultantController@listRejected') }}" class="btn btn-default">Show all rejected</a>
+                    </div>
                 </div>
             </div>
         </div>

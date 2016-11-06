@@ -14,6 +14,7 @@
                             </div>
                         </div>
                         <h4 class="uppercase mb16">Notifications</h4>
+                        <a class="small-text pull-right" href="{{ action('UserController@markNotifications') }}">Mark all as read</a>
                         @if (count($errors->general) > 0)
                             <div class="alert alert-danger alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

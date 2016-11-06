@@ -15,6 +15,7 @@ use App\Questions;
 use App\Settings;
 use App\User;
 use App\UserData;
+use Braintree\Exception;
 use Illuminate\Http\Request;
 use App\Helpers\consultantSlot;
 
@@ -22,6 +23,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
@@ -204,7 +206,13 @@ class FrontendController extends Controller
             if ($order_draft && $question = Questions::where(['id' => $order_draft->question_id])->first()) {
                 if ($question->status == 0) {
                     if($order_draft->to_pay > 0){
-                        $creditCardToken = ClientToken::generate();
+                        try {
+                            $creditCardToken = ClientToken::generate();
+                        } catch (Exception $e) {
+                            Session::flash('flash_notification.question.message', 'Whoops! An Error occurred during Payment Process, please try again');
+                            Session::flash('flash_notification.question.level', 'danger');
+                            return Redirect::action('FrontendController@checkoutQuestion', ['id' => $question->id]);
+                        }
                         return view('frontend/profile/payment-question')->with([
                             'user' => $user,
                             'question' => $question,
@@ -313,11 +321,13 @@ class FrontendController extends Controller
             $pending = $user->questions()->with('images')->where(['status' => 1])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'pending_page', null);
             $answered = $user->questions()->with('images')->where(['status' => 2])->orderBy('answered_at', 'DESC')->paginate($per_page, ['*'], 'answered_page', null);
             $drafts = $user->questions()->with('images')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
+            $rejected = $user->questions()->with('images')->where(['status' => 3])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'rejected_page', null);
             return view('frontend/profile/questions')->with([
                 'user' => $user,
                 'pending' => $pending,
                 'answered' => $answered,
-                'drafts' => $drafts
+                'drafts' => $drafts,
+                'rejected' => $rejected
             ]);
         }
         return Redirect::action('FrontendController@index');
@@ -482,7 +492,7 @@ class FrontendController extends Controller
             $sitemap->add(URL::to('soon'), date('c', time()), '1.0', 'weekly');
 
             /*$sitemap->add(URL::to('/'), date('c', time()), '1.0', 'weekly');
-            $sitemap->add(URL::action('FrontendController@blog'), date('c', time()), '1.0', 'daily');
+            $sitemap->add(URL::action('FrontendController@blog'), date('c', time()), '1.0', 'hourly');
             $sitemap->add(URL::action('FrontendController@about'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@team'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@contacts'), date('c', time()), '1.0', 'weekly');
@@ -590,24 +600,50 @@ class FrontendController extends Controller
         }
     }
 
-    public function ajaxCheckAnswerTime(Request $request){
+    function getDayTime($hour){
+        if($hour < 12){
+            $response = ' Morning';
+        } elseif($hour < 17){
+            $response = ' Afternoon';
+        } elseif($hour < 21){
+            $response = ' Evening';
+        } else {
+            $response = ' Night';
+        }
+        return $response;
+    }
+
+    function getExpectedTimeString($time){
+        $now = time();
+        $today = date('Ymd');
+        $hour = date('H', $time);
+        $answer_day = date('Ymd', $time);
+        $tomorrow = date('Ymd', strtotime('tomorrow'));
+        $hours_diff = ceil(($time - $now)/3600);
+        if($today == $answer_day){
+            if($hours_diff < 1){
+                $response = 'In an hour';
+            } elseif($hours_diff < 5) {
+                $response = 'Within a few hours';
+            } else {
+                $response = 'This'.$this->getDayTime($hour);
+            }
+        } elseif($tomorrow == $answer_day){
+            $response = 'Tomorrow'.$this->getDayTime($hour);
+        } elseif($time < strtotime("+7 day")){
+            $response = date('l', $time).$this->getDayTime($hour);
+        } else {
+            $response = date('F j', $time).$this->getDayTime($hour);
+        }
+        return $response;
+    }
+
+    public function ajaxCheckAnswerTime(){
         $slotCalculator = new consultantSlot;
         $time = $slotCalculator->getExpectedTime();
         $response = 'Unable to calculate, sorry';
         if($time){
-            $today = date('Ymd');
-            $hours = date('H:i', $time);
-            $answer_day = date('Ymd', $time);
-            $tomorrow = date('Ymd', strtotime('tomorrow'));
-            if($today == $answer_day){
-                $response = 'Today, '.$hours;
-            } elseif($tomorrow == $answer_day){
-                $response = 'Tomorrow, '.$hours;
-            } elseif($time < strtotime("+7 day")){
-                $response = date('l', $time).', '.$hours;
-            } else {
-                $response = date('F j, H:i', $time);
-            }
+            $response = $this->getExpectedTimeString($time);
         }
         return json_encode($response);
     }

@@ -296,7 +296,6 @@ class AdminController extends Controller
         $user_data->fill($input);
         $user_data->save();
 
-        Flash::success('Consultant has been successfully added');
         return Redirect::action('AdminController@listConsultants');
     }
 
@@ -534,7 +533,6 @@ class AdminController extends Controller
                 $q->orWhereRaw('LOWER(email) LIKE ?', array('%'.$search.'%'));
 
             })->orderBy('users.created_at', 'DESC')->get();
-            //$users = User::with('userData')->join('user_data', 'user_data.user_id', '=', 'users.id')->where(['type' => 'user'])->whereRaw('LOWER(first_name) LIKE ?', array('%'.$search.'%'))->orWhereRaw('LOWER(last_name) LIKE ?', array('%'.$search.'%'))->orWhereRaw('LOWER(email) LIKE ?', array('%'.$search.'%'))->orderBy('users.created_at', 'DESC')->get();
         } else {
             $users = User::with('userData')->where(['type' => 'user'])->orderBy('created_at', 'DESC')->get();
         }
@@ -574,7 +572,7 @@ class AdminController extends Controller
     {
         $result = DB::table('questions')
             ->where('id', $id)
-            ->update(array('status' => 1));
+            ->update(array('status' => 1, 'asked_at' => date('Y-m-d H:i:s', time())));
         if ($result){
             Flash::success('Question #' . $id . ' has been successfully marked as paid.');
         } else {
@@ -853,20 +851,56 @@ class AdminController extends Controller
         ]);
     }
 
-    public function answers(){
-        $questions = Questions::where(['status' => 2])->orderBy('asked_at', 'DESC')->paginate(10);
-        return view('admin/answers/list')->with([
+    public function answers(Request $request){
+        $key = '';
+        if($request->has('search') && $search = strtolower($request->get('search'))){
+            $key = $search;
+            $questions = Questions::where(['status' => 2])
+                ->whereRaw('LOWER(question) LIKE ?', array('%'.$search.'%'))->orderBy('asked_at', 'ASC')->paginate(20);
+        } else {
+            $questions = Questions::where(['status' => 2])->orderBy('asked_at', 'DESC')->paginate(20);
+        }
+        $routes = ['2' => 'answers', '3' => 'rejections'];
+        return view('admin/questions/list')->with([
             'questions' => $questions,
             'status' => 'Answered',
-            'stat' => 2
+            'stat' => 2,
+            'routes' => $routes,
+            'search' => $key
         ]);
     }
 
     public function showAnswer($id){
         $answer = Answers::findOrFail($id);
-        return view('admin/answers/show')->with([
+        return view('admin/questions/answer')->with([
             'answer' => $answer,
             'question' => $answer->question()->first()
+        ]);
+    }
+
+    public function rejections(Request $request){
+        $key = '';
+        if($request->has('search') && $search = strtolower($request->get('search'))){
+            $key = $search;
+            $questions = Questions::where(['status' => 3])
+                ->whereRaw('LOWER(question) LIKE ?', array('%'.$search.'%'))->orderBy('asked_at', 'ASC')->paginate(20);
+        } else {
+            $questions = Questions::where(['status' => 3])->orderBy('asked_at', 'DESC')->paginate(20);
+        }
+        $routes = ['2' => 'answers', '3' => 'rejections'];
+        return view('admin/questions/list')->with([
+            'questions' => $questions,
+            'status' => 'Rejected',
+            'stat' => 3,
+            'routes' => $routes,
+            'search' => $key
+        ]);
+    }
+
+    public function showRejection($id){
+        $question = Questions::findOrFail($id);
+        return view('admin/questions/rejection')->with([
+            'question' => $question
         ]);
     }
 
@@ -944,18 +978,57 @@ class AdminController extends Controller
     }
 
     public function vouchers(){
-        $vouchers = Vouchers::where('status', '>', 0)->orderBy('created_at', 'DESC')->paginate(20);
+        $vouchers = Vouchers::where('status', '>', 0)->where(['generated' => 0])->orderBy('created_at', 'DESC')->paginate(20);
         return view('admin/vouchers/list')->with([
             'vouchers' => $vouchers
         ]);
     }
 
+    public function createdVouchers(){
+        $vouchers = Vouchers::where('status', '>', 0)->where(['generated' => 1])->orderBy('created_at', 'DESC')->paginate(20);
+        return view('admin/vouchers/created')->with([
+            'vouchers' => $vouchers
+        ]);
+    }
+
+    public function createVoucher(Request $request){
+        $v = Validator::make($request->all(), [
+            'credits' => 'required|integer|min:0'
+        ]);
+
+        if ($v->fails()) {
+            return Redirect::back()->withErrors($v->errors())->withInput();
+        }
+
+        $data = $request->all();
+        $data['code'] = bin2hex(random_bytes(5));
+        $data['generated'] = 1;
+        $data['status'] = 1;
+        $voucher = new Vouchers();
+        $voucher->fill($data);
+        $voucher->save();
+
+        return Redirect::action('AdminController@createdVouchers');
+    }
+
     public function voucherDetails($id){
         $voucher = Vouchers::findOrFail($id);
+        if($voucher->generated){
+            return Redirect::action('AdminController@vouchers');
+        }
         return view('admin/vouchers/details')->with([
             'voucher' => $voucher
         ]);
+    }
 
+    public function createdVoucherDetails($id){
+        $voucher = Vouchers::findOrFail($id);
+        if(!$voucher->generated){
+            return Redirect::action('AdminController@createdVouchers');
+        }
+        return view('admin/vouchers/created-details')->with([
+            'voucher' => $voucher
+        ]);
     }
 
     public function discounts(){
@@ -1163,5 +1236,22 @@ class AdminController extends Controller
 
         Flash::success($credits.' credits have been successfully added for user '.$user->email.'. Current balance: '.$user->points);
         return Redirect::action('AdminController@detailsUser', ['id' => $user->id, 't' => 5]);
+    }
+
+    public function disableConsultant($id, $disable){
+        if($consultant = User::where(['type' => 'consultant', 'id' => $id])->first()){
+            $consultant->disable = $disable;
+            $consultant->save();
+        }
+        return Redirect::action('AdminController@detailsConsultant', ['id' => $id]);
+    }
+
+    public function disableUser($id, $disable){
+        if($user = User::where(['type' => 'user', 'id' => $id])->first()){
+            $user->disable = $disable;
+            $user->save();
+        }
+        Flash::success('User profile has been '.($disable ? 'disabled' : 'enabled'));
+        return Redirect::action('AdminController@detailsUser', $user->id);
     }
 }

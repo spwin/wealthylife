@@ -52,11 +52,11 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{
                             URL::to('/')
-                            .Auth::guard('consultant')->user()->userData()->first()->image()->first()->path
-                            .Auth::guard('consultant')->user()->userData()->first()->image()->first()->filename
+                            .Auth::guard('consultant')->user()->userData->image->path
+                            .Auth::guard('consultant')->user()->userData->image->filename
                              }}" class="user-image" alt="User Image">
                         <span class="hidden-xs">
-                            {{ Auth::guard('consultant')->user()->userData()->first()->first_name.' '.Auth::guard('consultant')->user()->userData()->first()->last_name }}
+                            {{ Auth::guard('consultant')->user()->userData->first_name.' '.Auth::guard('consultant')->user()->userData->last_name }}
                         </span>
                     </a>
                     <ul class="dropdown-menu">
@@ -64,22 +64,16 @@
                         <li class="user-header">
                             <img src="{{
                             URL::to('/')
-                            .Auth::guard('consultant')->user()->userData()->first()->image()->first()->path
-                            .Auth::guard('consultant')->user()->userData()->first()->image()->first()->filename
+                            .Auth::guard('consultant')->user()->userData->image->path
+                            .Auth::guard('consultant')->user()->userData->image->filename
                              }}" class="img-circle" alt="User Image">
                             <p>
-                                {{ Auth::guard('consultant')->user()->userData()->first()->first_name.' '.Auth::guard('consultant')->user()->userData()->first()->last_name.' - '.ucfirst(Auth::guard('consultant')->user()->type) }}
+                                {{ Auth::guard('consultant')->user()->userData->first_name.' '.Auth::guard('consultant')->user()->userData->last_name.' - '.ucfirst(Auth::guard('consultant')->user()->type) }}
                                 <small>Member since {{ date('d/m/Y', strtotime(Auth::guard('consultant')->user()->created_at)) }}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="{{ Auth::guard('consultant')->user()->type == 'admin' ?
-                                        action('AdminController@detailsAdmin', Auth::guard('consultant')->user()->id) :
-                                        action('AdminController@detailsConsultant', Auth::guard('consultant')->user()->id) }}"
-                                   class="btn btn-default btn-flat">Profile</a>
-                            </div>
                             <div class="pull-right">
                                 <a href="{{ action('Auth\AuthController@getConsultantLogout') }}" class="btn btn-default btn-flat">Sign out</a>
                             </div>

@@ -25,6 +25,15 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">{{ $status }}</h3>
+                    {!! Form::open([
+                        'role' => 'form',
+                        'url' => action('ConsultantController@'.$routes[$stat]),
+                        'files' => true,
+                        'method' => 'GET'
+                    ]) !!}
+                    {!! Form::text('search', $search, ['class' => 'form-control w200px inline']) !!}
+                    <input type="submit" value="Search" class="btn btn-sm btn-default">
+                    {!! Form::close() !!}
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
@@ -47,27 +56,29 @@
                                     <td class="w300px">
                                         @if(count($question->images) > 0)
                                             @foreach($question->images as $image)
-                                                <img class="admin-user-questions" src="{{ url()->to('/').$image->path.$image->filename }}">
+                                                <img class="admin-user-questions" src="{{ url()->to('/').'/photo/100x100/'.$image->filename }}">
                                             @endforeach
                                         @else
                                             <img class="admin-user-questions" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                         @endif
                                     </td>
                                     <td>{{ $question->question }}</td>
-                                    <td><a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a></td>
+                                    <td><a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user->id]) }}">{{ $question->user->email }}</a></td>
                                     <td>{{ $question->ip }}</td>
                                     <td class="w100px">
                                         @if($question->status == 1)
-                                            {{ date('d M, Y H:i', strtotime($question->updated_at)) }}
+                                            {{ date('d M, Y H:i', strtotime($question->asked_at)) }}
                                         @else
-                                            {{ $question->answer()->first() ? ($question->answer()->first()->seen ? 'YES' : 'NO') : 'NO' }}
+                                            {{ $question->answer()->first() ? ($question->answer->seen ? 'YES' : 'NO') : 'NO' }}
                                         @endif
                                     </td>
                                     <td class="w100px">
                                         @if($question->status == 1)
                                             <a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-success">Answer</a>
+                                        @elseif($question->status == 3)
+                                            <a href="{{ action('ConsultantController@rejectionPreview', $question->id) }}" class="btn btn-primary">Check reason</a>
                                         @else
-                                            <a href="{{ action('ConsultantController@answerPreview', $question->answer()->first() ? $question->answer()->first()->id : '') }}" class="btn btn-primary">Show answer</a>
+                                            <a href="{{ action('ConsultantController@answerPreview', $question->answer()->first() ? $question->answer->id : '') }}" class="btn btn-primary">Show answer</a>
                                         @endif
                                     </td>
                                 </tr>

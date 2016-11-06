@@ -6,12 +6,12 @@
             <div class="pull-left image">
                 <img src="{{
                             URL::to('/')
-                            .Auth::guard('consultant')->user()->userData()->first()->image()->first()->path
-                            .Auth::guard('consultant')->user()->userData()->first()->image()->first()->filename
+                            .Auth::guard('consultant')->user()->userData->image->path
+                            .Auth::guard('consultant')->user()->userData->image->filename
                              }}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>{{ Auth::guard('consultant')->user()->userData()->first()->first_name.' '.Auth::guard('consultant')->user()->userData()->first()->last_name }}</p>
+                <p>{{ Auth::guard('consultant')->user()->userData->first_name.' '.Auth::guard('consultant')->user()->userData->last_name }}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -50,6 +50,7 @@
                 <ul class="treeview-menu">
                     <li class="{{ (Request::is('consultant/questions/pending*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listPending') }}"><i class="fa fa-circle-o"></i> Pending</a></li>
                     <li class="{{ (Request::is('consultant/questions/answered*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listAnswered') }}"><i class="fa fa-circle-o"></i> Answered</a></li>
+                    <li class="{{ (Request::is('consultant/questions/rejected*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listRejected') }}"><i class="fa fa-circle-o"></i> Rejected</a></li>
                 </ul>
             </li>
             <li class="{{ (Request::is('consultant/timetable*') ? 'active' : '') }}">

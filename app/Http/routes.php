@@ -129,6 +129,7 @@ Route::group(['middleware' => ['ip']], function () {
         Route::get('{id}/question-payment', 'FrontendController@paymentQuestion');
         Route::get('{id}/view-answer', 'FrontendController@viewAnswer');
         Route::get('notifications', 'FrontendController@notifications');
+        Route::get('notifications/mark-as-read', 'UserController@markNotifications');
         Route::get('notifications/{id}', 'FrontendController@showNotification');
         Route::get('questions', 'FrontendController@questions');
         Route::get('{id}/question', 'FrontendController@viewQuestion');
@@ -170,6 +171,7 @@ Route::group(['middleware' => ['ip']], function () {
         Route::get('/', 'ConsultantController@index');
         Route::get('logout', 'Auth\AuthController@getConsultantLogout');
         Route::post('ajax-pending', 'ConsultantController@ajaxPending');
+        Route::post('ajax-timer/{id}', 'ConsultantController@saveTimer');
         Route::group(['prefix' => 'users'], function () {
             Route::get('list', 'ConsultantController@listUsers');
             Route::get('profile/{id}', 'ConsultantController@detailsUser');
@@ -177,8 +179,11 @@ Route::group(['middleware' => ['ip']], function () {
         Route::group(['prefix' => 'questions'], function () {
             Route::get('pending', 'ConsultantController@listPending');
             Route::get('answered', 'ConsultantController@listAnswered');
+            Route::get('rejected', 'ConsultantController@listRejected');
             Route::get('pending/{id}/answer', 'ConsultantController@answerQuestion');
             Route::get('{id}/preview', 'ConsultantController@answerPreview');
+            Route::get('rejected/{id}/rejection', 'ConsultantController@rejectionPreview');
+            Route::post('pending/{id}/reject', 'ConsultantController@rejectQuestion');
             Route::post('pending/{id}/save', 'ConsultantController@answerSave');
             Route::post('pending/{id}/send', 'ConsultantController@answerSend');
         });
@@ -211,6 +216,7 @@ Route::group(['middleware' => ['ip']], function () {
                 Route::post('update-timetable/{id}', 'AdminController@updateConsultantTimetable');
                 Route::post('update-login/{id}/{type}', 'AdminController@updateConsultantLogin');
                 Route::delete('delete-profile/{id}', 'AdminController@destroyConsultant');
+                Route::post('disable-profile/{id}/{disable}', 'AdminController@disableConsultant');
             });
             Route::group(['prefix' => 'users'], function () {
                 Route::get('list', 'AdminController@listUsers');
@@ -222,6 +228,7 @@ Route::group(['middleware' => ['ip']], function () {
                 Route::post('update-login/{id}/{type}', 'AdminController@updateUserLogin');
                 Route::post('force-login', 'AdminController@forceLoginUser');
                 Route::delete('delete-profile/{id}', 'AdminController@destroyUser');
+                Route::post('disable-profile/{id}/{disable}', 'AdminController@disableUser');
             });
         });
         Route::group(['prefix' => 'articles'], function () {
@@ -247,6 +254,10 @@ Route::group(['middleware' => ['ip']], function () {
             Route::get('/', 'AdminController@answers');
             Route::get('preview/{id}', 'AdminController@showAnswer');
         });
+        Route::group(['prefix' => 'rejections'], function () {
+            Route::get('/', 'AdminController@rejections');
+            Route::get('preview/{id}', 'AdminController@showRejection');
+        });
         Route::group(['prefix' => 'phrases'], function () {
             Route::get('/', 'AdminController@phrases');
             Route::get('edit/{id}', 'AdminController@editPhrase');
@@ -255,8 +266,11 @@ Route::group(['middleware' => ['ip']], function () {
             Route::post('change/{id}/{action}', 'AdminController@changePhrase');
         });
         Route::group(['prefix' => 'vouchers'], function () {
-            Route::get('/', 'AdminController@vouchers');
-            Route::get('detils/{id}', 'AdminController@voucherDetails');
+            Route::get('list', 'AdminController@vouchers');
+            Route::get('created', 'AdminController@createdVouchers');
+            Route::get('list/details/{id}', 'AdminController@voucherDetails');
+            Route::get('created/details/{id}', 'AdminController@createdVoucherDetails');
+            Route::post('created/create-voucher', 'AdminController@createVoucher');
         });
         Route::group(['prefix' => 'discounts'], function () {
             Route::get('/', 'AdminController@discounts');

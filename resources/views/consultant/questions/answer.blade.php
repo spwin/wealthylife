@@ -59,6 +59,14 @@
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
+            <div class="box box-default">
+                <div class="box-body">
+                    <div id="answer-timer"></div>
+                </div>
+                <div class="box-footer saved-container">
+                    <div id="saved-msg"></div>
+                </div>
+            </div>
         </div>
         <div class="col-md-9">
             <div class="box box-primary">
@@ -68,7 +76,7 @@
                 </div>
                 <div class="box-body box-profile">
                     <div class="col-md-12 margin-bottom">
-                        <div class="question-date">{{ date('Y, M d H:i', strtotime($question->updated_at)) }}</div>
+                        <div class="question-date">{{ date('Y, M d H:i', strtotime($question->asked_at)) }}</div>
                         <div class="question-ip">IP: {{ $question->ip }}</div>
                         <div class="question-body">{{ $question->question }}</div>
                     </div>
@@ -84,6 +92,38 @@
                         @endif
                     </div>
                 </div>
+                <div class="box-footer">
+                    <button type="button" class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#rejectionReason">
+                        Reject question
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="rejectionReason" tabindex="-1" role="dialog" aria-labelledby="rejectionReason">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                {!! Form::open([
+                                    'role' => 'form',
+                                    'url' => action('ConsultantController@rejectQuestion', ['id' => $question->id]),
+                                    'method' => 'POST'
+                                ]) !!}
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Rejection reason</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <h4>Credits will be returned to user after rejection.</h4>
+                                    <div class="form-group"><span class="text-danger">*</span>
+                                        {!! Form::label('reason', 'Please enter rejection reason here:') !!}
+                                        {!! Form::textarea('reason', null, ['class' => 'form-control', 'placeholder' => 'Rejection reason', 'size' => '30x4', 'id' => 'reject-reason', 'required' => true]) !!}
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Reject</button>
+                                </div>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="box box-success">
                 <div class="box-header">
@@ -95,8 +135,10 @@
                         {!! Form::open([
                             'role' => 'form',
                             'url' => action('ConsultantController@answerSave', ['id' => $question->id]),
-                            'method' => 'POST'
+                            'method' => 'POST',
+                            'class' => 'save-answer-form'
                         ]) !!}
+                        <input type="hidden" name="timer" id="timer">
                         <textarea class="textarea-ckeditor" id="answer" name="answer">{{ $question->answer()->first() ? $question->answer()->first()->answer : '' }}</textarea>
                         <button type="submit" class="btn btn-success mt-15px">Save & Preview</button>
                         {!! Form::close() !!}
@@ -113,6 +155,7 @@
         CKEDITOR.replace('answer', {
             height : '400px'
         });
+        saveAnswerTimer.init('.save-answer-form', '#answer-timer', '{{ action('ConsultantController@saveTimer', ['id' => $question->id]) }}', {{ $question->timer }}, '{{ csrf_token() }}');
     });
 </script>
 @endpush

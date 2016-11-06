@@ -16,7 +16,7 @@ class PhrasesSeeder extends Seeder
 
         $phrase = new Phrases();
         $phrase->fill([
-            'text' => 'Simplicity is the keynote of all true elegance.',
+            'text' => '<Strong>Simplicity</Strong> is the keynote of all true elegance.',
             'author' => 'Coco Chanel',
             'enabled' => 1
         ]);

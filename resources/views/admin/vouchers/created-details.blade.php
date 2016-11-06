@@ -26,10 +26,7 @@
             <div class="box box-primary">
                 <div class="box-header">
                     <div class="inline mr-15px">
-                        <i class="fa fa-user"></i> From: <a href="{{ action('AdminController@detailsUser', ['id' => $voucher->user->id]) }}">{{ $voucher->user->email }}</a>
-                    </div>
-                    <div class="inline">
-                        <i class="fa fa-envelope"></i> To: {{ $voucher->receiver_email }}
+                        Generated on <strong>{{ date('Y-m-d', strtotime($voucher->created_at)) }}</strong>
                     </div>
                 </div>
                 <div class="box-body">
@@ -37,19 +34,14 @@
                     @if($voucher->status == 2)
                         <p>Used by: <strong><a href="{{ action('AdminController@detailsUser', ['id' => $voucher->usedBy->id]) }}">{{ $voucher->usedBy->email }}</a></strong></p>
                     @endif
-                    <p>Price: <strong>£{{ $voucher->price }}</strong></p>
                     <p>Credits: <strong>{{ $voucher->credits }}</strong></p>
-                    <p>Anonymous: <strong>{{ $voucher->anonymous ? 'YES' : 'NO' }}</strong></p>
-                    @if($voucher->message)
-                        <p><strong>Message:</strong><br/>{{ $voucher->message }}</p>
-                    @endif
                 </div>
                 <div class="box-footer">
                     <h5>Status:
-                        @if($voucher->status == 1)
-                            <strong class="text-warning">PAID</strong>, not used yet
-                        @elseif($voucher->status == 2)
-                            <strong class="text-success">USED</strong> on {{ date('Y-m-d', strtotime($voucher->updated_at)) }}
+                        @if($voucher->status == 2)
+                            <strong class="text-warning">USED COUPON</strong>, used on {{ date('Y-m-d', strtotime($voucher->updated_at)) }}
+                        @elseif($voucher->status == 1)
+                            <strong class="text-success">AVAILABLE</strong>
                         @endif
                     </h5>
                 </div>

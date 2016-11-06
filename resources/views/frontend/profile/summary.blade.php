@@ -72,6 +72,9 @@
                                     @if(($count = ($user->questions ? $user->questions()->where(['status' => 2])->count() : 0)) > 0)
                                         <li><a href="{{ action('FrontendController@questions', '#answered') }}">Answered ({{ $count }})</a></li>
                                     @endif
+                                    @if(($count = ($user->questions ? $user->questions()->where(['status' => 3])->count() : 0)) > 0)
+                                        <li><a href="{{ action('FrontendController@questions', '#rejected') }}">Rejected ({{ $count }})</a></li>
+                                    @endif
                                     {{--<li><a href="{{ action('FrontendController@questions') }}">My questions</a></li>--}}
                                 </ul>
 

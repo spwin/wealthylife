@@ -16,7 +16,7 @@
                     <h4 class="uppercase mb16">Payment process</h4>
                     <div class="col-md-4">
                         <div class="credits-preview pricing-table pt-1 text-center boxed">
-                            <H5 class="uppercase">{{ $scheme->credits }} credits for</H5>
+                            <h5 class="uppercase">{{ $scheme->credits }} credits for</h5>
                             <span class="price">£{{ round($scheme->price) }}</span>
                             <p class="discount"><span class="round">- {{ round(100 - ($scheme->price*100/$scheme->credits)) }}%</span></p>
                             <p class="lead">{{ $scheme->questions }} questions</p>
@@ -47,9 +47,11 @@
 @push('scripts')
 <script src="https://js.braintreegateway.com/js/braintree-2.27.0.min.js"></script>
 <script>
-    var clientToken = "{{ $token }}";
-    braintree.setup(clientToken, "dropin", {
-        container: "payment-form"
+    ($)(function(){
+        var clientToken = "{{ $token }}";
+        braintree.setup(clientToken, "dropin", {
+            container: "payment-form"
+        });
     });
 </script>
 @endpush

@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->text('timetable');
             $table->boolean('referral_rewarded')->default(0);
+            $table->boolean('disable')->default(0);
             $table->string('referral_key');
             $table->integer('referral_id')->nullable()->unsigned();
             $table->foreign('referral_id')->references('id')->on('users');
