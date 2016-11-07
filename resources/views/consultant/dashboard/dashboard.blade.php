@@ -131,7 +131,7 @@
                                         @elseif(date('l M', time()-86400) == date('l M', strtotime($user->created_at)))
                                             Yesterday
                                         @else
-                                            {{ date('l M', strtotime($user->created_at)) }}
+                                            {{ date('d M', strtotime($user->created_at)) }}
                                         @endif
                                     </span>
                                 </li>
