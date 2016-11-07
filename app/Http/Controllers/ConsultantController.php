@@ -269,10 +269,10 @@ class ConsultantController extends Controller
         $key = '';
         if($request->has('search') && $search = strtolower($request->get('search'))){
             $key = $search;
-            $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])
+            $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->whereNotNull('user_id')
                 ->whereRaw('LOWER(question) LIKE ?', array('%'.$search.'%'))->orderBy('asked_at', 'ASC')->paginate(20);
         } else {
-            $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->orderBy('asked_at', 'ASC')->paginate(20);
+            $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->whereNotNull('user_id')->orderBy('asked_at', 'ASC')->paginate(20);
         }
         $routes = ['1' => 'listPending', '2' => 'listAnswered', '3' => 'listRejected'];
         return view('consultant/questions/list')->with([

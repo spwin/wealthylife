@@ -62,7 +62,13 @@
                                         @endif
                                     </td>
                                     <td>{{ $question->question }}</td>
-                                    <td><a href="{{ action('AdminController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a></td>
+                                    <td>
+                                        @if($question->user)
+                                            <a href="{{ action('AdminController@detailsUser', ['id' => $question->user->id]) }}">{{ $question->user->email }}</a>
+                                        @else
+                                            Deleted
+                                        @endif
+                                    </td>
                                     <td><a href="{{ action('AdminController@detailsConsultant', ['id' => $question->consultant()->first()->id]) }}">{{ $question->consultant()->first()->email }}</a></td>
                                     <td class="w100px">
                                         @if($question->status == 2)

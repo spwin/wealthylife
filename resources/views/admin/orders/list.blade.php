@@ -46,7 +46,12 @@
                             @foreach($orders as $order)
                                 <tr>
                                     <td class="w40px">#{{ $order->id }}</td>
-                                    <td><a href="{{ action('AdminController@detailsUser', ['id' => $order->user->id]) }}">{{ $order->user->email }}</a></td>
+                                    <td>
+                                        @if($order->user)
+                                            <a href="{{ action('AdminController@detailsUser', ['id' => $order->user->id]) }}">{{ $order->user->email }}</a></td>
+                                        @else
+                                            Deleted
+                                        @endif
                                     <td>{{ $order->type }}</td>
                                     <td>{{ $order->question_id }}</td>
                                     <td>{{ $order->voucher_id }}</td>

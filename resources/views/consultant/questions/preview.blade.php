@@ -49,7 +49,11 @@
                         <div class="question-body">{{ $question->question }}</div>
                     </div>
                     <div class="box-footer">
-                        <a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user()->first()->id]) }}">{{ $question->user()->first()->email }}</a>
+                        @if($question->user)
+                            <a href="{{ action('ConsultantController@detailsUser', ['id' => $question->user->id]) }}">{{ $question->user->email }}</a>
+                        @else
+                            User Deleted
+                        @endif
                     </div>
                 </div>
             </div>
