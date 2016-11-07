@@ -22,7 +22,7 @@
 
                     <!--  FIRST CONTAINER   -->
 
-        <div class="arrow-style">
+        <div class="arrow-style mob-left-to-right">
             <div class="curve-wrap left-top-wrap">
                 <div class="rotated left-top">
                     <div class="top-part"></div>
@@ -35,11 +35,11 @@
             </div>
             <div class="container first-about-block">
                 <div class="row">
-                    <div class="half left about-block">
+                    <div class="half left about-block mobile-absolute position1">
                         <img class="bigger-image" alt="Black dotted dress" src="{{ url()->to('/') }}/images/black-dot-dress.png" >
                     </div>
-                    <div class="half right about-block mt56">
-                        <h3 class="uppercase">In search of perfect footwear for your <span class="color-pink">party dress?</span></h3>
+                    <div class="half right nofloat-mob about-block mt56">
+                        <h3 class="uppercase fs35on550">In search of perfect footwear for your <span class="color-pink">party dress?</span></h3>
                         <h4 class="uppercase">Having trouble <span class="color-pink">mixing and matching</span> outfits?</h4>
                         <h5 class="uppercase">Need help dressing up <span class="color-pink">for date night?</span></h5>
                         <p class="phrase"><span class="bold700">No matter what type of styling trouble you are in,</span> at Stylesensei, we always have your back!</p>
@@ -47,6 +47,7 @@
                         <!--p>Click here to take a look at the type of questions our styling team can answer for you!</p-->
                     </div>
                 </div>
+                <img class="absolute visible570" alt="Black dotted dress" src="{{ url()->to('/') }}/images/blond-woman-cut.jpg">
                 <div class="row">
                     <div class="half left about-block">
                         <h3 class="uppercase"><span class="color-pink">How It</span> Works?</h3>
@@ -54,10 +55,10 @@
                             <span class="bold700 phrase">Is there a fashion emergency that you want to solve?</span><br>Here’s how you can get connected to our styling experts:
                         <ul class="how-it-works">
                             <li class="how1"><span class="bold700">01. Log into Stylesensei</span> with your social account or create an account.</li>
-                            <li class="how4"><span class="bold700">04. Proceed</span> with your <span class="bold700">payment</span> via Paypal or credit/debit card.</li>
                             <li class="how2"><span class="bold700">02. Tell us</span> your problem or <span class="bold700">ask us</span> a question.</li>
-                            <li class="how5"><span class="bold700">05. Get an email notification</span> once our team answers your questions.</li>
                             <li class="how3"><span class="bold700">03. Attach a picture</span> of the item in question if you want to.</li>
+                            <li class="how4"><span class="bold700">04. Proceed</span> with your <span class="bold700">payment</span> via Paypal or credit/debit card.</li>
+                            <li class="how5"><span class="bold700">05. Get an email notification</span> once our team answers your questions.</li>
                             <li class="how6"><span class="bold700">06. Check back</span> into your <span class="bold700">Stylesensei account</span> to find our answer.</li>
                         </ul>
                         </p>
@@ -86,10 +87,10 @@
 
         <div class="arrow-style-invert">
 
-            <img class="left-image" alt="Stylish man in suit with watch" src="{{ url()->to('/') }}/images/man-watches.png" >
+            <img class="left-image mob-none" alt="Stylish man in suit with watch" src="{{ url()->to('/') }}/images/man-watches.png" >
 
             <div class="container">
-                <div class="half right about-block on-black padleft150">
+                <div class="half right about-block on-black padleft150 mission">
                     <h3 class="uppercase mb5 padleft48 relative"><img class="absolute mission-icon" alt="Mission aim" src="{{ url()->to('/') }}/images/mission-icon.svg">Our <span class="color-pink">Mission</span></h3>
                     <p>We aim at giving professional styling and fashion advice available for everyone without having to pay a hefty amount of money.</p>
                 </div>
@@ -100,7 +101,7 @@
 
                 <!--    CREDITS / GIFTS       -->
 
-        <div class="arrow-style">
+        <div class="arrow-style mob-right-to-left">
             <div class="curve-wrap left-top-wrap">
                 <div class="rotated left-top">
                     <div class="top-part"></div>
@@ -112,10 +113,10 @@
                 </div>
             </div>
                 <div class="row">
-                    <div class="container text-center">
+                    <div class="container text-center pt32">
                         <div class="center-cont">
-                            <img class="width32 left" src="{{ url()->to('/') }}/images/credits.jpg">
-                            <div class="left about-block padleft48">
+                            <img class="width32 left rfloat-mob" src="{{ url()->to('/') }}/images/credits.jpg">
+                            <div class="left about-block padleft48 padright30-mob">
                                 <h3 class="uppercase credits-head">Credits</h3>
                                 <p>Want to make the most of your relation with us? Get outstanding deals and save money on styling advice/suggestions by using our credits system. By purchasing more credits, you get a chance to save more money and enjoy better deals.</p>
                                 <p>You will find more information about credits when you log into Stylesensei.</p>
@@ -157,7 +158,7 @@
                 </div>
             </div>
 
-            <img class="right-image" alt="Stylish computer" src="{{ url()->to('/') }}/images/blog-mac.png" >
+            <img class="right-image mob-none" alt="Stylish computer" src="{{ url()->to('/') }}/images/blog-mac.png" >
 
         </div>
 
@@ -165,7 +166,7 @@
 
             <!--   REFERRAL   -->
 
-        <div class="arrow-style index3">
+        <div class="arrow-style index3 mob-left-to-right">
             <div class="curve-wrap left-top-wrap">
                 <div class="rotated left-top">
                     <div class="top-part"></div>
@@ -178,7 +179,7 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="half left about-block mt64">
+                    <div class="half left about-block mt64 mobile-absolute position2">
                         <img alt="Referral system image width90" src="{{ url()->to('/') }}/images/referral-system.jpg" >
                     </div>
                     <div class="half right about-block mt56">
@@ -193,11 +194,11 @@
                 <div class="row text-center mt40">
                         <div class="about-block">
                             <h3 class="uppercase mt24 mb48">How it <span class="color-blue">works?</span></h3>
-                            <div class="ref1 referral-works">Log in and get your unique referral code under ‘Rewards’ tab in your StyleSensei My Account section.</div>
-                            <div class="ref2 referral-works">Forward you Style link to everyone you know by email, text, Facebook, Twitter</div>
-                            <div class="ref3 referral-works">Make sure they register using your referral link and ask at least one question.</div>
-                            <div class="ref4 referral-works mt16">Follow your points on your StyleSensei account</div>
-                            <div class="ref5 referral-works mt16">Spend your points on questions so you can pay less!</div>
+                            <div class="ref1 referral-works"><span class="bold700">01. </span>Log in and get your unique referral code under ‘Rewards’ tab in your StyleSensei My Account section.</div>
+                            <div class="ref2 referral-works"><span class="bold700">02. </span>Forward you Style link to everyone you know by email, text, Facebook, Twitter</div>
+                            <div class="ref3 referral-works"><span class="bold700">03. </span>Make sure they register using your referral link and ask at least one question.</div>
+                            <div class="ref4 referral-works mt16"><span class="bold700">04.</span>Follow your points on your StyleSensei account</div>
+                            <div class="ref5 referral-works mt16"><span class="bold700">05. </span>Spend your points on questions so you can pay less!</div>
                         </div>
                 </div>
             </div>
@@ -222,8 +223,8 @@
             <div class="container">
                 <div class="row text-center">
                     <div class="center-cont about-block on-black">
-                        <img class="width28 left" src="{{ url()->to('/') }}/images/security-icon.svg">
-                        <div class="left about-block padleft48">
+                        <img class="width28 left mob-none" src="{{ url()->to('/') }}/images/security-icon.svg">
+                        <div class="left about-block padleft48 width90-mob">
                             <h3 class="uppercase credits-head"><span class="color-blue">Security</span> & privacy</h3>
                             <p>At Stylesensei, <span class="bold700">we ensure</span> that our customers are <span class="bold700 color-blue">protected</span> by any kind of <span class="bold700">data</span> theft, which is why we have encrypted the entire site with <span class="bold700"><span class="color-blue">SSL</span> certificate</span>.</p>
                             <p>Feel free to ask any type of questions on styling and we promise you that it will remain between you and the consultant in charge. Your personal information will also be protected and kept under confidentiality. We process all payments via Braintree gateway, a highly secure and reliable payment system.</p>
@@ -236,7 +237,7 @@
 
         <!---  YOUR STYLE  -->
 
-        <div class="arrow-style">
+        <div class="arrow-style mob-right-to-left">
             <div class="curve-wrap left-top-wrap">
                 <div class="rotated left-top">
                     <div class="top-part"></div>
@@ -247,7 +248,7 @@
                     <div class="top-part"></div>
                 </div>
             </div>
-            <div class="container first-about-block">
+            <div class="container first-about-block padbottom150-mob">
                 <div class="row">
                     <div class="half left about-block text-right mt112 mb112">
                         <h3 class="uppercase"><span class="color-blue">Your style</span> <span class="font-weight400">speaks of</span> <span class="color-dark-blue">your personality</span></h3>
@@ -263,12 +264,13 @@
             <div class="curve-wrap left-bottom-wrap">
                 <div class="rotated left-bottom">
                     <div class="bottom-part"></div>
+                    <img class="last-img mob-block position3 mobile-absolute" alt="Black dotted dress" src="{{ url()->to('/') }}/images/last-img.jpg" >
                 </div>
             </div>
             <div class="curve-wrap right-bottom-wrap">
                 <div class="rotated right-bottom">
                     <div class="bottom-part"></div>
-                    <img class="curved-image-rb last-img" alt="Black dotted dress" src="{{ url()->to('/') }}/images/last-img.jpg" >
+                    <img class="curved-image-rb last-img mob-none" alt="Black dotted dress" src="{{ url()->to('/') }}/images/last-img.jpg" >
                 </div>
             </div>
         </div>

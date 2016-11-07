@@ -348,13 +348,6 @@ form .textarea-holder .charNum{
     bottom: 32px;
 }
 
-.left{
-    float: left;
-}
-
-.right{
-    float: right;
-}
 
 .image-upload .drop-zone.empty::before,
 .image-upload .drop-article-zone.empty::before{
