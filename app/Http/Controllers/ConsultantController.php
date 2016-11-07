@@ -116,7 +116,7 @@ class ConsultantController extends Controller
         $latest_users = User::where(['type' => 'user', 'status' => 1])->orderBy('created_at', 'DESC')->limit(5)->get();
         $latest_answered = Questions::where(['consultant_id' => $consultant->id, 'status' => 2])->orderBy('answered_at', 'DESC')->limit(5)->get();
         $latest_rated = Answers::where(['consultant_id' => $consultant->id, 'rated' => 1])->orderBy('updated_at', 'DESC')->limit(5)->get();
-        $pending = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->get();
+        $pending = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->whereNotNull('user_id')->get();
         $gross_consultant = Settings::select('value')->where(['name' => 'gross_consultant'])->first();
         $summary = $this->getDashboardSummary($answers);
         $daily_questions = $this->getDailyQuestions($consultant, 30);
