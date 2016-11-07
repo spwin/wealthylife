@@ -6048,7 +6048,6 @@ ROTATION
   -moz-transform: rotate(-6deg);
   -webkit-transform: rotate(-6deg);
   -ms-transform: rotate(-6deg);
-  -webkit-backface-visibility: hidden;
 }
 .top-part {
   background-color: white;
