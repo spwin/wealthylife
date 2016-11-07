@@ -28,6 +28,7 @@ class ConsultantController extends Controller
         ))
             ->where(['status' => 2, 'consultant_id' => $consultant->id])
             ->where('created_at', '>', $date)
+            ->orWhere(['status' => 1])
             ->groupBy('date')
             ->orderBy('date', 'DESC')
             ->lists('count', 'date');
