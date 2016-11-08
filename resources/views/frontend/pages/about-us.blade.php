@@ -7,11 +7,11 @@
         <div class="background-image-holder-about fadeIn">
             <img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/about-bg.jpg" />
         </div>
-        <div class="container">
+        <div class="container page-first-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h2 class="uppercase mb8 page-h2">About</h2>
-                    <p class="lead mb0 below">It's not about brand, <span class="color-pink">it's about style.</span></p>
+                    <h1 class="uppercase mb8 page-h2">About</h1>
+                    <h2 class="lead mb0 below">It's not about brand, <span class="color-pink">it's about style.</span></h2>
                 </div>
             </div>
             <!--end of row-->
@@ -34,24 +34,26 @@
                 </div>
             </div>
             <div class="container first-about-block">
-                <div class="row">
-                    <div class="half left about-block mobile-absolute position1">
+                <div class="row index3">
+                    <div class="half left about-block mobile-absolute position1 zindex-1">
                         <img class="bigger-image" alt="Black dotted dress" src="{{ url()->to('/') }}/images/black-dot-dress.png" >
                     </div>
                     <div class="half right nofloat-mob about-block mt56">
-                        <h3 class="uppercase fs35on550">In search of perfect footwear for your <span class="color-pink">party dress?</span></h3>
-                        <h4 class="uppercase">Having trouble <span class="color-pink">mixing and matching</span> outfits?</h4>
-                        <h5 class="uppercase">Need help dressing up <span class="color-pink">for date night?</span></h5>
-                        <p class="phrase"><span class="bold700">No matter what type of styling trouble you are in,</span> at Stylesensei, we always have your back!</p>
+                        <h3 class="uppercase fs35on550 padright60on410">In search of perfect footwear for your <span class="color-pink">party dress?</span></h3>
+                        <h4 class="uppercase padright60on410">Having trouble <span class="color-pink">mixing and matching</span> outfits?</h4>
+                        <h5 class="uppercase padright60on410">Need help dressing up <span class="color-pink">for date night?</span></h5>
+                        <p class="phrase padright60on410"><span class="bold700">No matter what type of styling trouble you are in,</span> at Stylesensei, we always have your back!</p>
                         <p>We are your go-to team to answer all your styling-related questions. From helping you choose the perfect dress for your body type and picking out the right scarf to go with your dress, we are the one stop solution for all your style and fashion problems. Our stylists are prompt and eager to help you with any fashion questions that you might have. So, whenever you have trouble picking up the right outfit, just call us out for help and we will get back to you in little time.</p>
                         <!--p>Click here to take a look at the type of questions our styling team can answer for you!</p-->
                     </div>
                 </div>
-                <img class="absolute visible570" alt="Black dotted dress" src="{{ url()->to('/') }}/images/blond-woman-cut.jpg">
-                <div class="row">
+                <div class="relative index0">
+                    <img class="absolute visible570" alt="Black dotted dress" src="{{ url()->to('/') }}/images/blond-woman-cut.jpg">
+                </div>
+                <div class="row index3">
                     <div class="half left about-block">
-                        <h3 class="uppercase"><span class="color-pink">How It</span> Works?</h3>
-                        <p>
+                        <h3 class="uppercase padright109on410"><span class="color-pink">How It</span> Works?</h3>
+                        <p class="padright60on410">
                             <span class="bold700 phrase">Is there a fashion emergency that you want to solve?</span><br>Here’s how you can get connected to our styling experts:
                         <ul class="how-it-works">
                             <li class="how1"><span class="bold700">01. Log into Stylesensei</span> with your social account or create an account.</li>
@@ -78,7 +80,7 @@
             <div class="curve-wrap right-bottom-wrap">
                 <div class="rotated right-bottom">
                     <div class="bottom-part"></div>
-                    <img class="curved-image-rb" alt="Black dotted dress" src="{{ url()->to('/') }}/images/blond-woman.jpg">
+                    <img class="curved-image-rb blond" alt="Stylish blond woman" src="{{ url()->to('/') }}/images/blond-woman.jpg">
                 </div>
             </div>
         </div>
@@ -182,8 +184,8 @@
                     <div class="half left about-block mt64 mobile-absolute position2">
                         <img alt="Referral system image width90" src="{{ url()->to('/') }}/images/referral-system.jpg" >
                     </div>
-                    <div class="half right about-block mt56">
-                        <h3 class="uppercase">Referral reward <span class="color-blue">System</span></h3>
+                    <div class="half right about-block mt56 referral">
+                        <h3 class="uppercase padright60on410">Referral reward <span class="color-blue">System</span></h3>
                         <p><span class="bold700">Our clients are the best promoters of our service. And as you are the part of it, by helping you get the most of StyleSensei we created our unique REFER A FRIEND system.</span><br>Here's how you can get connected to our styling experts:</p>
                         <p class="mb0">- You receive £2 worth of StyleSensei points for every person you refer your personal referral link.</p>
                         <p class="mt0">- People you refer can get discounts on their first asked question!</p>
@@ -191,7 +193,7 @@
                     </div>
                     <div class="clearboth"></div>
                 </div>
-                <div class="row text-center mt40">
+                <div class="row text-center mt40 how-it-works2">
                         <div class="about-block">
                             <h3 class="uppercase mt24 mb48">How it <span class="color-blue">works?</span></h3>
                             <div class="ref1 referral-works"><span class="bold700">01. </span>Log in and get your unique referral code under ‘Rewards’ tab in your StyleSensei My Account section.</div>
@@ -250,7 +252,7 @@
             </div>
             <div class="container first-about-block padbottom150-mob">
                 <div class="row">
-                    <div class="half left about-block text-right mt112 mb112">
+                    <div class="half left about-block text-right mt112 mb112 last-about-block">
                         <h3 class="uppercase"><span class="color-blue">Your style</span> <span class="font-weight400">speaks of</span> <span class="color-dark-blue">your personality</span></h3>
                         <p class="phrase">Don’t compromise on it and get in touch with Stylesensei to make sure <span class="color-dark-blue bold700">you are looking on point all the time!</span></p>
                     </div>
@@ -276,21 +278,6 @@
         </div>
 
 
-
-
-
-
-
-
-
-
-
-
-        <div class="container">
-            <div>
-                <h5>Your style speaks of your personality, so don’t compromise on it and get in touch with Stylesensei to make sure you are looking on point all the time!</h5>
-            </div>
-        </div>
     </section>
     @include('frontend/footer')
 @stop

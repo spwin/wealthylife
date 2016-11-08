@@ -429,7 +429,7 @@ nav.bg-dark .logo-dark{ display: none; }
 .menu > li:last-child > ul{ right: 0; }
 .menu > li:last-child > ul ul{ left: auto; right: 100%; }
 
-.menu > li ul{ width: 200px; padding: 8px 0; background: rgba(34,34,34,0.2); position: absolute; z-index: 99; opacity: 0; .transition(0.3s); .translateY(10px); visibility: hidden; margin-top: -1px; }
+.menu > li ul{ width: 200px; padding: 8px 0; background: rgba(34,34,34,0.2); position: absolute; z-index: 99; opacity: 0; .transition(0.3s); .translateY(10px); visibility: hidden; margin-top: 0; }
 .menu > li > ul > li{ position: relative; line-height: 24px; width: 100%; vertical-align: top; }
 .menu > li > ul > li i{ display: inline-block; margin-right: 2px; }
 .menu > li > ul > .has-dropdown:after{ color: #fff; top: 5px; right: 24px; content: "\e649"; }
@@ -1960,6 +1960,9 @@ nav.transparent .menu > li.current > a {
 	color: #fb324a;
 	opacity: 1;
 }
+nav.transparent .menu > li:first-child > a {
+	color: white !important;
+}
 
 .nav-bar {
 	background-color: rgba(0,0,0, 0.4);
@@ -2152,7 +2155,7 @@ footer span.company-color {
 }
 
 .login-header {
-	width: 260px;
+	width: 300px;
 	height: 43px;
 	position: absolute;
 	bottom: 20px;
@@ -2566,8 +2569,14 @@ span.color-pink {
 .width90 {
 	width: 90%;
 }
+.index-1 {
+	z-index: -1;
+}
 .index3 {
 	z-index: 3;
+}
+.index0 {
+	z-index: 0;
 }
 .about-block.on-black {
 	margin: 200px 0 150px;
@@ -2679,7 +2688,16 @@ img.blog-icon {
 .visible570 {
 	display: none;
 }
-
+h1.uppercase {
+	letter-spacing: 1px;
+	font-weight: 700;
+	margin-bottom: 0;
+	font-size: 48px;
+	line-height: 48px;
+}
+.check-time-button {
+	margin-bottom: 0;
+}
 /************* ABOUT Desktop Responsive ****************/
 @media all and (max-width:1600px) {
 .how-it-works li
@@ -2701,7 +2719,7 @@ img.blog-icon {
 	font-size: 17px;
 }
 
-.curved-image-rb {
+.curved-image-rb.blond {
 	bottom: -170px;
 	width: 447px;
 }
@@ -2717,6 +2735,9 @@ img.blog-icon {
 	.right-image {
 		width: 620px;
 		top: 7px;
+	}
+	.curved-image-rb.last-img {
+		bottom: -100px;
 	}
 }
 
@@ -2752,7 +2773,7 @@ img.blog-icon {
 		font-size: 15px;
 	}
 
-	.curved-image-rb {
+	.curved-image-rb.blond {
 		bottom: -155px;
 		width: 405px;
 	}
@@ -2957,7 +2978,8 @@ img.blog-icon {
 
 @media all and (max-width:800px) {
 	.arrow-style,
-	.arrow-style-invert {
+	.arrow-style-invert,
+	.container.page-first-header {
 		padding-left: 40px;
 		padding-right: 40px;
 	}
@@ -2984,7 +3006,15 @@ img.blog-icon {
 	.ref5{
 		padding-right: 69px;
 	}
-
+	.container.page-first-header {
+		h1 {
+			line-height: 48px;
+			font-size: 48px;
+		}
+		.lead {
+			font-size: 20px;
+		}
+	}
 }
 
 @media all and (max-width:728px) {
@@ -2993,6 +3023,7 @@ img.blog-icon {
 	}
 	.position2 {
 		right: -247px;
+		z-index: -1;
 	}
 }
 
@@ -3079,6 +3110,7 @@ img.blog-icon {
 	.visible570 {
 		display: block;
 		right: -41px;
+		top: -60px;
 	}
 	.how-it-works {
 		width: 100%;
@@ -3097,9 +3129,15 @@ img.blog-icon {
 	.about-block.on-black {
 		padding: 0;
 	}
-	.arrow-style, .arrow-style-invert {
+	.arrow-style, .arrow-style-invert,
+	.container.page-first-header {
 		padding-left: 20px;
 		padding-right: 20px;
+	}
+	img.mission-icon {
+		width: 95px;
+		top: -5px;
+		left: -48px;
 	}
 
 	/************* font sizes *************/
@@ -3116,9 +3154,47 @@ img.blog-icon {
 
 
 }
+
 @media all and (max-width: 460px) {
 	.half {
-		padding-right: 50px;
+		padding-right: 56px;
+	}
+	.referral-works {
+		background-position: left center !important;
+		background-size: 35px;
+		height: auto;
+		padding-left: 50px;
+		width: 330px;
+	}
+	.ref4, .ref5 {
+		padding-right: 0;
+	}
+	.last-about-block.text-right {
+		text-align: left;
+		padding-right:0;
+		margin: 0;
+	}
+}
+
+@media all and (max-width:435px) {
+	.about-block h4.uppercase.padright60on410 {
+		padding-right: 20px;
+	}
+	.nav-is-overlay .page-title-4.image-bg:first-child {
+		height: 166px;
+	}
+	.first-about-block .about-block.mt56,
+	.about-block img.bigger-image {
+		margin-top: 0;
+	}
+	.container.page-first-header {
+		h1 {
+			line-height: 40px;
+			font-size: 38px;
+		}
+		.lead {
+			font-size: 16px;
+		}
 	}
 }
 
@@ -3127,9 +3203,110 @@ img.blog-icon {
 	.half {
 		padding-right: 0;
 	}
+	.padright60on410,
+	.about-block h4.uppercase.padright60on410,
+	.about-block h5.uppercase.padright60on410{
+		padding-right: 60px;
+	}
+
+	.about-block h3.uppercase.padright109on410 {
+		padding-right: 109px;
+	}
+
+	.position2 {
+		top: -82px;
+		width: 206px;
+		right: -100px;
+	}
+
+	.mission {
+		width: 230px;
+	}
+
+	img.mission-icon {
+		top: -21px;
+	}
+
+	img.blog-icon {
+		width: 51px;
+		top: -14px;
+		left: 103px;
+	}
+
+	.position3 {
+		bottom: -70px;
+	}
+
+	/********* font sizes ********/
+
+	.about-block h3.uppercase,
+	.about-block h3.uppercase.fs35on550 {
+		line-height: 33px;
+		font-size: 33px;
+	}
 }
 
+@media all and (max-width:360px) {
 
+	.how-it-works2.mt40 {
+		margin-top: 0;
+
+			h3 {
+				margin: 0 0 20px;
+			}
+	}
+
+	.center-cont .about-block.width90-mob {
+		width: 100%;
+	}
+	.visible570 {
+		top: -30px;
+		width: 100px;
+	}
+	.mission h3 {
+		width: 200px;
+	}
+	img.mission-icon {
+		width: 72px;
+		top: -14px;
+		left: -30px;
+	}
+	img.blog-icon {
+		width: 44px;
+		left: 77px;
+	}
+	.position1 {
+		right: -291px;
+		width: 404px;
+	}
+	.about-block h3.uppercase.padright109on410,
+	.referral h3.padright60on410{
+		padding-right: 0;
+	}
+	.referral-works {
+		padding-left: 45px;
+		width: 290px;
+	}
+	/*********** font sizes **********/
+
+	.about-block h3.uppercase, .about-block h3.uppercase.fs35on550 {
+		line-height: 26px;
+		font-size: 24px;
+	}
+	.about-block h4.uppercase {
+		font-size: 18px;
+	}
+	.about-block h5.uppercase,
+	.about-block .phrase{
+		font-size: 16px;
+	}
+	p,
+	.how-it-works li,
+	body {
+		font-size: 14px;
+	}
+
+}
 
 /************************
 DESKTOP FIXES
@@ -3145,6 +3322,13 @@ DESKTOP FIXES
 
 
 @media all and (max-width: 1366px) {
+	.module.widget-handle i {
+		line-height: 60px;
+	}
+	.foundry_modal[modal-link="0"] .btn.check-time-button {
+		margin-bottom: 0;
+		min-width: 137px;
+	}
 	.nav-bar {
 		height: 60px;
 		max-height: 60px;
