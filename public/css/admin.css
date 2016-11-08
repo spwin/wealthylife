@@ -9765,6 +9765,8 @@ tr.periods {
 
 .summary-answers {
   width: 100%; }
+  .summary-answers tr {
+    border-bottom: 1px solid #E9E9ED; }
 
 .w150px {
   width: 150px; }

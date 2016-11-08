@@ -32,7 +32,11 @@
                 <div class="box-body">
                     <h4>Voucher code: <strong>{{ $voucher->code }}</strong></h4>
                     @if($voucher->status == 2)
-                        <p>Used by: <strong><a href="{{ action('AdminController@detailsUser', ['id' => $voucher->usedBy->id]) }}">{{ $voucher->usedBy->email }}</a></strong></p>
+                        @if($$voucher->usedBy)
+                            <p>Used by: <strong><a href="{{ action('AdminController@detailsUser', ['id' => $voucher->usedBy->id]) }}">{{ $voucher->usedBy->email }}</a></strong></p>
+                        @else
+                            <p>User deleted</p>
+                        @endif
                     @endif
                     <p>Credits: <strong>{{ $voucher->credits }}</strong></p>
                 </div>

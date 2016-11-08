@@ -49,7 +49,12 @@
                                 <tr>
                                     <td class="w40px">#{{ $discount->id }}</td>
                                     <td>{{ $discount->name }}</td>
-                                    <td><a href="{{ action('AdminController@detailsUser', ['id' => $discount->user->id]) }}">{{ $discount->user->email }}</a></td>
+                                    <td>
+                                        @if($discount->user)
+                                            <a href="{{ action('AdminController@detailsUser', ['id' => $discount->user->id]) }}">{{ $discount->user->email }}</a></td>
+                                        @else
+                                            Deleted
+                                        @endif
                                     <td>{{ $discount->type == 'percent' ? $discount->percent.'%' : '£'.$discount->fixed }}</td>
                                     <td>{{ $discount->used ? date('Y-m-d H:i', strtotime($discount->used_at)) : '-' }}</td>
                                     <td>{{ date('Y-m-d', strtotime($discount->created_at)) }}</td>

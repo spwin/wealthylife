@@ -28,6 +28,7 @@ class ConsultantController extends Controller
         ))
             ->where(['status' => 2, 'consultant_id' => $consultant->id])
             ->where('created_at', '>', $date)
+            ->orWhere(['status' => 1])
             ->groupBy('date')
             ->orderBy('date', 'DESC')
             ->lists('count', 'date');
@@ -115,7 +116,7 @@ class ConsultantController extends Controller
         $latest_users = User::where(['type' => 'user', 'status' => 1])->orderBy('created_at', 'DESC')->limit(5)->get();
         $latest_answered = Questions::where(['consultant_id' => $consultant->id, 'status' => 2])->orderBy('answered_at', 'DESC')->limit(5)->get();
         $latest_rated = Answers::where(['consultant_id' => $consultant->id, 'rated' => 1])->orderBy('updated_at', 'DESC')->limit(5)->get();
-        $pending = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->get();
+        $pending = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->whereNotNull('user_id')->get();
         $gross_consultant = Settings::select('value')->where(['name' => 'gross_consultant'])->first();
         $summary = $this->getDashboardSummary($answers);
         $daily_questions = $this->getDailyQuestions($consultant, 30);
@@ -268,10 +269,10 @@ class ConsultantController extends Controller
         $key = '';
         if($request->has('search') && $search = strtolower($request->get('search'))){
             $key = $search;
-            $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])
+            $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->whereNotNull('user_id')
                 ->whereRaw('LOWER(question) LIKE ?', array('%'.$search.'%'))->orderBy('asked_at', 'ASC')->paginate(20);
         } else {
-            $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->orderBy('asked_at', 'ASC')->paginate(20);
+            $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->whereNotNull('user_id')->orderBy('asked_at', 'ASC')->paginate(20);
         }
         $routes = ['1' => 'listPending', '2' => 'listAnswered', '3' => 'listRejected'];
         return view('consultant/questions/list')->with([

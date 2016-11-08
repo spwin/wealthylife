@@ -43,7 +43,12 @@
                             @foreach($vouchers as $voucher)
                                 <tr>
                                     <td class="w40px">#{{ $voucher->id }}</td>
-                                    <td><a href="{{ action('AdminController@detailsUser', ['id' => $voucher->user->id]) }}">{{ $voucher->user->email }}</a></td>
+                                    <td>
+                                        @if($$voucher->user)
+                                            <a href="{{ action('AdminController@detailsUser', ['id' => $voucher->user->id]) }}">{{ $voucher->user->email }}</a></td>
+                                        @else
+                                            User Deleted
+                                        @endif
                                     <td>{{ $voucher->receiver_email }}</td>
                                     <td>{{ $voucher->code }}</td>
                                     <td>£{{ $voucher->price }}</td>

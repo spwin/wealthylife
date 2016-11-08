@@ -68,6 +68,19 @@ class UserController extends Controller
         }
     }
 
+    function createDiscount($id, $type){
+        if($type == 'referral'){
+            $discount = new Discounts();
+            $discount->fill([
+                'user_id' => $id,
+                'name' => 'Referral first question discount (20%)',
+                'type' => 'percent',
+                'percent' => 20
+            ]);
+            $discount->save();
+        }
+    }
+
     public function createUser(Request $request){
         $v = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email,0,local,local,1',
