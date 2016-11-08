@@ -74,9 +74,9 @@
             {{ session()->has('question.content') ? 250 - strlen(session()->get('question.content')) : 250 }}
         </div>
     </div>
-    <div class="check-answer-time">
+    <div class="check-answer-time mb24">
         Expected answer time:
-        <span class="btn btn-sm" onclick="checkAnswerTime(event, this, '{{ csrf_token() }}', '{{ action('FrontendController@ajaxCheckAnswerTime') }}')">check</span>
+        <span class="btn btn-sm check-time-button" onclick="checkAnswerTime(event, this, '{{ csrf_token() }}', '{{ action('FrontendController@ajaxCheckAnswerTime') }}')">check</span>
         <div class="answer-time-result"></div>
     </div>
     <div class="double-column">
