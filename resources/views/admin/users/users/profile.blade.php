@@ -67,6 +67,9 @@
                         <li class="list-group-item">
                             <b>Articles</b> <span class="badge bg-light-blue pull-right">{{ $user->articles() && $user->articles()->first() ? $user->articles()->where('status', '>', 0)->count() : 0 }}</span>
                         </li>
+                        <li class="list-group-item">
+                            <b>Referrals</b> <span class="badge bg-light-blue pull-right">{{ $user->referrals ? count($user->referrals) : 0 }}</span>
+                        </li>
                     </ul>
                     <div class="text-center">
                         {!! Form::open([
@@ -104,6 +107,7 @@
                     <li {{ $tab == '3' ? 'class=active' : '' }}><a href="#social" data-toggle="tab">Social</a></li>
                     <li {{ $tab == '4' ? 'class=active' : '' }}><a href="#notifications" data-toggle="tab">Notifications</a></li>
                     <li {{ $tab == '5' ? 'class=active' : '' }}><a href="#balance" data-toggle="tab">Balance</a></li>
+                    <li {{ $tab == '6' ? 'class=active' : '' }}><a href="#referrals" data-toggle="tab">Referrals</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane {{ $tab == '1' ? 'active' : '' }}" id="general">
@@ -365,6 +369,36 @@
                         </table>
                     </div>
                     <!-- /.tab-pane -->
+
+                    <div class="tab-pane {{ $tab == '6' ? 'active' : '' }}" id="referrals">
+                        <div class="box-header">
+                            @if($user->referral)
+                                <h3 class="box-title">Registration referred to: <a href="{{ action('AdminController@detailsUser', ['id' => $user->referral->id]) }}">{{ $user->referral->email }}</a></h3>
+                            @else
+                                <h3 class="box-title">Registered without refer</h3>
+                            @endif
+                        </div>
+                        <table class="table table-bordered table-hover mt-15px">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Registered</th>
+                                <th>Confirmed</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($user->referrals as $refer)
+                                    <tr>
+                                        <td>#{{ $refer->id }}</td>
+                                        <td><a href="{{ action('AdminController@detailsUser', ['id' => $refer->id]) }}">{{ $refer->email }}</a></td>
+                                        <td>{{ date('d M, Y H:i', strtotime($refer->created_at)) }}</td>
+                                        <td>{{ $refer->referral_rewarded ? 'YES' : 'NO' }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.tab-content -->
             </div>

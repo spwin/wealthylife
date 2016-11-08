@@ -878,6 +878,7 @@ class UserController extends Controller
                 $input['status'] = 0;
                 $input['code'] = bin2hex(random_bytes(5));
                 $input['url_key'] = bin2hex(random_bytes(20));
+                $input['price_scheme_id'] = $scheme->id;
                 $voucher = new Vouchers();
                 $voucher->fill($input);
                 $voucher->save();
@@ -925,8 +926,8 @@ class UserController extends Controller
                 $data = [
                     'user_id' => $user->id,
                     'question_id' => null,
-                    'type' => 'voucher',
-                    'price_scheme_id' => null,
+                    'type' => 'vouchers',
+                    'price_scheme_id' => $voucher->price_scheme_id,
                     'voucher_id' => $voucher->id,
                     'status' => 0,
                     'braintree_id' => ''

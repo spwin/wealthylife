@@ -19,7 +19,7 @@ class Vouchers extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'receiver_email', 'code', 'url_key', 'price', 'credits', 'message', 'anonymous', 'status', 'generated'
+        'user_id', 'receiver_email', 'code', 'url_key', 'price', 'credits', 'message', 'anonymous', 'status', 'generated', 'price_scheme_id'
     ];
 
     public function user(){

@@ -18,6 +18,8 @@ class CreateVouchersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->integer('used_by')->nullable()->unsigned();
             $table->foreign('used_by')->references('id')->on('users')->onDelete('set null');
+            $table->integer('price_scheme_id')->nullable()->unsigned();
+            $table->foreign('price_scheme_id')->references('id')->on('price_schemes')->onDelete('set null');
             $table->float('price');
             $table->string('receiver_email');
             $table->string('code')->unique();
