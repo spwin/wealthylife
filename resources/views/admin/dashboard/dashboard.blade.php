@@ -423,7 +423,7 @@
             <div class="col-md-3">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Period TOP 10 Users by <strong>Balance</strong></h3>
+                        <h3 class="box-title">TOP 10 Users by <strong>Balance</strong></h3>
                     </div>
                     <div class="box-body">
                         <table class="summary-top">
