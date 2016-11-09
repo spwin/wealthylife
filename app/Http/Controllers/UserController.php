@@ -695,7 +695,12 @@ class UserController extends Controller
                         'options' => [
                             'submitForSettlement' => true
                         ],
-                        'paymentMethodNonce' => $nonceFromTheClient
+                        'paymentMethodNonce' => $nonceFromTheClient,
+                        'customer' => [
+                            'firstName' => $user->userData->first_name,
+                            'lastName' => $user->userData->last_name,
+                            'email' => $user->email
+                        ]
                     ]);
                 } catch (Exception $e) {
                     Session::flash('flash_notification.question.message', 'Whoops! An Error occurred during Payment Process, please try again');
@@ -826,7 +831,12 @@ class UserController extends Controller
                         'options' => [
                             'submitForSettlement' => true
                         ],
-                        'paymentMethodNonce' => $nonceFromTheClient
+                        'paymentMethodNonce' => $nonceFromTheClient,
+                        'customer' => [
+                            'firstName' => $user->userData->first_name,
+                            'lastName' => $user->userData->last_name,
+                            'email' => $user->email
+                        ]
                     ]);
                 } catch (Exception $e) {
                     Session::flash('flash_notification.credits.message', 'Whoops! An Error occurred during Payment Process, please try again');
@@ -943,7 +953,12 @@ class UserController extends Controller
                         'options' => [
                             'submitForSettlement' => true
                         ],
-                        'paymentMethodNonce' => $nonceFromTheClient
+                        'paymentMethodNonce' => $nonceFromTheClient,
+                        'customer' => [
+                            'firstName' => $user->userData->first_name,
+                            'lastName' => $user->userData->last_name,
+                            'email' => $user->email
+                        ]
                     ]);
                 } catch (Exception $e) {
                     Session::flash('flash_notification.voucher.message', 'Whoops! An Error occurred during Payment Process, please try again');
