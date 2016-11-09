@@ -43,6 +43,52 @@ class AdminController extends Controller
         return $revenue;
     }
 
+    public function getTop10ByQuestions($payroll){
+        $result = User::selectRaw('COUNT(questions.id) as questions_count, users.*')
+            ->where(['users.type' => 'user'])
+            ->join('questions', 'users.id', '=', 'questions.user_id')
+            ->where('questions.created_at', '>=', $payroll->starts_at)
+            ->groupBy('questions.user_id')
+            ->orderBy('questions_count', 'DESC')
+            ->limit(10)
+            ->get();
+        return $result;
+    }
+
+    public function getTop10ByReferrals($payroll){
+        $result = User::selectRaw('COUNT(referrals.id) as referrals_count, users.*')
+            ->where(['users.type' => 'user'])
+            ->join('users as referrals', 'users.id', '=', 'referrals.referral_id')
+            ->where('referrals.created_at', '>=', $payroll->starts_at)
+            ->whereNotNull('referrals.first_service_use')
+            ->groupBy('referrals.referral_id')
+            ->orderBy('referrals_count', 'DESC')
+            ->limit(10)
+            ->get();
+        return $result;
+    }
+
+    public function getTop10ByBalance(){
+        $result = User::where(['users.type' => 'user'])
+            ->orderBy('points', 'DESC')
+            ->limit(10)
+            ->get();
+        return $result;
+    }
+
+    public function getTop10ByArticles($payroll){
+        $result = User::selectRaw('COUNT(article.id) as articles_count, users.*')
+            ->where(['users.type' => 'user'])
+            ->join('article', 'users.id', '=', 'article.user_id')
+            ->where('article.created_at', '>=', $payroll->starts_at)
+            ->where('article.status', '>', 0)
+            ->groupBy('article.user_id')
+            ->orderBy('articles_count', 'DESC')
+            ->limit(10)
+            ->get();
+        return $result;
+    }
+
     public function index(){
         $payroll = Payroll::where(['current' => 1])->first();
         $price = Settings::select('value')->where(['name' => 'question_price'])->first();
@@ -50,6 +96,10 @@ class AdminController extends Controller
         $consultants = User::where(['type' => 'consultant'])->get();
         $latest_users = User::where(['type' => 'user'])->where('created_at', '>', $payroll->starts_at)->orderBy('created_at', 'DESC')->limit(10)->get();
         $new_feedback = Feedback::where(['seen' => 0])->count();
+        $top10_questions = $this->getTop10ByQuestions($payroll);
+        $top10_referrals = $this->getTop10ByReferrals($payroll);
+        $top10_balance = $this->getTop10ByBalance();
+        $top10_articles = $this->getTop10ByArticles($payroll);
         $graphs_generator = new summaryGraphs();
         $orders = $graphs_generator->getOrdersGraph($price->value, $payroll);
         $answers = $graphs_generator->getAnswersGraph($consultants, $payroll);
@@ -72,7 +122,11 @@ class AdminController extends Controller
             'revenue' => $revenue,
             'discounts' => $discounts,
             'latest_users' => $latest_users,
-            'referrals' => $referrals
+            'referrals' => $referrals,
+            'top10_questions' => $top10_questions,
+            'top10_referrals' => $top10_referrals,
+            'top10_balance' => $top10_balance,
+            'top10_articles' => $top10_articles,
         ]);
     }
 

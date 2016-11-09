@@ -177,10 +177,10 @@ var multipleLinesGraph = function(){
             for (var i = 0, len = Object.keys(values).length; i < len; i++) {
                 dataSet.push(
                     {
-                        label: totals[Object.keys(totals)[i]].email,
+                        label: totals[Object.keys(totals)[i]].name,
                         fillColor: totals[Object.keys(totals)[i]].color+",0.6)",
                         strokeColor: totals[Object.keys(totals)[i]].color+",0.3)",
-                        pointColor: "#3b8bba",
+                        pointColor: totals[Object.keys(totals)[i]].color.replace('a','')+")",
                         pointStrokeColor: "rgba(60,141,188,1)",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(60,141,188,1)",
@@ -248,7 +248,8 @@ var multipleLinesGraph = function(){
                 //Number - Pixel width of dataset stroke
                 datasetStrokeWidth: 2,
                 //Boolean - Whether to fill the dataset with a color
-                datasetFill: true
+                datasetFill: true,
+                multiTooltipTemplate: "<%= datasetLabel %>: <%= value %>"
             };
         },
         drawGraph: function(){

@@ -370,6 +370,104 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Period TOP 10 Users by <strong>Questions</strong></h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="summary-top">
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Questions</th>
+                            </tr>
+                            @foreach($top10_questions as $top_user)
+                                <tr>
+                                    <td>#{{ $top_user->id }}</td>
+                                    <td><a href="{{ action('AdminController@detailsUser', $top_user->id) }}">{{ $top_user->email }}</a></td>
+                                    <td>{{ $top_user->questions_count }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Period TOP 10 Users by <strong>Referrals</strong></h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="summary-top">
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Referrals</th>
+                            </tr>
+                            @foreach($top10_referrals as $top_user)
+                                <tr>
+                                    <td>#{{ $top_user->id }}</td>
+                                    <td><a href="{{ action('AdminController@detailsUser', $top_user->id) }}">{{ $top_user->email }}</a></td>
+                                    <td>{{ $top_user->referrals_count }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Period TOP 10 Users by <strong>Balance</strong></h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="summary-top">
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Balance</th>
+                            </tr>
+                            @foreach($top10_balance as $top_user)
+                                <tr>
+                                    <td>#{{ $top_user->id }}</td>
+                                    <td><a href="{{ action('AdminController@detailsUser', $top_user->id) }}">{{ $top_user->email }}</a></td>
+                                    <td>{{ $top_user->points }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Period TOP 10 Users by <strong>Articles</strong></h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="summary-top">
+                            <tr>
+                                <th>ID</th>
+                                <th>User</th>
+                                <th>Articles</th>
+                            </tr>
+                            @foreach($top10_articles as $top_user)
+                                <tr>
+                                    <td>#{{ $top_user->id }}</td>
+                                    <td><a href="{{ action('AdminController@detailsUser', $top_user->id) }}">{{ $top_user->email }}</a></td>
+                                    <td>{{ $top_user->articles_count }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 @stop
 @push('scripts')
