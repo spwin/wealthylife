@@ -11,7 +11,7 @@
 @stop
 @section('content')
     <!-- Main content -->
-    <section class="content">
+    <section class="content admin-summary">
         <!-- Info boxes -->
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -19,8 +19,8 @@
                     <span class="info-box-icon bg-aqua"><i class="fa fa-money"></i></span>
 
                     <div class="info-box-content">
-                        <span class="info-box-text">Revenue</span>
-                        <span class="info-box-number">£904</span>
+                        <span class="info-box-text">Take home</span>
+                        <span class="info-box-number">£{{ $revenue }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -33,7 +33,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Questions</span>
-                        <span class="info-box-number">4213</span>
+                        <span class="info-box-number">{{ $questions['totals']['questions'] }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -50,7 +50,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">New Feedbacks</span>
-                        <span class="info-box-number">15</span>
+                        <span class="info-box-number">{{ $feedback }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -63,7 +63,7 @@
 
                     <div class="info-box-content">
                         <span class="info-box-text">Articles New/Edited</span>
-                        <span class="info-box-number">30/2</span>
+                        <span class="info-box-number">{{ $articles['totals']['new'] }}/{{ $articles['totals']['edited'] }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
@@ -76,7 +76,7 @@
             <div class="col-md-8">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Orders - Last 30 days</h3>
+                        <h3 class="box-title">Orders (£) - Last 30 days</h3>
                     </div>
                     <div class="box-body">
                         <div class="chart">
@@ -145,6 +145,38 @@
         </div>
 
         <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Latest 10 members</h3>
+                    </div>
+                    <div class="box-body no-padding">
+                        <ul class="users-list admin-users-list clearfix">
+                            @foreach($latest_users as $user)
+                                <li>
+                                    <img src="{{ $user->userData->image ? URL::to('/').$user->userData->image->path.$user->userData->image->filename : URL::to('/').'/images/avatars/no_image.png'}}" alt="User Image">
+                                    <a class="users-list-name" href="{{ action('ConsultantController@detailsUser', ['id' => $user->id]) }}">{{ $user->userData->first_name.' '.$user->userData->last_name }}</a>
+                                    <span class="users-list-date">
+                                        @if(date('l M', time()) == date('l M', strtotime($user->created_at)))
+                                            Today
+                                        @elseif(date('l M', time()-86400) == date('l M', strtotime($user->created_at)))
+                                            Yesterday
+                                        @else
+                                            {{ date('d M', strtotime($user->created_at)) }}
+                                        @endif
+                                    </span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="box-footer">
+                        <a href="{{ action('ConsultantController@timetable') }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i> All Users List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-8">
                 <div class="box">
                     <div class="box-header">
@@ -169,6 +201,9 @@
                             <li>Answered: <strong>{{ $questions['totals']['answered'] }} {{ $questions['totals']['questions'] > 0 && $questions['totals']['answered'] > 0 ? '('.round(100*$questions['totals']['answered']/$questions['totals']['questions'], 2).'%)' : '' }}</strong></li>
                             <li>Rejected: <strong>{{ $questions['totals']['rejected'] }} {{ $questions['totals']['questions'] > 0 && $questions['totals']['rejected'] > 0 ? '('.round(100*$questions['totals']['rejected']/$questions['totals']['questions'], 2).'%)' : '' }}</strong></li>
                         </ul>
+                    </div>
+                    <div class="box-footer">
+                        <a href="{{ action('AdminController@answers') }}" class="btn btn-primary pull-right">Show answered</a>
                     </div>
                 </div>
             </div>
@@ -232,6 +267,105 @@
                     </div>
                     <div class="box-footer">
                         <a href="{{ action('AdminController@articles', ['type' => 'pending']) }}" class="btn btn-primary pull-right">Show pending</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Vouchers (£) - Last 30 days</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <!-- Sales Chart Canvas -->
+                            <canvas id="vouchersChart" style="height: 213px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">This period summary</h3>
+                    </div>
+                    <div class="box-body questions-summary">
+                        <ul>
+                            <li>Total bought: <strong>{{ $vouchers['totals']['bought'] }}</strong></li>
+                            <li>Bought sum: <strong>£{{ $vouchers['totals']['bought_sum'] }}</strong></li>
+                            <li>Used: <strong>{{ $vouchers['totals']['bought_used'] }} {{ $vouchers['totals']['bought'] > 0 && $vouchers['totals']['bought_used'] > 0 ? '('.(100*$vouchers['totals']['bought_used']/$vouchers['totals']['bought']).'%)' : '' }}</strong></li>
+                        </ul>
+                        <ul>
+                            <li>Generated used: <strong>{{ $vouchers['totals']['generated_used'] }}</strong></li>
+                            <li>Generated used sum: <strong>£{{ $vouchers['totals']['generated_used_sum'] }}</strong></li>
+                        </ul>
+                    </div>
+                    <div class="box-footer">
+                        <a href="{{ action('AdminController@vouchers') }}" class="btn btn-primary pull-right">Show vouchers</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Discounts (£) - Last 30 days</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <!-- Sales Chart Canvas -->
+                            <canvas id="discountsChart" style="height: 213px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">This period summary</h3>
+                    </div>
+                    <div class="box-body questions-summary">
+                        <ul>
+                            <li><h3>Total discounts used: <strong>{{ $discounts['totals']['discounts'] }}</strong></h3></li>
+                            <li><h3>Used discounts sum: <strong>£{{ $discounts['totals']['discounts_sum'] }}</strong></h3></li>
+                        </ul>
+                    </div>
+                    <div class="box-footer">
+                        <a href="{{ action('AdminController@discounts') }}" class="btn btn-primary pull-right">Show discounts</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Referrals registered - Last 30 days</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <!-- Sales Chart Canvas -->
+                            <canvas id="referralsChart" style="height: 213px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">This period summary</h3>
+                    </div>
+                    <div class="box-body questions-summary">
+                        <ul>
+                            <li><h3>Referrals registered: <strong>{{ $referrals['totals']['registered'] }}</strong></h3></li>
+                            <li><h3>Referrals confirmed: <strong>{{ $referrals['totals']['confirmed'] }}</strong></h3></li>
+                            <li><h3>Credits earned: <strong>£{{ $referrals['totals']['earned'] }}</strong></h3></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -343,6 +477,33 @@
                 [<?php echo '"'.implode('","', $articles['labels']).'"' ?>],
                 [<?php echo '"'.implode('","', $articles['values']).'"' ?>],
                 '{{ $articles['period'] }}'
+        );
+
+        var vouchersGraph = new singleLineGraph();
+        vouchersGraph.init("Vouchers",
+                "190,150,20",
+                "#vouchersChart",
+                [<?php echo '"'.implode('","', $vouchers['labels']).'"' ?>],
+                [<?php echo '"'.implode('","', $vouchers['values']).'"' ?>],
+                '{{ $vouchers['period'] }}'
+        );
+
+        var discountsGraph = new singleLineGraph();
+        discountsGraph.init("Discounts",
+                "70,150,20",
+                "#discountsChart",
+                [<?php echo '"'.implode('","', $discounts['labels']).'"' ?>],
+                [<?php echo '"'.implode('","', $discounts['values']).'"' ?>],
+                '{{ $discounts['period'] }}'
+        );
+
+        var referralsGraph = new singleLineGraph();
+        referralsGraph.init("Referrals",
+                "70,150,220",
+                "#referralsChart",
+                [<?php echo '"'.implode('","', $referrals['labels']).'"' ?>],
+                [<?php echo '"'.implode('","', $referrals['values']).'"' ?>],
+                '{{ $referrals['period'] }}'
         );
     });
 </script>

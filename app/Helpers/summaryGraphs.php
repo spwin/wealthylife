@@ -3,9 +3,11 @@
 namespace App\Helpers;
 
 use App\Article;
+use App\Discounts;
 use App\Orders;
 use App\Questions;
 use App\User;
+use App\Vouchers;
 
 class summaryGraphs
 {
@@ -19,6 +21,191 @@ class summaryGraphs
         return $this->random_color_part().','.$this->random_color_part().','.$this->random_color_part();
     }
 
+    public function getReferralsGraph($payroll){
+        $credits_per_referral = 2;
+        $date = new \DateTime('tomorrow -30 days');
+        $result = array(
+            'period' => null,
+            'labels' => [],
+            'values' => [],
+            'days' => [],
+            'totals' => [
+                'registered' => 0,
+                'confirmed' => 0,
+                'earned' => 0
+            ]
+        );
+        $registered = User::where('created_at', '>=', $date->format('Y-m-d H:i:s'))->whereNotNull('referral_id')->orderBy('created_at', 'DESC')->get();
+        $tomorrow = new \DateTime('tomorrow');
+        $counter = 0;
+        while($date < $tomorrow){
+            $result['days'][date('Y-m-d', $date->getTimestamp())] = [
+                'day' => date('d M', $date->getTimestamp()),
+                'value' => 0
+            ];
+            $date->modify('+1 day');
+            if(date('Y-m-d', strtotime($payroll->starts_at)) == $date->format('Y-m-d')){
+                $result['period'] = $counter;
+            }
+            $counter++;
+        }
+
+        if(count($registered) > 0){
+            foreach($registered as $user){
+                $dayname = date('Y-m-d', strtotime($user->created_at));
+                if(array_key_exists($dayname, $result['days'])){
+                    $result['days'][$dayname]['value'] += 1;
+                }
+            }
+        }
+
+        $referrals = User::where('created_at', '>=', $payroll->starts_at)->whereNotNull('referral_id')->orderBy('created_at', 'DESC')->get();
+        if(count($referrals) > 0){
+            foreach($referrals as $referral){
+                $result['totals']['registered'] += 1;
+            }
+        }
+        $referrals = User::where('first_service_use', '>=', $payroll->starts_at)->whereNotNull('referral_id')->orderBy('created_at', 'DESC')->get();
+        if(count($referrals) > 0){
+            foreach($referrals as $referral){
+                $result['totals']['confirmed'] += 1;
+                $result['totals']['earned'] += $credits_per_referral;
+            }
+        }
+
+        foreach($result['days'] as $day){
+            $result['labels'][] = $day['day'];
+            $result['values'][] = $day['value'];
+        }
+
+        return $result;
+    }
+
+    public function getDiscountsGraph($price, $payroll){
+        $date = new \DateTime('tomorrow -30 days');
+        $result = array(
+            'period' => null,
+            'labels' => [],
+            'values' => [],
+            'days' => [],
+            'totals' => [
+                'discounts' => 0,
+                'discounts_sum' => 0
+            ]
+        );
+        $discounts = Discounts::where('used_at', '>=', $date->format('Y-m-d H:i:s'))->where(['used' => 1])->orderBy('created_at', 'DESC')->get();
+        $tomorrow = new \DateTime('tomorrow');
+        $counter = 0;
+        while($date < $tomorrow){
+            $result['days'][date('Y-m-d', $date->getTimestamp())] = [
+                'day' => date('d M', $date->getTimestamp()),
+                'value' => 0
+            ];
+            $date->modify('+1 day');
+            if(date('Y-m-d', strtotime($payroll->starts_at)) == $date->format('Y-m-d')){
+                $result['period'] = $counter;
+            }
+            $counter++;
+        }
+
+        if(count($discounts) > 0){
+            foreach($discounts as $discount){
+                $dayname = date('Y-m-d', strtotime($discount->used_at));
+                if(array_key_exists($dayname, $result['days'])){
+                    if($discount->type == 'fixed'){
+                        $result['days'][$dayname]['value'] += $discount->fixed;
+                    } else {
+                        $result['days'][$dayname]['value'] += (($discount->percent/100)*$price);
+                    }
+                }
+            }
+        }
+
+        $discounts = Discounts::where('used_at', '>=', $payroll->starts_at)->where(['used' => 1])->orderBy('created_at', 'DESC')->get();
+        if(count($discounts) > 0){
+            foreach($discounts as $discount){
+                $result['totals']['discounts'] += 1;
+                if($discount->type == 'fixed'){
+                    $result['totals']['discounts_sum'] += $discount->fixed;
+                } else {
+                    $result['totals']['discounts_sum'] += (($discount->percent/100)*$price);
+                }
+            }
+        }
+
+        foreach($result['days'] as $day){
+            $result['labels'][] = $day['day'];
+            $result['values'][] = $day['value'];
+        }
+
+        return $result;
+    }
+
+    public function getVouchersGraph($payroll){
+        $date = new \DateTime('tomorrow -30 days');
+        $result = array(
+            'period' => null,
+            'labels' => [],
+            'values' => [],
+            'days' => [],
+            'totals' => [
+                'bought' => 0,
+                'bought_sum' => 0,
+                'bought_used' => 0,
+                'generated_used' => 0,
+                'generated_used_sum' => 0
+            ]
+        );
+        $vouchers = Vouchers::where('created_at', '>=', $date->format('Y-m-d H:i:s'))->where(['status' => 1, 'generated' => 0])->orderBy('created_at', 'DESC')->get();
+        $tomorrow = new \DateTime('tomorrow');
+        $counter = 0;
+        while($date < $tomorrow){
+            $result['days'][date('Y-m-d', $date->getTimestamp())] = [
+                'day' => date('d M', $date->getTimestamp()),
+                'value' => 0
+            ];
+            $date->modify('+1 day');
+            if(date('Y-m-d', strtotime($payroll->starts_at)) == $date->format('Y-m-d')){
+                $result['period'] = $counter;
+            }
+            $counter++;
+        }
+
+        if(count($vouchers) > 0){
+            foreach($vouchers as $voucher){
+                $dayname = date('Y-m-d', strtotime($voucher->created_at));
+                if(array_key_exists($dayname, $result['days'])){
+                    $result['days'][$dayname]['value'] += $voucher->price;
+                }
+            }
+        }
+
+        $vouchers = Vouchers::where('created_at', '>=', $payroll->starts_at)->where(['status' => 1])->orWhere(['status' => 2])->orderBy('created_at', 'DESC')->get();
+        if(count($vouchers) > 0){
+            foreach($vouchers as $voucher){
+                if($voucher->generated){
+                    if($voucher->used_by) {
+                        $result['totals']['generated_used'] += 1;
+                        $result['totals']['generated_used_sum'] += $voucher->price;
+                    }
+                } else {
+                    $result['totals']['bought'] += 1;
+                    $result['totals']['bought_sum'] += $voucher->price;
+                    if($voucher->used_by){
+                        $result['totals']['bought_used'] += 1;
+                    }
+                }
+            }
+        }
+
+        foreach($result['days'] as $day){
+            $result['labels'][] = $day['day'];
+            $result['values'][] = $day['value'];
+        }
+
+        return $result;
+    }
+
     public function getArticlesGraph($payroll){
         $date = new \DateTime('tomorrow -30 days');
         $result = array(
@@ -30,7 +217,9 @@ class summaryGraphs
                 'articles' => 0,
                 'published' => 0,
                 'pending' => 0,
-                'archived' => 0
+                'archived' => 0,
+                'new' => 0,
+                'edited' => 0
             ]
         );
         $articles = Article::where('created_at', '>=', $date->format('Y-m-d H:i:s'))->where(['status' => 1])->orWhere(['status' => 2])->orWhere(['status' => 3])->orderBy('created_at', 'DESC')->get();
@@ -65,7 +254,12 @@ class summaryGraphs
                     $result['totals']['archived'] += 1;
                 } elseif($article->status == 3){
                     $result['totals']['published'] += 1;
-                } else {
+                } elseif($article->status == 1) {
+                    if($article->published_at){
+                        $result['totals']['edited'] += 1;
+                    } else {
+                        $result['totals']['new'] += 1;
+                    }
                     $result['totals']['pending'] += 1;
                 }
             }
@@ -184,9 +378,9 @@ class summaryGraphs
                 $result['totals']['questions'] += 1;
                 if($question->status == 2){
                     $result['totals']['answered'] += 1;
-                } elseif($questions->status == 3){
+                } elseif($question->status == 3){
                     $result['totals']['rejected'] += 1;
-                } elseif($questions->status == 1) {
+                } elseif($question->status == 1) {
                     $result['totals']['pending'] += 1;
                 }
             }

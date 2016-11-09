@@ -967,6 +967,7 @@ class UserController extends Controller
                 }
                 if ($result->success){
                     $user->referral_rewarded = $this->addReferralPoints($user);
+                    $user->save();
                     $changes['braintree_id'] = $result->transaction->id;
                     $changes['status'] = 1;
                     $order->fill($changes);
@@ -1226,6 +1227,7 @@ class UserController extends Controller
             if(!$user->referral_rewarded){
                 $referral = User::where(['id' => $user->referral_id])->first();
                 if($referral){
+                    $user->first_service_use = date('Y-m-d H:i:s', time());
                     $referral->referrals_confirmed = $referral->referrals_confirmed + 1;
                     $referral->referrals_points = $referral->referrals_points + 2;
                     $referral->points = $referral->points + 2;

@@ -38,23 +38,41 @@ class AdminController extends Controller
 {
     private $max_filesize = 5120;
 
+    protected function calculateRevenue($price, $gross, $questions){
+        $revenue = $questions['totals']['answered'] * ($price - $gross);
+        return $revenue;
+    }
+
     public function index(){
         $payroll = Payroll::where(['current' => 1])->first();
         $price = Settings::select('value')->where(['name' => 'question_price'])->first();
+        $gross = Settings::select('value')->where(['name' => 'gross_consultant'])->first();
         $consultants = User::where(['type' => 'consultant'])->get();
+        $latest_users = User::where(['type' => 'user'])->where('created_at', '>', $payroll->starts_at)->orderBy('created_at', 'DESC')->limit(10)->get();
+        $new_feedback = Feedback::where(['seen' => 0])->count();
         $graphs_generator = new summaryGraphs();
         $orders = $graphs_generator->getOrdersGraph($price->value, $payroll);
         $answers = $graphs_generator->getAnswersGraph($consultants, $payroll);
         $questions = $graphs_generator->getQuestionsGraph($payroll);
         $users = $graphs_generator->getUsersGraph($payroll);
         $articles = $graphs_generator->getArticlesGraph($payroll);
+        $vouchers = $graphs_generator->getVouchersGraph($payroll);
+        $discounts = $graphs_generator->getDiscountsGraph($price->value, $payroll);
+        $referrals = $graphs_generator->getReferralsGraph($payroll);
+        $revenue = $this->calculateRevenue($price->value, $gross->value, $questions);
         return view('admin/dashboard/dashboard')->with([
             'payroll' => $payroll,
             'orders' => $orders,
             'answers' => $answers,
             'questions' => $questions,
             'users' => $users,
-            'articles' => $articles
+            'articles' => $articles,
+            'feedback' => $new_feedback,
+            'vouchers' => $vouchers,
+            'revenue' => $revenue,
+            'discounts' => $discounts,
+            'latest_users' => $latest_users,
+            'referrals' => $referrals
         ]);
     }
 
@@ -1021,6 +1039,7 @@ class AdminController extends Controller
         $data['code'] = bin2hex(random_bytes(5));
         $data['generated'] = 1;
         $data['status'] = 1;
+        $data['price'] = $request->get('credits');
         $voucher = new Vouchers();
         $voucher->fill($data);
         $voucher->save();

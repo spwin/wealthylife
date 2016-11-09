@@ -9802,4 +9802,10 @@ table .consultant-color-preview {
       font-variant: small-caps;
       font-size: 30px; }
 
+.admin-summary .box-title {
+  font-size: 20px; }
+
+.admin-users-list > li {
+  width: 10%; }
+
 /*# sourceMappingURL=admin.css.map */
