@@ -9778,4 +9778,28 @@ tr.periods {
   margin: 0;
   font-size: 30px; }
 
+table.summary-consultants {
+  width: 100%; }
+
+table tr {
+  height: 30px; }
+
+table .consultant-color-preview {
+  width: 20px;
+  height: 20px; }
+
+.box-body.consultants-summary {
+  max-height: 195px;
+  overflow: auto; }
+
+.questions-summary ul {
+  list-style: none;
+  padding-left: 0; }
+  .questions-summary ul li {
+    text-decoration: none;
+    font-size: 16px; }
+    .questions-summary ul li h4 {
+      font-variant: small-caps;
+      font-size: 30px; }
+
 /*# sourceMappingURL=admin.css.map */

@@ -117,13 +117,121 @@
             <div class="col-md-4">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-pie-title"></h3>
+                        <h3 class="box-title">This period summary</h3>
                     </div>
-                    <div class="box-body">
-
+                    <div class="box-body consultants-summary">
+                        <table class="summary-consultants">
+                            <tr>
+                                <th>ID</th>
+                                <th></th>
+                                <th>Consultant</th>
+                                <th>Answers</th>
+                            </tr>
+                            @foreach($answers['totals'] as $id => $data)
+                                <tr>
+                                    <td>#{{ $id }}</td>
+                                    <td><div class="consultant-color-preview" style="background-color: {{ $data['color'].',1)' }};"></div></td>
+                                    <td><a href="{{ action('AdminController@detailsConsultant', ['id' => $id]) }}">{{ $data['name'] }}</a></td>
+                                    <td>{{ $data['answers'] }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
                     </div>
                     <div class="box-footer">
+                        <a href="{{ action('AdminController@listConsultants') }}" class="btn btn-default pull-right">Consultants details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Questions - Last 30 days</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <canvas id="questionsChart" style="height: 213px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">This period summary</h3>
+                    </div>
+                    <div class="box-body questions-summary">
+                        <ul>
+                            <li><h4>Questions: {{ $questions['totals']['questions'] }}</h4></li>
+                            <li>Pending: <strong>{{ $questions['totals']['pending'] }} {{ $questions['totals']['questions'] > 0 && $questions['totals']['pending'] > 0 ? '('.round(100*$questions['totals']['pending']/$questions['totals']['questions'], 2).'%)' : '' }}</strong></li>
+                            <li>Answered: <strong>{{ $questions['totals']['answered'] }} {{ $questions['totals']['questions'] > 0 && $questions['totals']['answered'] > 0 ? '('.round(100*$questions['totals']['answered']/$questions['totals']['questions'], 2).'%)' : '' }}</strong></li>
+                            <li>Rejected: <strong>{{ $questions['totals']['rejected'] }} {{ $questions['totals']['questions'] > 0 && $questions['totals']['rejected'] > 0 ? '('.round(100*$questions['totals']['rejected']/$questions['totals']['questions'], 2).'%)' : '' }}</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Users - Last 30 days</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <!-- Sales Chart Canvas -->
+                            <canvas id="usersChart" style="height: 213px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="box-header text-center">
+                        <h3 class="box-pie-title">Period NEW: <strong>{{ $users['totals']['users'] }}</strong></h3>
+                    </div>
+                    <div class="box-body text-center no-padding">
+                        <canvas id="usersPieChart" style="height:160px"></canvas>
+                    </div>
+                    <div class="box-footer text-center">
+                        <a href="{{ action('AdminController@listUsers') }}" class="btn btn-primary">All users</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Articles - Last 30 days</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="chart">
+                            <!-- Sales Chart Canvas -->
+                            <canvas id="articlesChart" style="height: 213px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">This period summary</h3>
+                    </div>
+                    <div class="box-body questions-summary">
+                        <ul>
+                            <li><h4>New articles: <strong>{{ $articles['totals']['articles'] }}</strong></h4></li>
+                            <li>Published: <strong>{{ $articles['totals']['published'] }} {{ $articles['totals']['articles'] > 0 && $articles['totals']['published'] > 0 ? '('.(100*$articles['totals']['published']/$articles['totals']['articles']).'%)' : '' }}</strong></li>
+                            <li>Archived: <strong>{{ $articles['totals']['archived'] }} {{ $articles['totals']['articles'] > 0 && $articles['totals']['archived'] > 0 ? '('.(100*$articles['totals']['archived']/$articles['totals']['articles']).'%)' : '' }}</strong></li>
+                            <li>Pending: <strong>{{ $articles['totals']['pending'] }} {{ $articles['totals']['articles'] > 0 && $articles['totals']['pending'] > 0 ? '('.(100*$articles['totals']['pending']/$articles['totals']['articles']).'%)' : '' }}</strong></li>
+                        </ul>
+                    </div>
+                    <div class="box-footer">
+                        <a href="{{ action('AdminController@articles', ['type' => 'pending']) }}" class="btn btn-primary pull-right">Show pending</a>
                     </div>
                 </div>
             </div>
@@ -134,101 +242,24 @@
 <script src="../js/admin/Chart.min.js"></script>
 <script>
     $(function(){
-        Chart.types.Line.extend({
-            name: "LineWithLine",
-            draw: function () {
-                Chart.types.Line.prototype.draw.apply(this, arguments);
-                if(this.options.lineAtIndex) {
-                    var point = this.datasets[0].points[this.options.lineAtIndex];
-                    var scale = this.scale;
+        var ordersGraph = new singleLineGraph();
+        ordersGraph.init("Orders",
+                "60,141,188",
+                "#ordersChart",
+                [<?php echo '"'.implode('","', $orders['labels']).'"' ?>],
+                [<?php echo '"'.implode('","', $orders['values']).'"' ?>],
+                '{{ $orders['period'] }}'
+        );
 
-                    // draw line
-                    this.chart.ctx.beginPath();
-                    this.chart.ctx.moveTo(point.x, scale.startPoint + 24);
-                    this.chart.ctx.strokeStyle = '#ff0000';
-                    this.chart.ctx.lineTo(point.x, scale.endPoint);
-                    this.chart.ctx.stroke();
+        var questionsGraph = new singleLineGraph();
+        questionsGraph.init("Questions",
+                "220,130,98",
+                "#questionsChart",
+                [<?php echo '"'.implode('","', $questions['labels']).'"' ?>],
+                [<?php echo '"'.implode('","', $questions['values']).'"' ?>],
+                '{{ $questions['period'] }}'
+        );
 
-                    // write TODAY
-                    this.chart.ctx.textAlign = 'center';
-                    this.chart.ctx.fillText("PERIOD", point.x, scale.startPoint + 12);
-                }
-            }
-        });
-
-
-        /******************
-         ORDERS LINE CHART
-         *****************/
-
-
-        // Get context with jQuery - using jQuery's .get() method.
-        var ordersChartCanvas = $("#ordersChart").get(0).getContext("2d");
-        // This will get the first returned node in the jQuery collection.
-        var ordersChart = new Chart(ordersChartCanvas);
-
-        var labels = [<?php echo '"'.implode('","', $orders['labels']).'"' ?>];
-        var values = [<?php echo '"'.implode('","', $orders['values']).'"' ?>];
-
-        var ordersChartData = {
-            labels: labels,
-            datasets: [
-                {
-                    label: "Orders",
-                    fillColor: "rgba(60,141,188,0.9)",
-                    strokeColor: "rgba(60,141,188,0.8)",
-                    pointColor: "#3b8bba",
-                    pointStrokeColor: "rgba(60,141,188,1)",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(60,141,188,1)",
-                    data: values
-                }
-            ]
-        };
-
-        var ordersChartOptions = {
-            lineAtIndex: '{{ $orders['period'] }}',
-            //Boolean - If we should show the scale at all
-            showScale: true,
-            //Boolean - Whether grid lines are shown across the chart
-            scaleShowGridLines: true,
-            //String - Colour of the grid lines
-            scaleGridLineColor: "rgba(0,0,0,.05)",
-            //Number - Width of the grid lines
-            scaleGridLineWidth: 1,
-            //Boolean - Whether to show horizontal lines (except X axis)
-            scaleShowHorizontalLines: false,
-            //Boolean - Whether to show vertical lines (except Y axis)
-            scaleShowVerticalLines: true,
-            //Boolean - Whether the line is curved between points
-            bezierCurve: true,
-            //Number - Tension of the bezier curve between points
-            bezierCurveTension: 0.3,
-            //Boolean - Whether to show a dot for each point
-            pointDot: false,
-            //Number - Radius of each point dot in pixels
-            pointDotRadius: 4,
-            //Number - Pixel width of point dot stroke
-            pointDotStrokeWidth: 1,
-            //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-            pointHitDetectionRadius: 10,
-            //Boolean - Whether to show a stroke for datasets
-            datasetStroke: true,
-            //Number - Pixel width of dataset stroke
-            datasetStrokeWidth: 2,
-            //Boolean - Whether to fill the dataset with a color
-            datasetFill: true
-        };
-
-        //Create the line chart
-        ordersChart.LineWithLine(ordersChartData, ordersChartOptions);
-
-        /******************
-         PIE ORDERS GRAPH
-         *****************/
-
-        var ordersTotalsCanvas = $("#orderTotalsChart").get(0).getContext("2d");
-        var ordersTotalsChart = new Chart(ordersTotalsCanvas);
         var ordersTotalsData = [
             {
                 value: '{{ $orders['totals']['questions'] }}',
@@ -249,124 +280,70 @@
                 label: "Credits"
             }
         ];
-        var ordersTotalsOptions = {
-            //Boolean - Whether we should show a stroke on each segment
-            segmentShowStroke: true,
-            //String - The colour of each segment stroke
-            segmentStrokeColor: "#fff",
-            //Number - The width of each segment stroke
-            segmentStrokeWidth: 2,
-            //Number - The percentage of the chart that we cut out of the middle
-            percentageInnerCutout: 40, // This is 0 for Pie charts
-            //Number - Amount of animation steps
-            animationSteps: 100,
-            //String - Animation easing effect
-            animationEasing: "easeOutBounce",
-            //Boolean - Whether we animate the rotation of the Doughnut
-            animateRotate: true,
-            //Boolean - Whether we animate scaling the Doughnut from the centre
-            animateScale: false,
-            //Boolean - whether to make the chart responsive to window resizing
-            responsive: true,
-            // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-            maintainAspectRatio: false
-        };
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        ordersTotalsChart.Doughnut(ordersTotalsData, ordersTotalsOptions);
-    });
-
-
-    /******************
-     ANSWERS LINE CHART
-     *****************/
-
-    Chart.types.Line.extend({
-        name: "LineWithLine",
-        draw: function () {
-            Chart.types.Line.prototype.draw.apply(this, arguments);
-            if(this.options.lineAtIndex) {
-                var point = this.datasets[0].points[this.options.lineAtIndex];
-                var scale = this.scale;
-
-                // draw line
-                this.chart.ctx.beginPath();
-                this.chart.ctx.moveTo(point.x, scale.startPoint + 24);
-                this.chart.ctx.strokeStyle = '#ff0000';
-                this.chart.ctx.lineTo(point.x, scale.endPoint);
-                this.chart.ctx.stroke();
-
-                // write TODAY
-                this.chart.ctx.textAlign = 'center';
-                this.chart.ctx.fillText("PERIOD", point.x, scale.startPoint + 12);
-            }
-        }
-    });
-
-    // Get context with jQuery - using jQuery's .get() method.
-    var answersChartCanvas = $("#answersChart").get(0).getContext("2d");
-    // This will get the first returned node in the jQuery collection.
-    var answersChart = new Chart(answersChartCanvas);
-
-    var labels = [<?php echo '"'.implode('","', $answers['labels']).'"' ?>];
-    var values = <?php echo json_encode($answers['values']); ?>;
-    var totals = <?php echo json_encode($answers['totals']); ?>;
-
-    var dataSet = [];
-    for (var i = 0, len = Object.keys(values).length; i < len; i++) {
-        dataSet.push(
-            {
-                label: totals[Object.keys(totals)[i]].email,
-                fillColor: totals[Object.keys(totals)[i]].color+",0.6)",
-                strokeColor: totals[Object.keys(totals)[i]].color+",0.3)",
-                pointColor: "#3b8bba",
-                pointStrokeColor: "rgba(60,141,188,1)",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(60,141,188,1)",
-                data: values[Object.keys(values)[i]]
-            }
+        var ordersTotalsGraph = new pieGraph();
+        ordersTotalsGraph.init(
+                "#orderTotalsChart",
+                ordersTotalsData
         );
-    }
-    var answersChartData = {
-        labels: labels,
-        datasets: dataSet
-    };
 
-    var answersChartOptions = {
-        lineAtIndex: '{{ $orders['period'] }}',
-        //Boolean - If we should show the scale at all
-        showScale: true,
-        //Boolean - Whether grid lines are shown across the chart
-        scaleShowGridLines: true,
-        //String - Colour of the grid lines
-        scaleGridLineColor: "rgba(0,0,0,.05)",
-        //Number - Width of the grid lines
-        scaleGridLineWidth: 1,
-        //Boolean - Whether to show horizontal lines (except X axis)
-        scaleShowHorizontalLines: false,
-        //Boolean - Whether to show vertical lines (except Y axis)
-        scaleShowVerticalLines: true,
-        //Boolean - Whether the line is curved between points
-        bezierCurve: true,
-        //Number - Tension of the bezier curve between points
-        bezierCurveTension: 0.3,
-        //Boolean - Whether to show a dot for each point
-        pointDot: false,
-        //Number - Radius of each point dot in pixels
-        pointDotRadius: 4,
-        //Number - Pixel width of point dot stroke
-        pointDotStrokeWidth: 1,
-        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-        pointHitDetectionRadius: 10,
-        //Boolean - Whether to show a stroke for datasets
-        datasetStroke: true,
-        //Number - Pixel width of dataset stroke
-        datasetStrokeWidth: 2,
-        //Boolean - Whether to fill the dataset with a color
-        datasetFill: true
-    };
+        var answersGraph = new multipleLinesGraph();
+        answersGraph.init(
+                "#answersChart",
+                [<?php echo '"'.implode('","', $answers['labels']).'"' ?>],
+                <?php echo json_encode($answers['values']); ?>,
+                <?php echo json_encode($answers['totals']); ?>,
+                '{{ $answers['period'] }}'
+        );
 
-    //Create the line chart
-    answersChart.LineWithLine(answersChartData, answersChartOptions);
+        var usersGraph = new singleLineGraph();
+        usersGraph.init("Users",
+                "30,200,108",
+                "#usersChart",
+                [<?php echo '"'.implode('","', $users['labels']).'"' ?>],
+                [<?php echo '"'.implode('","', $users['values']).'"' ?>],
+                '{{ $users['period'] }}'
+        );
+
+        var usersPieData = [
+            {
+                value: '{{ $users['totals']['facebook'] }}',
+                color: "#3B5998",
+                highlight: "#3B5998",
+                label: "Facebook"
+            },
+            {
+                value: '{{ $users['totals']['google'] }}',
+                color: "#DB4437",
+                highlight: "#DB4437",
+                label: "Google"
+            },
+            {
+                value: '{{ $users['totals']['twitter'] }}',
+                color: "#1DA1F2",
+                highlight: "#1DA1F2",
+                label: "Twitter"
+            },
+            {
+                value: '{{ $users['totals']['local'] }}',
+                color: "#D3E312",
+                highlight: "#D3E312",
+                label: "Local"
+            }
+        ];
+        var usersPieGraph = new pieGraph();
+        usersPieGraph.init(
+                "#usersPieChart",
+                usersPieData
+        );
+
+        var articlesGraph = new singleLineGraph();
+        articlesGraph.init("Articles",
+                "30,200,208",
+                "#articlesChart",
+                [<?php echo '"'.implode('","', $articles['labels']).'"' ?>],
+                [<?php echo '"'.implode('","', $articles['values']).'"' ?>],
+                '{{ $articles['period'] }}'
+        );
+    });
 </script>
 @endpush

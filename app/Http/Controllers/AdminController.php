@@ -20,6 +20,7 @@ use App\User;
 use App\UserData;
 use App\Vouchers;
 use Braintree\Discount;
+use App\Helpers\summaryGraphs;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -37,158 +38,23 @@ class AdminController extends Controller
 {
     private $max_filesize = 5120;
 
-    protected function getOrdersGraph($price, $payroll){
-        $date = new \DateTime('tomorrow -30 days');
-        $result = array(
-            'period' => null,
-            'labels' => [],
-            'values' => [],
-            'days' => [],
-            'totals' => [
-                'questions' => 0,
-                'vouchers' => 0,
-                'credits' => 0,
-                'total' => 0,
-                'discounts' => 0
-            ]
-        );
-        $orders = Orders::where('created_at', '>=', $date->format('Y-m-d H:i:s'))->where(['status' => 1])->orderBy('created_at', 'DESC')->get();
-        $tomorrow = new \DateTime('tomorrow');
-        $counter = 0;
-        while($date < $tomorrow){
-            $result['days'][date('Y-m-d', $date->getTimestamp())] = [
-                'day' => date('d M', $date->getTimestamp()),
-                'value' => 0
-            ];
-            $date->modify('+1 day');
-            if(date('Y-m-d', strtotime($payroll->starts_at)) == $date->format('Y-m-d')){
-                $result['period'] = $counter;
-            }
-            $counter++;
-        }
-
-        if(count($orders) > 0){
-            foreach($orders as $order){
-                $dayname = date('Y-m-d', strtotime($order->created_at));
-                if(array_key_exists($dayname, $result['days'])) {
-                    if($order->type == 'question'){
-                        $result['days'][$dayname]['value'] += $price;
-                    } else {
-                        $result['days'][$dayname]['value'] += $order->priceScheme->price;
-                    }
-                }
-            }
-        }
-
-        $orders = Orders::where('created_at', '>=', $payroll->starts_at)->where(['status' => 1])->orderBy('created_at', 'DESC')->get();
-        if(count($orders) > 0){
-            foreach($orders as $order){
-                $dayname = date('Y-m-d', strtotime($order->created_at));
-                if(array_key_exists($dayname, $result['days'])) {
-                    if($order->type == 'question'){
-                        $result['totals']['questions'] += 1;
-                        $result['totals']['total'] += $price;
-                    } else {
-                        $result['totals']['total'] += $order->priceScheme->price;
-                        if ($order->type == 'credits') {
-                            $result['totals']['credits'] += 1;
-                            $result['totals']['discounts'] += ($order->priceScheme->credits - $order->priceScheme->price);
-                        } elseif ($order->type == 'vouchers') {
-                            $result['totals']['vouchers'] += 1;
-                        }
-                    }
-                }
-            }
-        }
-
-        foreach($result['days'] as $day){
-            $result['labels'][] = $day['day'];
-            $result['values'][] = $day['value'];
-        }
-
-        return $result;
-    }
-
-    protected function random_color_part() {
-        return mt_rand( 0, 255 );
-    }
-
-    protected function random_color() {
-        return $this->random_color_part().','.$this->random_color_part().','.$this->random_color_part();
-    }
-
-    public function getAnswersGraph($consultants, $payroll){
-        $date = new \DateTime('tomorrow -30 days');
-        $result = array(
-            'period' => null,
-            'days' => [],
-            'totals' => [],
-            'labels' => [],
-            'values' => []
-        );
-        $tomorrow = new \DateTime('tomorrow');
-        $answers = Questions::where(['status' => 2])->where('answered_at', '>=',$date->format('Y-m-d H:i:s'))->get();
-        $consultants_array = [];
-        foreach($consultants as $consultant){
-            $consultants_array[$consultant->id] = [
-                'email' => $consultant->email,
-                'color' => 'rgba('.$this->random_color(),
-                'answers' => 0
-            ];
-        }
-        $result['totals'] = $consultants_array;
-
-        $counter = 0;
-        while($date < $tomorrow){
-            $result['days'][date('Y-m-d', $date->getTimestamp())] = [
-                'day' => date('d M', $date->getTimestamp()),
-                'consultants' => $consultants_array
-            ];
-            $date->modify('+1 day');
-            if(date('Y-m-d', strtotime($payroll->starts_at)) == $date->format('Y-m-d')){
-                $result['period'] = $counter;
-            }
-            $counter++;
-        }
-
-        if(count($answers) > 0){
-            foreach($answers as $answer){
-                $dayname = date('Y-m-d', strtotime($answer->answered_at));
-                if(array_key_exists($dayname, $result['days']) && array_key_exists($answer->consultant_id, $result['days'][$dayname]['consultants'])){
-                    $result['days'][$dayname]['consultants'][$answer->consultant_id]['answers'] += 1;
-                }
-            }
-        }
-
-        $answers = Questions::where(['status' => 2])->where('answered_at', '>=', $payroll->starts_at)->get();
-        if(count($answers) > 0){
-            foreach($answers as $answer){
-                if(array_key_exists($answer->consultant_id, $result['totals'])){
-                    $result['totals'][$answer->consultant_id]['answers'] += 1;
-                }
-            }
-        }
-
-        foreach($result['days'] as $day){
-            $result['labels'][] = $day['day'];
-            foreach($day['consultants'] as $id => $consultant){
-                $result['values'][$id][] = $consultant['answers'];
-            }
-        }
-
-        return $result;
-    }
-
     public function index(){
         $payroll = Payroll::where(['current' => 1])->first();
         $price = Settings::select('value')->where(['name' => 'question_price'])->first();
         $consultants = User::where(['type' => 'consultant'])->get();
-        $orders = $this->getOrdersGraph($price->value, $payroll);
-        $answers = $this->getAnswersGraph($consultants, $payroll);
+        $graphs_generator = new summaryGraphs();
+        $orders = $graphs_generator->getOrdersGraph($price->value, $payroll);
+        $answers = $graphs_generator->getAnswersGraph($consultants, $payroll);
+        $questions = $graphs_generator->getQuestionsGraph($payroll);
+        $users = $graphs_generator->getUsersGraph($payroll);
+        $articles = $graphs_generator->getArticlesGraph($payroll);
         return view('admin/dashboard/dashboard')->with([
             'payroll' => $payroll,
             'orders' => $orders,
-            'answers' => $answers
+            'answers' => $answers,
+            'questions' => $questions,
+            'users' => $users,
+            'articles' => $articles
         ]);
     }
 
