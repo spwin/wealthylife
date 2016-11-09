@@ -26,9 +26,9 @@ class ConsultantController extends Controller
             DB::raw('DATE(`asked_at`) as `date`'),
             DB::raw('COUNT(*) as `count`')
         ))
-            ->where(['status' => 2, 'consultant_id' => $consultant->id])
+            ->where(['consultant_id' => $consultant->id])
+            ->where('status', '>=', 1)
             ->where('created_at', '>', $date)
-            ->orWhere(['status' => 1])
             ->groupBy('date')
             ->orderBy('date', 'DESC')
             ->lists('count', 'date');
@@ -260,7 +260,8 @@ class ConsultantController extends Controller
         return view('consultant/users/profile')->with([
             'user' => $user,
             'user_data' => $user_data,
-            'econf' => $econf
+            'econf' => $econf,
+            'consultant' => Auth::guard('consultant')->user()
         ]);
     }
 
