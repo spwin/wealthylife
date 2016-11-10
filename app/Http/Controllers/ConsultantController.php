@@ -113,7 +113,7 @@ class ConsultantController extends Controller
         $payroll = Payroll::where(['current' => 1])->first();
         $answers = Answers::where(['payroll_id' => $payroll->id, 'consultant_id' => $consultant->id])->get();
         $users = User::where(['type' => 'user'])->where('created_at', '>', $payroll->starts_at)->get();
-        $latest_users = User::where(['type' => 'user', 'status' => 1])->orderBy('created_at', 'DESC')->limit(5)->get();
+        $latest_users = User::where(['type' => 'user'])->orderBy('created_at', 'DESC')->limit(5)->get();
         $latest_answered = Questions::where(['consultant_id' => $consultant->id, 'status' => 2])->orderBy('answered_at', 'DESC')->limit(5)->get();
         $latest_rated = Answers::where(['consultant_id' => $consultant->id, 'rated' => 1])->orderBy('updated_at', 'DESC')->limit(5)->get();
         $pending = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->whereNotNull('user_id')->get();
