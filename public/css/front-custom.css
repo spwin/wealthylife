@@ -39,6 +39,7 @@
 }*/
 .profile-dropdown.logged:after {
     content: "\e602";
+    font-family: 'themify';
 }
 
 @-webkit-keyframes ani-mouse {
@@ -971,7 +972,7 @@ table.notifications-table>tbody>tr>td a{
     color: #CCCCCC;
 }
 .notifications-table a {
-    font-weight: normal;
+    font-weight: 300;
 }
 .notifications-table .bold a{
     font-weight: 600;

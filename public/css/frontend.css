@@ -965,7 +965,7 @@ nav.bg-dark .logo-dark {
   -webkit-transform: translate3d(0, 10px, 0);
   -moz-transform: translate3d(0, 10px, 0);
   visibility: hidden;
-  margin-top: 0;
+  margin-top: -1px;
 }
 .menu > li > ul > li {
   position: relative;
@@ -2769,6 +2769,7 @@ button[type="submit"] .form-loading {
   -webkit-transform: translate3d(0, -50%, 0);
   top: 50%;
   z-index: 2;
+  top: 63%;
 }
 .page-title i {
   position: relative;
@@ -2810,7 +2811,7 @@ button[type="submit"] .form-loading {
 }
 .page-title-3,
 .page-title-4 {
-  height: 295px;
+  height: 235px;
 }
 .page-title-4 .breadcrumb {
   position: relative;
@@ -2819,7 +2820,6 @@ button[type="submit"] .form-loading {
 }
 .nav-is-overlay .page-title-3.image-bg:first-child,
 .nav-is-overlay.page-title-3.bg-dark:first-child,
-.nav-is-overlay .page-title-4.image-bg:first-child,
 .nav-is-overlay.page-title-4.bg-dark:first-child {
   height: 325px;
   padding-top: 85px;
@@ -5931,9 +5931,6 @@ a.btn.twitter {
 /******************
 ABOUT
 *******************/
-.nav-is-overlay .page-title-4.image-bg:first-child {
-  height: 235px;
-}
 .background-image-holder-about {
   position: fixed;
   width: 100%;
@@ -5942,12 +5939,13 @@ ABOUT
   left: 0;
   z-index: 0;
   background: #292929;
-  background-size: cover !important;
+  background-size: 12%;
   background-position: 50% 50% !important;
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
-  background-image: url("../images/about-bg.jpg");
+  background-image: url("../images/pattern.jpg");
+  background-repeat: repeat;
   transform: translate3d(0px, 0px, 0px);
 }
 .background-image-holder-about:before {
@@ -6090,8 +6088,12 @@ span.color-pink {
 .color-dark-blue {
   color: #324870;
 }
-.color-green {
+.color-green,
+span.color-green {
   color: #85C362;
+}
+.color-cyan {
+  color: #0BA97F;
 }
 .color-orange {
   color: #DA9221;
@@ -6315,7 +6317,8 @@ img.blog-icon {
 .curved-image-rb.last-img {
   left: initial;
 }
-.visible570 {
+.visible570,
+.visible990 {
   display: none;
 }
 h1.uppercase {
@@ -6850,6 +6853,385 @@ h1.uppercase {
   body {
     font-size: 14px;
   }
+}
+/*****************
+THE TEAM
+******************/
+.curved-image-rmw {
+  position: absolute;
+  bottom: -165px;
+  width: 352px;
+  margin: auto;
+  -o-transform: rotate(-6deg);
+  -moz-transform: rotate(-6deg);
+  -webkit-transform: rotate(-6deg);
+  -ms-transform: rotate(-6deg);
+}
+.container.container1400 {
+  width: 1400px;
+}
+.fs44 {
+  font-size: 44px;
+}
+img.fashion-icon {
+  width: 103px;
+  top: 5px;
+  right: 7px;
+}
+.position4 {
+  top: -109px;
+  right: 126px;
+  width: 733px;
+  -o-transform: rotate(8deg);
+  -moz-transform: rotate(8deg);
+  -webkit-transform: rotate(8deg);
+  -ms-transform: rotate(8deg);
+}
+.position5 {
+  width: 730px;
+  bottom: -59px;
+  left: 110px;
+}
+.red-pos1 {
+  right: 476px;
+  width: 440px;
+}
+.red-pos2 {
+  right: 100px;
+}
+.right-image-team {
+  position: absolute;
+  width: 479px;
+  height: auto;
+  right: 203px;
+  z-index: 2;
+  top: 1px;
+}
+.team-page .about-block h4.uppercase {
+  padding-right: 0;
+}
+.pl30 {
+  padding-left: 30px;
+}
+.pr30 {
+  padding-right: 30px;
+}
+.team-page .curved-image-rb {
+  right: initial;
+}
+@media all and (max-width: 1650px) {
+  .right-image-team {
+    right: 130px;
+  }
+}
+@media all and (max-width: 1500px) {
+  .ask-us.half {
+    width: 45%;
+  }
+  .ask-us.half .fs44 {
+    font-size: 40px;
+  }
+  .ask-us.half h3.uppercase {
+    line-height: 45px;
+    font-size: 45px;
+  }
+  .ask-us.half img.fashion-icon {
+    width: 93px;
+    top: 3px;
+    right: 8px;
+  }
+  .about-block.on-black.blog.ask-us {
+    margin-left: 100px;
+  }
+}
+@media all and (max-width: 1366px) {
+  .position4 {
+    right: 93px;
+  }
+  .right-image-team {
+    right: 0;
+  }
+  .team-page .pl30,
+  .team-page .pr30 {
+    padding: 0;
+  }
+}
+@media all and (max-width: 1240px) {
+  .right-image-team {
+    right: 20px;
+    top: 50px;
+    width: 367px;
+  }
+  .team-first-text {
+    margin: 0;
+  }
+  .curved-image-rmw {
+    width: 277px;
+  }
+  .red-pos1 {
+    right: 396px;
+    width: 344px;
+  }
+  .team-first-text h3.uppercase {
+    line-height: 40px;
+    font-size: 40px;
+  }
+}
+@media all and (max-width: 1140px) {
+  .curved-image-rmw.red-pos1 {
+    width: 386px;
+  }
+  .curved-image-rmw {
+    width: 304px;
+  }
+  .ask-us.half {
+    width: 38%;
+  }
+  .ask-us.half .fs44 {
+    font-size: inherit;
+  }
+  .ask-us.half h3.uppercase {
+    padding-right: 100px;
+  }
+}
+@media all and (max-width: 990px) {
+  .visible990 {
+    display: block;
+  }
+  .mobile-red-img {
+    -o-transform: rotate(6deg);
+    -moz-transform: rotate(6deg);
+    -webkit-transform: rotate(6deg);
+    -ms-transform: rotate(6deg);
+  }
+  .mob-red-pos1 {
+    bottom: -42px;
+    right: 814px;
+    width: 365px;
+  }
+  .mob-red-pos2 {
+    left: 915px;
+    bottom: -80px;
+    width: 282px;
+  }
+  .right-image-team {
+    top: 123px;
+    width: 236px;
+  }
+  .team-page .half {
+    padding: 0;
+  }
+  .team-page .team-first-text.half {
+    padding: 50px 67px;
+    text-align: center;
+  }
+  .team-page .right-bottom {
+    right: -20px;
+  }
+  .position6 {
+    top: -225px;
+    margin: auto;
+    lefT: 0;
+    right: -110px;
+  }
+  .position7 {
+    bottom: -193px;
+    left: 0;
+    right: -99px;
+    margin: auto;
+  }
+  .container.get-on-board {
+    padding-top: 190px;
+    padding-bottom: 190px;
+  }
+}
+@media all and (max-width: 990px) {
+  .mob-red-pos2 {
+    left: 894px;
+  }
+  .mob-red-pos1 {
+    left: -107px;
+  }
+}
+@media all and (max-width: 890px) {
+  .about-block.on-black.blog.ask-us {
+    margin-left: 4.57%;
+  }
+  .container.container1400 {
+    width: 100%;
+    padding: 0;
+  }
+  .about-block.on-black.blog.ask-us {
+    margin-left: 4.57%;
+    width: 521px;
+  }
+  .right-image-team {
+    top: 277px;
+  }
+}
+@media all and (max-width: 800px) {
+  .about-block.on-black.blog.ask-us {
+    margin-left: 0;
+  }
+  .arrow-style.nopad800 {
+    padding: 0;
+  }
+  span.br {
+    display: block;
+  }
+  .team-first-text p {
+    padding: 0 125px;
+  }
+  .mob-red-pos2 {
+    left: 865px;
+    width: 340px;
+  }
+  .mob-red-pos1 {
+    left: -49px;
+    width: 459px;
+  }
+  .right-image-team {
+    display: none;
+  }
+  .get-on-board.container {
+    width: 100%;
+  }
+}
+@media all and (max-width: 768px) {
+  .ask-us.half h3.uppercase {
+    padding-right: 50px;
+  }
+  .ask-us.half img.fashion-icon {
+    width: 76px;
+    top: -29px;
+    right: 30px;
+  }
+}
+@media all and (max-width: 730px) {
+  .mob-red-pos1 {
+    display: none;
+  }
+  .team-page .team-first-text.half {
+    text-align: left;
+  }
+  .team-first-text p {
+    padding: 0 150px 0 0;
+  }
+  .mob-red-pos2 {
+    width: 214px;
+    left: 804px;
+  }
+}
+@media all and (max-width: 700px) {
+  .position6 {
+    right: -185px;
+  }
+}
+@media all and (max-width: 610px) {
+  .about-block.on-black.blog.ask-us {
+    width: 100%;
+  }
+}
+@media all and (max-width: 610px) {
+  .team-first-text h3.uppercase,
+  .ask-us.half h3.uppercase {
+    font-size: 7vw;
+  }
+  .ask-us.half h3.uppercase {
+    line-height: initial;
+  }
+  .position7 {
+    bottom: -120px;
+  }
+}
+@media all and (max-width: 550px) {
+  .mob-red-pos2 {
+    width: 239px;
+    left: 895px;
+  }
+  .team-page .team-first-text.half {
+    padding: 10px 20px;
+  }
+  .team-first-text p {
+    padding: 0 75px 0 0;
+  }
+  .team-first-text h3.uppercase {
+    font-size: 7vw;
+  }
+  .team-first-text h4.uppercase {
+    font-size: 5vw;
+  }
+  .team-first-text .br {
+    display: none;
+  }
+  .ask-us.half img.fashion-icon {
+    width: 63px;
+    top: -18px;
+    right: 68px;
+  }
+}
+@media all and (max-width: 520px) {
+  .position6 {
+    width: 548px;
+    right: 0;
+    max-width: none;
+    top: -185px;
+  }
+}
+@media all and (max-width: 500px) {
+  .ask-us.half img.fashion-icon {
+    right: 40px;
+  }
+  .team-page .about-block.on-black.blog {
+    margin: 90px 0 92px;
+  }
+  .position7 {
+    bottom: -60px;
+    width: 550px;
+    max-width: none;
+  }
+}
+@media all and (max-width: 420px) {
+  .mob-red-pos2 {
+    width: 262px;
+  }
+  .team-first-text p {
+    padding: 0 60px 0 0;
+  }
+  .ask-us.half img.fashion-icon {
+    width: 44px;
+    top: -13px;
+    right: 38px;
+  }
+}
+@media all and (max-width: 400px) {
+  .position6 {
+    lefT: -68px;
+    top: -127px;
+    -o-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -webkit-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+  }
+}
+@media all and (max-width: 370px) {
+  .ask-us.half img.fashion-icon {
+    right: 20px;
+  }
+}
+@media all and (max-width: 325px) {
+  .team-first-text h3.uppercase {
+    font-size: 6.8vw;
+  }
+}
+/**************************
+CONTACTS
+**********************************/
+.footer-2 {
+  margin-top: 60px;
+}
+.contacts-page .about-block h4.uppercase {
+  padding-right: 0;
 }
 /************************
 DESKTOP FIXES
