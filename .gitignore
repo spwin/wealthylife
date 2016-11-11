@@ -6,6 +6,7 @@
 /public/uploads
 /public/css
 /public/js
+/public/sounds
 Homestead.yaml
 Homestead.json
 .env
