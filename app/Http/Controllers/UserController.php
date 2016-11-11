@@ -203,7 +203,14 @@ class UserController extends Controller
 
     public function socialLogin($provider){
         if(!config("services.$provider")) abort('404'); //just to handle providers that doesn't exist
-        return Socialite::with($provider)->redirect();
+        try {
+            $redirect = Socialite::with($provider)->redirect();
+        } catch(\Exception $e) {
+            $error = $this->customError('Sorry, could not connect with '.$provider.' API');
+            Session::flash('modal', 'login');
+            return Redirect::action($this->getRoute())->withErrors($error->errors(), 'login')->withInput();
+        }
+        return $redirect;
     }
 
     function createNewUser($user_object, $input){
@@ -695,7 +702,12 @@ class UserController extends Controller
                         'options' => [
                             'submitForSettlement' => true
                         ],
-                        'paymentMethodNonce' => $nonceFromTheClient
+                        'paymentMethodNonce' => $nonceFromTheClient,
+                        'customer' => [
+                            'firstName' => $user->userData->first_name,
+                            'lastName' => $user->userData->last_name,
+                            'email' => $user->email
+                        ]
                     ]);
                 } catch (Exception $e) {
                     Session::flash('flash_notification.question.message', 'Whoops! An Error occurred during Payment Process, please try again');
@@ -826,7 +838,12 @@ class UserController extends Controller
                         'options' => [
                             'submitForSettlement' => true
                         ],
-                        'paymentMethodNonce' => $nonceFromTheClient
+                        'paymentMethodNonce' => $nonceFromTheClient,
+                        'customer' => [
+                            'firstName' => $user->userData->first_name,
+                            'lastName' => $user->userData->last_name,
+                            'email' => $user->email
+                        ]
                     ]);
                 } catch (Exception $e) {
                     Session::flash('flash_notification.credits.message', 'Whoops! An Error occurred during Payment Process, please try again');
@@ -878,6 +895,7 @@ class UserController extends Controller
                 $input['status'] = 0;
                 $input['code'] = bin2hex(random_bytes(5));
                 $input['url_key'] = bin2hex(random_bytes(20));
+                $input['price_scheme_id'] = $scheme->id;
                 $voucher = new Vouchers();
                 $voucher->fill($input);
                 $voucher->save();
@@ -925,8 +943,8 @@ class UserController extends Controller
                 $data = [
                     'user_id' => $user->id,
                     'question_id' => null,
-                    'type' => 'voucher',
-                    'price_scheme_id' => null,
+                    'type' => 'vouchers',
+                    'price_scheme_id' => $voucher->price_scheme_id,
                     'voucher_id' => $voucher->id,
                     'status' => 0,
                     'braintree_id' => ''
@@ -942,7 +960,12 @@ class UserController extends Controller
                         'options' => [
                             'submitForSettlement' => true
                         ],
-                        'paymentMethodNonce' => $nonceFromTheClient
+                        'paymentMethodNonce' => $nonceFromTheClient,
+                        'customer' => [
+                            'firstName' => $user->userData->first_name,
+                            'lastName' => $user->userData->last_name,
+                            'email' => $user->email
+                        ]
                     ]);
                 } catch (Exception $e) {
                     Session::flash('flash_notification.voucher.message', 'Whoops! An Error occurred during Payment Process, please try again');
@@ -951,6 +974,7 @@ class UserController extends Controller
                 }
                 if ($result->success){
                     $user->referral_rewarded = $this->addReferralPoints($user);
+                    $user->save();
                     $changes['braintree_id'] = $result->transaction->id;
                     $changes['status'] = 1;
                     $order->fill($changes);
@@ -1210,6 +1234,7 @@ class UserController extends Controller
             if(!$user->referral_rewarded){
                 $referral = User::where(['id' => $user->referral_id])->first();
                 if($referral){
+                    $user->first_service_use = date('Y-m-d H:i:s', time());
                     $referral->referrals_confirmed = $referral->referrals_confirmed + 1;
                     $referral->referrals_points = $referral->referrals_points + 2;
                     $referral->points = $referral->points + 2;

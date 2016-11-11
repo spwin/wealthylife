@@ -324,3 +324,51 @@ tr.periods {
 .w90px{
   width: 90px;
 }
+.box-pie-title{
+  margin: 0;
+  font-size: 30px;
+}
+
+table{
+  &.summary-consultants {
+    width: 100%;
+  }
+  tr{
+    height: 30px;
+  }
+  .consultant-color-preview{
+    width: 20px;
+    height: 20px;
+  }
+}
+.box-body{
+  &.consultants-summary{
+    max-height: 195px;
+    overflow: auto;
+  }
+}
+.questions-summary{
+  ul {
+    list-style: none;
+    padding-left: 0;
+    li {
+      text-decoration: none;
+      font-size: 16px;
+      h4 {
+        font-variant: small-caps;
+        font-size: 30px;
+      }
+    }
+  }
+}
+.admin-summary{
+  .box-title{
+    font-size: 20px;
+  }
+}
+.admin-users-list > li{
+  width: 10%;
+}
+.summary-top{
+  width: 100%;
+}

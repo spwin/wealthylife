@@ -81,11 +81,11 @@ class User extends Authenticatable
     }
 
     public function referral(){
-        return $this->hasOne('App\User', 'referral_user', 'id');
+        return $this->hasOne('App\User', 'id', 'referral_id');
     }
 
     public function referrals(){
-        return $this->hasMany('App\User', 'id', 'referral_user');
+        return $this->hasMany('App\User', 'referral_id');
     }
 
     public function discounts(){

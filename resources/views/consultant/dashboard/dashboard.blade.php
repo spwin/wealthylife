@@ -105,7 +105,7 @@
                             <span class="progress-number"><b>{{ count($answers) }}</b>/{{ count($pending) + count($answers) }}</span>
 
                             <div class="progress sm">
-                                <div class="progress-bar progress-bar-green" style="width: {{ round(100*(count($answers)/(count($pending) + count($answers)))) }}%"></div>
+                                <div class="progress-bar progress-bar-green" style="width: {{ (count($pending) + count($answers)) > 0 ? round(100*(count($answers)/(count($pending) + count($answers)))) : 0 }}%"></div>
                             </div>
                         </div>
                     </div>

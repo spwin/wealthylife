@@ -269,7 +269,11 @@
                                                 </td>
                                                 <td>{{ $question->question }}</td>
                                                 <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
-                                                <td class="w100px"><a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-primary">Answer</a></td>
+                                                <td class="w100px">
+                                                    @if($question->consultant_id == $consultant->id)
+                                                        <a href="{{ action('ConsultantController@answerQuestion', ['id' => $question->id]) }}" class="btn btn-primary">Answer</a>
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif

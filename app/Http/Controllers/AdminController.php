@@ -20,6 +20,7 @@ use App\User;
 use App\UserData;
 use App\Vouchers;
 use Braintree\Discount;
+use App\Helpers\summaryGraphs;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -37,8 +38,96 @@ class AdminController extends Controller
 {
     private $max_filesize = 5120;
 
+    protected function calculateRevenue($price, $gross, $questions){
+        $revenue = $questions['totals']['answered'] * ($price - $gross);
+        return $revenue;
+    }
+
+    public function getTop10ByQuestions($payroll){
+        $result = User::selectRaw('COUNT(questions.id) as questions_count, users.*')
+            ->where(['users.type' => 'user'])
+            ->join('questions', 'users.id', '=', 'questions.user_id')
+            ->where('questions.created_at', '>=', $payroll->starts_at)
+            ->groupBy('questions.user_id')
+            ->orderBy('questions_count', 'DESC')
+            ->limit(10)
+            ->get();
+        return $result;
+    }
+
+    public function getTop10ByReferrals($payroll){
+        $result = User::selectRaw('COUNT(referrals.id) as referrals_count, users.*')
+            ->where(['users.type' => 'user'])
+            ->join('users as referrals', 'users.id', '=', 'referrals.referral_id')
+            ->where('referrals.created_at', '>=', $payroll->starts_at)
+            ->whereNotNull('referrals.first_service_use')
+            ->groupBy('referrals.referral_id')
+            ->orderBy('referrals_count', 'DESC')
+            ->limit(10)
+            ->get();
+        return $result;
+    }
+
+    public function getTop10ByBalance(){
+        $result = User::where(['users.type' => 'user'])
+            ->orderBy('points', 'DESC')
+            ->limit(10)
+            ->get();
+        return $result;
+    }
+
+    public function getTop10ByArticles($payroll){
+        $result = User::selectRaw('COUNT(article.id) as articles_count, users.*')
+            ->where(['users.type' => 'user'])
+            ->join('article', 'users.id', '=', 'article.user_id')
+            ->where('article.created_at', '>=', $payroll->starts_at)
+            ->where('article.status', '>', 0)
+            ->groupBy('article.user_id')
+            ->orderBy('articles_count', 'DESC')
+            ->limit(10)
+            ->get();
+        return $result;
+    }
+
     public function index(){
-        return view('admin/dashboard/dashboard');
+        $payroll = Payroll::where(['current' => 1])->first();
+        $price = Settings::select('value')->where(['name' => 'question_price'])->first();
+        $gross = Settings::select('value')->where(['name' => 'gross_consultant'])->first();
+        $consultants = User::where(['type' => 'consultant'])->get();
+        $latest_users = User::where(['type' => 'user'])->where('created_at', '>', $payroll->starts_at)->orderBy('created_at', 'DESC')->limit(10)->get();
+        $new_feedback = Feedback::where(['seen' => 0])->count();
+        $top10_questions = $this->getTop10ByQuestions($payroll);
+        $top10_referrals = $this->getTop10ByReferrals($payroll);
+        $top10_balance = $this->getTop10ByBalance();
+        $top10_articles = $this->getTop10ByArticles($payroll);
+        $graphs_generator = new summaryGraphs();
+        $orders = $graphs_generator->getOrdersGraph($price->value, $payroll);
+        $answers = $graphs_generator->getAnswersGraph($consultants, $payroll);
+        $questions = $graphs_generator->getQuestionsGraph($payroll);
+        $users = $graphs_generator->getUsersGraph($payroll);
+        $articles = $graphs_generator->getArticlesGraph($payroll);
+        $vouchers = $graphs_generator->getVouchersGraph($payroll);
+        $discounts = $graphs_generator->getDiscountsGraph($price->value, $payroll);
+        $referrals = $graphs_generator->getReferralsGraph($payroll);
+        $revenue = $this->calculateRevenue($price->value, $gross->value, $questions);
+        return view('admin/dashboard/dashboard')->with([
+            'payroll' => $payroll,
+            'orders' => $orders,
+            'answers' => $answers,
+            'questions' => $questions,
+            'users' => $users,
+            'articles' => $articles,
+            'feedback' => $new_feedback,
+            'vouchers' => $vouchers,
+            'revenue' => $revenue,
+            'discounts' => $discounts,
+            'latest_users' => $latest_users,
+            'referrals' => $referrals,
+            'top10_questions' => $top10_questions,
+            'top10_referrals' => $top10_referrals,
+            'top10_balance' => $top10_balance,
+            'top10_articles' => $top10_articles,
+        ]);
     }
 
     public function login(){
@@ -717,7 +806,7 @@ class AdminController extends Controller
         if($input['email']){
             Mail::send('emails.new_notification', ['user' => $user_data, 'notification' => $notification], function ($message) use ($user) {
                 $message->subject('New notification');
-                $message->from('spwinwk@gmail.com', 'Style Sensei');
+                $message->from(env('MAIL_USERNAME'), env('APP_NAME'));
                 $message->to($user->email);
                 $message->priority('high');
             });
@@ -1004,6 +1093,7 @@ class AdminController extends Controller
         $data['code'] = bin2hex(random_bytes(5));
         $data['generated'] = 1;
         $data['status'] = 1;
+        $data['price'] = $request->get('credits');
         $voucher = new Vouchers();
         $voucher->fill($data);
         $voucher->save();

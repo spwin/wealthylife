@@ -44,7 +44,7 @@
                                 <tr>
                                     <td class="w40px">#{{ $voucher->id }}</td>
                                     <td>
-                                        @if($$voucher->user)
+                                        @if($voucher->user)
                                             <a href="{{ action('AdminController@detailsUser', ['id' => $voucher->user->id]) }}">{{ $voucher->user->email }}</a></td>
                                         @else
                                             User Deleted

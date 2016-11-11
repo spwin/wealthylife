@@ -138,6 +138,7 @@ class ConsultantSlot
             $average[] = $question->timer;
         }
         $result = count($average) > 0 ? floor(round(array_sum($average) / count($average))/60) : 30;
+        $result = $result > 10 ? $result : 30;
         return $result;
     }
 
