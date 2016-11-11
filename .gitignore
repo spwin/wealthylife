@@ -4,6 +4,8 @@
 /public/storage
 /public/images
 /public/uploads
+/public/css
+/public/js
 Homestead.yaml
 Homestead.json
 .env
