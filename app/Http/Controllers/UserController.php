@@ -203,7 +203,14 @@ class UserController extends Controller
 
     public function socialLogin($provider){
         if(!config("services.$provider")) abort('404'); //just to handle providers that doesn't exist
-        return Socialite::with($provider)->redirect();
+        try {
+            $redirect = Socialite::with($provider)->redirect();
+        } catch(\Exception $e) {
+            $error = $this->customError('Sorry, could not connect with '.$provider.' API');
+            Session::flash('modal', 'login');
+            return Redirect::action($this->getRoute())->withErrors($error->errors(), 'login')->withInput();
+        }
+        return $redirect;
     }
 
     function createNewUser($user_object, $input){

@@ -806,7 +806,7 @@ class AdminController extends Controller
         if($input['email']){
             Mail::send('emails.new_notification', ['user' => $user_data, 'notification' => $notification], function ($message) use ($user) {
                 $message->subject('New notification');
-                $message->from('spwinwk@gmail.com', 'Style Sensei');
+                $message->from(env('MAIL_USERNAME'), env('APP_NAME'));
                 $message->to($user->email);
                 $message->priority('high');
             });
