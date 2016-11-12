@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="uppercase mb8 page-h2">Contact us</h1>
-                    <h2 class="lead mb0 below">Feel free to <span class="color-green">contact us.</span></h2>
+                    <h2 class="lead mb0 below">Feel free to <span class="color-cyan">contact us.</span></h2>
                 </div>
             </div>
             <!--end of row-->
@@ -33,17 +33,17 @@
                     <div class="top-part"></div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container mob-cont">
                 <div class="row">
                     <div class="half left about-block">
-                            <h3 class="uppercase">Get In Touch</h3>
-                            <p>Have something to share with us: a piece of advice, feedback, or a problem? Just fill out our form and we will get back to you shortly with the answer that you have been looking for. And trust me, we are quick!</p>
+                            <h3 class="uppercase">Get In <span class="color-cyan">Touch</span></h3>
+                            <p>Have something to share with us: a piece of advice, feedback, or a problem? Just fill out our form and we will get back to you shortly with the answer that you have been looking for. <span class="br"></span><span class="bold700">And trust me, <span class="color-cyan">we are quick!</span></span></p>
                             <hr>
                             <p>
                                 <strong>Pixsens LTD</strong>
                                 <br /> Kemp House
                                 <br /> 160 City Road
-                                <br /> London EC1V 2NX
+                                <br /> <span class="color-cyan bold700">London</span> EC1V 2NX
                             </p>
                             <hr>
                             <p>

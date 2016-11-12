@@ -2435,7 +2435,8 @@ span.color-pink {
 span.color-green {
 	color: #85C362;
 }
-.color-cyan {
+.color-cyan,
+span.color-cyan {
 	color: #0BA97F;
 }
 .color-orange {
@@ -3727,13 +3728,47 @@ CONTACTS
 	.about-block h4.uppercase {
 		padding-right: 0;
 	}
+	form {
+		width: 70%;
+		margin: 0 auto;
+	}
+	.arrow-style .row {
+		margin: 45px 0;
+	}
 }
 
+@media all and (max-width: 990px) {
+	.contacts-page  {
+		form {
+			width: 100%;
+			margin-top: 50px;
+			max-width: 560px;
+		}
+		.half {
+			padding: 0;
+		}
+	}
+}
 
+@media all and (max-width: 768px) {
+	.container.mob-cont {
+		width: 100%;
+	}
+}
 
+@media all and (max-width: 640px) {
+	.contacts-page  {
+		form {
+			margin-top: 0;
+		}
+	}
+}
 
-
-
+@media all and (max-width: 420px) {
+	.contacts-page .arrow-style .row {
+		margin: 0;
+	}
+}
 
 
 
