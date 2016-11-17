@@ -463,8 +463,9 @@ form .textarea-holder .charNum{
 }
 
 .user-photo .image{
-    max-width: 160px;
+    max-width: 190px;
     width: 70%;
+    margin: 0 auto;
 }
 
 .widget .title.username{
@@ -595,6 +596,11 @@ form.general-profile .double-column{
 .image img {
     width: 100%;
     vertical-align: top;
+
+}
+
+.user-photo .image img {
+    border-radius: 51%;
 }
 
 .image:after {
@@ -1230,11 +1236,32 @@ img.question-list{
     top: 200px;
 }
 .referral-link{
-    padding: 10px;
-    font-size: 16px;
+    padding: 20px;
+    font-size: 18px;
     font-weight: bold;
-    background-color: #fffdf1;
+    background-color: #2189E2;
+    color: white;
     margin-bottom: 40px;
+}
+@media all and (max-width:990px) {
+    .referral-link{
+        font-size: 17px;
+    }
+}
+@media all and (max-width:990px) {
+    .referral-link {
+        font-size: 2vw;
+    }
+}
+@media all and (max-width:550px) {
+    .referral-link {
+        font-size: 15px;
+    }
+}
+@media all and (max-width: 400px) {
+    .referral-link {
+        font-size: 13px;
+    }
 }
 .referral-text{
     font-size: 16px;

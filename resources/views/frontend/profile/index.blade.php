@@ -2,7 +2,36 @@
 @section('nav-style', 'nav-profile')
 @section('content')
     @include('frontend/profile/header')
+    <section class="page-title page-title-4 image-bg parallax">
+        <div class="background-image-holder-about fadeIn">
+            <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
+        </div>
+        <div class="container page-first-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="uppercase mb8 page-h2">Profile</h1>
+                    <h2 class="lead mb0 below"></h2>
+                </div>
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>
     <section>
+
+        <div class="arrow-style index3 mob-left-to-right">
+            <div class="curve-wrap left-top-wrap">
+                <div class="rotated left-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-top-wrap">
+                <div class="rotated right-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+
+
         <div class="container">
             <div class="row">
                 @include('frontend/profile/user-menu')
@@ -74,6 +103,7 @@
                                                             {!! Form::radio('gender', 'female', null) !!}
                                                         </div>
                                                         <span>Female</span>
+                                                        <div class="clearboth"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -356,6 +386,19 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+            <div class="curve-wrap left-bottom-wrap">
+                <div class="rotated left-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-bottom-wrap">
+                <div class="rotated right-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+
         </div>
     </section>
     @include('frontend/footer')

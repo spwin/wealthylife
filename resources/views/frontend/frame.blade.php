@@ -1,7 +1,7 @@
 @extends('frontend/layout')
 @section('wrapper')
     @include('frontend/navigation')
-    <div class="main-container">
+    <div id="panel" class="main-container">
         @yield('content')
     </div>
     @include('frontend/modals')

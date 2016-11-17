@@ -36,6 +36,7 @@ elixir(function(mix) {
         '../plugins/iCheck/icheck.min.js',
         '../foundry/js/timer.jquery.min.js',
         '../plugins/datepicker/bootstrap-datepicker.js',
+        '../plugins/slideout/slideout.min.js',
         'admin/custom.js'
     ], 'public/js/plugins.js')
         .copy('resources/assets/plugins/datatables/jquery.dataTables.min.js', 'public/js/admin')
@@ -84,6 +85,7 @@ elixir(function(mix) {
         '../foundry/js/smooth-scroll.min.js',
         '../plugins/datepicker/bootstrap-datepicker.js',
         '../plugins/bootstrap-slider/bootstrap-slider.js',
+        '../plugins/slideout/slideout.min.js',
         '../foundry/js/parallax.js',
         '../foundry/js/scripts.js',
         '../foundry/js/countdown.min.js',

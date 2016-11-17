@@ -1,53 +1,103 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-profile')
 @section('content')
-    <section>
-        <div class="container">
+    <section class="page-title page-title-4 image-bg parallax">
+        <div class="background-image-holder-about fadeIn">
+            <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
+        </div>
+        <div class="container page-first-header">
             <div class="row">
-                @include('frontend/profile/user-menu')
+                <div class="col-md-6">
+                    <h1 class="uppercase mb8 page-h2">Profile</h1>
+                    <h2 class="lead mb0 below"></h2>
+                </div>
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>
+    <section>
+
+        <div class="arrow-style index3 mob-right-to-left">
+            <div class="curve-wrap left-top-wrap">
+                <div class="rotated left-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-top-wrap">
+                <div class="rotated right-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+
+        <div class="container about-block">
+            <div class="row">
+                @if(\App\Helpers\Helpers::isMobile())
+                    @include('mobile/frontend/profile/user-menu')
+                @else
+                    @include('frontend/profile/user-menu')
+                @endif
+
                 <div class="col-md-9">
+                    <div class="toggle-button profile-menu-but bold700 visible990">
+                        <span class="display-block mb16">PROFILE MENU</span>
+                        <hr>
+                    </div>
+
                     <div class="tabbed-content text-tabs display-after-load">
-                        <div class="modal-container text-right">
+                        <div class="modal-container text-right right ask-position-mob">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             <div class="hidden">
                                 @include('frontend/elements/question')
                             </div>
                         </div>
-                        <h4 class="uppercase mb16">Referral rewards program</h4>
-                        <div class="referral-text">Get your free £2 for each friend you invite to use our services!</div>
-                        <section class="pt-20px pb-20px">
-                            <h3>Your unique referral link:</h3>
-                            <div class="referral-link">{{ action('FrontendController@acceptReferral', ['referral' => $user->id, 'key' => $user->referral_key]) }}</div>
+                        <h3 class="uppercase mb16 referral-head">Referral rewards <span class="fs32 color-blue-prof display-block">program</span></h3>
+                        <div class="referral-text"><span class="display-block bold700 fs22">Get your <span class="color-blue-prof">free £2 for each friend</span></span> you invite to use our services!</div>
+                        <section class="pt-20px pb-20px ref-section">
+                            <p class="referral-text uppercase bold700 mt16 mb8">Your unique <span class="color-blue-prof">referral link:</span></p>
+                            <div class="referral-link text-center">{{ action('FrontendController@acceptReferral', ['referral' => $user->id, 'key' => $user->referral_key]) }}</div>
 
-                            <h3>Your current referrals:</h3>
-                            <div class="col-md-4">
-                                <h5 class="uppercase">Registered: <span class="numbers">{{ $user->referrals_registered }}</span></h5>
+                            <p class="referral-text uppercase bold700 mt16 mb8">Your current referrals:</p>
+                            <hr>
+                            <div class="col-md-4 nopad">
+                                <p class="uppercase pr0 fs19 registered">Registered: <span class="numbers">{{ $user->referrals_registered }}</span></p>
                             </div>
-                            <div class="col-md-4">
-                                <h5 class="uppercase">Confirmed: <span class="numbers">{{ $user->referrals_confirmed }}</span></h5>
+                            <div class="col-md-4 nopad">
+                                <p class="uppercase pr0 fs19 confirmed color-confirmed">Confirmed: <span class="numbers">{{ $user->referrals_confirmed }}</span></p>
                             </div>
-                            <div class="col-md-4">
-                                <h5 class="uppercase">Points collected: <span class="numbers">{{ $user->referrals_points }}</span></h5>
+                            <div class="col-md-4 nopad">
+                                <p class="uppercase pr0 fs19 collected color-blue-prof">Points collected: <span class="numbers bold700">{{ $user->referrals_points }}</span></p>
                             </div>
                         </section>
                         <section class="pt-20px pb-0px">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h2 class="uppercase mb16">How it works</h2>
-                                    <p class="lead mb48">Collect point by inviting people!</p>
-                                    <p>
-                                        <ul>
-                                            <li><b>SHARE</b> - Copy your unique referral link and share it to your friend</li>
-                                            <li><b>USE</b> - Your friend must enter www.stylesensei.co.uk using your link</li>
-                                            <li><b>GET REWARDED</b> - Reward of 2 points will be transferred to your account as soon as your friend uses one of our paid service</li>
-                                            <li><b>TRACK</b> - You can check the number of registered and confirmed referrals on this page</li>
-                                        </ul>
-                                    </p>
-                                    <h5>LET THE STYLE BEGIN</h5>
+                                    <h4 class="uppercase mb0">How it works?</h4>
+                                    <p class="lead uppercase mb24">Collect points by inviting people!</p>
+                                    <hr>
+                                            <div class="profile-how-it phifirst smaller left"><span class="bold700 display-block">01. SHARE</span>Copy your unique referral link and share it to your friend</div>
+                                            <div class="profile-how-it phithird larger left"><span class="bold700 display-block">03. GET REWARDED</span>Reward of 2 points will be transferred to your account as soon as your friend uses one of our paid service</div>
+                                    <div class="clearboth mt24 nomton550"></div>
+                                            <div class="profile-how-it phisecond smaller left"><span class="bold700 display-block">02. Make sure</span>Your friend must enter www.stylesensei.co.uk using your link</div>
+                                            <div class="profile-how-it phifourth larger left"><span class="bold700 display-block">04. TRACK</span>You can check the number of registered and confirmed referrals on this page</div>
+                                    <div class="clearboth"></div>
+                                    <hr class="mt16 mb0">
+                                    <h5 class="text-center">Let the style begin!</h5>
                                 </div>
                             </div>
                         </section>
                     </div>
+                </div>
+            </div>
+        </div>
+            <div class="curve-wrap left-bottom-wrap">
+                <div class="rotated left-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-bottom-wrap">
+                <div class="rotated right-bottom">
+                    <div class="bottom-part"></div>
                 </div>
             </div>
         </div>
