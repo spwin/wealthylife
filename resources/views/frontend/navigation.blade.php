@@ -33,7 +33,7 @@
                         {{--<li>
                             <a href="#">FAQ</a>
                         </li>--}}
-                        <li {{ (Request::is('*contacts*') ? 'class=current' : '') }}>
+                        <li {{ (Request::is('*contact-us*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@contacts') }}">Contacts</a>
                         </li>
                     </ul>
