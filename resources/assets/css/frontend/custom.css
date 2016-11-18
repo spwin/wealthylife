@@ -1270,15 +1270,19 @@ p.discount{
     position:relative;
 }
 p.discount span.round{
-    background-color: #ff7070;
+    background-color: #FF2353;
     border-radius: 50%;
     padding: 10px;
     font-size: 16px;
     font-weight: bold;
     color: #FFFFFF;
     position: absolute;
-    top: -35px;
-    right: 0;
+    top: -34px;
+    right: 22px;
+    width: 58px;
+    white-space: nowrap;
+    height: 58px;
+    line-height: 35px;
 }
 
 .question-payment{

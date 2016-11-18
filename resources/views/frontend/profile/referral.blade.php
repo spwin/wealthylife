@@ -8,8 +8,8 @@
         <div class="container page-first-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="uppercase mb8 page-h2">Profile</h1>
-                    <h2 class="lead mb0 below"></h2>
+                    <h1 class="uppercase mb8 page-h2">Referrals</h1>
+                    <h2 class="lead mb0 below"><span class="color-blue-prof">Get the most</span> of StyleSensei</h2>
                 </div>
             </div>
             <!--end of row-->
@@ -45,13 +45,13 @@
                     </div>
 
                     <div class="tabbed-content text-tabs display-after-load">
-                        <div class="modal-container text-right right ask-position-mob">
+                        <div class="modal-container text-right right ask-position-mob ask-position-mob">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             <div class="hidden">
                                 @include('frontend/elements/question')
                             </div>
                         </div>
-                        <h3 class="uppercase mb16 referral-head">Referral rewards <span class="fs32 color-blue-prof display-block">program</span></h3>
+                        <h4 class="uppercase mb16 referral-head">Referral rewards <span class="fs32 color-blue-prof display-block">program</span></h4>
                         <div class="referral-text"><span class="display-block bold700 fs22">Get your <span class="color-blue-prof">free £2 for each friend</span></span> you invite to use our services!</div>
                         <section class="pt-20px pb-20px ref-section">
                             <p class="referral-text uppercase bold700 mt16 mb8">Your unique <span class="color-blue-prof">referral link:</span></p>
@@ -75,14 +75,17 @@
                                     <h4 class="uppercase mb0">How it works?</h4>
                                     <p class="lead uppercase mb24">Collect points by inviting people!</p>
                                     <hr>
-                                            <div class="profile-how-it phifirst smaller left"><span class="bold700 display-block">01. SHARE</span>Copy your unique referral link and share it to your friend</div>
-                                            <div class="profile-how-it phithird larger left"><span class="bold700 display-block">03. GET REWARDED</span>Reward of 2 points will be transferred to your account as soon as your friend uses one of our paid service</div>
-                                    <div class="clearboth mt24 nomton550"></div>
-                                            <div class="profile-how-it phisecond smaller left"><span class="bold700 display-block">02. Make sure</span>Your friend must enter www.stylesensei.co.uk using your link</div>
-                                            <div class="profile-how-it phifourth larger left"><span class="bold700 display-block">04. TRACK</span>You can check the number of registered and confirmed referrals on this page</div>
-                                    <div class="clearboth"></div>
+                                    <div class="left smaller">
+                                            <div class="profile-how-it phifirst left"><span class="bold700 display-block">01. SHARE</span>Copy your unique referral link and share it to your friend</div>
+                                            <div class="profile-how-it phisecond left"><span class="bold700 display-block">02. Make sure</span>Your friend must enter www.stylesensei.co.uk using your link</div>
+                                    </div>
+                                    <div class="right larger">
+                                        <div class="profile-how-it phithird left"><span class="bold700 display-block">03. GET REWARDED</span>Reward of 2 points will be transferred to your account as soon as your friend uses one of our paid service</div>
+                                            <div class="profile-how-it phifourth left"><span class="bold700 display-block">04. TRACK</span>You can check the number of registered and confirmed referrals on this page</div>
+                                    </div>
+                                        <div class="clearboth"></div>
                                     <hr class="mt16 mb0">
-                                    <h5 class="text-center">Let the style begin!</h5>
+                                    <h5 class="text-center opacity05">Let the style begin!</h5>
                                 </div>
                             </div>
                         </section>

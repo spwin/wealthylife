@@ -277,7 +277,7 @@ a:hover{ color: darken(@color-primary,10%); text-decoration: none; }
 blockquote{ overflow: hidden; font-family: "Merriweather","Georgia",Times New Roman,Times,serif; font-size: 20px; line-height: 40px; font-style: italic; background: #f5f5f5; padding: 32px; color: #777; font-weight: 300; }
 .bg-secondary blockquote{ background: #fff; border-color: @color-primary; }
 blockquote .author{ font-size: 12px; display: block; float: right; margin-top: 16px; }
-.number{ font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif; }
+.number{ font-family: "Raleway","Helvetica Neue",Helvetica,Arial,sans-serif; }
 .columns-2{ column-count: 2; -webkit-column-count: 2; }
 
 @media all and (max-width: 768px){
@@ -301,7 +301,7 @@ ul.lead li{ font-size: 16px; line-height: 40px; }
 /*!---------- 4. COLOURS ----------*/
 
 @green: #47b475;
-@red: #e31d3b;
+@red: #ff2352;
 @red2: #fc4f4f;
 @hyperblu: #3b3be8;
 @gunmetal: #333347;
@@ -325,6 +325,7 @@ footer.bg-dark { background: rgba(0,0,0,0.5); z-index: 2;}
 .color-primary{ color: @color-primary !important; }
 .color-red{ color: @red !important; }
 .color-white{ color: #fff; }
+.color-green-prof {color:#47b475;}
 
 
 /*!---------- 5. SECTIONS ----------*/
@@ -916,7 +917,7 @@ button[type="submit"] .form-loading{ height: 25px; width: 25px; display: inline-
 /*!---------- 19. PRICING TABLES ----------*/
 
 .pricing-table{ padding: 48px 32px; }
-.pricing-table .price{ .number; font-size: 80px; line-height: 80px; font-weight: 300; color: @bg-dark; display: inline-block; margin-bottom: 16px; }
+.pricing-table .price{ .number; font-size: 80px; line-height: 80px; font-weight: 200; color: @bg-dark; display: inline-block; margin-bottom: 16px; }
 .bg-dark .pricing-table .price{ color: #fff; }
 .pricing-table p:last-child{ margin-bottom: 0; }
 .pricing-table.boxed, .pricing-table.emphasis{ background: @bg-secondary; }
@@ -3778,15 +3779,36 @@ CONTACTS
 PROFILE PAGE
 *****************/
 
-.color-blue-prof {
+.color-blue-prof,
+span.color-blue-prof {
 	color: #2189E2;
 }
-
+.opacity05 {
+	opacity: 0.5;
+	font-weight: 400;
+}
+.opacity1 {
+	opacity:1 ;
+}
 .profile-page {
+
+	.page-title-4 {
+		height: 190px;
+	}
+
+	h5.opacity05 {
+		font-weight: 400;
+	}
 
 	section {
 		padding-top: 50px;
 		padding-bottom: 50px;
+	}
+	section.page-title {
+		padding-bottom: 0;
+	}
+	.arrow-style .row {
+		padding-bottom: 30px;
 	}
 
 	.left-top-wrap {
@@ -3916,10 +3938,14 @@ PROFILE PAGE
 		line-height: 18px;
 	}
 
-	.profile-how-it.smaller {
+	.credits .profile-how-it {
+		padding-right: 0;
+	}
+
+	.smaller {
 			width: 40%;
 	}
-	.profile-how-it.larger {
+	.larger {
 		width: 56%;
 		margin-left: 4%;
 	}
@@ -3929,12 +3955,13 @@ PROFILE PAGE
 	.phisecond {
 		background-image: url("../images/zoom-eye-icon.svg");
 		bakcground-size: 30px;
+		margin-top:25px;
 	}
 	.phithird {
 		background-image: url("../images/get-rewarded-icon.svg");
 	}
 	.phifourth {
-
+		margin-top:25px;
 		background-image: url("../images/track-icon.svg");
 	}
 
@@ -3947,6 +3974,9 @@ PROFILE PAGE
 	}
 	.referral-link {
 		font-size: 17px;
+	}
+	.profile-how-it {
+		font-size: 13px;
 	}
 }
 
@@ -3999,6 +4029,16 @@ PROFILE PAGE
 		}
 		.fs19 {
 			font-size: 14px;
+		}
+		.arrow-style {
+			padding-top: 30px;
+		}
+		ul.lead li {
+			font-size: 24px;
+			line-height: 52px;
+		}
+		#menu .title {
+			font-size: 18px;
 		}
 
 	}
@@ -4054,19 +4094,30 @@ PROFILE PAGE
 			font-size: 16px;
 			padding-left:51px;
 		}
+		.profile-how-it {
+			font-size: 17px;
+		}
+		.smaller {
+			width: 63%;
+		}
+		.larger {
+			width: 63%;
+			float:left;
+			margin-left: 0;
+			margin-top: 25px;
+		}
+
 	}
 
 
 }
-
-@media all and (max-width: 625px) {
-	.ask-position-mob {
-		position: absolute;
-		bottom: -30px;
-		left: 0;
-		right: 0;
-		text-align: center;
-	}
+.ask-position-mob {
+	position: absolute;
+	bottom: 13px;
+	left: 0;
+	z-index: 5;
+	right: 0;
+	text-align: center;
 }
 
 @media all and (max-width: 550px) {
@@ -4117,6 +4168,150 @@ PROFILE PAGE
 	}
 }
 
+/*************
+CREDITS
+************************/
+
+.credits {
+
+	p, hr {
+		margin-bottom: 14px;
+	}
+	h4.uppercase {
+		margin-top: 33px;
+	}
+	.pricing-table {
+		padding: 0;
+
+			p.lead {
+				color: white;
+				padding-top: 23px;
+				font-size: 20px;
+				line-height: 45px;
+			}
+
+		input[type="submit"], button[type="submit"] {
+			border: 2px solid #FF2353;
+			background: #FF2353;
+			font-size: 12px;
+			letter-spacing: 0.05em;
+			margin-bottom: 29px;
+		}
+		.btn-filled:visited:hover, .btn-filled:hover {
+			background: #FF2353;
+			color: white;
+		}
+	}
+	.price {
+		width: 100%;
+		height: 55px;
+		background-color: white;
+		position: relative;
+		font-weight: 200;
+
+			span {
+				z-index: 10;
+				position: absolute;
+				left: 32px;
+				top: -17px;
+			}
+	}
+
+	.helper {
+		width:100%;
+		height: 189px;
+		background: transparent;
+		position: relative;
+
+	}
+
+	h5.cred {
+		top: 83px;
+		font-size: 28px;
+		left: 0;
+		right: 0;
+		position: absolute;
+		color: white;
+		opacity: 1;
+
+			span {
+				font-size: 41px;
+				letter-spacing: -0.05em;
+			}
+	}
+
+	.helper:before {
+		border-top: 63px solid #ffffff;
+		top: 0;
+		left: 0;
+		border-right: 294px solid transparent;
+		content: ' ';
+		width: 0;
+		height: 0;
+		position: absolute;
+	}
+
+	.price:before {
+		border-top: 63px solid rgb(255, 255, 255);
+		bottom: -61px;
+	    left: 0;
+		border-right: 294px solid transparent;
+		content: ' ';
+		width: 0;
+		height: 0;
+		position: absolute;
+	}
+	.price:after {
+		border-bottom: 63px solid #ffffff;
+		top: -61px;
+		left: 0;
+		border-right: 294px solid transparent;
+		content: ' ';
+		width: 0;
+		height: 0;
+		position: absolute;
+	}
+}
+.pricing-table.boxed {
+	background-color: white;
+	background-size: 300px;
+	background-position: 50% 50% !important;
+	transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	background-image: url("../images/pattern.jpg");
+	background-repeat: repeat;
+}
+.pricing-table {
+	 h5.uppercase {
+		padding-right: 0;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**************** SLIDEOUT *****************/
 
 .slideout-menu {
@@ -4126,10 +4321,21 @@ PROFILE PAGE
 	bottom: 0;
 	right: 0;
 	z-index: 0;
-	width: 256px;
+	width: 350px;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	display: none;
+}
+
+@media all and (max-width: 550px) {
+	.slideout-menu {width: 260px;}
+	ul.lead li {
+		font-size: 20px;
+		line-height: 52px;
+	}
+	#menu .title {
+		font-size: 18px;
+	}
 }
 
 .slideout-panel {
