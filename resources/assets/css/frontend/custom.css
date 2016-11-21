@@ -41,7 +41,11 @@
     content: "\e602";
     font-family: 'themify';
 }
-
+@media all and (max-width: 990px) {
+.profile-dropdown.logged:after {
+    content: '';
+}
+}
 @-webkit-keyframes ani-mouse {
     0% {
         opacity: 1;
@@ -203,11 +207,11 @@ input[type="password"].mb-5px{
     -moz-column-count: 2;
     column-count: 2;
 }
-
+/*
 nav .nav-home, nav .nav-home .menu > li ul{
     background-color: rgba(0,0,0, 0.4);
 }
-
+*/
 nav .nav-profile, nav .nav-profile .menu > li ul{
     background-color: rgba(0,0,0, 0.7);
 }
@@ -950,7 +954,7 @@ button.delete-draft-question{
     line-height: 1.4;
 }
 .cart-widget-handle .function span:hover{
-    color: #000000 !important;
+    color: #A7A7A7 !important;
 }
 .cart-widget-handle .description i{
     color: inherit !important;
@@ -1198,7 +1202,7 @@ span.text-red{
     clear: both;
 }
 .blog-block-image{
-    background-color: #FFFFFF;
+    background-color: #F4F2F3;
 }
 
 .pagination li span:hover, .pagination li.active span, .pagination li.active:hover span {
@@ -1269,6 +1273,7 @@ img.question-list{
 p.discount{
     position:relative;
 }
+/*
 p.discount span.round{
     background-color: #FF2353;
     border-radius: 50%;
@@ -1284,7 +1289,7 @@ p.discount span.round{
     height: 58px;
     line-height: 35px;
 }
-
+*/
 .question-payment{
     width: 100%;
     margin-top: 50px;

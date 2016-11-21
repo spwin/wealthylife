@@ -75,7 +75,7 @@
                                 {{ Session::get('flash_notification.credits.message') }}
                             </div>
                         @endif
-                        <section class="pb-20px">
+                        <section class="pb-20px cred-section">
                             @foreach($schemes as $scheme)
                                 <div class="col-md-4 col-sm-6">
                                     <div class="pricing-table pt-1 text-center boxed">
@@ -99,24 +99,31 @@
                                     <!--end of pricing table-->
                                 </div>
                             @endforeach
+                                <div class="clearboth mobile-none"></div>
+                                <div class="row left-mob width49onmob">
+                                    <div class="col-md-12">
+                                        <h4 class="uppercase mb0">How it works?</h4>
+                                        <p class="lead uppercase mb24">1 credit = £1</p>
+                                        <hr>
+                                        <p>
+                                            Want to know how to get started? Follow the steps given below:<br/>
+                                        </p>
+                                        <hr>
+                                        <p class="">
+                                        <div class="profile-how-it howit1 col-md-4 left"><span class="bold700 display-block uppercase">01. Choose</span>Choose one of the credit options you’d like..</div>
+                                        <hr class="visible990">
+                                        <div class="profile-how-it howit2 col-md-4 left"><span class="bold700 display-block uppercase">02. Pay</span>Complete your request by paying for the purchased credits entering your credit/debit card details or simply use PayPal on checkout.</div>
+                                        <hr class="visible990">
+                                        <div class="profile-how-it howit3 col-md-4 left"><span class="bold700 display-block uppercase">03. Ask</span>Use your purchased credits by asking style-experts’ questions.</div>
+                                        <div class="clearboth"></div>
+                                        </p>
+                                    </div>
+                                </div>
                         </section>
-                        <section class="pt-20px pb-0px">
+
+                        <section class="pt-0px pb-0px">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h4 class="uppercase mb0">How it works</h4>
-                                    <p class="lead uppercase mb24">1 credit = £1</p>
-                                    <hr>
-                                    <p>
-                                        Want to know how to get started? Follow the steps given below:<br/>
-                                    </p>
-                                    <hr>
-                                    <p class="">
-                                        <div class="profile-how-it col-md-4 left"><span class="bold700 display-block uppercase">01. Choose</span>Choose one of the credit options you’d like..</div>
-                                        <div class="profile-how-it col-md-4 left"><span class="bold700 display-block uppercase">02. Pay</span>Complete your request by paying for the purchased credits entering your credit/debit card details or simply use PayPal on checkout.</div>
-                                        <div class="profile-how-it col-md-4 left"><span class="bold700 display-block uppercase">03. Ask</span>Use your purchased credits by asking style-experts’ questions.</div>
-                                        <div class="clearboth"></div>
-                                    </p>
-
                                     <h4 class="uppercase mb0">Ask More Questions,</h4>
                                     <p class="lead uppercase mb24 color-red">Enjoy Better Deals!</p>
                                     <hr>

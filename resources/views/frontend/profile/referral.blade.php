@@ -16,7 +16,7 @@
         </div>
         <!--end of container-->
     </section>
-    <section>
+    <section class="referrals-section">
 
         <div class="arrow-style index3 mob-right-to-left">
             <div class="curve-wrap left-top-wrap">

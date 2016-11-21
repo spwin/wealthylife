@@ -44,8 +44,8 @@
                         <div class="cart">
                             <i class="ti-bell"></i>
                             @if(count($notifications) > 0)
-                                <span class="label number">{{ count($notifications) }}</span>
-                                <span class="title">Notifications</span>
+                                <span class="label number mobile-none">{{ count($notifications) }}</span>
+                                <span class="title">Notifications<span class="label number visible990 mob-label">{{ count($notifications) }}</span></span>
                             @endif
                         </div>
                         <div class="function">
@@ -79,7 +79,7 @@
                                 </ul>
                                 <hr>
                                 <div class="cart-controls">
-                                    <a class="btn btn-sm btn-filled" href="{{ action('FrontendController@notifications') }}">See all</a>
+                                    <a class="btn btn-sm btn-filled full" href="{{ action('FrontendController@notifications') }}">See all</a>
                                 </div>
                             </div>
                             <!--end of widget-->
@@ -90,8 +90,9 @@
                     <ul class="menu">
                         <li class="profile-dropdown {{ Auth::guard('user')->user() ? 'logged' : '' }}">
                             @if(Auth::guard('user')->user())
-                                <a href="#">{{ Auth::guard('user')->user()->userData->first_name ? Auth::guard('user')->user()->userData->first_name : 'profile' }} (£ {{ Auth::guard('user')->user()->points }})</a>
-                                <ul>
+                                <a class="lh53" href="{{ action('FrontendController@summary') }}">{{ Auth::guard('user')->user()->userData->first_name ? Auth::guard('user')->user()->userData->first_name : 'profile' }} (£ {{ Auth::guard('user')->user()->points }})</a>
+                                <a class="lh53 visible990" href="{{ action('Auth\AuthController@getUserLogout') }}">Log out</a>
+                                <ul class="prof-drop">
                                     <li>
                                         <a href="{{ action('FrontendController@summary') }}">Summary</a>
                                     </li>
