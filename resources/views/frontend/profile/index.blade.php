@@ -19,7 +19,7 @@
     </section>
     <section>
 
-        <div class="arrow-style index3 mob-left-to-right">
+        <div class="arrow-style index3 mob-right-to-left">
             <div class="curve-wrap left-top-wrap">
                 <div class="rotated left-top">
                     <div class="top-part"></div>
@@ -32,12 +32,20 @@
             </div>
 
 
-        <div class="container">
+        <div class="container about-block profile-index">
             <div class="row">
-                @include('frontend/profile/user-menu')
+                @if(\App\Helpers\Helpers::isMobile())
+                    @include('mobile/frontend/profile/user-menu')
+                @else
+                    @include('frontend/profile/user-menu')
+                @endif
                 <div class="col-md-9">
+                    <div class="toggle-button profile-menu-but bold700 visible990">
+                        <span class="display-block mb16">PROFILE MENU</span>
+                        <hr>
+                    </div>
                     <div class="tabbed-content text-tabs display-after-load">
-                        <div class="modal-container text-right">
+                        <div class="modal-container text-right ask-position-mob right">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             <div class="hidden">
                                 @include('frontend/elements/question')
@@ -109,11 +117,11 @@
                                             </div>
                                             <div class="double-column">
                                                 <div class="input-with-label text-left">
-                                                    <h5 class="weight"><span class="uppercase">Height</span> (cm)</h5>
+                                                    <h5 class="weight uppercase"><span class="uppercase">Height</span> (cm)</h5>
                                                     {!! Form::text('height', null, ['class' => $errors->general->first('height', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'height']) !!}
                                                 </div>
                                                 <div class="input-with-label text-left">
-                                                    <h5 class="weight"><span class="uppercase">weight</span> (kg):</h5>
+                                                    <h5 class="weight uppercase"><span class="uppercase">weight</span> (kg):</h5>
                                                     {!! Form::text('weight', null, ['class' => $errors->general->first('weight', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'weight']) !!}
                                                 </div>
                                             </div>
@@ -297,7 +305,7 @@
                                                 </div>
                                             </div>
                                             <div class="input-with-label text-left">
-                                                <h5 class="weight"><span class="uppercase">About me</span> (max 500 symbols)</h5>
+                                                <h5 class="weight uppercase"><span class="uppercase">About me</span> (max 500 symbols)</h5>
                                                 {!! Form::textarea('about', null, ['size' => '30x5']) !!}
                                             </div>
                                             <input type="submit" class="btn profile-button" value="Save changes">

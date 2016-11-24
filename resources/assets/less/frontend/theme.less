@@ -1983,7 +1983,7 @@ nav.transparent .menu > li:first-child > a {
 	height: 100px;
 	width: 102px;
 	position: fixed;
-	bottom: 0;
+	bottom: -1px;
 	right: 0;
 	z-index: 10;
 }
@@ -4115,6 +4115,7 @@ span.color-blue-prof {
 
 
 }
+@media all and (max-width:990px) {
 .ask-position-mob {
 	position: absolute;
 	bottom: 5px;
@@ -4123,7 +4124,10 @@ span.color-blue-prof {
 	right: 0;
 	text-align: center;
 }
-
+	.summary-profile .ask-position-mob {
+		bottom: 48px;
+	}
+}
 @media all and (max-width: 550px) {
 	.profile-page {
 		h3.uppercase {
@@ -4559,6 +4563,103 @@ span.color-green-prof {color:#47b475;}
 		top:60px;
 	}
 }
+
+
+/******************
+SUMMARY
+********************/
+
+.summary-table {
+	width: 100%;
+
+	.border-bottom {
+		border-bottom: 1px solid #ccc;
+	}
+
+		th,td {
+			padding-bottom: 7px;
+			padding-top: 11px;
+			width: 33%;
+			padding-left: 40px;
+		}
+	.summary-thead {
+		background-repeat: no-repeat;
+		font-size: 16px;
+		line-height: 17px;
+		background-position-x: 10px;
+	}
+	.sum1 {
+		background-image: url("../images/log-in-icon.svg");
+		background-size: 25px;
+	}
+	.sum2 {
+		background-image: url("../images/blog-icon.svg");
+		background-size: 29px 39px;
+	}
+	.sum3 {
+		background-image: url("../images/voucher-icon.svg");
+		background-size: 23px;
+	}
+	.sum4 {.sum2}
+	.sum5 {
+		background-image: url("../images/track-icon.svg");
+		background-position: 0 2px;
+		background-size: 37px;
+	}
+	.sum6 {
+		background-image: url("../images/registered-icon.svg");
+		background-size: 35px;
+		background-position: 0;
+	}
+}
+
+.profile-page .about-block h4.uppercase {
+	width: 50%;
+	padding-right: 0;
+}
+.notif .btn-filled:visited:hover, .btn-filled:hover {
+	color: #FFF;
+	background: #47b475;
+}
+.section.pb-40px {
+	padding-bottom: 40px;
+}
+
+@media all and (max-width: 1199px) {
+	.summary-table {
+
+		.sum4 {
+			background-position-y: 10px;
+		}
+
+		.sum5 {
+			background-position: 0 16px;
+		}
+
+	}
+}
+
+
+/*******************
+INDEX (profile info)
+***********************/
+.about-block.profile-index h5.uppercase {
+	padding-right: 0;
+	font-size: 14px;
+	letter-spacing: 0.2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

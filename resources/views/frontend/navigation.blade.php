@@ -78,7 +78,7 @@
                                     @endif
                                 </ul>
                                 <hr>
-                                <div class="cart-controls">
+                                <div class="cart-controls notif">
                                     <a class="btn btn-sm btn-filled full" href="{{ action('FrontendController@notifications') }}">See all</a>
                                 </div>
                             </div>

@@ -93,6 +93,7 @@
                 </div>
             </div>
         </div>
+
             <div class="curve-wrap left-bottom-wrap">
                 <div class="rotated left-bottom">
                     <div class="bottom-part"></div>
