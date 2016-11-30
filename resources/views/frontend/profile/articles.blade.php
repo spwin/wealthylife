@@ -34,8 +34,18 @@
 
         <div class="container about-block">
             <div class="row">
-                @include('frontend/profile/user-menu')
+                @if(\App\Helpers\Helpers::isMobile())
+                    @include('mobile/frontend/profile/user-menu')
+                @else
+                    @include('frontend/profile/user-menu')
+                @endif
                 <div class="col-md-9 no-padding articles-list">
+
+                    <div class="toggle-button profile-menu-but bold700 visible990">
+                        <span class="display-block mb16">PROFILE MENU</span>
+                        <hr>
+                    </div>
+
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right right ask-position-mob">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>

@@ -775,7 +775,7 @@ button[type="submit"] .form-loading{ height: 25px; width: 25px; display: inline-
 
 .text-tabs .tabs{ padding-bottom: 16px; border-bottom: 1px solid #ccc; overflow: visible; }
 .text-tabs.no-border .tabs{ border-bottom: none; }
-.text-tabs .tab-title{ .disable-select; .transition(0.3s); padding: 0 24px; opacity: 0.5; position: relative; }
+.text-tabs .tab-title{ .disable-select; .transition(0.3s); padding: 0 24px; opacity: 0.5; position: relative;    text-align: center; }
 .text-tabs .tab-title span{ .bold-h6; }
 .text-tabs .tab-title:after{ content: ''; position: absolute; width: 100%; height: 1px; background: @color-primary; bottom: 10px; opacity: 0; .transition(0.3s); bottom: -17px; left: 0; }
 .text-tabs .active .tab-title{ opacity: 1; color: @color-primary; }
@@ -3207,6 +3207,9 @@ h1.uppercase {
 			font-size: 16px;
 		}
 	}
+	.container.page-first-header h1.myquestionshead {
+		font-size: 37px;
+	}
 }
 
 
@@ -3454,7 +3457,7 @@ img.fashion-icon {
 		width: 344px;
 	}
 	.team-first-text h3.uppercase {
-		line-height: 40px;
+//		line-height: 40px;
 		font-size: 40px;
 	}
 }
@@ -4054,7 +4057,7 @@ span.color-blue-prof {
 		padding-top: 90px;
 		background-size: 300px;
 		background-position: 50% 50% !important;
-		background-image: url("../images/pattern.jpg");
+		background-image: url("../images/dark-hardback.png");
 		background-repeat: repeat;
 		color: white;
 
@@ -4069,6 +4072,7 @@ span.color-blue-prof {
 
 }
 
+/*bookmark
 @media all and (min-width: 769px) and (max-width: 800px) {
 	.profile-page {
 		.arrow-style, .arrow-style-invert, .container.page-first-header {
@@ -4077,6 +4081,8 @@ span.color-blue-prof {
 		}
 	}
 }
+*/
+
 @media all and (max-width: 768px) {
 	.referrals-section .container {
 		padding: 0;
@@ -4115,6 +4121,16 @@ span.color-blue-prof {
 
 
 }
+
+.ask-position-mob.cred {
+	position: absolute;
+	bottom: 5px;
+	left: 0;
+	z-index: 5;
+	right: 0;
+	text-align: center;
+}
+
 @media all and (max-width:990px) {
 .ask-position-mob {
 	position: absolute;
@@ -4587,13 +4603,29 @@ SUMMARY
 		font-size: 16px;
 		line-height: 17px;
 		background-position-x: 10px;
+
+		padding-bottom: 7px;
+		padding-top: 11px;
+		width: 100%;
+		height: 35px;
+		padding-left: 40px;
+		text-transform: uppercase;
+		font-weight: bold;
+		margin-bottom: 5px;
+	}
+	.summary-block ul {
+		padding-bottom: 7px;
+		padding-top: 11px;
+		width: 100%;
+		padding-left: 40px;
 	}
 	.sum1 {
 		background-image: url("../images/log-in-icon.svg");
 		background-size: 25px;
 	}
 	.sum2 {
-		background-image: url("../images/blog-icon.svg");
+		background-image: url("../images/blog-reverse-icon.svg");
+		background-position: 6px;
 		background-size: 29px 39px;
 	}
 	.sum3 {
@@ -4624,22 +4656,45 @@ SUMMARY
 .section.pb-40px {
 	padding-bottom: 40px;
 }
-
-@media all and (max-width: 1199px) {
+@media all and (min-width: 769px) and (max-width: 991px) {
+	.summary-block.col-md-4 {
+		width: 33.3333%;
+		float: left;
+	}
+}
+@media all and (max-width: 768px) {
 	.summary-table {
 
-		.sum4 {
-			background-position-y: 10px;
+		.summary-thead {
+			font-size: 22px;
 		}
 
-		.sum5 {
-			background-position: 0 16px;
+		ul li {
+			font-size: 20px;
+			line-height: 32px;
 		}
 
 	}
 }
-
-
+@media all and (max-width: 470px) {
+	.summary-table .summary-thead {
+		font-size: 17px;
+	}
+	.summary-table ul li {
+		font-size: 16px;
+		line-height: 29px;
+	}
+}
+@media all and (max-width: 400px) {
+	.summary-profile,
+	.col-md-4,
+	.col-md-9 {
+		padding: 0;
+	}
+	.row {
+		margin: 0;
+	}
+}
 /*******************
 INDEX (profile info)
 ***********************/
@@ -4650,6 +4705,390 @@ INDEX (profile info)
 }
 
 
+/*******************
+NOTIFICATIONS
+******************/
+
+@media all and (max-width: 990px) {
+	.notifications .ask-position-mob {
+		bottom: -50px;
+	}
+}
+
+
+/****************
+MY QUESTIONS
+****************/
+
+@media all and (max-width: 550px) {
+	.profile-page .about-block h4.uppercase.width100on550 {
+		width: 100%;
+	}
+}
+
+
+@media all and (max-width: 375px) {
+	.myquestions .text-tabs .tab-title {
+		padding: 0;
+	}
+}
+
+/*******************
+BLOG ENTRIES
+***************************/
+.profile-page .create-entry.about-block h4.uppercase {
+	width: 100%;
+}
+.create-entry {
+	.image-upload .drop-article-zone {
+		width: 40%;
+		padding-bottom: 40%;
+	}
+	.image-actions .image-info-block {
+		margin: 0;
+	}
+	h5.uppercase {
+		padding-right: 0;
+	}
+}
+@media all and (max-width:550px) {
+	.create-entry.edit-entry {
+		.col-md-12, .col-md-10 {
+			padding: 0;
+		}
+	}
+}
+	/*******************
+    PREVIEW ARTICLE
+    ***************************/
+
+.preview-article {
+
+}
+
+@media all and (max-width: 450px) {
+
+	.preview-article {
+		.text-center {
+			.pull-right, .pull-left {
+				float: none !important;
+			}
+		}
+	}
+
+
+}
+
+/*******************
+VOUCHERS
+***************************/
+.profile-page .about-block.vouchers h4.uppercase {
+	width: 100%;
+}
+.vouchers {
+
+	.fs25 {
+		font-size: 25px;
+	}
+
+	.opacity05 {
+		font-weight: inherit;
+	}
+
+	.voucher-top {
+		height: 150px;
+		position: relative;
+
+			.smile {
+				position: absolute;
+				color: white;
+				opacity: 1;
+				left: 20px;
+				text-align: left;
+				top: 20px;
+				font-size: 15px;
+				line-height: 17px;
+			}
+		.smile.enter-code {
+			right: 20px;
+			text-align: right;
+		}
+	}
+
+	.credits .price {
+		z-index: 2;
+		height: 66px;
+
+		span {
+			top: -10px;
+		}
+
+		.price-pos {
+			line-height: 26px;
+			left: 180px;
+			top: 6px;
+			width: 189px;
+
+				.overwrite {
+					font-size: 29px;
+					position: relative;
+					left: initial;
+					top: initial;
+				}
+
+		}
+		.vouch-buy {
+			font-size: 95px;
+			left: 20px;
+		}
+
+	}
+	.credits .price.claim span {
+		right: 32px;
+		left: auto;
+		font-size: 95px;
+	}
+
+	.pricing-table p.lead {
+		padding-top: 110px;
+	}
+
+	.perfect-present {
+		color:white;
+		line-height: 17px;
+	}
+
+
+
+	.credits .price:before {
+		border-top: 97px solid #ffffff;
+		bottom: -93px;
+		border-right: 451px solid transparent;
+		z-index: -1;
+	}
+	.credits .price:after {
+		border-bottom: 97px solid #ffffff;
+		top: -93px;
+		border-right: 451px solid transparent;
+		z-index: -1;
+	}
+
+	.credits .price.claim:before {
+		border-top: 97px solid #ffffff;
+		bottom: -93px;
+		left: -40px;
+		border-left: 451px solid transparent;
+		content: ' ';
+		width: 0;
+		height: 0;
+		position: absolute;
+	}
+	.credits .price.claim:after {
+		border-bottom: 97px solid #ffffff;
+		top: -93px;
+		left: -40px;
+		border-left: 451px solid transparent;
+		content: ' ';
+		width: 0;
+		height: 0;
+		position: absolute;
+	}
+	input[type="text"].voucher-claim {
+		margin-top: 0;
+	}
+
+	.credits .pricing-table input[type="submit"] {
+		margin-bottom: 24px;
+		border: 2px solid #47b475;
+		background: #47b475;
+	}
+	.credits .pricing-table input[type="text"] {
+		color: black;
+	}
+	.red-btn {
+		border: 2px solid #FF2353;
+		background: #FF2353;
+	}
+
+	.vouchh5 {
+		margin-bottom: 0;
+		line-height: 24px;
+		margin: 10px 0;
+	}
+
+
+}
+@media all and (max-width: 1199px) {
+	.vouchers .credits .price {
+
+		.vouch-buy {
+			font-size: 83px;
+		}
+		.price-pos {
+			left: 153px;
+		}
+	}
+	.vouchers .credits .price.claim span {
+		font-size: 83px;
+	}
+	.vouchers .credits .price.claim:before,
+	.vouchers .credits .price.claim:after{
+		left: -115px;
+	}
+}
+
+@media all and (max-width: 990px) {
+	.vouchers .ask-position-mob {
+		bottom: -20px;
+	}
+}
+
+@media all and (min-width:769px) and (max-width: 990px) {
+.vouchers {
+
+	.row.credits .col-md-6 {
+		width: 49%;
+		display: inline-block;
+	}
+
+	.pricing-table.boxed {
+		width: 100%;
+		margin: 0 auto 30px;
+	}
+
+}
+
+
+}
+
+@media all and (min-width: 769px) {
+	.smaller {
+		width: 50%;
+	}
+
+	.larger {
+		width: 46%;
+	}
+}
+
+@media all and (max-width: 768px) {
+	.vouchers {
+		.pricing-table.boxed {
+			width: 335px;
+		}
+		.smaller,
+		.larger {
+			width: 92%;
+		}
+	}
+}
+
+@media all and (max-width:550px) {
+	.container.vouchers {
+		padding: 0;
+		.col-md-12, .col-md-6 {
+			padding: 0;
+		}
+		.row {
+			margin: 0;
+		}
+	}
+	.page-first-header {
+		.row {
+			margin: 0;
+		}
+	.col-md-6 {
+		padding: 0;
+	}
+	}
+}
+
+
+
+@media all and (max-width:420px) {
+	.vouchers .pricing-table.boxed {
+		width: 280px;
+	}
+	.vouchers .credits .price .vouch-buy {
+		left: 5px;
+	}
+	.vouchers .credits .price.claim span {
+		right: 5px;
+	}
+	.vouchers .credits .price .price-pos {
+		line-height: 22px;
+	}
+	.vouchers .credits .price .price-pos .overwrite {
+		font-size: 24px;
+	}
+	.vouchers .price .fs22 {
+		font-size: 19px;
+	}
+	.vouchers .credits .price .price-pos {
+		top: 13px;
+		width: 137px;
+		left: 147px;
+	}
+}
+
+/**********
+BUY VOUCHER
+***********/
+
+.about-block.buy-voucher h5.uppercase {
+	padding-right: 0;
+}
+.about-block.buy-voucher h4.uppercase {
+	width: 100%;
+}
+.buy-voucher .pricing-table:hover .price {
+	color: white !important;
+}
+.buy-voucher .pricing-table:hover h5.uppercase {
+	color: #ff2352 !important;
+	opacity: 1;
+}
+
+.pricing-table.emphasis {
+	background-image: url("../images/pattern.jpg");
+	background-repeat: repeat;
+	background-size: 300px;
+	background-position: 50% 50% !important;
+	h5.uppercase {
+		color: #ff2352 !important;
+		opacity: 1;
+	}
+	.price {
+		color: white !important;
+	}
+}
+
+.buy-voucher input[type="submit"] {
+	max-width: 310px;
+}
+
+/*********
+CHECKOUT QUESTION/PAYMENT CREDITS
+**************/
+
+.profile-page .about-block.checkout-question h4.uppercase,
+.profile-page .about-block.payment-credits h4.uppercase,
+.profile-page .about-block h4.uppercase {
+	width: 100%;
+}
+.payment-credits .pricing-table.boxed {
+	background-image: url("../images/pattern.jpg");
+	background-repeat: repeat;
+	background-size: 300px;
+	background-position: 50% 50% !important;
+	h5.uppercase {
+		color: #ff2352 !important;
+		opacity: 1;
+	}
+	.price {
+		color: white !important;
+	}
+}
 
 
 
@@ -4672,8 +5111,39 @@ INDEX (profile info)
 
 
 
+/*****
+FOOTER
+******/
+html {
+	height: 100%;
+}
+.profile-page {
+		height: 100%;
+	#panel {
+		min-height:100%;
+		position: relative;
+	}
+	#panel > section:nth-child(2) {
+		padding-bottom: 380px;
+	}
+	#panel footer {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 250px;
+	}
+}
 
 
+
+@media all and (max-width: 767px) {
+	.profile-page #panel > section:nth-child(2) {
+		padding-bottom: 555px;
+	}
+	.profile-page #panel footer {
+		height: 445px;
+	}
+}
 
 
 
@@ -4963,6 +5433,10 @@ MOBILE
 	nav.transparent .module.widget-handle {
 		text-align: center;
 	}
+	.toggle-sub > ul.prof-drop {
+		display: none !important;
+	}
+
 	.prof-drop {
 		display: none !important;
 	}

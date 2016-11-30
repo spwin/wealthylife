@@ -1,13 +1,56 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-profile')
 @section('content')
-    <section>
-        <div class="container">
+
+    <section class="page-title page-title-4 image-bg parallax">
+        <div class="background-image-holder-about fadeIn">
+            <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
+        </div>
+        <div class="container page-first-header">
             <div class="row">
-                @include('frontend/profile/user-menu')
+                <div class="col-md-6">
+                    <h1 class="uppercase mb8 page-h2 myquestionshead">My Questions</h1>
+                    <h2 class="lead mb0 below"></h2>
+                </div>
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>
+
+
+
+
+    <section>
+
+        <div class="arrow-style index3 mob-right-to-left">
+            <div class="curve-wrap left-top-wrap">
+                <div class="rotated left-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-top-wrap">
+                <div class="rotated right-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+
+        <div class="container about-block">
+            <div class="row">
+                @if(\App\Helpers\Helpers::isMobile())
+                    @include('mobile/frontend/profile/user-menu')
+                @else
+                    @include('frontend/profile/user-menu')
+                @endif
                 <div class="col-md-9 no-padding">
+
+                    <div class="toggle-button profile-menu-but bold700 visible990">
+                        <span class="display-block mb16">PROFILE MENU</span>
+                        <hr>
+                    </div>
+
                     <div class="tabbed-content text-tabs display-after-load">
-                        <div class="modal-container text-right">
+                        <div class="modal-container text-right mobile-none right ask-position-mob">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             <div class="hidden">
                                 @include('frontend/elements/question')
@@ -51,7 +94,7 @@
                             <p>{{ $question->rejection }}</p>
                             <p>Your credits were refunded to your balance.</p>
                         @else
-                            <h4 class="uppercase mb16">The answer is not ready yet, we are working on it.</h4>
+                            <h4 class="uppercase mb16 width100on550">The answer is not ready yet, we are working on it.</h4>
                         @endif
                     </div>
                     @if($question->status == 2 && $answer && !$answer->rated)
@@ -98,6 +141,19 @@
                 </div>
             </div>
         </div>
+
+            <div class="curve-wrap left-bottom-wrap">
+                <div class="rotated left-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-bottom-wrap">
+                <div class="rotated right-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+        </div>
+
     </section>
     @include('frontend/footer')
 @stop

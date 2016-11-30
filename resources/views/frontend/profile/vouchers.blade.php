@@ -32,9 +32,13 @@
                 </div>
             </div>
 
-        <div class="container about-block">
+        <div class="container about-block vouchers">
             <div class="row">
-                @include('frontend/profile/user-menu')
+                @if(\App\Helpers\Helpers::isMobile())
+                    @include('mobile/frontend/profile/user-menu')
+                @else
+                    @include('frontend/profile/user-menu')
+                @endif
                 <div class="col-md-9">
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right right ask-position-mob">
@@ -43,7 +47,7 @@
                                 @include('frontend/elements/question')
                             </div>
                         </div>
-                        <h4 class="uppercase mb16">Gift vouchers</h4>
+                        <h4 class="uppercase mb16"><span class="fs44">A Special Gift</span><span class="display-block"></span><span class="opacity05"> for a Special Someone!</span></h4>
                         @if (count($errors->voucher) > 0)
                             <div class="alert alert-danger alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -65,29 +69,27 @@
                             </div>
                         @endif
                         <section class="pt-20px pb-20px">
-                            <div class="row">
+                            <div class="row credits">
                                 <div class="col-md-12">
-                                    <h4>A Special Gift for a Special Someone!</h4>
-                                    <p>Are you looking for the perfect gift to surprise a loved one? At Stylesensei, we have the most unique and special gift for you to put a smile on a special friend’s face.</p>
+
+                                    <p><span class="bold700 fs19">Are you looking for the perfect gift to surprise a loved one?</span><span class="display-block"></span> At Stylesensei, we have the most unique and special gift for you to put a smile on a special friend’s face.</p>
                                     <p>You can get your hands on our gift voucher to give a friend or a family member a chance to get style advice from our team of experts. Our gift vouchers are exceptional and fun, especially if you want a friend to feel confident in their style . By making use of our gift voucher, you can give others an opportunity to get expert advice on fashion, styling, and look.</p>
                                     <h5>So, choose the voucher you desire and turn someone’s day around by giving them a chance to be stylish.</h5>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="pricing-table pt-1 text-center">
-                                        <p class="voucher-back"><i class="ti-gift"></i></p>
-                                        <H5 class="uppercase">Go here to</H5>
-                                        <span class="price">Buy</span>
-                                        <p class="lead">£20 - £100 Gift Vouchers</p>
-                                        <p>Perfect Present for a Loved One</p>
-                                        <a class="btn btn-filled btn-lg" href="{{ action('FrontendController@buyVoucher') }}">Make Someone Smile</a>
+                                    <div class="pricing-table pt-1 text-center boxed">
+                                        <p class="uppercase voucher-top"><span class="smile">Make<br> someone <span class="bold700">smile</span></span></p>
+                                        <span class="price"><span class="vouch-buy">Buy</span><span class="text-center price-pos bold700 display-block fs22"><span class="color-red overwrite">£20 - £100</span><br> Gift Vouchers</span></span>
+                                        <p class="lead"></p>
+                                        <p class="uppercase perfect-present"><span class="bold700 fs19">Perfect Present</span><br> for a <span class="color-red">Loved</span> One</p>
+                                        <a class="btn btn-filled btn-lg red-btn" href="{{ action('FrontendController@buyVoucher') }}">Make Someone Smile</a>
                                     </div>
                                     <!--end of pricing table-->
                                 </div>
                                 <div class="col-md-6">
                                     <div class="pricing-table pt-1 text-center boxed">
-                                        <p class="voucher-back"><i class="ti-gift"></i></p>
-                                        <H5 class="uppercase">Enter code to</H5>
-                                        <span class="price">Claim</span>
+                                        <p class="uppercase voucher-top"><span class="smile enter-code"><span class="bold700">Enter</span><br></be> code to</span></p>
+                                        <span class="price claim"><span>Claim</span></span>
                                         {!! Form::open([
                                             'role' => 'form',
                                             'url' => action('UserController@checkVoucher'),
@@ -103,24 +105,31 @@
                             </div>
                             <!--end of row-->
                         </section>
+
                         <section class="pt-20px pb-0px">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h2 class="uppercase mb16">How it works</h2>
-                                    <p>
-                                        Let a loved one enjoy free style advice by following the steps given below:
-                                        <ul>
-                                            <li>1. Create Voucher –Fill out the details in our voucher form and move to the payment.</li>
-                                            <li>2. Voucher Code –Send the voucher code with a personalised message to your loved one or let us handle it on your behalf and send the code to the email address you provided alongside a copy of the message to your email address.</li>
-                                            <li>3. Claim Voucher Credits – Receivers will get the code which they will need to enter after registering with us.</li>
-                                            <li>4. Get Set, Go –Recipients will then have the chance to get fashion advice and styling tips from our experts by making use of the available credits.</li>
-                                            <li>*The voucher code expires in 6 months.</li>
-                                        </ul>
-                                        <h5>Buy our gift vouchers to help a loved one get fashion advice for free!</h5>
-                                    </p>
+                                    <h4 class="uppercase mb0">How it works?</h4>
+                                    <p class="lead uppercase mb24">Let a loved one enjoy free style advice by following the steps given below:</p>
+                                    <hr>
+                                    <div class="left smaller">
+                                        <div class="profile-how-it phifirst left"><span class="bold700 display-block">01. CREATE VOUCHER</span>Fill out the details in our voucher form and move to the payment.</div>
+                                        <div class="profile-how-it phisecond left"><span class="bold700 display-block">02. VOUCHER CODE</span>Send the voucher code with a personalised message to your loved one or let us handle it on your behalf and send the code to the email address you provided alongside a copy of the message to your email address.</div>
+                                    </div>
+                                    <div class="right larger">
+                                        <div class="profile-how-it phithird left"><span class="bold700 display-block">03. CLAIM VOUCHER CREDITS</span>Receivers will get the code which they will need to enter after registering with us.</div>
+                                        <div class="profile-how-it phifourth left"><span class="bold700 display-block">04. GET SET, GO</span>Recipients will then have the chance to get fashion advice and styling tips from our experts by making use of the available credits.</div>
+                                    </div>
+                                    <div class="clearboth"></div>
+                                    <hr class="mt16 mb0">
+                                    <h5 class="opacity05 vouchh5">*The voucher code expires in 6 months.</h5>
+                                    <hr class="mb0">
+                                    <h5 class="vouchh5"><span class="opacity05">Buy our gift vouchers to help a loved one get fashion advice</span> <span class="color-green-prof bold700">for free!</span></h5>
                                 </div>
                             </div>
                         </section>
+
+
                     </div>
                 </div>
             </div>

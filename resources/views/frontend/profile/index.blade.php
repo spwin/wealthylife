@@ -45,7 +45,7 @@
                         <hr>
                     </div>
                     <div class="tabbed-content text-tabs display-after-load">
-                        <div class="modal-container text-right ask-position-mob right">
+                        <div class="modal-container text-right mobile-none ask-position-mob right">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             <div class="hidden">
                                 @include('frontend/elements/question')

@@ -1,18 +1,59 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-profile')
 @section('content')
-    <section>
-        <div class="container">
+
+    <section class="page-title page-title-4 image-bg parallax">
+        <div class="background-image-holder-about fadeIn">
+            <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
+        </div>
+        <div class="container page-first-header">
             <div class="row">
-                @include('frontend/profile/user-menu')
+                <div class="col-md-6">
+                    <h1 class="uppercase mb8 page-h2">Edit <span class="color-blue-prof">entry</span></h1>
+                    <h2 class="lead mb0 below"></h2>
+                </div>
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>
+
+
+    <section>
+
+        <div class="arrow-style index3 mob-right-to-left">
+            <div class="curve-wrap left-top-wrap">
+                <div class="rotated left-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-top-wrap">
+                <div class="rotated right-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+
+        <div class="container about-block create-entry edit-entry">
+            <div class="row">
+                @if(\App\Helpers\Helpers::isMobile())
+                    @include('mobile/frontend/profile/user-menu')
+                @else
+                    @include('frontend/profile/user-menu')
+                @endif
                 <div class="col-md-9 no-padding">
+
+                    <div class="toggle-button profile-menu-but bold700 visible990">
+                        <span class="display-block mb16">PROFILE MENU</span>
+                        <hr>
+                    </div>
+
                     <div class="tabbed-content text-tabs edit-article display-after-load">
-                        <div class="modal-container text-right">
+                        <!--div class="modal-container text-right">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             <div class="hidden">
                                 @include('frontend/elements/question')
                             </div>
-                        </div>
+                        </div-->
                         <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@articles', [$article->status == 0 ? '#drafts' : ($article->status == 3 ? '#published' : '#submitted')]) }}"><i class="ti-arrow-left"></i> To list</a></h4>
                         <h4 class="uppercase mb16">Edit My Blog entry</h4>
                         <div class="col-md-12">
@@ -77,7 +118,7 @@
                                                 <p>Please upload only <strong>jpeg, png</strong> or <strong>gif</strong> files.</p>
                                                 <p>Maximum image size is <strong>10MB</strong>.</p>
                                             </div>
-                                            <a href="#" class="btn image-button upload" onclick="uploadSingleImage(this);"><i class="ti-export"></i> select</a>
+                                            <a href="#" class="btn image-button upload left" onclick="uploadSingleImage(this);"><i class="ti-export"></i> select</a>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -123,7 +164,7 @@
                                 </div>
 
                                 <div class="pull-right">
-                                    <input type="submit" class="btn profile-button" value="Save and Preview">
+                                    <input type="submit" class="btn" value="Save and Preview">
                                 </div>
                                 {!! Form::close() !!}
                             </div>
@@ -132,6 +173,19 @@
                 </div>
             </div>
         </div>
+
+            <div class="curve-wrap left-bottom-wrap">
+                <div class="rotated left-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-bottom-wrap">
+                <div class="rotated right-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+        </div>
+
     </section>
     @include('frontend/footer')
 @stop

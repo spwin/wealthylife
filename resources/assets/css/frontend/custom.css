@@ -37,10 +37,11 @@
     font-variant: normal;
     text-transform: none;
 }*/
+/*
 .profile-dropdown.logged:after {
     content: "\e602";
     font-family: 'themify';
-}
+}*/
 @media all and (max-width: 990px) {
 .profile-dropdown.logged:after {
     content: '';
@@ -909,6 +910,32 @@ button.delete-draft-question{
     margin: 0;
     background-color: #47b475;
 }
+
+@media all and (max-width: 550px) {
+    .myquestions .show-answer-btn {
+        width: 110px;
+        min-width: 77px;
+        white-space: initial;
+    }
+}
+@media all and (max-width: 460px) {
+    .myquestions .show-answer-btn {
+        width: 77px;
+        padding: 0;
+    }
+    .noneon460 {
+        display: none;
+    }
+}
+
+@media all and (max-width: 390px) {
+    .myquestions .show-answer-btn {
+        width: 63px;
+        min-width: 63px;
+        padding: 0;
+    }
+}
+
 .show-answer-btn:hover,
 .show-answer-btn:active{
     background-color: #40A269;
@@ -1386,6 +1413,17 @@ p.discount span.round{
 
 .w170px{
     width: 170px;
+}
+@media all and (max-width: 500px) {
+    .notifications .w170px {
+        width: auto;
+    }
+}
+@media all and (max-width: 600px) {
+    .myquestions .w170px,
+    .myquestions table td.w180px {
+        width: auto;
+    }
 }
 
 .w150px{

@@ -9,7 +9,7 @@
         <div class="container page-first-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="uppercase mb8 page-h2">My Questions</h1>
+                    <h1 class="uppercase mb8 page-h2 myquestionshead">My Questions</h1>
                     <h2 class="lead mb0 below"></h2>
                 </div>
             </div>
@@ -18,7 +18,7 @@
         <!--end of container-->
     </section>
 
-    <section>
+    <section class="myquestions">
 
         <div class="arrow-style index3 mob-right-to-left">
             <div class="curve-wrap left-top-wrap">
@@ -32,10 +32,22 @@
                 </div>
             </div>
 
-        <div class="container about-block">
+        <div class="container about-block notifications">
             <div class="row">
-                @include('frontend/profile/user-menu')
+
+                @if(\App\Helpers\Helpers::isMobile())
+                    @include('mobile/frontend/profile/user-menu')
+                @else
+                    @include('frontend/profile/user-menu')
+                @endif
+
                 <div class="col-md-9">
+
+                    <div class="toggle-button profile-menu-but bold700 visible990">
+                        <span class="display-block mb16">PROFILE MENU</span>
+                        <hr>
+                    </div>
+
                     <div class="tabbed-content text-tabs display-after-load questions-container">
                         <div class="modal-container text-right ask-position-mob right">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
@@ -72,7 +84,7 @@
                                         <table class="table">
                                             @foreach($pending as $question)
                                                 <tr>
-                                                    <td class="text-left w180px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
@@ -110,7 +122,7 @@
                                         <table class="table">
                                             @foreach($answered as $question)
                                                 <tr class="{{ $question->answer->seen ? '' : 'bold' }}" >
-                                                    <td class="text-left w180px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
@@ -149,7 +161,7 @@
                                         <table class="table">
                                             @foreach($drafts as $question)
                                                 <tr>
-                                                    <td class="text-left w180px" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
@@ -198,7 +210,7 @@
                                         <table class="table">
                                             @foreach($rejected as $question)
                                                 <tr>
-                                                    <td class="text-left w180px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                                    <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                                         @if(count($question->images) > 0)
                                                             @foreach($question->images as $image)
                                                                 <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">

@@ -32,10 +32,20 @@
                 </div>
             </div>
 
-        <div class="container about-block">
+        <div class="container about-block notifications">
             <div class="row">
-                @include('frontend/profile/user-menu')
+                @if(\App\Helpers\Helpers::isMobile())
+                    @include('mobile/frontend/profile/user-menu')
+                @else
+                    @include('frontend/profile/user-menu')
+                @endif
                 <div class="col-md-9">
+
+                    <div class="toggle-button profile-menu-but bold700 visible990">
+                        <span class="display-block mb16">PROFILE MENU</span>
+                        <hr>
+                    </div>
+
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right right ask-position-mob">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
@@ -44,7 +54,7 @@
                             </div>
                         </div>
                         <h4 class="uppercase mb16">Notifications</h4>
-                        <a class="small-text pull-right" href="{{ action('UserController@markNotifications') }}">Mark all as read</a>
+                        <a class="small-text" href="{{ action('UserController@markNotifications') }}">Mark all as read</a>
                         @if (count($errors->general) > 0)
                             <div class="alert alert-danger alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

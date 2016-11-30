@@ -73,7 +73,7 @@
                                 </div>
                             @endif
 
-                            <table class="summary-table">
+                            <!--table class="summary-table">
 
                                 <tr class="border-bottom uppercase">
                                     <th class="sum1 summary-thead">My account</th>
@@ -81,13 +81,13 @@
                                     <th class="sum3 summary-thead">Gift vouchers</th>
                                 </tr>
                                 <tr class="border-bottom">
-                                    <td>
+                                    <td valign="top">
                                         <ul>
                                             <li><a href="{{ action('FrontendController@profile', '#general') }}">My account details</a></li>
                                             <li><a href="{{ action('FrontendController@profile', '#login') }}">Change password</a></li>
                                         </ul>
                                     </td>
-                                    <td>
+                                    <td valign="top">
                                         <ul>
                                             <li><a href="{{ action('FrontendController@newArticle') }}">Create</a></li>
                                             {{--<li><a href="{{ action('FrontendController@articles') }}">My entries</a></li>--}}
@@ -102,7 +102,7 @@
                                             @endif
                                         </ul>
                                     </td>
-                                    <td>
+                                    <td valign="top">
                                         <ul>
                                             <li><a href="{{ action('FrontendController@buyVoucher') }}">Buy a gift voucher</a></li>
                                             <li><a href="{{ action('FrontendController@vouchers') }}">Use a gift voucher</a></li>
@@ -151,7 +151,82 @@
                                     </td>
                                 </tr>
 
-                            </table>
+                            </table-->
+
+
+                            <div class="summary-blocks summary-table row">
+
+                                <div class="summary-block col-md-4">
+                                    <p class="sum1 summary-thead">My account</p>
+                                    <ul>
+                                        <li><a href="{{ action('FrontendController@profile', '#general') }}">My account details</a></li>
+                                        <li><a href="{{ action('FrontendController@profile', '#login') }}">Change password</a></li>
+                                    </ul>
+                                </div>
+                                <div class="summary-block col-md-4">
+                                    <p class="sum2 summary-thead">Blog</p>
+                                    <ul>
+                                        <li><a href="{{ action('FrontendController@newArticle') }}">Create</a></li>
+                                        {{--<li><a href="{{ action('FrontendController@articles') }}">My entries</a></li>--}}
+                                        @if(($count = ($user->articles ? $user->articles()->where(['status' => 0])->count() : 0)) > 0)
+                                            <li><a href="{{ action('FrontendController@articles', '#drafts') }}">Drafts ({{ $count }})</a></li>
+                                        @endif
+                                        @if(($count = ($user->articles ? $user->articles()->where(['status' => 1])->orWhere(['status' => 2])->count() : 0)) > 0)
+                                            <li><a href="{{ action('FrontendController@articles', '#submitted') }}">Submitted ({{ $count }})</a></li>
+                                        @endif
+                                        @if(($count = ($user->articles ? $user->articles()->where(['status' => 3])->count() : 0)) > 0)
+                                            <li><a href="{{ action('FrontendController@articles', '#published') }}">Published ({{ $count }})</a></li>
+                                        @endif
+                                    </ul>
+                                </div>
+                                <div class="summary-block col-md-4">
+                                    <p class="sum3 summary-thead">Gift vouchers</p>
+                                    <ul>
+                                        <li><a href="{{ action('FrontendController@buyVoucher') }}">Buy a gift voucher</a></li>
+                                        <li><a href="{{ action('FrontendController@vouchers') }}">Use a gift voucher</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+
+                            <div class="summary-blocks summary-table row">
+
+                                <div class="summary-block col-md-4">
+                                    <p class="sum4 summary-thead">Questions</p>
+                                    <ul>
+                                        <li><a href="#" class="new-question">New</a></li>
+                                        @if(($count = ($user->questions ? $user->questions()->where(['status' => 0])->count() : 0)) > 0)
+                                            <li><a href="{{ action('FrontendController@questions', '#drafts') }}">Drafts ({{ $count }})</a></li>
+                                        @endif
+                                        @if(($count = ($user->questions ? $user->questions()->where(['status' => 1])->count() : 0)) > 0)
+                                            <li><a href="{{ action('FrontendController@questions', '#pending') }}">Pending ({{ $count }})</a></li>
+                                        @endif
+                                        @if(($count = ($user->questions ? $user->questions()->where(['status' => 2])->count() : 0)) > 0)
+                                            <li><a href="{{ action('FrontendController@questions', '#answered') }}">Answered ({{ $count }})</a></li>
+                                        @endif
+                                        @if(($count = ($user->questions ? $user->questions()->where(['status' => 3])->count() : 0)) > 0)
+                                            <li><a href="{{ action('FrontendController@questions', '#rejected') }}">Rejected ({{ $count }})</a></li>
+                                        @endif
+                                        {{--<li><a href="{{ action('FrontendController@questions') }}">My questions</a></li>--}}
+                                    </ul>
+                                </div>
+                                <div class="summary-block col-md-4">
+                                    <p class="sum5 summary-thead">Credits</p>
+                                    <ul>
+                                        <li><a href="{{ action('FrontendController@credits') }}">Buy credits</a></li>
+                                        <li><a href="{{ action('FrontendController@credits', '#how-it-works') }}">Why use credits?</a></li>
+                                    </ul>
+                                </div>
+                                <div class="summary-block col-md-4">
+                                    <p class="sum6 summary-thead">Referral reward program</p>
+                                    <ul>
+                                        <li><a href="{{ action('FrontendController@referral') }}">My referrals</a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
 
                         </div>
                     </section>
