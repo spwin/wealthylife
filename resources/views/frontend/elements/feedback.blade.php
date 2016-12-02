@@ -1,6 +1,6 @@
 <div class="foundry_modal text-center" {{ Session::has('modal') && Session::get('modal') == 'feedback' ? 'data-time-delay=10' : '' }}>
     @if (Session::has('flash_notification.feedback.message'))
-        <h3 class="uppercase">Thank you!</h3>
+        <h3 class="uppercase mt-80px">Thank you!</h3>
         <div class="feedback-thank-you">
             <i class="ti-check"></i>
             {{ Session::get('flash_notification.feedback.message') }}

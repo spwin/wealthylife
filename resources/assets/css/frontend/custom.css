@@ -254,18 +254,13 @@ div.question-body{
 div.question-body img{
     padding: 5px 0 10px 0;
     display: block;
-    max-width: 250px;
-    margin-right: 50px;
-    float: left;
+    max-width: 100%;
+    max-height: 226px;
+    margin: 0 auto;
 }
 
 div.question-body .modal-container{
     float: right;
-}
-
-div.question-body .question-text{
-    display: inline-block;
-    width: 540px;
 }
 
 div.question-body p{
@@ -563,11 +558,20 @@ form.general-profile .input-with-label span {
     display: inline-block;
     cursor: default;
 }
-
-form.general-profile h5, form.login-profile h5, form.create-article h5{
+form.general-profile .input-with-label .gender-profile span {
+    font-size: 14px;
+    font-weight: 700;
+    margin-left: 9px;
+}
+form.login-profile h5, form.create-article h5{
     margin-bottom: 10px;
 }
-
+form.general-profile h5 {
+    margin-bottom: 0;
+}
+.gender-profile {
+    margin-top: 5px;
+}
 .no-padding{
     padding-left: 0;
     padding-right: 0;
@@ -1031,6 +1035,10 @@ table.notifications-table>tbody>tr>td a{
     color: #47b475;
     background-color: #FFFFFF;
 }
+.btn-filled.blue-button:hover {
+    color: #1894EB;
+}
+
 p.voucher-back{
     font-weight: 400;
     font-size: 100px;
@@ -1183,6 +1191,7 @@ span.text-red{
 }
 .inner-article .post-snippet img{
     max-height: 500px;
+    width: auto;
     max-width: 50%;
     float: left;
     margin-right: 25px;
@@ -1229,7 +1238,7 @@ span.text-red{
     clear: both;
 }
 .blog-block-image{
-    background-color: #F4F2F3;
+    background-color: white;
 }
 
 .pagination li span:hover, .pagination li.active span, .pagination li.active:hover span {

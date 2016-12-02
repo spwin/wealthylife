@@ -213,19 +213,21 @@
                                                     {!! Form::input('password', 'password', '', ['class' => $errors->signup->first('password', 'field-error '), 'placeholder' => 'Password']) !!}
                                                     {!! Form::input('password', 'password_confirmation', '', ['class' => $errors->signup->first('password_confirmation', 'field-error '), 'placeholder' => 'Repeat password']) !!}
                                                     <div class="gender-signup {{ $errors->signup->first('gender', 'radio-error ') }}">
-                                                        <div>
-                                                            <div class="radio-option {{ old('gender') == 'male' ? 'checked' : '' }}">
+                                                        <div class="display-inlineblock">
+                                                            <div class="left radio-option {{ old('gender') == 'male' ? 'checked' : '' }}">
                                                                 <div class="inner"></div>
                                                                 {!! Form::radio('gender', 'male', null) !!}
                                                             </div>
-                                                            <span>Male</span>
-                                                            <div class="radio-option {{ old('gender') == 'female' ? 'checked' : '' }}">
+                                                            <span class="left">Male</span>
+                                                            <div class="left radio-option {{ old('gender') == 'female' ? 'checked' : '' }}">
                                                                 <div class="inner"></div>
                                                                 {!! Form::radio('gender', 'female', null) !!}
                                                             </div>
-                                                            <span>Female</span>
+                                                            <span class="left">Female</span>
+                                                            <div class="clearboth"></div>
                                                         </div>
                                                     </div>
+
                                                     <input type="submit" value="Sign up">
                                                     <a href="#" onclick="openModal('login')">Log in</a>
                                                 {!! Form::close() !!}

@@ -11,10 +11,30 @@
         }(document, 'script', 'facebook-jssdk'));</script>
 @stop
 @section('content')
-    <section>
-        <div id="container">
+
+    <section class="page-title page-title-4 image-bg parallax">
+        <div class="background-image-holder-about fadeIn">
+            <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/about-bg.jpg" /-->
+        </div>
+        <div class="container page-first-header">
             <div class="row">
-                <div class="inner-article col-sm-6 col-sm-offset-3">
+                <div class="col-md-6">
+                    <h1 class="uppercase mb8 page-h2">Blog</h1>
+                    <h2 class="lead mb0 below"><span class="color-green-prof">Fashion inspiration</span> for people by people</h2>
+                </div>
+            </div>
+            <!--end of row-->
+        </div>
+        <!--end of container-->
+    </section>
+
+    <section class="section-blog inner-blog">
+
+        <div class="arrow-style mob-left-to-right">
+
+        <div id="container" class="about-block">
+            <div class="row">
+                <div class="inner-article col-sm-8 margin0auto nofloat">
                     <div class="post-snippet mb24">
                         <div class="post-title">
                             <h5 class="uppercase mb16"><a class="normal" href="{{ url()->previous() }}"><i class="ti-arrow-left"></i> Back</a></h5>
@@ -62,6 +82,19 @@
                 </div>
             </div>
         </div>
+
+        <div class="curve-wrap left-bottom-wrap">
+            <div class="rotated left-bottom">
+                <div class="bottom-part"></div>
+            </div>
+        </div>
+        <div class="curve-wrap right-bottom-wrap">
+            <div class="rotated right-bottom">
+                <div class="bottom-part"></div>
+            </div>
+        </div>
+        </div>
+
     </section>
     @include('frontend/footer')
 @stop

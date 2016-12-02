@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-        <div class="container about-block">
+        <div class="container about-block checkout-question">
             <div class="row">
                 @if(\App\Helpers\Helpers::isMobile())
                     @include('mobile/frontend/profile/user-menu')
@@ -45,21 +45,26 @@
                             <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}"><i class="ti-arrow-left"></i> Back</a></h4>
                         </div>
                         <h4 class="uppercase mb16">Question payment</h4>
-                        <div class="col-md-4 small-question-preview">
-                            <p class="question-body">
+                        <hr>
+                        <div class="question-body">
+                            <div class="question-text">
+                                <p>{{ $question->question }}</p>
+                            </div>
                                 @if(count($question->images) > 0)
                                     @foreach($question->images as $image)
+                                    <div class="col-md-4 photo-container">
                                         <a href="{{ url()->to('/').$image->path.$image->filename }}" data-lightbox="image-{{ $image->id }}" data-title="Question #{{ $question->id }}">
                                             <img src="{{  url()->to('/').'/photo/300x300/'.$image->filename }}">
                                         </a>
+                                    </div>
                                     @endforeach
                                 @else
                                     <img src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                 @endif
-                                {{ $question->question }}
-                            </p>
+                            <div class="clearboth"></div>
                         </div>
-                        <div class="col-md-8">
+                        <hr>
+                        <div class="col-md-8 nofloat margin0auto">
                             <table class="last-payment-preview">
                                 <tr class="question-price">
                                     <td>Question price:</td>

@@ -1,5 +1,5 @@
-<div class="foundry_modal text-center" {{ Session::has('modal') && Session::get('modal') == 'avatar' ? 'data-time-delay=10' : '' }}>
-    <h3 class="uppercase">Change photo</h3>
+<div class="foundry_modal change-photo text-center" {{ Session::has('modal') && Session::get('modal') == 'avatar' ? 'data-time-delay=10' : '' }}>
+    <h3 class="uppercase">Change photos</h3>
     @if (count($errors->avatar) > 0)
         <div class="alert alert-danger">
             <ul>

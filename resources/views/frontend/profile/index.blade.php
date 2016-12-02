@@ -63,7 +63,7 @@
                                     </div>
                                 </a>
                                 <div class="tab-content">
-                                    <div class="col-sm-9 no-padding">
+                                    <div class="col-sm-12 no-padding">
                                         @if (Session::has('flash_notification.general.message'))
                                             <div class="alert alert-{{ Session::get('flash_notification.general.level') }} alert-dismissible" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -91,14 +91,14 @@
                                             'class' => 'general-profile'
                                         ]) !!}
                                             <div class="input-with-label text-left">
-                                                <h5 class="uppercase"><span class="text-red">*</span> Your Name:</h5>
-                                                <div class="double-column">
-                                                    {!! Form::text('first_name', null, ['class' => $errors->general->first('first_name', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'First name']) !!}
-                                                    {!! Form::text('last_name', null, ['class' => $errors->general->first('last_name', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'Last name']) !!}
+                                                <h5 class="uppercase">Your Name</h5>
+                                                <div class="name-surname">
+                                                    {!! Form::text('first_name', null, ['class' => $errors->general->first('first_name', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'Name']) !!}
+                                                    {!! Form::text('last_name', null, ['class' => $errors->general->first('last_name', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'Surname']) !!}
                                                 </div>
                                             </div>
                                             <div class="input-with-label text-left">
-                                                <h5 class="uppercase"><span class="text-red">*</span> Gender:</h5>
+                                                <h5 class="uppercase">Gender</h5>
                                                 <div class="gender-profile {{ $errors->general->first('gender', 'radio-error ') }}">
                                                     <div>
                                                         <div class="radio-option {{ $user_data->gender == 'male' ? 'checked' : '' }}">
@@ -117,11 +117,11 @@
                                             </div>
                                             <div class="double-column">
                                                 <div class="input-with-label text-left">
-                                                    <h5 class="weight uppercase"><span class="uppercase">Height</span> (cm)</h5>
+                                                    <h5 class="weight uppercase"><span class="uppercase">HEIGHT</span> (cm)</h5>
                                                     {!! Form::text('height', null, ['class' => $errors->general->first('height', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'height']) !!}
                                                 </div>
                                                 <div class="input-with-label text-left">
-                                                    <h5 class="weight uppercase"><span class="uppercase">weight</span> (kg):</h5>
+                                                    <h5 class="weight uppercase"><span class="uppercase">WEIGHT</span> (kg)</h5>
                                                     {!! Form::text('weight', null, ['class' => $errors->general->first('weight', 'field-error ').'mt-1px less-profile-input-margin', 'placeholder' => 'weight']) !!}
                                                 </div>
                                             </div>
@@ -304,6 +304,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="clearboth"></div>
                                             <div class="input-with-label text-left">
                                                 <h5 class="weight uppercase"><span class="uppercase">About me</span> (max 500 symbols)</h5>
                                                 {!! Form::textarea('about', null, ['size' => '30x5']) !!}

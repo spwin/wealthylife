@@ -2,20 +2,34 @@
 @section('nav-style', 'nav-authorize-question')
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
-        <div class="background-image-holder fadeIn">
-            <img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover14.jpg" />
+        <div class="background-image-holder-about fadeIn">
+            <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
         </div>
-        <div class="container">
+        <div class="container page-first-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h2 class="uppercase mb8">Terms & conditions</h2>
+                    <h1 class="uppercase mb8 page-h2">Terms &amp; conditions</h1>
+                    <h2 class="lead mb0 below"></h2>
                 </div>
             </div>
             <!--end of row-->
         </div>
         <!--end of container-->
     </section>
-    <section>
+    <section class="privacy">
+
+        <div class="arrow-style index3 mob-left-to-right">
+            <div class="curve-wrap left-top-wrap">
+                <div class="rotated left-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-top-wrap">
+                <div class="rotated right-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
@@ -156,6 +170,19 @@
             <!--end of row-->
         </div>
         <!--end of container-->
+
+            <div class="curve-wrap left-bottom-wrap">
+                <div class="rotated left-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-bottom-wrap">
+                <div class="rotated right-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+        </div>
+
     </section>
     @include('frontend/footer')
 @stop

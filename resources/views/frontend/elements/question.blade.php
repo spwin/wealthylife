@@ -68,20 +68,21 @@
         {!! Form::file('image2', ['onChange' => 'readURL('.(session()->has('question.image2') ? 'true' : 'false').', this, "'.( session()->has('question.image2') ? url()->to('/').'/temp/228x228/'.session()->get('question.image2') : url()->to('/').'/images/avatars/no_image.png').'", 2)', 'class' => 'image-input-2']) !!}
         {!! Form::file('image3', ['onChange' => 'readURL('.(session()->has('question.image3') ? 'true' : 'false').', this, "'.( session()->has('question.image3') ? url()->to('/').'/temp/228x228/'.session()->get('question.image3') : url()->to('/').'/images/avatars/no_image.png').'", 3)', 'class' => 'image-input-3']) !!}
     </div>
-    <div class="textarea-holder">
+    <div class="textarea-holder ask-quest">
         {!! Form::textarea('question', session()->has('question.content') ? session()->get('question.content') : null, ['class' => $errors->question->first('question', 'field-error ').'mt-1px', 'placeholder' => 'What would you like to ask?', 'onKeyPress' => 'countChar(this,event)', 'onKeyUp' => 'countChar(this,event)']) !!}
         <div class="charNum">
             {{ session()->has('question.content') ? 250 - strlen(session()->get('question.content')) : 250 }}
         </div>
     </div>
+    <a href="#" class="uppercase right clear-form" onclick="clearForm('question-form1', event, '{{ action('UserController@clearQuestion') }}', '{{ csrf_token() }}', '');">Clear form</a>
     <div class="check-answer-time mb24">
-        Expected answer time:
-        <span class="btn btn-sm check-time-button" onclick="checkAnswerTime(event, this, '{{ csrf_token() }}', '{{ action('FrontendController@ajaxCheckAnswerTime') }}')">check</span>
-        <div class="answer-time-result"></div>
+        <p class="no-margin text-left">Expected answer time:</p>
+        <p class="no-margin display-inlineblock left uppercase bold700 text-left check-time-button" onclick="checkAnswerTime(event, this, '{{ csrf_token() }}', '{{ action('FrontendController@ajaxCheckAnswerTime') }}')">check now</p>
+        <p class="no-margin uppercase bold700 text-left answer-time-result"></p>
+        <div class="clearboth"></div>
     </div>
-    <div class="double-column">
-        <a href="#" class="btn question-btn" onclick="clearForm('question-form1', event, '{{ action('UserController@clearQuestion') }}', '{{ csrf_token() }}', '');">Clear</a>
-        <input type="submit" class="question-btn" value="Confirm">
-    </div>
+
+        <input type="submit" class="question-btn askq" value="Confirm">
+
     {!! Form::close() !!}
 </div>

@@ -43,26 +43,32 @@
 
                 <div class="col-md-9">
                     <div class="tabbed-content text-tabs display-after-load">
-                        <div class="modal-container text-left   ">
+                        <div class="modal-container text-left">
                             <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@questions', '#drafts') }}"><i class="ti-arrow-left"></i> Questions list</a></h4>
                         </div>
                         <h4 class="uppercase mb16">Question payment</h4>
+                        <hr>
                         <div class="question-body">
+                            <div class="question-text">
+                                <p>{{ $question->question }}</p>
+                            </div>
                             @if(count($question->images) > 0)
                                 @foreach($question->images as $image)
+                                    <div class="col-md-4 photo-container">
                                     <a href="{{ url()->to('/').$image->path.$image->filename }}" data-lightbox="image-{{ $image->id }}" data-title="Question #{{ $question->id }}">
                                         <img src="{{  url()->to('/').'/photo/300x300/'.$image->filename }}">
                                     </a>
+                                        </div>
                                 @endforeach
                             @else
                                 <img src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                             @endif
-                            <div class="question-text">
-                                <p>{{ $question->question }}</p>
-                            </div>
+                            <div class="clearboth"></div>
+
                             <div class="clear"></div>
-                            <div class="modal-container inline-block">
-                                <a class="btn btn-modal btn-filled" href="#">Edit</a>
+                                <hr class="mt16">
+                            <div class="modal-container left inline-block">
+                                <a class="btn btn-modal btn-filled blue-button" href="#">Edit</a>
                                 <div class="hidden">
                                     @include('frontend/elements/question-database', ['question' => $question])
                                 </div>
