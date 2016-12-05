@@ -380,7 +380,8 @@ class UserController extends Controller
     function saveImage($request, $name){
         if ($request->hasFile($name) && $request->file($name)->isValid()) {
             $destinationPath = 'uploads/session/temp/'.date('Y-m-d',time());
-            $fileName = 'image_'.session()->getId().'_'.$request->file($name)->getClientOriginalName();
+            $fixed_name = trim($request->file($name)->getClientOriginalName());
+            $fileName = 'image_'.session()->getId().'_'.$fixed_name;
             $img = Image::make($request->file($name));
             if(!File::exists($destinationPath)){
                 File::makeDirectory($destinationPath, $mode = 0775, true, true);

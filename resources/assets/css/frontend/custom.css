@@ -614,7 +614,7 @@ form.general-profile .double-column{
 }
 
 .image:after {
-    content: 'CHANGE IMAGE';
+    content: 'CHANGE PHOTO';
     color: #fff;
     position: absolute;
     width: 100%;
@@ -1518,14 +1518,12 @@ body.soon-page{
     background-color: #2B2C2F;
 }
 /********/
-
-
-
-
-
-
-
-
+.vouchers .credits .price.claim span.use-voucher{
+    font-size: 22px;
+    top: auto;
+    bottom: -35px;
+    right: -10px;
+}
 
 
 

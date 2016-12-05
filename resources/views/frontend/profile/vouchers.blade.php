@@ -89,7 +89,7 @@
                                 <div class="col-md-6">
                                     <div class="pricing-table pt-1 text-center boxed">
                                         <p class="uppercase voucher-top"><span class="smile enter-code"><span class="bold700">Enter</span><br></be> code to</span></p>
-                                        <span class="price claim"><span>Claim</span></span>
+                                        <span class="price claim"><span>Use</span><span class="text-center price-pos bold700 display-block use-voucher">Voucher</span></span>
                                         {!! Form::open([
                                             'role' => 'form',
                                             'url' => action('UserController@checkVoucher'),
