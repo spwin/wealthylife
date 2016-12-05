@@ -53,15 +53,15 @@
             <div class="curve-wrap left-bottom-wrap">
                 <div class="rotated left-bottom">
                     <div class="bottom-part"></div>
-                    <img class="curved-image-rmw red-pos1" alt="Stylish man" src="{{ url()->to('/') }}/images/red-man.png">
-                    <img class="curved-image-rmw red-pos2" alt="Stylish woman" src="{{ url()->to('/') }}/images/red-woman.png">
+                    <img class="curved-image-rmw red-pos1 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish man" data-original="{{ url()->to('/') }}/images/red-man.png">
+                    <img class="curved-image-rmw red-pos2 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish woman" data-original="{{ url()->to('/') }}/images/red-woman.png">
                 </div>
             </div>
             <div class="curve-wrap right-bottom-wrap">
                 <div class="rotated right-bottom">
                     <div class="bottom-part"></div>
-                    <img class="mobile-red-img mob-red-pos1 absolute visible990" alt="Stylish man" src="{{ url()->to('/') }}/images/red-man.png">
-                    <img class="mobile-red-img mob-red-pos2 absolute visible990" alt="Stylish woman" src="{{ url()->to('/') }}/images/red-woman.png">
+                    <img class="mobile-red-img mob-red-pos1 absolute visible990 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish man" data-original="{{ url()->to('/') }}/images/red-man.png">
+                    <img class="mobile-red-img mob-red-pos2 absolute visible990 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish woman" data-original="{{ url()->to('/') }}/images/red-woman.png">
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-            <img class="right-image-team" alt="Stylish computer" src="{{ url()->to('/') }}/images/manikeny.png" >
+            <img class="right-image-team lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish computer" data-original="{{ url()->to('/') }}/images/manikeny.png" >
 
         </div>
 
@@ -91,13 +91,13 @@
             <div class="curve-wrap left-top-wrap">
                 <div class="rotated left-top">
                     <div class="top-part"></div>
-                    <img class="absolute position4" alt="Stylish people lying" src="{{ url()->to('/') }}/images/trendy-individuals.jpg">
+                    <img class="absolute position4 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish people lying" data-original="{{ url()->to('/') }}/images/trendy-individuals.jpg">
                 </div>
             </div>
             <div class="curve-wrap right-top-wrap">
                 <div class="rotated right-top">
                     <div class="top-part"></div>
-                    <img class="absolute position6 visible990" alt="Stylish people lying" src="{{ url()->to('/') }}/images/trendy-individuals.jpg">
+                    <img class="absolute position6 visible990 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish people lying" data-original="{{ url()->to('/') }}/images/trendy-individuals.jpg">
                 </div>
             </div>
             <div class="container get-on-board">
@@ -127,13 +127,13 @@
             <div class="curve-wrap left-bottom-wrap">
                 <div class="rotated left-bottom">
                     <div class="bottom-part"></div>
-                    <img class="absolute position7 visible990" alt="Stylish clothes" src="{{ url()->to('/') }}/images/make-move-now.jpg">
+                    <img class="absolute position7 visible990 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish clothes" data-original="{{ url()->to('/') }}/images/make-move-now.jpg">
                 </div>
             </div>
             <div class="curve-wrap right-bottom-wrap">
                 <div class="rotated right-bottom">
                     <div class="bottom-part"></div>
-                    <img class="curved-image-rb position5" alt="Stylish clothes" src="{{ url()->to('/') }}/images/make-move-now.jpg">
+                    <img class="curved-image-rb position5 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish clothes" data-original="{{ url()->to('/') }}/images/make-move-now.jpg">
                 </div>
             </div>
         </div>
