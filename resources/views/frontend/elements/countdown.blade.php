@@ -27,7 +27,7 @@
             </div>
         @endif
         <p>
-            We'll be launching our new site in the coming months. Hit the form below to get notified as we launch. Thanks for your interest!
+            We'll be launching our new site in the coming weeks. Hit the form below to get notified as we launch. Thanks for your interest!
         </p>
         {!! Form::open([
             'role' => 'form',
