@@ -100,7 +100,7 @@ class Helpers
             $limitedAccesMode = Helpers::getSetting('limited_access');
             if ($limitedAccesMode) {
                 $allow_ip = [
-                    //'127.0.0.1',
+                    '127.0.0.1',
                     '95.148.189.54',
                     '5.81.190.114',
                     '86.150.64.122',
