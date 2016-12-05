@@ -29,7 +29,7 @@
         <p>
             We'll be launching our new site in the coming weeks. Hit the form below to get notified as we launch. Thanks for your interest!
         </p>
-        {!! Form::open([
+        {{--{!! Form::open([
             'role' => 'form',
             'url' => action('FrontendController@soonSubmit'),
             'class' => 'halves',
@@ -38,6 +38,6 @@
         {!! Form::text('email', null, ['class' => 'mb16 validate-required validate-email signup-email-field', 'placeholder' => 'Email Address']) !!}
         <button class="mb16" type="submit">Notify Me</button>
         <span>*We won't share your email with third parties.</span>
-        {!! Form::close() !!}
+        {!! Form::close() !!}--}}
     </div>
 </div>
