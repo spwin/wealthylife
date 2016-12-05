@@ -6,6 +6,14 @@
 </div>
 <div class="row">
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 text-center launch">
+        @if (Session::has('flash_notification.general.message'))
+            <div class="alert alert-{{ Session::get('flash_notification.general.level') }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                {{ Session::get('flash_notification.general.message') }}
+            </div>
+        @endif
         @if (count($errors->soon) > 0)
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
