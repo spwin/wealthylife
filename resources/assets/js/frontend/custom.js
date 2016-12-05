@@ -372,7 +372,7 @@ $(function() {
         effect : "fadeIn",
         effectspeed: 300,
         threshold : 200
-    }).removeClass("lazy");
+    });
 });
 
 
