@@ -367,6 +367,12 @@ $('.mobile-toggle').click(function() {
     $('.mobile-toggle i').toggleClass('ti-menu').toggleClass('ti-close');
 });
 
+$(function() {
+    $("img.lazy").lazyload({
+        effect : "fadeIn",
+        threshold : 200
+    });
+});
 
 
 

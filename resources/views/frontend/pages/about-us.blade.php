@@ -36,7 +36,7 @@
             <div class="container first-about-block">
                 <div class="row index3">
                     <div class="half left about-block mobile-absolute position1 zindex-1">
-                        <img class="bigger-image" alt="Black dotted dress" src="{{ url()->to('/') }}/images/black-dot-dress.png" >
+                        <img class="bigger-image lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Black dotted dress" data-original="{{ url()->to('/') }}/images/black-dot-dress.png" >
                     </div>
                     <div class="half right nofloat-mob about-block mt56">
                         <h3 class="uppercase fs35on550 padright60on410">In search of perfect footwear for your <span class="color-pink">party dress?</span></h3>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="relative index0">
-                    <img class="absolute visible570" alt="Black dotted dress" src="{{ url()->to('/') }}/images/blond-woman-cut.jpg">
+                    <img class="absolute visible570 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Black dotted dress" data-original="{{ url()->to('/') }}/images/blond-woman-cut.jpg">
                 </div>
                 <div class="row index3">
                     <div class="half left about-block">
@@ -80,7 +80,7 @@
             <div class="curve-wrap right-bottom-wrap">
                 <div class="rotated right-bottom">
                     <div class="bottom-part"></div>
-                    <img class="curved-image-rb blond" alt="Stylish blond woman" src="{{ url()->to('/') }}/images/blond-woman.jpg">
+                    <img class="curved-image-rb blond lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish blond woman" data-original="{{ url()->to('/') }}/images/blond-woman.jpg">
                 </div>
             </div>
         </div>
@@ -89,7 +89,7 @@
 
         <div class="arrow-style-invert">
 
-            <img class="left-image mob-none" alt="Stylish man in suit with watch" src="{{ url()->to('/') }}/images/man-watches.png" >
+            <img class="left-image mob-none lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish man in suit with watch" data-original="{{ url()->to('/') }}/images/man-watches.png" >
 
             <div class="container">
                 <div class="half right about-block on-black padleft150 mission">
@@ -117,7 +117,7 @@
                 <div class="row">
                     <div class="container text-center pt32">
                         <div class="center-cont">
-                            <img class="width32 left rfloat-mob" src="{{ url()->to('/') }}/images/credits.jpg">
+                            <img class="width32 left rfloat-mob lazy" src="{{ url()->to('/') }}/images/img-preload.png" data-original="{{ url()->to('/') }}/images/credits.jpg">
                             <div class="left about-block padleft48 padright30-mob">
                                 <h3 class="uppercase credits-head">Credits</h3>
                                 <p>Want to make the most of your relation with us? Get outstanding deals and save money on styling advice by using our credits system. By purchasing more credits, you get a chance to save more money and enjoy better deals.</p>
@@ -126,7 +126,7 @@
                         </div>
                         <div class="center-cont">
                             <div class="width40 right">
-                                <img src="{{ url()->to('/') }}/images/gift-voucher.jpg">
+                                <img class="lazy" src="{{ url()->to('/') }}/images/img-preload.png" data-original="{{ url()->to('/') }}/images/gift-voucher.jpg">
                             </div>
                             <div class="right about-block">
                                 <h3 class="uppercase gift-head"><span class="color-gift">Gift</span> vouchers</h3>
@@ -160,7 +160,7 @@
                 </div>
             </div>
 
-            <img class="right-image mob-none" alt="Stylish computer" src="{{ url()->to('/') }}/images/blog-mac.png" >
+            <img class="right-image mob-none lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish computer" data-original="{{ url()->to('/') }}/images/blog-mac.png" >
 
         </div>
 
@@ -182,7 +182,7 @@
             <div class="container">
                 <div class="row">
                     <div class="half left about-block mt64 mobile-absolute position2">
-                        <img alt="Referral system image width90" src="{{ url()->to('/') }}/images/referral-system.jpg" >
+                        <img alt="Referral system image width90" class="lazy" src="{{ url()->to('/') }}/images/img-preload.png" data-original="{{ url()->to('/') }}/images/referral-system.jpg" >
                     </div>
                     <div class="half right about-block mt56 referral">
                         <h3 class="uppercase padright60on410">Referral reward <span class="color-blue">System</span></h3>
@@ -266,13 +266,13 @@
             <div class="curve-wrap left-bottom-wrap">
                 <div class="rotated left-bottom">
                     <div class="bottom-part"></div>
-                    <img class="last-img mob-block position3 mobile-absolute" alt="Black dotted dress" src="{{ url()->to('/') }}/images/last-img.jpg" >
+                    <img class="last-img mob-block position3 mobile-absolute lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Denim shirt" data-original="{{ url()->to('/') }}/images/last-img.jpg" >
                 </div>
             </div>
             <div class="curve-wrap right-bottom-wrap">
                 <div class="rotated right-bottom">
                     <div class="bottom-part"></div>
-                    <img class="curved-image-rb last-img mob-none" alt="Black dotted dress" src="{{ url()->to('/') }}/images/last-img.jpg" >
+                    <img class="curved-image-rb last-img mob-none lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Denim shirt" data-original="{{ url()->to('/') }}/images/last-img.jpg" >
                 </div>
             </div>
         </div>
