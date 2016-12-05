@@ -42,7 +42,7 @@
                         <h3 class="uppercase fs35on550 padright60on410">In search of perfect footwear for your <span class="color-pink">party dress?</span></h3>
                         <h4 class="uppercase padright60on410">Having trouble <span class="color-pink">mixing and matching</span> outfits?</h4>
                         <h5 class="uppercase padright60on410">Need help dressing up <span class="color-pink">for date night?</span></h5>
-                        <p class="phrase padright60on410"><span class="bold700">No matter what type of styling trouble you are in,</span> at Stylesensei, we always have your back!</p>
+                        <p class="phrase padright60on410"><span class="bold700">No matter what type of styling trouble you are in,</span> at StyleSensei, we always have your back!</p>
                         <p>We are your go-to team to answer all your styling-related questions. From helping you choose the perfect dress for your body type and picking out the right scarf to go with your dress, we are the one stop solution for all your style and fashion problems. Our stylists are prompt and eager to help you with any fashion questions that you might have. So, whenever you have trouble picking up the right outfit, just call us out for help and we will get back to you in little time.</p>
                         <!--p>Click here to take a look at the type of questions our styling team can answer for you!</p-->
                     </div>
@@ -56,12 +56,12 @@
                         <p class="padright60on410">
                             <span class="bold700 phrase">Is there a fashion emergency that you want to solve?</span><br>Here’s how you can get connected to our styling experts:
                         <ul class="how-it-works">
-                            <li class="how1"><span class="bold700">01. Log into Stylesensei</span> with your social account or create an account.</li>
+                            <li class="how1"><span class="bold700">01. Log into StyleSensei</span> with your social account or create an account.</li>
                             <li class="how2"><span class="bold700">02. Tell us</span> your problem or <span class="bold700">ask us</span> a question.</li>
                             <li class="how3"><span class="bold700">03. Attach a picture</span> of you or some item in the question if you want to.</li>
                             <li class="how4"><span class="bold700">04. Proceed</span> with your <span class="bold700">payment</span> via Paypal or credit/debit card.</li>
                             <li class="how5"><span class="bold700">05. Get an email notification</span> once our team answers your questions.</li>
-                            <li class="how6"><span class="bold700">06. Check back</span> into your <span class="bold700">Stylesensei account</span> to find our answer.</li>
+                            <li class="how6"><span class="bold700">06. Check back</span> into your <span class="bold700">StyleSensei account</span> to find our answer.</li>
                         </ul>
                         </p>
                     </div>
@@ -121,7 +121,7 @@
                             <div class="left about-block padleft48 padright30-mob">
                                 <h3 class="uppercase credits-head">Credits</h3>
                                 <p>Want to make the most of your relation with us? Get outstanding deals and save money on styling advice by using our credits system. By purchasing more credits, you get a chance to save more money and enjoy better deals.</p>
-                                <p>You will find more information about credits when you log into Stylesensei.</p>
+                                <p>You will find more information about credits when you log into StyleSensei.</p>
                             </div>
                         </div>
                         <div class="center-cont">
@@ -155,7 +155,7 @@
             <div class="container">
                 <div class="half left about-block on-black blog">
                     <h3 class="uppercase blog-head relative">Blog<img class="absolute blog-icon" alt="Blog icon" src="{{ url()->to('/') }}/images/blog-blue-icon.svg"></h3>
-                    <p>Are you fond of penning down your thoughts? At Stylesensei, we give our customers a chance to write blogs and get them published on our site for free. In order to get started, all you need to do is create a blog entry with your photo and share.</p>
+                    <p>Are you fond of penning down your thoughts? At StyleSensei, we give our customers a chance to write blogs and get them published on our site for free. In order to get started, all you need to do is create a blog entry with your photo and share.</p>
                     <p>You can invite more people to view your blog by sharing it on other social media platforms.</p>
                 </div>
             </div>
@@ -228,7 +228,7 @@
                         <img class="width28 left mob-none" src="{{ url()->to('/') }}/images/security-icon.svg">
                         <div class="left about-block padleft48 width90-mob">
                             <h3 class="uppercase credits-head"><span class="color-blue">Security</span> & privacy</h3>
-                            <p>At Stylesensei, <span class="bold700">we ensure</span> that our customers are <span class="bold700 color-blue">protected</span> by any kind of <span class="bold700">data</span> theft, which is why we have encrypted the entire site with <span class="bold700"><span class="color-blue">SSL</span> certificate</span>.</p>
+                            <p>At StyleSensei, <span class="bold700">we ensure</span> that our customers are <span class="bold700 color-blue">protected</span> by any kind of <span class="bold700">data</span> theft, which is why we have encrypted the entire site with <span class="bold700"><span class="color-blue">SSL</span> certificate</span>.</p>
                             <p>Feel free to ask any type of questions on styling and we promise you that it will remain between you and the consultant in charge. Your personal information will also be protected and kept under confidentiality. We process all payments via Braintree gateway, a highly secure and reliable payment system.</p>
                         </div>
                     </div>
@@ -254,7 +254,7 @@
                 <div class="row">
                     <div class="half left about-block text-right mt112 mb112 last-about-block">
                         <h3 class="uppercase"><span class="color-blue">Your style</span> <span class="font-weight400">speaks of</span> <span class="color-dark-blue">your personality</span></h3>
-                        <p class="phrase">Don’t compromise on it and get in touch with Stylesensei to make sure <span class="color-dark-blue bold700">you are looking on point all the time!</span></p>
+                        <p class="phrase">Don’t compromise on it and get in touch with StyleSensei to make sure <span class="color-dark-blue bold700">you are looking on point all the time!</span></p>
                     </div>
                     <div class="half right about-block">
                     </div>

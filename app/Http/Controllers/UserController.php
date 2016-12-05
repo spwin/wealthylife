@@ -380,7 +380,7 @@ class UserController extends Controller
     function saveImage($request, $name){
         if ($request->hasFile($name) && $request->file($name)->isValid()) {
             $destinationPath = 'uploads/session/temp/'.date('Y-m-d',time());
-            $fixed_name = preg_replace('/\s+/', '_',$request->file($name)->getClientOriginalName());
+            $fixed_name = preg_replace('/\s+/', '_', $request->file($name)->getClientOriginalName());
             $fileName = 'image_'.session()->getId().'_'.$fixed_name;
             $img = Image::make($request->file($name));
             if(!File::exists($destinationPath)){
@@ -572,7 +572,8 @@ class UserController extends Controller
 
             if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
                 $destinationPath = 'images/avatars';
-                $fileName = 'user' . Auth::guard('user')->user()->id . '-' . $request->file('avatar')->getClientOriginalName();
+                $fixed_name = preg_replace('/\s+/', '_', $request->file('avatar')->getClientOriginalName());
+                $fileName = 'user' . Auth::guard('user')->user()->id . '-' . $fixed_name;
                 $img = Image::make($request->file('avatar'));
                 $img->save($destinationPath . '/original/' . $fileName, 90);
                 $img->fit(200, 200, function ($constraint) {
@@ -1077,7 +1078,8 @@ class UserController extends Controller
 
             if ($request->hasFile('image') && $request->file('image')->isValid()) {
                 $destinationPath = 'uploads/blog';
-                $fileName = 'user' . $user->id . '-a' . '-' . str_replace(' ', '-', $request->file('image')->getClientOriginalName());
+                $fixed_name = preg_replace('/\s+/', '_', $request->file('image')->getClientOriginalName());
+                $fileName = 'user' . $user->id . '-a' . '-' . str_replace(' ', '-', $fixed_name);
                 $img = Image::make($request->file('image'));
                 $img->resize(800, 800, function ($constraint) {$constraint->aspectRatio();$constraint->upsize();})->save($destinationPath . '/' . $fileName, 90);
                 $image_data['filename'] = $fileName;

@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-        <div class="container about-block create-entry">
+        <div class="container create-entry">
 
             <div class="row">
                 @if(\App\Helpers\Helpers::isMobile())
