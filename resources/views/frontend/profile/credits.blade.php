@@ -50,7 +50,7 @@
 
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right cred right ask-position-mob">
-                            <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
+                            <a class="btn btn-modal hovered mb-0px" href="#">Ask consultant</a>
                             <div class="hidden">
                                 @include('frontend/elements/question')
                             </div>

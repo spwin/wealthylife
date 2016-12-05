@@ -27,7 +27,7 @@
                                     <p class="lead">― {!! $phrase->author !!}</p>
                                 @endif
                                 <div class="modal-container inline-block">
-                                    <a class="btn btn-modal" href="#">Ask question</a>
+                                    <a class="btn btn-modal" href="#">Ask consultant</a>
                                     <div class="hidden">
                                         @if(\App\Helpers\Helpers::isMobile())
                                             @include('mobile/frontend/elements/question')
