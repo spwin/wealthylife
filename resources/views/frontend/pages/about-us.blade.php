@@ -58,7 +58,7 @@
                         <ul class="how-it-works">
                             <li class="how1"><span class="bold700">01. Log into Stylesensei</span> with your social account or create an account.</li>
                             <li class="how2"><span class="bold700">02. Tell us</span> your problem or <span class="bold700">ask us</span> a question.</li>
-                            <li class="how3"><span class="bold700">03. Attach a picture</span> of the item in question if you want to.</li>
+                            <li class="how3"><span class="bold700">03. Attach a picture</span> of you or some item in the question if you want to.</li>
                             <li class="how4"><span class="bold700">04. Proceed</span> with your <span class="bold700">payment</span> via Paypal or credit/debit card.</li>
                             <li class="how5"><span class="bold700">05. Get an email notification</span> once our team answers your questions.</li>
                             <li class="how6"><span class="bold700">06. Check back</span> into your <span class="bold700">Stylesensei account</span> to find our answer.</li>
@@ -120,7 +120,7 @@
                             <img class="width32 left rfloat-mob" src="{{ url()->to('/') }}/images/credits.jpg">
                             <div class="left about-block padleft48 padright30-mob">
                                 <h3 class="uppercase credits-head">Credits</h3>
-                                <p>Want to make the most of your relation with us? Get outstanding deals and save money on styling advice/suggestions by using our credits system. By purchasing more credits, you get a chance to save more money and enjoy better deals.</p>
+                                <p>Want to make the most of your relation with us? Get outstanding deals and save money on styling advice by using our credits system. By purchasing more credits, you get a chance to save more money and enjoy better deals.</p>
                                 <p>You will find more information about credits when you log into Stylesensei.</p>
                             </div>
                         </div>
@@ -130,8 +130,8 @@
                             </div>
                             <div class="right about-block">
                                 <h3 class="uppercase gift-head"><span class="color-gift">Gift</span> vouchers</h3>
-                                <p>If you are browsing/searching/looking for gift ideas for a friend or a family member, look no further as Stylesensei brings you the most unique and fun gift vouchers that truly make for a perfect present for any occasion.</p>
-                                <p>Our gift vouchers will make your present extra-ordinarily memorable and special for the receiver. By purchasing our awesome gift voucher, you can give others a chance to make use of our professional styling advice ata fraction of the cost.</p>
+                                <p>If you are looking for gift ideas for a friend or a family member, look no further as StyleSensei brings you the most unique and fun gift vouchers that truly make for a perfect present for any occasion.</p>
+                                <p>Our gift vouchers will make your present extra-ordinarily memorable and special for the receiver. By purchasing our awesome gift voucher, you can give others a chance to make use of our professional styling advice at a fraction of the cost.</p>
                             </div>
                         </div>
                     </div>
@@ -187,8 +187,8 @@
                     <div class="half right about-block mt56 referral">
                         <h3 class="uppercase padright60on410">Referral reward <span class="color-blue">System</span></h3>
                         <p><span class="bold700">Our clients are the best promoters of our service. And as you are the part of it, by helping you get the most of StyleSensei we created our unique REFER A FRIEND system.</span><br>Here's how you can get connected to our styling experts:</p>
-                        <p class="mb0">- You receive £2 worth of StyleSensei points for every person you refer your personal referral link.</p>
-                        <p class="mt0">- People you refer can get discounts on their first asked question!</p>
+                        <p class="mb0">- You receive <strong>£2</strong> worth of StyleSensei points for every person you refer your personal referral link.</p>
+                        <p class="mt0">- People you refer will get <strong>20%</strong> discount on their first asked question!</p>
                         <p>Let your friends know about StyleSensei and get them to register with you unique referral link. Let them step into world of fashion and style increasing your STYpoints to redeem in future!</p>
                     </div>
                     <div class="clearboth"></div>
@@ -196,9 +196,9 @@
                 <div class="row text-center mt40 how-it-works2">
                         <div class="about-block">
                             <h3 class="uppercase mt24 mb48">How it <span class="color-blue">works?</span></h3>
-                            <div class="ref1 referral-works"><span class="bold700">01. </span>Log in and get your unique referral code under ‘Rewards’ tab in your StyleSensei My Account section.</div>
+                            <div class="ref1 referral-works"><span class="bold700">01. </span>Log in and get your unique referral code under ‘Referral rewards’ tab in your StyleSensei Profile section.</div>
                             <div class="ref2 referral-works"><span class="bold700">02. </span>Forward you Style link to everyone you know by email, text, Facebook, Twitter</div>
-                            <div class="ref3 referral-works"><span class="bold700">03. </span>Make sure they register using your referral link and ask at least one question.</div>
+                            <div class="ref3 referral-works"><span class="bold700">03. </span>Make sure they register using your referral link and use any of the paid services.</div>
                             <div class="ref4 referral-works mt16"><span class="bold700">04.</span>Follow your points on your StyleSensei account</div>
                             <div class="ref5 referral-works mt16"><span class="bold700">05. </span>Spend your points on questions so you can pay less!</div>
                         </div>

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 use App\Helpers\Helpers;
 use Closure;
 
-class IpMiddleware
+class LimitedAccessMiddleware
 {
     /**
      * Handle an incoming request.

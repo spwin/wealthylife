@@ -21,9 +21,11 @@
                         <li {{ (Request::is('/') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@index') }}">Home</a>
                         </li>
+                        @if(App\Helpers\Helpers::checkAccess())
                         <li {{ (Request::is('*blog*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@blog') }}">Blog</a>
                         </li>
+                        @endif
                         <li {{ (Request::is('*about*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@about') }}">About</a>
                         </li>
@@ -86,6 +88,7 @@
                         </div>
                     </div>
                 @endif
+                @if(App\Helpers\Helpers::checkAccess())
                 <div class="module widget-handle language left">
                     <ul class="menu">
                         <li class="profile-dropdown {{ Auth::guard('user')->user() ? 'logged' : '' }}">
@@ -239,6 +242,7 @@
                         </li>
                     </ul>
                 </div>
+                @endif
             </div>
             <div class="nav-menu-logo"></div>
         </div>

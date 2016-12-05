@@ -34,5 +34,12 @@ class SettingsSeeder extends Seeder
             'value' => env('EMAIL')
         ]);
         $option->save();
+
+        $option = new Settings();
+        $option->fill([
+            'name' => 'limited_access',
+            'value' => 1
+        ]);
+        $option->save();
     }
 }

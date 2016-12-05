@@ -20,22 +20,26 @@
                                 {{ Session::get('flash_notification.suspended.message') }}
                             </div>
                         @endif
-                        <div class="col-sm-12 text-center">
-                            @if($phrase)
-                                <h1 class="large" style="{{ $phrase->style }}">{!! $phrase->text !!}</h1>
-                                <p class="lead">― {!! $phrase->author !!}</p>
-                            @endif
-                            <div class="modal-container inline-block">
-                                <a class="btn btn-modal" href="#">Ask question</a>
-                                <div class="hidden">
-                                    @if(\App\Helpers\Helpers::isMobile())
-                                        @include('mobile/frontend/elements/question')
-                                    @else
-                                        @include('frontend/elements/question')
-                                    @endif
+                        @if(App\Helpers\Helpers::checkAccess())
+                            <div class="col-sm-12 text-center">
+                                @if($phrase)
+                                    <h1 class="large" style="{{ $phrase->style }}">{!! $phrase->text !!}</h1>
+                                    <p class="lead">― {!! $phrase->author !!}</p>
+                                @endif
+                                <div class="modal-container inline-block">
+                                    <a class="btn btn-modal" href="#">Ask question</a>
+                                    <div class="hidden">
+                                        @if(\App\Helpers\Helpers::isMobile())
+                                            @include('mobile/frontend/elements/question')
+                                        @else
+                                            @include('frontend/elements/question')
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @else
+                            @include('frontend/elements/countdown')
+                        @endif
                     </div>
 
                 </div>

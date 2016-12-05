@@ -21,6 +21,7 @@
 .alert-filled{
     background-color: #c64444;
     color: #FFFFFF;
+    border: none;
 }
 /*
 .profile-dropdown:after {

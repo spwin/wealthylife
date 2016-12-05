@@ -40,7 +40,7 @@
                             <p>Have something to share with us: a piece of advice, feedback, or a problem? Just fill out our form and we will get back to you shortly with the answer that you have been looking for. <span class="br"></span><span class="bold700">And trust me, <span class="color-cyan">we are quick!</span></span></p>
                             <hr>
                             <p>
-                                <strong>Pixsens LTD</strong>
+                                <strong>Style Sensei</strong> (Pixsens LTD)
                                 <br /> Kemp House
                                 <br /> 160 City Road
                                 <br /> <span class="color-cyan bold700">London</span> EC1V 2NX
@@ -105,7 +105,7 @@
                 </div>
             </div>
         </div>
-
+{{--
 
 
 
@@ -128,8 +128,8 @@
                     <p>
                         <strong>E:</strong> <span id="eadr">m<b>@</b>e@d<b>no</b>oma<b>.com</b>in.com</span>
                         <br />
-                        {{--<strong>P:</strong> +614 3948 2726
-                        <br />--}}
+                        --}}{{--<strong>P:</strong> +614 3948 2726
+                        <br />--}}{{--
                     </p>
                 </div>
                 <div class="col-sm-6 col-md-5 col-md-offset-1">
@@ -172,7 +172,7 @@
             </div-->
             <!--end of row-->
         <!--/div-->
-        <!--end of container-->
+        <!--end of container-->--}}
     </section>
     @include('frontend/footer')
 @stop

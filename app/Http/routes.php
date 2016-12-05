@@ -73,26 +73,32 @@ Route::get('/temp/{size}/{dir}/{name}', function($size = NULL, $dir = NULL, $nam
 });
 
 Route::get('sitemap.xml', 'FrontendController@sitemap');
+Route::get('sitemap', 'FrontendController@sitemap');
 
 // FRONTEND
-Route::get('soon', 'FrontendController@soon');
+//Route::get('soon', 'FrontendController@soon');
 Route::post('soon/submit', 'FrontendController@soonSubmit');
-Route::group(['middleware' => ['ip']], function () {
-    Route::get('/', 'FrontendController@index');
+
+// NO ACCESS LIMIT PAGES
+Route::get('/', 'FrontendController@index');
+
+Route::get('contact-us', 'FrontendController@contacts');
+Route::get('about-us', 'FrontendController@about');
+Route::get('privacy-policy', 'FrontendController@privacy');
+Route::get('terms-and-conditions', 'FrontendController@terms');
+Route::get('the-team', 'FrontendController@team');
+Route::post('send-form', 'FrontendController@contactForm');
+Route::post('leave-feedback', 'UserController@leaveFeedback');
+
+// LIMITED ACCESS PAGES
+Route::group(['middleware' => ['limited_access']], function () {
+
+    Route::get('blog', 'FrontendController@blog');
+    Route::get('blog/{url}', 'FrontendController@blogEntry');
 
     Route::post('/get-answer-time', 'FrontendController@ajaxCheckAnswerTime');
-
     Route::get('email-confirm/{key}', 'UserController@confirmation');
-    Route::get('blog', 'FrontendController@blog');
-    Route::get('contact-us', 'FrontendController@contacts');
-    Route::get('about-us', 'FrontendController@about');
-    Route::get('privacy-policy', 'FrontendController@privacy');
-    Route::get('terms-and-conditions', 'FrontendController@terms');
-    Route::get('the-team', 'FrontendController@team');
     Route::get('authorize-question', 'FrontendController@authorizeQuestion');
-
-    Route::get('blog/', 'FrontendController@blog');
-    Route::get('blog/{url}', 'FrontendController@blogEntry');
 
     Route::get('social-login/{provider}', 'UserController@socialLogin');
     Route::get('social-callback/{provider}', 'UserController@socialCallback');
@@ -108,7 +114,6 @@ Route::group(['middleware' => ['ip']], function () {
     Route::get('consultant/login', 'ConsultantController@login');
 
     Route::post('{type}/login/', 'Auth\AuthController@postLogin');
-    Route::post('send-form', 'FrontendController@contactForm');
 
     Route::get('reset-password', 'FrontendController@passwordReset');
     Route::get('new-password/{token}', 'FrontendController@newPassword');
@@ -117,7 +122,6 @@ Route::group(['middleware' => ['ip']], function () {
     Route::post('save-password/{id}', 'UserController@savePassword');
 
     Route::get('accept-referral', 'FrontendController@acceptReferral');
-    Route::post('leave-feedback', 'UserController@leaveFeedback');
 // LOGGED
 
     Route::group(['prefix' => 'profile', 'middleware' => 'auth:user'], function () {

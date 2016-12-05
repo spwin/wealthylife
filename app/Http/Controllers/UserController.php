@@ -1328,7 +1328,7 @@ class UserController extends Controller
         $feedback->fill($input);
         $feedback->save();
 
-        Session::flash('flash_notification.feedback.message', 'Your feedback is important to us.');
+        Session::flash('flash_notification.feedback.message', 'Your feedback is important for us.');
         Session::flash('flash_notification.feedback.level', 'success');
         return Redirect::back();
     }
