@@ -368,7 +368,7 @@ $('.mobile-toggle').click(function() {
 });
 
 $(function() {
-    $("img.lazy").lazyload({
+    $("img.lazy").show().lazyload({
         effect : "fadeIn",
         skip_invisible : true,
         threshold : 200
