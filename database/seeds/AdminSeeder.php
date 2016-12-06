@@ -19,8 +19,8 @@ class AdminSeeder extends Seeder
         $user = new User();
         $user->fill([
             'type' => 'admin',
-            'email' => 'spwinwk@gmail.com',
-            'password' => bcrypt('spwin0411'),
+            'email' => 'info@stylesensei.co.uk',
+            'password' => bcrypt('krownajaSviaz-88'),
             'super' => 1,
             'status' => 1,
             'email_confirmed' => 1
