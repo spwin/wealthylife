@@ -1,4 +1,9 @@
 @extends('frontend/frame')
+@section('page-title', trans('seo.terms.title'))
+@section('meta-description', trans('seo.terms.description'))
+@section('meta-content')
+    <meta name="robots" content="noindex">
+@stop
 @section('nav-style', 'nav-authorize-question')
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
@@ -16,8 +21,8 @@
         </div>
         <!--end of container-->
     </section>
-    <section class="privacy">
 
+    <section class="privacy">
         <div class="arrow-style index3 mob-left-to-right">
             <div class="curve-wrap left-top-wrap">
                 <div class="rotated left-top">
