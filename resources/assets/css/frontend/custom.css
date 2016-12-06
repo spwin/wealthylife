@@ -434,8 +434,8 @@ form .textarea-holder .charNum{
 
 .image-actions a.btn.upload:hover{
     color: white;
-    border-color: #47b475;
-    background-color: #47b475;
+    border-color: #40A269;
+    background-color: #40A269;
 }
 .image-actions a.btn.upload{
     color: white;
@@ -1536,5 +1536,12 @@ body.soon-page{
     }
 }
 
+.notifications-table{
+    margin-top: 8px;
+}
 
-
+.inner-article p{
+    line-height: 1.6;
+    text-align: justify;
+    font-size: 16px;
+}
