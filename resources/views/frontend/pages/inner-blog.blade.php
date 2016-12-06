@@ -36,7 +36,7 @@
                         <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
                         <div class="post-snippet mb24">
                             <div class="post-title">
-                                <h5 class="uppercase mb16"><a class="normal" href="{{ url()->previous() }}"><i class="ti-arrow-left"></i> Back</a></h5>
+                                <h5 class="uppercase mb16 inner-blog"><a class="normal" href="{{ url()->previous() }}"><i class="ti-arrow-left"></i> Back</a></h5>
                                 <meta itemprop="headline" content="{{ $article->title }}">
                                 <h4 itemprop="name" class="inline-block">{{ $article->title }}</h4>
                             </div>

@@ -270,7 +270,7 @@ a{ font-weight: 600; color: @color-primary; .transition(0.3s); cursor: pointer; 
 .image-bg a:hover, .bg-primary a:hover{ color: #fff; opacity: .9; }
 .bg-light a{ color: @color-primary; }
 .bg-light a:hover{ color: @color-primary; opacity: 1; }
-a:hover{ color: darken(@color-primary,10%); text-decoration: none; }
+a:hover,a:focus{ color: darken(@color-primary,10%); text-decoration: none; }
 
 .label{ text-transform: uppercase; .bold-h6; letter-spacing: 1px; background: @color-primary; border-radius: 0; padding: 6px 12px; font-size: 10px; vertical-align: middle; }
 
@@ -2514,6 +2514,10 @@ span.color-cyan {
 			opacity: 0.6;
 		}
 
+		h5.uppercase.inner-blog {
+			font-size: 22px;
+		}
+
 		.phrase {
 			font-size: 20px;
 		}
@@ -2740,6 +2744,9 @@ h1.uppercase {
 .about-block h5.uppercase {
 	font-size: 17px;
 }
+.about-block h5.uppercase.inner-blog {
+	font-size: 22px;
+}
 
 .curved-image-rb.blond {
 	bottom: -170px;
@@ -2794,7 +2801,9 @@ h1.uppercase {
 	.about-block h5.uppercase {
 		font-size: 15px;
 	}
-
+	.about-block h5.uppercase.inner-blog {
+		font-size: 22px;
+	}
 	.curved-image-rb.blond {
 		bottom: -155px;
 		width: 405px;
@@ -3086,7 +3095,9 @@ h1.uppercase {
 	.position2 {
 		right: -247px;
 	}
-
+	.section-blog.inner-blog .arrow-style{
+		padding-top: 30px;
+	}
 }
 
 @media all and (max-width: 642px) {
