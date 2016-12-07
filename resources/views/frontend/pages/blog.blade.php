@@ -37,8 +37,13 @@
                             <div class="text-center blog-block-image">
                                 <a href="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
                                     <div itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
-                                        <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}" />
-                                        <meta itemprop="url" content="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}">
+                                        @if($article->user->type == 'user')
+                                            <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}" />
+                                            <meta itemprop="url" content="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}">
+                                        @elseif($article->user->type == 'consultant')
+                                            <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog-masonry-consultant/360/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}" />
+                                            <meta itemprop="url" content="{{ url()->to('/').'/blog-masonry-consultant/360/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}">
+                                        @endif
                                     </div>
                                 </a>
                             </div>

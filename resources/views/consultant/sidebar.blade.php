@@ -53,6 +53,12 @@
                     <li class="{{ (Request::is('consultant/questions/rejected*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listRejected') }}"><i class="fa fa-circle-o"></i> Rejected</a></li>
                 </ul>
             </li>
+            <li class="{{ (Request::is('consultant/articles*') ? 'active' : '') }}">
+                <a href="{{ action('ConsultantController@articles') }}">
+                    <i class="fa fa-newspaper-o"></i>
+                    <span>Articles</span>
+                </a>
+            </li>
             <li class="{{ (Request::is('consultant/timetable*') ? 'active' : '') }}">
                 <a href="{{ action('ConsultantController@timetable') }}">
                     <i class="fa fa-coffee"></i>

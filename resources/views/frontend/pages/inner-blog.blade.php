@@ -73,7 +73,11 @@
                             </ul>
                             <a href="{{ url()->to('/').$article->image->path.$article->image->filename }}" data-lightbox="image-{{ $article->image->id }}" data-title="{{ $article->title }}">
                                 <div itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
-                                    <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
+                                    @if($article->user->type == 'user')
+                                        <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
+                                    @elseif($article->user->type == 'consultant')
+                                        <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/consultant-blog/500x500/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}"/>
+                                    @endif
                                 </div>
                             </a>
                             {!! $article->content !!}

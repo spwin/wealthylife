@@ -537,11 +537,15 @@ class FrontendController extends Controller
 
     public function blogEntry($url){
         $article = Article::where(['url' => $url])->first();
-        $article->visits = $article->visits + 1;
-        $article->save();
-        return view('frontend/pages/inner-blog')->with([
-            'article' => $article
-        ]);
+        if($article && $article->status == 3 && $article->reviewed == 1) {
+            $article->visits = $article->visits + 1;
+            $article->save();
+            return view('frontend/pages/inner-blog')->with([
+                'article' => $article
+            ]);
+        } else {
+            return Redirect::action('FrontendController@blog');
+        }
     }
 
     public function passwordReset(){

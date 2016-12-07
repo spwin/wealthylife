@@ -42,6 +42,41 @@ Route::get('/blog/{size}/{name}', function($size = NULL, $name = NULL){
     }
 });
 
+Route::get('/blog-masonry-consultant/{width}/{name}', function($width = NULL, $name = NULL){
+    $path = \Illuminate\Support\Facades\Input::get('path');
+    $path = rawurldecode($path);
+    if(!is_null($width) && !is_null($name) && !is_null($path)){
+        $cache_image = Image::cache(function($image) use($width, $name, $path){
+            return $image->make(url(ltrim($path, '/').$name))->resize($width, null, function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+        }, 1000);
+
+        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+    } else {
+        abort(404);
+    }
+});
+
+Route::get('/consultant-blog/{size}/{name}', function($size = NULL, $name = NULL){
+    $path = \Illuminate\Support\Facades\Input::get('path');
+    $path = rawurldecode($path);
+    if(!is_null($size) && !is_null($name) && !is_null($path)){
+        $size = explode('x', $size);
+        $cache_image = Image::cache(function($image) use($size, $name, $path){
+            return $image->make(url(ltrim($path, '/').$name))->resize($size[0], $size[1], function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+        }, 1000);
+
+        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+    } else {
+        abort(404);
+    }
+});
+
 Route::get('/photo/{size}/{name}', function($size = NULL, $name = NULL){
     if(!is_null($size) && !is_null($name)){
         $size = explode('x', $size);
@@ -190,6 +225,14 @@ Route::group(['middleware' => ['limited_access']], function () {
             Route::post('pending/{id}/reject', 'ConsultantController@rejectQuestion');
             Route::post('pending/{id}/save', 'ConsultantController@answerSave');
             Route::post('pending/{id}/send', 'ConsultantController@answerSend');
+        });
+        Route::group(['prefix' => 'articles'], function () {
+            Route::get('/', 'ConsultantController@articles');
+            Route::get('create', 'ConsultantController@createArticle');
+            Route::get('edit/{id}', 'ConsultantController@editArticle');
+            Route::post('save', 'ConsultantController@saveArticle');
+            Route::post('update/{id}', 'ConsultantController@updateArticle');
+            Route::get('blog/preview/{url}', 'ConsultantController@previewArticle');
         });
         Route::group(['prefix' => 'timetable'], function () {
             Route::get('/', 'ConsultantController@timetable');

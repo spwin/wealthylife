@@ -45,6 +45,7 @@ elixir(function(mix) {
         .copy('resources/assets/js/consultant/custom.js', 'public/js/consultant');
 
     mix.copy('resources/assets/sounds/notification_sound.mp3', 'public/sounds/');
+    mix.copy('resources/assets/plugins/ckeditor/', 'public/vendor/ckeditor');
 
     // CONSULTANT
 
