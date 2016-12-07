@@ -125,6 +125,7 @@ class ConsultantController extends Controller
         $daily_questions = $this->getDailyQuestions($consultant, 30);
         $timetable = $this->getTimetable($consultant);
         $rating = $consultant->answers()->where(['answers.rated' => 1])->where('answers.rating', '>', 0)->avg('rating');
+        $articles = Article::where(['user_id' => $consultant->id])->where('published_at', '>', $payroll->starts_at)->get();
         return view('consultant/dashboard/dashboard')->with([
             'payroll' => $payroll,
             'consultant' => $consultant,
@@ -138,7 +139,8 @@ class ConsultantController extends Controller
             'timetable' => $timetable,
             'latest_answered' => $latest_answered,
             'latest_rated' => $latest_rated,
-            'rating' => round($rating, 2)
+            'rating' => round($rating, 2),
+            'articles' => $articles
         ]);
     }
 

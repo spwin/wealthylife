@@ -69,7 +69,11 @@
                 <div class="box-body box-profile">
                     <div class="col-md-4">
                         <a target="_blank" href="{{ url()->to('/').$article->image->path.$article->image->filename }}">
-                            <img class="answer-question-image" src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}">
+                            @if($article->user->type == 'user')
+                                <img class="answer-question-image" src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}">
+                            @elseif($article->user->type == 'consultant')
+                                <img class="answer-question-image" src="{{ url()->to('/').'/consultant-blog/500x500/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}">
+                            @endif
                         </a>
                     </div>
                     <div class="col-md-8">

@@ -35,7 +35,6 @@
                             <th>ID</th>
                             <th>Image</th>
                             <th>Title</th>
-                            <th>User</th>
                             <th>Created</th>
                             <th>Published</th>
                             <th>Visits</th>
@@ -46,13 +45,12 @@
                         @foreach($articles as $article)
                             <tr>
                                 <td class="w40px">#{{ $article->id }}</td>
-                                <td class="w100px"><img class="admin-user-questions" src="{{ url()->to('/').'/blog/100x100/'.$article->image->filename }}"></td>
+                                <td class="w100px"><img class="admin-user-questions" src="{{ url()->to('/').'/consultant-blog/100x100/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}"></td>
                                 <td><strong>{{ $article->title }}</strong></td>
-                                <td><a href="{{ action('AdminController@detailsUser', ['id' => $article->user->id]) }}">{{ $article->user->email }}</a></td>
                                 <td>{{ $article->created_at }}</td>
                                 <td>{{ $article->published_at ? $article->published_at : 'NO' }}</td>
                                 <td>{{ $article->visits }}</td>
-                                <td class="w100px"><a href="{{ action('AdminController@detailsArticle', ['id' => $article->id]) }}" class="btn btn-success">Details</a></td>
+                                <td class="w100px"><a href="{{ action('ConsultantController@editArticle', ['id' => $article->id]) }}" class="btn btn-success">Edit</a></td>
                             </tr>
                         @endforeach
                         </tbody>

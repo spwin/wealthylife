@@ -45,7 +45,13 @@
                         @foreach($articles as $article)
                             <tr>
                                 <td class="w40px">#{{ $article->id }}</td>
-                                <td class="w100px"><img class="admin-user-questions" src="{{ url()->to('/').'/blog/100x100/'.$article->image->filename }}"></td>
+                                <td class="w100px">
+                                    @if($article->user->type == 'user')
+                                        <img class="admin-user-questions" src="{{ url()->to('/').'/blog/100x100/'.$article->image->filename }}">
+                                    @elseif($article->user->type == 'consultant')
+                                        <img class="admin-user-questions" src="{{ url()->to('/').'/consultant-blog/100x100/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}">
+                                    @endif
+                                </td>
                                 <td><strong>{{ $article->title }}</strong></td>
                                 <td><a href="{{ action('AdminController@detailsUser', ['id' => $article->user->id]) }}">{{ $article->user->email }}</a></td>
                                 <td>{{ $article->created_at }}</td>

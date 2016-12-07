@@ -2,7 +2,7 @@
 @section('content-header')
     <h1>
         Current Payroll
-        <small>Period information</small>
+        <small>Started on {{ date('j M', strtotime($payroll->starts_at)) }}</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -14,19 +14,6 @@
     <section class="content">
         <!-- Info boxes -->
         <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="fa fa-flag-o"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Payroll start date</span>
-                        <span class="info-box-number">{{ date('j M', strtotime($payroll->starts_at)) }}<small>{{ date(', Y', strtotime($payroll->starts_at)) }}</small></span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-            </div>
-            <!-- /.col -->
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-red"><i class="fa fa-gbp"></i></span>
@@ -43,6 +30,19 @@
 
             <!-- fix for small devices only -->
             <div class="clearfix visible-sm-block"></div>
+
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-newspaper-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Articles published</span>
+                        <span class="info-box-number">{{ count($articles) }}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
 
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
