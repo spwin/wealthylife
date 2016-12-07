@@ -1378,7 +1378,7 @@ video{ max-width: 100%; }
 
 .post-title .label{ margin-right: 16px; }
 .post-title h4{ position: relative; top: 2px; margin-bottom: 16px; }
-.post-meta, .post-meta .tags{ overflow: hidden; display: inline-block; margin-bottom: 12px; }
+.post-meta, .post-meta .tags{ overflow: hidden; display: inline-block; margin-bottom: 15px; }
 .post-meta>li{ float: left; margin-right: 24px; }
 .post-meta i{ font-size: 16px; margin-right: 8px; position: relative; top: 2px; }
 .post-snippet iframe{ width: 100%; margin-bottom: 12px; }
@@ -1403,7 +1403,7 @@ video{ max-width: 100%; }
 .masonry.fadeIn{ opacity: 1; .translateY(0); }
 .masonry-item{ max-width: 100%; }
 .container .masonry-item{ margin-bottom: 30px;  }
-.container .masonry-item > div{ box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.01), 0 6px 20px 0 rgba(0, 0, 0, 0.08); }
+.container .masonry-item > div{ box-shadow: 0 4px 7px 0 rgba(0, 0, 0, 0.01), 0 6px 20px 0 rgba(0, 0, 0, 0.08); -webkit-transition: all 0.2s ease;transition: all 0.2s ease;}
 .masonry-item blockquote:hover{ background: @color-primary; .transition(0.3s); color: #fff; }
 .masonryFlyIn .masonry-item{ opacity: 0; .translateY(50px); }
 .masonryFlyIn .masonry-item.fadeIn{ opacity: 1; .translateY(0); }
@@ -3014,6 +3014,15 @@ h1.uppercase {
 		padding-left: 40px;
 		padding-right: 40px;
 	}
+	.section-blog.outer-blog,
+	.section-blog.inner-blog{
+		.arrow-style,
+		.arrow-style-invert,
+		.container.page-first-header {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
 }
 
 @media all and (max-width:768px) {
@@ -4602,8 +4611,17 @@ span.color-green-prof {color:#02bf88;}
 		top:60px;
 	}
 }
-
-
+.container .masonry-item > div:hover {
+	box-shadow: 0 10px 33px 0 rgba(0, 0, 0, 0.01), 0 10px 31px 0 rgba(0, 0, 0, 0.2);
+}
+@media all and (max-width:768px) {
+	.section-blog.inner-blog .row {
+		margin: 0;
+	}
+}
+.post-meta i {
+	left: 1px;
+}
 /******************
 SUMMARY
 ********************/
@@ -4674,7 +4692,7 @@ SUMMARY
 }
 .notif .btn-filled:visited:hover, .btn-filled:hover {
 	color: #FFF;
-	background: #47b475;
+	background: #02BF87;
 }
 .section.pb-40px {
 	padding-bottom: 40px;
@@ -5695,7 +5713,14 @@ div.alert:last-child {
 
 }
 
-
+@media all and (max-width: 768px) {
+	.container .masonry-item {
+		max-width: 320px;
+		right: 0;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
 
 
 

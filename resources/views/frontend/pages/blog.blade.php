@@ -19,7 +19,7 @@
         <!--end of container-->
     </section>
 
-    <section class="section-blog">
+    <section class="section-blog outer-blog">
 
         <div class="arrow-style mob-left-to-right">
 

@@ -1,9 +1,9 @@
 ::selection{
-    background: #47b475;
+    background: #02BF87;
     color: #FFFFFF;
 }
 ::-moz-selection {
-    background: #47b475;
+    background: #02BF87;
     color: #FFFFFF;
 }
 
@@ -287,13 +287,13 @@ a.social-login{
 
 a.btn.local:hover{
     color: white;
-    border-color: #47b475;
-    background-color: #47b475;
+    border-color: #02BF87;
+    background-color: #02BF87;
 }
 a.btn.local{
     color: white;
-    border-color: #47b475;
-    background-color: #47b475;
+    border-color: #02BF87;
+    background-color: #02BF87;
 }
 
 a.btn.create:hover{
@@ -434,13 +434,13 @@ form .textarea-holder .charNum{
 
 .image-actions a.btn.upload:hover{
     color: white;
-    border-color: #40A269;
-    background-color: #40A269;
+    border-color: #02BF87;
+    background-color: #02BF87;
 }
 .image-actions a.btn.upload{
     color: white;
-    border-color: #47b475;
-    background-color: #47b475;
+    border-color: #02BF87;
+    background-color: #02BF87;
 }
 
 .image-actions a.btn.remove:hover{
@@ -488,16 +488,16 @@ form .textarea-holder .charNum{
 
 .user-menu .lead a:hover{
     font-weight: 300;
-    color: #398f5d;
+    color: #02BF87;
 }
 
 .user-menu .lead .um-active a:hover{
-    color: #398f5d;
+    color: #02BF87;
 }
 
 .user-menu .lead .um-active a{
     font-weight: 600;
-    color: #47b475;
+    color: #02BF87;
 }
 
 .widget .title.balance{
@@ -533,7 +533,7 @@ input.profile-button{
     min-width: 0;
 }
 input.profile-button:hover{
-    background-color: #40A269;
+    background-color: #02BF87;
     color: white;
 }
 
@@ -850,8 +850,8 @@ div.center-cropped img {
 
 .avatar-actions a.btn:hover{
     color: white;
-    border-color: #47b475;
-    background-color: #47b475;
+    border-color: #02BF87;
+    background-color: #02BF87;
 }
 
 .avatar-input{
@@ -901,7 +901,7 @@ button.delete-draft-question{
     background-color: transparent;
     margin: 0 10px 0 0;
     display: inline;
-    color: #47b475;
+    color: #02BF87;
     border: none;
     padding: 0;
     width: auto;
@@ -913,7 +913,7 @@ button.delete-draft-question{
 .show-answer-btn:active{
     color: #FFFFFF;
     margin: 0;
-    background-color: #47b475;
+    background-color: #02BF87;
 }
 
 @media all and (max-width: 550px) {
@@ -943,7 +943,7 @@ button.delete-draft-question{
 
 .show-answer-btn:hover,
 .show-answer-btn:active{
-    background-color: #40A269;
+    background-color: #02BF87;
 }
 
 .your-question .question-body{
@@ -1023,18 +1023,18 @@ table.notifications-table>tbody>tr>td a{
     padding: 8px;
 }
 .error-404 .btn:hover{
-    background-color: #47b475;
+    background-color: #02BF87;
     color: #FFFFFF;
 }
 .btn-filled:focus{
     color: #FFFFFF;
 }
 .btn-white:visited:hover, .btn-white:hover {
-    color: #47b475;
+    color: #02BF87;
 }
 .btn-filled:visited:hover, .btn-filled:hover {
     color: #FFFFFF;
-    background-color: #40A269;
+    background-color: #02BF87;
 }
 .btn-filled.blue-button:hover {
     color: #1894EB;
@@ -1069,17 +1069,17 @@ section.pb-0px{
     transition: all 0.3s;
 }
 .form-contacts button:hover{
-    color: #47b475;
+    color: #02BF87;
     background-color: #FFFFFF;
 }
 .btn-hover, .btn-hover:visited{
     color: #FFFFFF;
-    background-color: #47b475;
-    border-color: #47b475;
+    background-color: #02BF87;
+    border-color: #02BF87;
 }
 .btn-hover:hover{
     background-color: #FFFFFF;
-    color: #47b475;
+    color: #02BF87;
 }
 #payment-form{
     min-height: 259px;
@@ -1199,6 +1199,13 @@ span.text-red{
     margin-right: 25px;
     margin-bottom: 25px;
 }
+@media all and (max-width:500px) {
+    .inner-article .post-snippet img {
+        max-height: none;
+        max-width: none;
+        width: 100%;
+    }
+}
 .inner-article .post-meta, .post-meta .tags{
     display: block;
 }
@@ -1244,9 +1251,9 @@ span.text-red{
 }
 
 .pagination li span:hover, .pagination li.active span, .pagination li.active:hover span {
-    background: #47b475;
+    background: #02BF87;
     color: #fff;
-    border-color: #47b475;
+    border-color: #02BF87;
 }
 
 .pagination li span {
@@ -1470,7 +1477,7 @@ p.discount span.round{
 
 .feedback-thank-you i{
     font-size: 50px;
-    color: #40A269;
+    color: #02BF87;
     display: block;
     margin-bottom: 20px;
 }

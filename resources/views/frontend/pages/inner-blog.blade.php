@@ -30,9 +30,9 @@
 
     <section class="section-blog inner-blog">
         <div class="arrow-style mob-left-to-right">
-            <div id="container" class="about-block">
+            <div id="container" class="container about-block">
                 <div class="row">
-                    <div itemscope itemtype="http://schema.org/Article" class="inner-article col-sm-8 margin0auto nofloat">
+                    <div itemscope itemtype="http://schema.org/Article" class="inner-article container margin0auto nofloat">
                         <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
                         <div class="post-snippet mb24">
                             <div class="post-title">
