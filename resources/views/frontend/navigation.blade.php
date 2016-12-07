@@ -1,6 +1,9 @@
 <div class="nav-container">
     <a id="top"></a>
     <nav class="absolute transparent">
+
+
+
         <div class="nav-bar @yield('nav-style', 'nav-home')">
             <div class="module left">
                 <a href="{{ URL::to('/') }}">
@@ -12,6 +15,57 @@
                     <img alt="Foundry" src="{{ URL::to('/') }}/images/LOGO-header.svg">
                 </a>
             </div>
+
+            @if($user = Auth::guard('user')->user())
+                @php($notifications = $user->notifications()->where(['seen' => 0])->orderBy('created_at', 'DESC')->get())
+                <div class="module widget-handle cart-widget-handle notifications-mob visible990">
+                    <div class="cart">
+                        <i class="ti-bell"></i>
+                        @if(count($notifications) > 0)
+                            <span class="label number mobile-none">{{ count($notifications) }}</span>
+                            <span class="title"><span class="label number visible990 mob-label">{{ count($notifications) }}</span></span>
+                        @endif
+                    </div>
+                    <div class="function">
+                        <div class="widget">
+                            <h6 class="title">Notifications</h6>
+                            <hr>
+                            <ul class="cart-overview">
+                                @if(count($notifications) > 0)
+                                    @foreach($notifications as $notification)
+                                        <li>
+                                            <a href="{{ action('FrontendController@showNotification', ['id' => $notification->id]) }}">
+                                                <div class="description">
+                                                        <span class="product-title">
+                                                            @if($notification->type == 'admin')
+                                                                <i class="ti-crown"></i>
+                                                            @else
+                                                                <i class="ti-flag-alt"></i>
+                                                            @endif
+                                                            {{ $notification->subject }}</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @else
+                                    <li>
+                                        <div class="description">
+                                            <span class="product-title">No new notifications</span>
+                                        </div>
+                                    </li>
+                                @endif
+                            </ul>
+                            <hr>
+                            <div class="cart-controls notif">
+                                <a class="btn btn-sm btn-filled full" href="{{ action('FrontendController@notifications') }}">See all</a>
+                            </div>
+                        </div>
+                        <!--end of widget-->
+                    </div>
+                </div>
+            @endif
+
+
             <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
                 <i class="ti-menu"></i>
             </div>
@@ -40,7 +94,7 @@
                 </div>
                 @if($user = Auth::guard('user')->user())
                     @php($notifications = $user->notifications()->where(['seen' => 0])->orderBy('created_at', 'DESC')->get())
-                    <div class="module widget-handle cart-widget-handle left">
+                    <div class="module widget-handle cart-widget-handle left mobile-none">
                         <div class="cart">
                             <i class="ti-bell"></i>
                             @if(count($notifications) > 0)
@@ -119,8 +173,8 @@
                                     </li>
                                 </ul>
                             @else
-                                <a href="#">Profile</a>
-                                <ul>
+                                <a href="#" class="mobile-none">Profile</a>
+                                <ul class="before-login-mobmenu">
                                     <li>
                                         <div class="modal-container login-modal">
                                             <a class="btn-modal" href="#">Log in</a>
@@ -244,3 +298,17 @@
         </div>
     </nav>
 </div>
+@push('scripts')
+<script>
+    $('.notifications-mob').on('click', function() {
+        $('.nav-bar').removeClass('nav-open');
+        $('nav.absolute.transparent').removeClass('menu-bott');
+        $('.widget-handle.mobile-toggle').removeClass('active').removeClass('toggle-widget-handle');
+        $('.widget-handle.mobile-toggle i').removeClass('ti-close').addClass('ti-menu');
+    });
+    $('.widget-handle.mobile-toggle').on('click', function() {
+        $('.notifications-mob').removeClass('toggle-widget-handle');
+    });
+
+</script>
+@endpush

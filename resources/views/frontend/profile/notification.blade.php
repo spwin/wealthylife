@@ -50,7 +50,11 @@
                         <div class="modal-container text-right right ask-position-mob">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             <div class="hidden">
-                                @include('frontend/elements/question')
+                                @if(\App\Helpers\Helpers::isMobile())
+                                    @include('mobile/frontend/elements/question')
+                                @else
+                                    @include('frontend/elements/question')
+                                @endif
                             </div>
                         </div>
                         <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@notifications') }}"><i class="ti-arrow-left"></i> Back</a></h4>

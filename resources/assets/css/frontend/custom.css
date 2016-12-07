@@ -822,12 +822,12 @@ div.center-cropped {
 }
 
 div.center-cropped img {
-    max-width: none;
+    max-width: none !important;
     position:absolute;
     margin: auto;
     min-height: 100%;
     min-width: 100%;
-    top: 0;
+    top: 0 !important;
     left: 0;
 }
 

@@ -52,7 +52,11 @@
                             <div class="modal-container text-right ask-position-mob right">
                                 <a class="btn btn-modal hovered mb-0px" id="ask-question-button" href="#">Ask question</a>
                                 <div class="hidden">
-                                    @include('frontend/elements/question')
+                                    @if(\App\Helpers\Helpers::isMobile())
+                                        @include('mobile/frontend/elements/question')
+                                    @else
+                                        @include('frontend/elements/question')
+                                    @endif
                                 </div>
                             </div>
                             <h4 class="uppercase mb40 referral-head">Howdy, {{ $user->userData->first_name }}!</h4>

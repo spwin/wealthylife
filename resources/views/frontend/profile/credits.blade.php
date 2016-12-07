@@ -52,7 +52,11 @@
                         <div class="modal-container text-right cred right ask-position-mob">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             <div class="hidden">
-                                @include('frontend/elements/question')
+                                @if(\App\Helpers\Helpers::isMobile())
+                                    @include('mobile/frontend/elements/question')
+                                @else
+                                    @include('frontend/elements/question')
+                                @endif
                             </div>
                         </div>
                         @if (count($errors->credits) > 0)

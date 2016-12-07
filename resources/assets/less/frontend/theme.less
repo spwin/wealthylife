@@ -300,7 +300,7 @@ ul.lead li{ font-size: 16px; line-height: 40px; }
 
 /*!---------- 4. COLOURS ----------*/
 
-@green: #47b475;
+@green: #02bf88;
 @red: #ff2352;
 @red2: #fc4f4f;
 @hyperblu: #3b3be8;
@@ -335,7 +335,7 @@ footer.bg-dark {
 .color-primary{ color: @color-primary !important; }
 .color-red{ color: @red !important; }
 .color-white{ color: #fff; }
-.color-green-prof, span.color-green-prof {color:#47b475;}
+.color-green-prof, span.color-green-prof {color:#02bf88;}
 
 
 /*!---------- 5. SECTIONS ----------*/
@@ -2449,7 +2449,7 @@ span.color-pink {
 }
 .color-green,
 span.color-green {
-	color: #85C362;
+	color: #02bf88;
 }
 .color-cyan,
 span.color-cyan {
@@ -4572,7 +4572,7 @@ BLOG
 .blog-block-image {
 	background-color: #F4F2F3;
 }
-span.color-green-prof {color:#47b475;}
+span.color-green-prof {color:#02bf88;}
 
 .section-blog .arrow-style {
 	padding-top: 55px;
@@ -5150,6 +5150,12 @@ html {
 	display: none;
 }
 
+@media all and (min-width: 500px) {
+	.slideout-menu {
+		padding-left: 35px;
+	}
+}
+
 @media all and (max-width: 550px) {
 	.slideout-menu {width: 260px;}
 	ul.lead li {
@@ -5650,13 +5656,25 @@ div.alert:last-child {
 .alert-warning {
 	color: #666;
 }
+.profile-page .tabbed-content {
+	min-height: 300px;
+}
+@media all and (max-width: 990px) {
+	.menu > li ul.before-login-mobmenu {
+		top: 0;
+	}
+}
+.notifications-mob {
+	right:60px;
+	position: absolute !important;
+}
+@media all and (max-width: 400px) {
 
+	.nav-open .notifications-mob {
+		z-index: -1;
+	}
 
-
-
-
-
-
+}
 
 
 
@@ -5717,7 +5735,9 @@ MOBILE
 }
 
 @media all and (max-width: 990px){
-
+	.widget-handle.notifications-mob .cart .label {
+		top: -24px;
+	}
 	.module.widget-handle .title {
 		font-size: 18px;
 		color: white;
@@ -5736,7 +5756,7 @@ MOBILE
 		background: none;
 	}
 	nav.transparent .module.widget-handle {
-		text-align: center;
+		text-align: right;
 	}
 	.toggle-sub > ul.prof-drop {
 		display: none !important;

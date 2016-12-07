@@ -49,7 +49,11 @@
                         <div class="modal-container text-right right ask-position-mob ask-position-mob">
                             <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
                             <div class="hidden">
-                                @include('frontend/elements/question')
+                                @if(\App\Helpers\Helpers::isMobile())
+                                    @include('mobile/frontend/elements/question')
+                                @else
+                                    @include('frontend/elements/question')
+                                @endif
                             </div>
                         </div>
                         <h4 class="uppercase mb16 referral-head">Referral rewards <span class="fs32 color-blue-prof display-block">program</span></h4>
