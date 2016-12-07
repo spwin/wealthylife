@@ -48,7 +48,7 @@
 
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right right ask-position-mob">
-                            <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
+                            <a class="btn btn-modal hovered mb-0px" href="#">Ask consultant</a>
                             <div class="hidden">
                                 @if(\App\Helpers\Helpers::isMobile())
                                     @include('mobile/frontend/elements/question')
@@ -61,7 +61,7 @@
                         <div class="col-md-12 no-padding">
                             <h5>Got a great style tip to share with others? This is the platform to do so!</h5>
                             <a href="{{ action('FrontendController@newArticle') }}" class="btn btn-filled"><i class="ti-plus"></i> New entry</a>
-                            <p>Stylesensei is not just about getting style and fashion advice from experts, but it is a platform to allow all members to share their style experience with others. Style Blog is our very own blogging platform where users can make entries related to fashion, style, and overall image. If you think that you have some great styling tips to share, go ahead and write an article on Style Blog.</p>
+                            <p>StyleSensei is not just about getting style and fashion advice from experts, but it is a platform to allow all members to share their style experience with others. Style Blog is our very own blogging platform where users can make entries related to fashion, style, and overall image. If you think that you have some great styling tips to share, go ahead and write an article on Style Blog.</p>
                         </div>
                         <div class="col-md-12 no-padding">
                             @if (Session::has('flash_notification.article.message'))

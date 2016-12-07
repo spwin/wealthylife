@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-        <div class="container about-block create-entry edit-entry">
+        <div class="container create-entry edit-entry">
             <div class="row">
                 @if(\App\Helpers\Helpers::isMobile())
                     @include('mobile/frontend/profile/user-menu')

@@ -18,7 +18,6 @@
         </div>
         <!-- /.content-wrapper -->
         @include('consultant/footer')
-        @include('consultant/control')
     </div>
     <!-- ./wrapper -->
 @stop

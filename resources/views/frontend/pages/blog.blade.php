@@ -32,21 +32,43 @@
             <div class="row masonry masonryFlyIn mb40">
                 @foreach($articles as $article)
                     <div class="col-sm-4 post-snippet masonry-item">
-                        <div class="text-center blog-block-image">
-                            <a href="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
-                                <img alt="{{ $article->title }}" src="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}" />
-                            </a>
-                        </div>
-                        <div class="inner">
-                            <a href="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
-                                <h5 class="mb0">{{ $article->title }}</h5>
-                                <span class="inline-block mb16">{{ date('M d, Y', strtotime($article->published_at)) }}</span>
-                            </a>
-                            <hr class="mac-line">
-                            <p>
-                                {{ \App\Helpers\Helpers::getExcerpt(200, strip_tags($article->content)) }}
-                            </p>
-                            <a class="btn btn-sm btn-filled" href="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">Read More</a>
+                        <div itemscope itemtype="http://schema.org/Article">
+                            <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
+                            <div class="text-center blog-block-image">
+                                <a href="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
+                                    <div itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
+                                        <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}" />
+                                        <meta itemprop="url" content="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="inner">
+                                <a href="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
+                                    <meta itemprop="headline" content="{{ $article->title }}">
+                                    <h5 itemprop="name" class="mb0">{{ $article->title }}</h5>
+                                    <span itemprop="datePublished" content="{{ date('Y-m-d H:i:s', strtotime($article->published_at)) }}" class="inline-block mb16">{{ date('M d, Y', strtotime($article->published_at)) }}</span>
+                                </a>
+                                @if($article->user)
+                                    @if(!$article->hide_name)
+                                        <div itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+                                            <meta itemprop="name" content="{{ $article->user->userData->first_name.' '.$article->user->userData->last_name }}">
+                                        </div>
+                                    @endif
+                                @endif
+                                <div itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+                                    <div itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+                                        <meta itemprop="url" content="{{ URL::to('/') }}/images/logo-meta.png">
+                                        <meta itemprop="width" content="225">
+                                        <meta itemprop="height" content="225">
+                                    </div>
+                                    <meta itemprop="name" content="{{ env('APP_META_NAME') }}">
+                                </div>
+                                <hr class="mac-line">
+                                <p>
+                                    {{ \App\Helpers\Helpers::getExcerpt(200, strip_tags($article->content)) }}
+                                </p>
+                                <a class="btn btn-sm btn-filled" href="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">Read More</a>
+                            </div>
                         </div>
                     </div>
                 @endforeach

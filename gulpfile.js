@@ -89,6 +89,7 @@ elixir(function(mix) {
         '../foundry/js/parallax.js',
         '../foundry/js/scripts.js',
         '../foundry/js/countdown.min.js',
+        '../foundry/js/jquery.lazyload.min.js',
         'frontend/custom.js'
     ], 'public/js/front-plugins.js');
 });

@@ -11,6 +11,8 @@ use Jenssegers\Agent\Agent;
 
 class Helpers
 {
+    protected static $access = null;
+
     public static function isMobile(){
         $Agent = new Agent();
         if ($Agent->isMobile() || $Agent->isTablet()) {
@@ -89,5 +91,36 @@ class Helpers
             $pending = Questions::where(['consultant_id' => $user->id, 'status' => 1])->count();
         }
         return $pending;
+    }
+
+    public static function checkAccess()
+    {
+        $current = self::$access;
+        if(is_null($current)){
+            $limitedAccesMode = Helpers::getSetting('limited_access');
+            if ($limitedAccesMode) {
+                $allow_ip = [
+                    '127.0.0.1',
+                    '95.148.189.54',
+                    '5.81.190.114',
+                    '86.150.64.122',
+                    '78.56.165.176',
+                    '78.56.180.116',
+                    '188.69.215.193',
+                    '86.146.148.90',
+                    '188.69.210.99'
+                ];
+
+                if (in_array(request()->ip(), $allow_ip)) {
+                    $current = true;
+                } else {
+                    $current = false;
+                }
+            } else {
+                $current = true;
+            }
+            self::$access = $current;
+        }
+        return $current;
     }
 }

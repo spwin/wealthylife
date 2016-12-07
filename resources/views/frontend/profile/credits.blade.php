@@ -50,7 +50,7 @@
 
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right cred right ask-position-mob">
-                            <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
+                            <a class="btn btn-modal hovered mb-0px" href="#">Ask consultant</a>
                             <div class="hidden">
                                 @if(\App\Helpers\Helpers::isMobile())
                                     @include('mobile/frontend/elements/question')
@@ -132,7 +132,7 @@
                                     <p class="lead uppercase mb24 color-red">Enjoy Better Deals!</p>
                                     <hr>
                                     <p>
-                                        <span class="bold700 display-block">Looking to get fashion advice without having to pay each time?</span> At Stylesensei, we make your wishes come true.
+                                        <span class="bold700 display-block">Looking to get fashion advice without having to pay each time?</span> At StyleSensei, we make your wishes come true.
                                     </p>
                                     <hr>
                                         You can also ask us any style and fashion related questions without paying for it through your credit card. The more credits you buy, the higher will be your reward.
@@ -143,7 +143,7 @@
                                     <p class="lead uppercase mb24 color-blue-prof">Your Credit Details</p>
                                     <hr>
                                     <p>
-                                        <span class="display-block bold700">Stylesensei site is encrypted with <span class="color-blue-prof">SSL certificate.</span></span> This means that you don’t need to worry about entering your credit details at the time of checkout. We ensure 100% website safety and security for our customers, giving them a chance to make use of our service without any hassle.
+                                        <span class="display-block bold700">StyleSensei site is encrypted with <span class="color-blue-prof">SSL certificate.</span></span> This means that you don’t need to worry about entering your credit details at the time of checkout. We ensure 100% website safety and security for our customers, giving them a chance to make use of our service without any hassle.
                                     </p>
                                     <hr>
                                     <h5 class="text-center opacity05 ">Purchase credits and get all your style problems <span class="color-green-prof opacity1 bold700">solved!</span></h5>

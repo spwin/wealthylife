@@ -9,7 +9,7 @@
         <div class="container page-first-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="uppercase mb8 page-h2">Ask question</h1>
+                    <h1 class="uppercase mb8 page-h2">Ask consultant</h1>
                     <h2 class="lead mb0 below"></h2>
                 </div>
             </div>

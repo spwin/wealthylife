@@ -43,21 +43,26 @@
                         </p>
                         <a href="{{ action('FrontendController@authorizeQuestion') }}" class="btn btn-hover">Continue</a>
                         <ul class="list-inline social-list">
-                            {{--<li>
-                                <a href="#">
-                                    <i class="icon icon-sm ti-twitter-alt"></i>
-                                </a>
-                            </li>--}}
                             <li>
-                                <a href="#">
+                                <a href="{{ env('FACEBOOK_URL') }}" rel="nofollow">
                                     <i class="icon icon-sm ti-facebook"></i>
                                 </a>
                             </li>
-                            {{--<li>
-                                <a href="#">
+                            <li>
+                                <a href="{{ env('GOOGLE_URL') }}" rel="nofollow">
+                                    <i class="icon icon-sm ti-google"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ env('TWITTER_URL') }}" rel="nofollow">
+                                    <i class="icon icon-sm ti-twitter-alt"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ env('INSTAGRAM_URL') }}" rel="nofollow">
                                     <i class="icon icon-sm ti-instagram"></i>
                                 </a>
-                            </li>--}}
+                            </li>
                         </ul>
                     </div>
                 </div>

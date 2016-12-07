@@ -21,6 +21,7 @@
 .alert-filled{
     background-color: #c64444;
     color: #FFFFFF;
+    border: none;
 }
 /*
 .profile-dropdown:after {
@@ -433,8 +434,8 @@ form .textarea-holder .charNum{
 
 .image-actions a.btn.upload:hover{
     color: white;
-    border-color: #47b475;
-    background-color: #47b475;
+    border-color: #40A269;
+    background-color: #40A269;
 }
 .image-actions a.btn.upload{
     color: white;
@@ -613,7 +614,7 @@ form.general-profile .double-column{
 }
 
 .image:after {
-    content: 'CHANGE IMAGE';
+    content: 'CHANGE PHOTO';
     color: #fff;
     position: absolute;
     width: 100%;
@@ -1032,8 +1033,8 @@ table.notifications-table>tbody>tr>td a{
     color: #47b475;
 }
 .btn-filled:visited:hover, .btn-filled:hover {
-    color: #47b475;
-    background-color: #FFFFFF;
+    color: #FFFFFF;
+    background-color: #40A269;
 }
 .btn-filled.blue-button:hover {
     color: #1894EB;
@@ -1188,6 +1189,7 @@ span.text-red{
 }
 .inner-article .post-title h4{
     font-size: 35px;
+    line-height: 1.2;
 }
 .inner-article .post-snippet img{
     max-height: 500px;
@@ -1517,16 +1519,29 @@ body.soon-page{
     background-color: #2B2C2F;
 }
 /********/
+.vouchers .credits .price.claim span.use-voucher{
+    font-size: 22px;
+    top: auto;
+    bottom: -35px;
+    right: -10px;
+}
 
+.create-article .image-upload{
+    margin-bottom: 20px;
+}
 
+@media all and (max-width: 1600px) {
+    .curved-image-rmw {
+        bottom: -190px;
+    }
+}
 
+.notifications-table{
+    margin-top: 8px;
+}
 
-
-
-
-
-
-
-
-
-
+.inner-article p{
+    line-height: 1.6;
+    text-align: justify;
+    font-size: 16px;
+}

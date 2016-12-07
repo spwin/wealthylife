@@ -37,6 +37,20 @@
                 </label>
             </div>
             <div class="form-group">
+                <label class="control-sidebar-subheading">
+                    Limited access mode
+                    @php($limited_access = App\Helpers\Helpers::getSetting('limited_access'))
+                    <div>
+                        YES
+                        <input type="radio" name="limited_access" {{ $limited_access ? 'checked' : '' }} class="pull-right" value="1">
+                    </div>
+                    <div>
+                        NO
+                        <input type="radio" name="limited_access" {{ $limited_access ? '' : 'checked' }} class="pull-right" value="0">
+                    </div>
+                </label>
+            </div>
+            <div class="form-group">
                 <input type="submit" class="btn-sm btn-success pull-right" value="Save">
             </div>
             {!! Form::close() !!}

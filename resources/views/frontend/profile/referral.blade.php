@@ -47,7 +47,7 @@
 
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right right ask-position-mob ask-position-mob">
-                            <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
+                            <a class="btn btn-modal hovered mb-0px" href="#">Ask consultant</a>
                             <div class="hidden">
                                 @if(\App\Helpers\Helpers::isMobile())
                                     @include('mobile/frontend/elements/question')
@@ -89,7 +89,7 @@
                                             <div class="profile-how-it phifourth left"><span class="bold700 display-block">04. TRACK</span>You can check the number of registered and confirmed referrals on this page</div>
                                     </div>
                                         <div class="clearboth"></div>
-                                    <hr class="mt16 mb0">
+                                    <hr class="mt16 mb24 ">
                                     <h5 class="text-center opacity05">Let the style begin!</h5>
                                 </div>
                             </div>

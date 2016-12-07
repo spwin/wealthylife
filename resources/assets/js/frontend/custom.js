@@ -347,7 +347,7 @@ function checkAnswerTime(e,button,token, url){
 
 $('.trigger-catcher').on('question-modal', function(){
     $('.answer-time-result').html('');
-    $('.check-answer-time span').show();
+    $('.check-answer-time .check-time-button').show();
 });
 
 // MAIN PHRASE TOP POSITION ON SCROLL/*
@@ -367,6 +367,13 @@ $('.mobile-toggle').click(function() {
     $('.mobile-toggle i').toggleClass('ti-menu').toggleClass('ti-close');
 });
 
+$(function() {
+    $("img.lazy").show().lazyload({
+        effect : "fadeIn",
+        skip_invisible : true,
+        threshold : 200
+    });
+});
 
 
 

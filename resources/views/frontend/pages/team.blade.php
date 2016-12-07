@@ -41,8 +41,8 @@
                     </div>
                     <div class="half right nofloat-mob about-block team-first-text mt56 mb48">
                         <h3 class="uppercase mb0">The<span class="br"></span> Fashion-Forward</h3>
-                        <h4 class="uppercase padright60on410">Team of <span class="color-pink">Stylesensei</span></h4>
-                        <p>Stylesensei is run by a group of highly talented fashion-forward individuals who have the unique creativity needed to style you on a daily basis. Our team consists of individuals who are true fashion fanatics, and keep tabs on the latest trends, fashion icons, and styling ideas to forward them to our customers.</p>
+                        <h4 class="uppercase padright60on410">Team of <span class="color-pink">StyleSensei</span></h4>
+                        <p>StyleSensei is run by a group of highly talented fashion-forward individuals who have the unique creativity needed to style you on a daily basis. Our team consists of individuals who are true fashion fanatics, and keep tabs on the latest trends, fashion icons, and styling ideas to forward them to our customers.</p>
                         <p>Whether you want to dress up to impress your new boss at a job interview or simply want to head out to a party with friends, <span class="color-pink bold700">we have got you covered.</span></p>
                     </div>
                 </div>
@@ -53,15 +53,15 @@
             <div class="curve-wrap left-bottom-wrap">
                 <div class="rotated left-bottom">
                     <div class="bottom-part"></div>
-                    <img class="curved-image-rmw red-pos1" alt="Stylish man" src="{{ url()->to('/') }}/images/red-man.png">
-                    <img class="curved-image-rmw red-pos2" alt="Stylish woman" src="{{ url()->to('/') }}/images/red-woman.png">
+                    <img class="curved-image-rmw red-pos1 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish man" data-original="{{ url()->to('/') }}/images/red-man.png">
+                    <img class="curved-image-rmw red-pos2 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish woman" data-original="{{ url()->to('/') }}/images/red-woman.png">
                 </div>
             </div>
             <div class="curve-wrap right-bottom-wrap">
                 <div class="rotated right-bottom">
                     <div class="bottom-part"></div>
-                    <img class="mobile-red-img mob-red-pos1 absolute visible990" alt="Stylish man" src="{{ url()->to('/') }}/images/red-man.png">
-                    <img class="mobile-red-img mob-red-pos2 absolute visible990" alt="Stylish woman" src="{{ url()->to('/') }}/images/red-woman.png">
+                    <img class="mobile-red-img mob-red-pos1 absolute visible990 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish man" data-original="{{ url()->to('/') }}/images/red-man.png">
+                    <img class="mobile-red-img mob-red-pos2 absolute visible990 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish woman" data-original="{{ url()->to('/') }}/images/red-woman.png">
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-            <img class="right-image-team" alt="Stylish computer" src="{{ url()->to('/') }}/images/manikeny.png" >
+            <img class="right-image-team lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish computer" data-original="{{ url()->to('/') }}/images/manikeny.png" >
 
         </div>
 
@@ -91,13 +91,13 @@
             <div class="curve-wrap left-top-wrap">
                 <div class="rotated left-top">
                     <div class="top-part"></div>
-                    <img class="absolute position4" alt="Stylish people lying" src="{{ url()->to('/') }}/images/trendy-individuals.jpg">
+                    <img class="absolute position4 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish people lying" data-original="{{ url()->to('/') }}/images/trendy-individuals.jpg">
                 </div>
             </div>
             <div class="curve-wrap right-top-wrap">
                 <div class="rotated right-top">
                     <div class="top-part"></div>
-                    <img class="absolute position6 visible990" alt="Stylish people lying" src="{{ url()->to('/') }}/images/trendy-individuals.jpg">
+                    <img class="absolute position6 visible990 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish people lying" data-original="{{ url()->to('/') }}/images/trendy-individuals.jpg">
                 </div>
             </div>
             <div class="container get-on-board">
@@ -107,15 +107,15 @@
                     <div class="half right nofloat-mob about-block pl30">
                         <h3 class="uppercase padright60on410 mb0">Get on board</h3>
                         <h4 class="uppercase color-cyan">With trendy individuals</h4>
-                        <p>Are you fond of styling others and giving them dressing advice? Do you enjoy dressing up others? Do you get asked about your styling sense? If yes, why not join our style-experts’ team? At Stylesensei, we are always on the lookout of stylish and fashionable individuals who can make a difference in other people’s sense of dressing. We want to get positive, creative, and fun people on board with us who can help others look fabulous all day, every day.</p>
-                        <p>So, if you think you have it in you, join our team by sending us your CV. Make sure you tell us your story, why you want to be a part of Stylesensei, and what’s special about you to get shortlisted.</p>
+                        <p>Are you fond of styling others and giving them dressing advice? Do you enjoy dressing up others? Do you get asked about your styling sense? If yes, why not join our style-experts’ team? At StyleSensei, we are always on the lookout of stylish and fashionable individuals who can make a difference in other people’s sense of dressing. We want to get positive, creative, and fun people on board with us who can help others look fabulous all day, every day.</p>
+                        <p>So, if you think you have it in you, join our team by sending us your CV. Make sure you tell us your story, why you want to be a part of StyleSensei, and what’s special about you to get shortlisted.</p>
                     </div>
                 </div>
                 <div class="row index3">
                     <div class="half left about-block text-right pr30">
                         <h3 class="uppercase mb0">Make a move now!</h3>
                         <h4 class="uppercase color-cyan">We are searching for you!</h4>
-                        <p>At Stylesensei, we are always searching for voguish individuals to be a part of our team. Our platform will help individuals get better styling and dressing advice, which is why we need experienced individuals to help us boost others’ confidence in their style and overall look. Get your style sorted out by getting in touch with our style-experts!</p>
+                        <p>At StyleSensei, we are always searching for voguish individuals to be a part of our team. Our platform will help individuals get better styling and dressing advice, which is why we need experienced individuals to help us boost others’ confidence in their style and overall look. Get your style sorted out by getting in touch with our style-experts!</p>
                     </div>
                     <div class="half right about-block">
                     </div>
@@ -127,13 +127,13 @@
             <div class="curve-wrap left-bottom-wrap">
                 <div class="rotated left-bottom">
                     <div class="bottom-part"></div>
-                    <img class="absolute position7 visible990" alt="Stylish clothes" src="{{ url()->to('/') }}/images/make-move-now.jpg">
+                    <img class="absolute position7 visible990 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish clothes" data-original="{{ url()->to('/') }}/images/make-move-now.jpg">
                 </div>
             </div>
             <div class="curve-wrap right-bottom-wrap">
                 <div class="rotated right-bottom">
                     <div class="bottom-part"></div>
-                    <img class="curved-image-rb position5" alt="Stylish clothes" src="{{ url()->to('/') }}/images/make-move-now.jpg">
+                    <img class="curved-image-rb position5 lazy" src="{{ url()->to('/') }}/images/img-preload.png" alt="Stylish clothes" data-original="{{ url()->to('/') }}/images/make-move-now.jpg">
                 </div>
             </div>
         </div>

@@ -41,7 +41,7 @@ class FrontendController extends Controller
             return $page;
         }*/
         $phrase = Phrases::where(['enabled' => 1])->inRandomOrder()->first();
-        $backgrounds = ['back1', 'back2', 'back3', 'back4', 'back5', 'back6', 'back7'];
+        $backgrounds = ['welcome'];
 
         $view = view('frontend/pages/index')->with([
             'background' => $backgrounds[array_rand($backgrounds)],
@@ -413,6 +413,7 @@ class FrontendController extends Controller
         Mail::send(trans('notifications.contacts.form.email'), ['input' => $input], function ($message) use ($input, $general_mail) {
             $message->subject(trans('notifications.contacts.form.subject'));
             $message->from($input['email'], $input['name']);
+            $message->replyTo($input['email'], $input['name']);
             $message->to($general_mail->value);
             $message->priority('high');
         });
@@ -456,7 +457,7 @@ class FrontendController extends Controller
             'email' => 'required|email',
         ]);
         if ($v->fails()) {
-            return Redirect::action('FrontendController@soon')->withErrors($v->errors(), 'soon')->withInput();
+            return Redirect::action('FrontendController@index')->withErrors($v->errors(), 'soon')->withInput();
         }
         $current = Newsletter::where(['email' => $request->get('email')])->first();
         if($current){
@@ -469,7 +470,7 @@ class FrontendController extends Controller
             Session::flash('flash_notification.general.message', 'Thanks for your submission, we will be in touch shortly.');
         }
         Session::flash('flash_notification.general.level', 'success');
-        return Redirect::action('FrontendController@soon');
+        return Redirect::action('FrontendController@index');
     }
 
     public function buyVoucher(Request $request){
@@ -489,16 +490,14 @@ class FrontendController extends Controller
         $sitemap->setCache('laravel.sitemap', 720);
 
         if (!$sitemap->isCached()) {
-            $sitemap->add(URL::to('soon'), date('c', time()), '1.0', 'weekly');
-
-            /*$sitemap->add(URL::to('/'), date('c', time()), '1.0', 'weekly');
-            $sitemap->add(URL::action('FrontendController@blog'), date('c', time()), '1.0', 'hourly');
+            $sitemap->add(URL::to('/'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@about'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@team'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@contacts'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@privacy'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@terms'), date('c', time()), '1.0', 'weekly');
 
+            /*$sitemap->add(URL::action('FrontendController@blog'), date('c', time()), '1.0', 'hourly');
             $articles = Article::where(['status' => 3, 'reviewed' => 1])->orderBy('published_at', 'DESC')->get();
             foreach($articles as $article){
                 $sitemap->add(URL::action('FrontendController@blogEntry', ['url' => $article->url]), date('c', time()), '1.0', 'weekly');

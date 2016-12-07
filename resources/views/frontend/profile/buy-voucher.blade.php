@@ -47,6 +47,7 @@
                                 @include('frontend/elements/question')
                             </div>
                         </div-->
+                        <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@vouchers') }}"><i class="ti-arrow-left"></i> Back</a></h4>
                         <h4 class="uppercase mb16">Fill the details</h4>
                         @if (count($errors->voucher) > 0)
                             <div class="alert alert-danger alert-dismissible" role="alert">

@@ -5,13 +5,14 @@
     <title>@yield('page-title', trans('seo.main.title'))</title>
     <meta name="description" content="@yield('meta-description', trans('seo.main.description'))">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    @yield('meta-content')
 {{--<link rel="alternate" href="{{ url()->to('/') }}" hreflang="en-GB" />--}}
     <link href="{{ URL::to('/') }}/css/front-plugins.css" rel="stylesheet">
     <link href="{{ URL::to('/') }}/css/frontend.css" rel="stylesheet">
     <link href="{{ URL::to('/') }}/css/front-custom.css" rel="stylesheet">
     <link href="{{ URL::to('/') }}/css/fonts.css" rel="stylesheet">
 </head>
-<body class="scroll-assist @yield('body-class', 'default-class')">
+<body class="@yield('body-class', 'default-class')">
 @yield('after-body-snippet')
 @yield('wrapper')
 <div class="modal-container text-right">

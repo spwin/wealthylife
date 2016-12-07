@@ -42,7 +42,7 @@
                 <div class="col-md-9">
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right right ask-position-mob">
-                            <a class="btn btn-modal hovered mb-0px" href="#">Ask question</a>
+                            <a class="btn btn-modal hovered mb-0px" href="#">Ask consultant</a>
                             <div class="hidden">
                                 @if(\App\Helpers\Helpers::isMobile())
                                     @include('mobile/frontend/elements/question')
@@ -76,7 +76,7 @@
                             <div class="row credits">
                                 <div class="col-md-12">
 
-                                    <p><span class="bold700 fs19">Are you looking for the perfect gift to surprise a loved one?</span><span class="display-block"></span> At Stylesensei, we have the most unique and special gift for you to put a smile on a special friend’s face.</p>
+                                    <p><span class="bold700 fs19">Are you looking for the perfect gift to surprise a loved one?</span><span class="display-block"></span> At StyleSensei, we have the most unique and special gift for you to put a smile on a special friend’s face.</p>
                                     <p>You can get your hands on our gift voucher to give a friend or a family member a chance to get style advice from our team of experts. Our gift vouchers are exceptional and fun, especially if you want a friend to feel confident in their style . By making use of our gift voucher, you can give others an opportunity to get expert advice on fashion, styling, and look.</p>
                                     <h5>So, choose the voucher you desire and turn someone’s day around by giving them a chance to be stylish.</h5>
                                 </div>
@@ -93,7 +93,7 @@
                                 <div class="col-md-6">
                                     <div class="pricing-table pt-1 text-center boxed">
                                         <p class="uppercase voucher-top"><span class="smile enter-code"><span class="bold700">Enter</span><br></be> code to</span></p>
-                                        <span class="price claim"><span>Claim</span></span>
+                                        <span class="price claim"><span>Use</span><span class="text-center price-pos bold700 display-block use-voucher">Voucher</span></span>
                                         {!! Form::open([
                                             'role' => 'form',
                                             'url' => action('UserController@checkVoucher'),
