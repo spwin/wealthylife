@@ -1,27 +1,11 @@
 # StyleSensei
-
-App provider:
-
-Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class
 _______________________________________________________________________
+Commands to run:
 
-Commands to use after installing laravel-filemanager (composer update):
+composer update
 
-php artisan vendor:publish --tag=lfm_config
 php artisan vendor:publish --tag=lfm_public
 php artisan vendor:publish --tag=lfm_view
-
-===================
-config in: lmf.php
-===================
-'middlewares'           => ['web', 'auth:consultant']
-'allow_multi_user'      => false,
-
-'images_dir'            => 'public/uploads/articles/photos/',
-'images_url'            => '/uploads/articles/photos/',
-
-'files_dir'             => 'public/uploads/articles/files/',
-'files_url'             => '/uploads/articles/files/',
 
 ====================
 create directories:
@@ -29,7 +13,11 @@ create directories:
 public/uploads/articles/files/
 public/uploads/articles/photos/
 
-set permissions to access these folders for www-data
+================================================
+set permissions to access these folders as root:
+================================================
+chown user:www-data -R articles/
+chmod 777 -R articles/
 
 Thank you,
 Stanislav
