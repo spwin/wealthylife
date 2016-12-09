@@ -96,7 +96,7 @@
                             {{ count($pending) }}
                         </div>
                         <div class="answer-pending">
-                            <a href="{{ action('ConsultantController@listPending') }}" class="btn btn-success">ANSWER NOW</a>
+                            <a href="{{ action('ConsultantController@interactiveAnswer') }}" class="btn btn-success">ANSWER NOW</a>
                         </div>
                     </div>
                     <div class="box-footer">

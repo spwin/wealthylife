@@ -224,6 +224,7 @@ Route::group(['middleware' => ['limited_access']], function () {
             Route::get('profile/{id}', 'ConsultantController@detailsUser');
         });
         Route::group(['prefix' => 'questions'], function () {
+            Route::get('interactive', 'ConsultantController@interactiveAnswer');
             Route::get('pending', 'ConsultantController@listPending');
             Route::get('answered', 'ConsultantController@listAnswered');
             Route::get('rejected', 'ConsultantController@listRejected');
@@ -308,6 +309,10 @@ Route::group(['middleware' => ['limited_access']], function () {
         Route::group(['prefix' => 'answers'], function () {
             Route::get('/', 'AdminController@answers');
             Route::get('preview/{id}', 'AdminController@showAnswer');
+        });
+        Route::group(['prefix' => 'pending'], function () {
+            Route::get('/', 'AdminController@pending');
+            Route::get('change-consultant/{id}', 'AdminController@changeConsultant');
         });
         Route::group(['prefix' => 'rejections'], function () {
             Route::get('/', 'AdminController@rejections');

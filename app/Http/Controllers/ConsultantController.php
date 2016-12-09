@@ -379,7 +379,7 @@ class ConsultantController extends Controller
         $question->answered_at = date('Y-m-d H:i:s', time());
         $question->status = 2;
         $question->save();
-        return Redirect::action('ConsultantController@listPending');
+        return Redirect::action('ConsultantController@interactiveAnswer');
     }
 
     public function ajaxPending(Request $request){
@@ -577,5 +577,32 @@ class ConsultantController extends Controller
         $slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $slug);
         $slug = ltrim($slug, '-');
         return $slug;
+    }
+
+    function interactiveAnswer(){
+        $consultant = Auth::guard('consultant')->user();
+        $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->orderBy('asked_at', 'ASC')->limit(10)->get();
+        $current = null;
+        if(count($questions) > 0){
+            $current = $questions[0];
+        }
+        $pending = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->count();
+        $answers = Questions::where(['status' => 2, 'consultant_id' => $consultant->id])
+            ->where('answered_at', '>', date('Y-m-d', time()).' 00:00:00')
+            ->where('answered_at', '<', date('Y-m-d', time()).' 24:00:00')
+            ->get();
+        $total_time = 0;
+        foreach($answers as $answer){
+            $total_time += $answer->timer;
+        }
+        $average_time = ($count = count($answers)) > 0 ? floor(($total_time / $count)/60) : 0;
+        return view('consultant/questions/interactive')->with([
+            'consultant' => $consultant,
+            'questions' => $questions,
+            'answers' => $answers,
+            'average_time' => $average_time,
+            'pending' => $pending,
+            'current' => $current
+        ]);
     }
 }

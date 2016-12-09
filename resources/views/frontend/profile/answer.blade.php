@@ -101,49 +101,52 @@
                             <h4 class="uppercase mb16 width100on550">The answer is not ready yet, we are working on it.</h4>
                         @endif
                     </div>
-                    <div class="col-md-8 no-padding answer-rating display-after-load">
-                        <hr/>
-                       <h4>Did you like the answer? Like us on <a href="{{ env('FACEBOOK_URL') }}" rel="nofollow" class="facebook-color">Facebook</a></h4>
-                        <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fstylesensei.co.uk%2F&width=300&layout=standard&action=like&size=large&show_faces=true&share=true&height=80&appId=1646316419027352" width="300" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
-                        @if($question->status == 2 && $answer && !$answer->rated)
-                            @if (count($errors->answer) > 0)
-                                <div class="alert alert-danger alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                    <ul>
-                                        @foreach ($errors->answer->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
+
+                    @if($question->status == 2 && $answer)
+                        <div class="col-md-8 no-padding answer-rating display-after-load">
+                            <hr/>
+                            <h4>Did you like the answer? Like us on <a href="{{ env('FACEBOOK_URL') }}" rel="nofollow" class="facebook-color">Facebook</a></h4>
+                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fstylesensei.co.uk%2F&width=300&layout=standard&action=like&size=large&show_faces=true&share=true&height=80&appId=1646316419027352" width="300" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                            @if(!$answer->rated)
+                                @if (count($errors->answer) > 0)
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                        <ul>
+                                            @foreach ($errors->answer->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <h4>Rate this answer!</h4>
+                                {!! Form::open([
+                                    'role' => 'form',
+                                    'url' => action('UserController@rateAnswer', ['id' => $answer->id]),
+                                    'method' => 'POST',
+                                    'class' => 'rate-answer'
+                                ]) !!}
+                                <div class="rating-wrapper">
+                                    <input type="radio" class="rating-input" id="rating-input-1-5" name="stars" value="5"/>
+                                    <label for="rating-input-1-5" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-4" name="stars" value="4"/>
+                                    <label for="rating-input-1-4" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-3" name="stars" value="3"/>
+                                    <label for="rating-input-1-3" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-2" name="stars" value="2"/>
+                                    <label for="rating-input-1-2" class="rating-star"></label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-1" name="stars" value="1"/>
+                                    <label for="rating-input-1-1" class="rating-star"></label>
                                 </div>
+                                <div class="input-with-label text-left">
+                                    {!! Form::textarea('comment', null, ['size' => '30x3']) !!}
+                                </div>
+                                <input type="submit" class="btn btn-filled" value="Submit">
+                                {!! Form::close() !!}
                             @endif
-                            <h4>Rate this answer!</h4>
-                            {!! Form::open([
-                                'role' => 'form',
-                                'url' => action('UserController@rateAnswer', ['id' => $answer->id]),
-                                'method' => 'POST',
-                                'class' => 'rate-answer'
-                            ]) !!}
-                            <div class="rating-wrapper">
-                                <input type="radio" class="rating-input" id="rating-input-1-5" name="stars" value="5"/>
-                                <label for="rating-input-1-5" class="rating-star"></label>
-                                <input type="radio" class="rating-input" id="rating-input-1-4" name="stars" value="4"/>
-                                <label for="rating-input-1-4" class="rating-star"></label>
-                                <input type="radio" class="rating-input" id="rating-input-1-3" name="stars" value="3"/>
-                                <label for="rating-input-1-3" class="rating-star"></label>
-                                <input type="radio" class="rating-input" id="rating-input-1-2" name="stars" value="2"/>
-                                <label for="rating-input-1-2" class="rating-star"></label>
-                                <input type="radio" class="rating-input" id="rating-input-1-1" name="stars" value="1"/>
-                                <label for="rating-input-1-1" class="rating-star"></label>
-                            </div>
-                            <div class="input-with-label text-left">
-                                {!! Form::textarea('comment', null, ['size' => '30x3']) !!}
-                            </div>
-                            <input type="submit" class="btn btn-filled" value="Submit">
-                            {!! Form::close() !!}
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
