@@ -80,7 +80,7 @@
                                         @foreach($question->images as $image)
                                             <div class="col-md-4">
                                                 <a href="{{ url()->to('/').$image->path.$image->filename }}"  data-lightbox="image-{{ $image->id }}" data-title="Question #{{ $question->id }}">
-                                                    <img src="{{ url()->to('/').'/photo/300x200/'.$image->filename }}">
+                                                    <img src="{{ url()->to('/').'/photo/500x500/'.$image->filename }}">
                                                 </a>
                                             </div>
                                         @endforeach
@@ -101,9 +101,11 @@
                             <h4 class="uppercase mb16 width100on550">The answer is not ready yet, we are working on it.</h4>
                         @endif
                     </div>
-                    @if($question->status == 2 && $answer && !$answer->rated)
-                        <div class="col-md-6 no-padding answer-rating display-after-load">
-                            <hr/>
+                    <div class="col-md-8 no-padding answer-rating display-after-load">
+                        <hr/>
+                       <h4>Did you like the answer? Like us on <a href="{{ env('FACEBOOK_URL') }}" rel="nofollow" class="facebook-color">Facebook</a></h4>
+                        <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fstylesensei.co.uk%2F&width=300&layout=standard&action=like&size=large&show_faces=true&share=true&height=80&appId=1646316419027352" width="300" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                        @if($question->status == 2 && $answer && !$answer->rated)
                             @if (count($errors->answer) > 0)
                                 <div class="alert alert-danger alert-dismissible" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -140,12 +142,11 @@
                             </div>
                             <input type="submit" class="btn btn-filled" value="Submit">
                             {!! Form::close() !!}
-                        </div>
-                    @endif
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
-
             <div class="curve-wrap left-bottom-wrap">
                 <div class="rotated left-bottom">
                     <div class="bottom-part"></div>

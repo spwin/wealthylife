@@ -34,7 +34,7 @@
                             @foreach($question->images as $image)
                                 <div class="col-md-12 margin-bottom">
                                     <a target="_blank" href="{{ url()->to('/').$image->path.$image->filename }}">
-                                        <img class="answer-question-image" src="{{ url()->to('/').'/photo/200x200/'.$image->filename }}">
+                                        <img class="answer-question-image" src="{{ url()->to('/').'/photo/500x500/'.$image->filename }}">
                                     </a>
                                 </div>
                             @endforeach

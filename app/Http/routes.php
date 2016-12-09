@@ -12,7 +12,8 @@
 */
 // IMAGES CACHE
 Route::get('/blog-masonry/{width}/{name}', function($width = NULL, $name = NULL){
-    if(!is_null($width) && !is_null($name)){
+    $sizes = config('sizes.blog-masonry');
+    if(!is_null($width) && !is_null($name) && in_array($width, $sizes)){
         $cache_image = Image::cache(function($image) use($width, $name){
             return $image->make(url('uploads/blog/'.$name))->resize($width, null, function ($c) {
                 $c->aspectRatio();
@@ -27,7 +28,8 @@ Route::get('/blog-masonry/{width}/{name}', function($width = NULL, $name = NULL)
 });
 
 Route::get('/blog/{size}/{name}', function($size = NULL, $name = NULL){
-    if(!is_null($size) && !is_null($name)){
+    $sizes = config('sizes.blog');
+    if(!is_null($size) && !is_null($name) && in_array($size, $sizes)){
         $size = explode('x', $size);
         $cache_image = Image::cache(function($image) use($size, $name){
             return $image->make(url('uploads/blog/'.$name))->resize($size[0], $size[1], function ($c) {
@@ -45,7 +47,9 @@ Route::get('/blog/{size}/{name}', function($size = NULL, $name = NULL){
 Route::get('/blog-masonry-consultant/{width}/{name}', function($width = NULL, $name = NULL){
     $path = \Illuminate\Support\Facades\Input::get('path');
     $path = rawurldecode($path);
-    if(!is_null($width) && !is_null($name) && !is_null($path)){
+    $path = str_replace('.','',$path);
+    $sizes = config('sizes.blog-masonry-consultant');
+    if(!is_null($width) && !is_null($name) && !is_null($path) && in_array($width, $sizes)){
         $cache_image = Image::cache(function($image) use($width, $name, $path){
             return $image->make(url(ltrim($path, '/').$name))->resize($width, null, function ($c) {
                 $c->aspectRatio();
@@ -62,7 +66,9 @@ Route::get('/blog-masonry-consultant/{width}/{name}', function($width = NULL, $n
 Route::get('/consultant-blog/{size}/{name}', function($size = NULL, $name = NULL){
     $path = \Illuminate\Support\Facades\Input::get('path');
     $path = rawurldecode($path);
-    if(!is_null($size) && !is_null($name) && !is_null($path)){
+    $path = str_replace('.','',$path);
+    $sizes = config('sizes.consultant-blog');
+    if(!is_null($size) && !is_null($name) && !is_null($path) && in_array($size, $sizes)){
         $size = explode('x', $size);
         $cache_image = Image::cache(function($image) use($size, $name, $path){
             return $image->make(url(ltrim($path, '/').$name))->resize($size[0], $size[1], function ($c) {
@@ -78,7 +84,8 @@ Route::get('/consultant-blog/{size}/{name}', function($size = NULL, $name = NULL
 });
 
 Route::get('/photo/{size}/{name}', function($size = NULL, $name = NULL){
-    if(!is_null($size) && !is_null($name)){
+    $sizes = config('sizes.photo');
+    if(!is_null($size) && !is_null($name) && in_array($size, $sizes)){
         $size = explode('x', $size);
         $cache_image = Image::cache(function($image) use($size, $name){
             return $image->make(url('uploads/questions/'.$name))->resize($size[0], $size[1], function ($c) {
@@ -93,7 +100,8 @@ Route::get('/photo/{size}/{name}', function($size = NULL, $name = NULL){
 });
 
 Route::get('/temp/{size}/{dir}/{name}', function($size = NULL, $dir = NULL, $name = NULL){
-    if(!is_null($size) && !is_null($name)){
+    $sizes = config('sizes.temp');
+    if(!is_null($size) && !is_null($name) && in_array($size, $sizes)){
         $size = explode('x', $size);
         $cache_image = Image::cache(function($image) use($size, $dir, $name){
             return $image->make(url('uploads/session/temp/'.$dir.'/'.$name))->resize($size[0], $size[1], function ($c) {

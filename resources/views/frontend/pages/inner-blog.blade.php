@@ -71,12 +71,12 @@
                                     <meta itemprop="name" content="{{ env('APP_META_NAME') }}">
                                 </div>
                             </ul>
-                            <a href="{{ url()->to('/').$article->image->path.$article->image->filename }}" data-lightbox="image-{{ $article->image->id }}" data-title="{{ $article->title }}">
+                            <a rel="lightbox[gallery]" href="{{ url()->to('/').$article->image->path.$article->image->filename }}" data-lightbox="image-{{ $article->image->id }}" data-title="{{ $article->title }}">
                                 <div itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
                                     @if($article->user->type == 'user')
-                                        <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
+                                        <img class="featured-image" itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
                                     @elseif($article->user->type == 'consultant')
-                                        <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/consultant-blog/500x500/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}"/>
+                                        <img class="featured-image" itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/consultant-blog/500x500/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}"/>
                                     @endif
                                 </div>
                             </a>
@@ -115,3 +115,10 @@
     </section>
     @include('frontend/footer')
 @stop
+@push('scripts')
+<script>
+    $('img:not(.featured-image)').wrap(function(index) {
+        return '<a href="'+$(this).attr('src')+'" data-lightbox="image-'+index+'" rel="lightbox[gallery]"></a>';
+    });
+</script>
+@endpush

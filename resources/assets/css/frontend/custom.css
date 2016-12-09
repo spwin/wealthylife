@@ -1207,7 +1207,7 @@ span.text-red{
         font-size: 24px;
     }
 }
-.inner-article .post-snippet img{
+.inner-article .post-snippet img.featured-image{
     max-height: 500px;
     width: auto;
     max-width: 50%;
@@ -1567,4 +1567,12 @@ body.soon-page{
     line-height: 1.6;
     text-align: justify;
     font-size: 16px;
+}
+
+a.facebook-color{
+    color: #4267B2;
+    font-weight: 700;
+}
+a.facebook-color:hover{
+    color: #274db2;
 }

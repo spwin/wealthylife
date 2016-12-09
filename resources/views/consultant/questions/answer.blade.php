@@ -150,10 +150,14 @@
     <!-- /.row -->
 @stop
 @push('scripts')
+<script src="{{ URL::to('/') }}/vendor/ckeditor/ckeditor.js"></script>
 <script>
     $(function () {
-        CKEDITOR.replace('answer', {
-            height : '400px'
+        CKEDITOR.replace( 'answer', {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
         });
         saveAnswerTimer.init('.save-answer-form', '#answer-timer', '{{ action('ConsultantController@saveTimer', ['id' => $question->id]) }}', {{ $question->timer }}, '{{ csrf_token() }}');
     });
