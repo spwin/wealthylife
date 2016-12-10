@@ -117,7 +117,7 @@
 @stop
 @push('scripts')
 <script>
-    $('img:not(.featured-image)').wrap(function(index) {
+    $('.inner-article img:not(.featured-image)').wrap(function(index) {
         return '<a href="'+$(this).attr('src')+'" data-lightbox="image-'+index+'" rel="lightbox[gallery]"></a>';
     });
 </script>
