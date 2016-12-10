@@ -280,13 +280,11 @@ var birthDate = function(){
 function showPreloader(element){
     $('<div class="avatar-overlay"></div>').insertBefore(element);
     $(element).css('display', 'inline-block');
-    console.log('teraz jest');
 }
 
 function hidePreloader(element){
     $('.avatar-overlay').remove();
     $(element).css('display', 'none');
-    console.log('teraz niema');
 }
 
 function insertAvatar(input, defaultUrl){
