@@ -19,7 +19,7 @@
         'role' => 'form',
         'url' => action('UserController@updateQuestion', ['id' => $question->id, 'url' => Route::currentRouteAction()]),
         'files' => true,
-        'class' => 'question-form2',
+        'class' => 'question-form2 universal-question-form',
         'method' => 'POST'
     ]) !!}
     <div class="image-info-block mb8">
@@ -28,10 +28,11 @@
     </div>
 
     {!! Form::hidden('cleared-image-1', 0, ['class' => 'cleared-image-1']) !!}
-    <div class="image-upload ask left no-1 {{ $question->images->where('pivot.sort', 1)->first() ? 'remove-button-enabled' : '' }}">
-        <div class="drop-zone left {{ $question->images->where('pivot.sort', 1)->first() ? '' : 'empty' }}" onclick="uploadImage(this,1);">
+    @php($image1 = $question->images->filter(function($item) { return ($item->pivot->sort == 1);})->first())
+    <div class="image-upload ask left no-1 {{ $image1 ? 'remove-button-enabled' : '' }}">
+        <div class="drop-zone left {{ $image1 ? '' : 'empty' }}" onclick="uploadImage(this,1);">
             <div class="question-image text-left">
-                <img src="{{ $question->images->where('pivot.sort', 1)->first() ? url()->to('/').'/photo/228x228/'.$question->images->where('pivot.sort', 1)->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ $image1 ? url()->to('/').'/photo/228x228/'.$image1->filename : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
@@ -42,10 +43,11 @@
     </div>
 
     {!! Form::hidden('cleared-image-2', 0, ['class' => 'cleared-image-2']) !!}
-    <div class="image-upload ask no-2 {{ $question->images->where('pivot.sort', 2)->first() ? 'remove-button-enabled' : '' }}">
-        <div class="drop-zone left {{ $question->images->where('pivot.sort', 2)->first() ? '' : 'empty' }}" onclick="uploadImage(this,2);">
+    @php($image2 = $question->images->filter(function($item) { return ($item->pivot->sort == 2);})->first())
+    <div class="image-upload ask no-2 {{ $image2 ? 'remove-button-enabled' : '' }}">
+        <div class="drop-zone left {{ $image2 ? '' : 'empty' }}" onclick="uploadImage(this,2);">
             <div class="question-image text-left">
-                <img src="{{ $question->images->where('pivot.sort', 2)->first() ? url()->to('/').'/photo/228x228/'.$question->images->where('pivot.sort', 2)->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ $image2 ? url()->to('/').'/photo/228x228/'.$image2->filename : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
@@ -56,10 +58,11 @@
     </div>
 
     {!! Form::hidden('cleared-image-3', 0, ['class' => 'cleared-image-3']) !!}
-    <div class="image-upload ask right no-3 {{ $question->images->where('pivot.sort', 3)->first() ? 'remove-button-enabled' : '' }}">
-        <div class="drop-zone left {{ $question->images->where('pivot.sort', 3)->first() ? '' : 'empty' }}" onclick="uploadImage(this,3);">
+    @php($image3 = $question->images->filter(function($item) { return ($item->pivot->sort == 3);})->first())
+    <div class="image-upload ask right no-3 {{ $image3 ? 'remove-button-enabled' : '' }}">
+        <div class="drop-zone left {{ $image3 ? '' : 'empty' }}" onclick="uploadImage(this,3);">
             <div class="question-image text-left">
-                <img src="{{ $question->images->where('pivot.sort', 3)->first() ? url()->to('/').'/photo/228x228/'.$question->images->where('pivot.sort', 3)->first()->filename : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
+                <img src="{{ $image3 ? url()->to('/').'/photo/228x228/'.$image3->filename : url()->to('/').'/images/avatars/no_image.png' }}" class="image-preview">
             </div>
         </div>
         <div class="image-actions right">
@@ -70,10 +73,10 @@
     </div>
     <div class="clear"></div>
 
-    <div class="upload-button">
-        {!! Form::file('image1', ['onChange' => 'readURL('.($question->images->where('pivot.sort', 1)->first() ? 'true' : 'false').', this, "'.( $question->images->where('pivot.sort', 1)->first() ? url()->to('/').'/photo/228x228/'.$question->images->where('pivot.sort', 1)->first()->filename : url()->to('/').'/images/avatars/no_image.png').'", 1)', 'class' => 'image-input-1']) !!}
-        {!! Form::file('image2', ['onChange' => 'readURL('.($question->images->where('pivot.sort', 2)->first() ? 'true' : 'false').', this, "'.( $question->images->where('pivot.sort', 2)->first() ? url()->to('/').'/photo/228x228/'.$question->images->where('pivot.sort', 2)->first()->filename : url()->to('/').'/images/avatars/no_image.png').'", 2)', 'class' => 'image-input-2']) !!}
-        {!! Form::file('image3', ['onChange' => 'readURL('.($question->images->where('pivot.sort', 3)->first() ? 'true' : 'false').', this, "'.( $question->images->where('pivot.sort', 3)->first() ? url()->to('/').'/photo/228x228/'.$question->images->where('pivot.sort', 3)->first()->filename : url()->to('/').'/images/avatars/no_image.png').'", 3)', 'class' => 'image-input-3']) !!}
+    <div class="upload-button ask-quest">
+        {!! Form::file('image1', ['onChange' => 'readURL('.($image1 ? 'true' : 'false').', this, "'.( $image1 ? url()->to('/').'/photo/228x228/'.$image1->filename : url()->to('/').'/images/avatars/no_image.png').'", 1)', 'class' => 'image-input-1']) !!}
+        {!! Form::file('image2', ['onChange' => 'readURL('.($image2 ? 'true' : 'false').', this, "'.( $image2 ? url()->to('/').'/photo/228x228/'.$image2->filename : url()->to('/').'/images/avatars/no_image.png').'", 2)', 'class' => 'image-input-2']) !!}
+        {!! Form::file('image3', ['onChange' => 'readURL('.($image3 ? 'true' : 'false').', this, "'.( $image3 ? url()->to('/').'/photo/228x228/'.$image3->filename : url()->to('/').'/images/avatars/no_image.png').'", 3)', 'class' => 'image-input-3']) !!}
     </div>
     <div class="textarea-holder">
         {!! Form::textarea('question', $question->question ? $question->question : null, ['class' => $errors->question_database->first('question', 'field-error ').'mt-1px', 'placeholder' => 'What would you like to ask?', 'onKeyPress' => 'countChar(this,event)', 'onKeyUp' => 'countChar(this,event)']) !!}
@@ -85,8 +88,8 @@
             @endif
         </div>
     </div>
-    <div>
-        <input type="submit" class="question-btn" value="Save">
-    </div>
+
+    <input type="submit" class="question-btn askq" value="Confirm">
+
     {!! Form::close() !!}
 </div>

@@ -600,7 +600,7 @@ class UserController extends Controller
     }
 
     function removeCurrentImage($question, $number){
-        if($current_image = $question->images->where('pivot.sort', $number)->first()){
+        if($current_image = $question->images->filter(function($item) use ($number) { return ($item->pivot->sort == $number);})->first()){
             $old_file = base_path('public'.$current_image->path).$current_image->filename;
             if(File::exists($old_file)){
                 File::delete($old_file);

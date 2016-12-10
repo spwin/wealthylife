@@ -140,7 +140,6 @@ function readImage(img, container, input){
         img.attr('src', e.target.result);
         img.show();
     };
-    
     reader.readAsDataURL(input.files[0]);
 }
 
@@ -373,11 +372,285 @@ $(function() {
         skip_invisible : true,
         threshold : 200
     });
+
+    $('.universal-question-form').on('submit', function(){
+        var button = $(this).find('input[type=submit]');
+        button.prop('disabled', true);
+        button.fadeTo( "slow", 0.4 );
+        setTimeout(function(){
+            button.val('Uploading data...');
+        }, 300);
+    });
 });
 
+function ImageItem(n, u, is, t, eu) {
+    this.nr = n;
+    this.order = n;
+    this.url = u;
+    this.emptyUrl = eu;
+    this.isset = is;
+    this.input = $('<input/>').attr('type', 'file').attr('name', 'image' + this.nr).addClass('image-input-' + this.nr);
+    this.inputHidden = $('<input/>').attr('type', 'hidden').attr('name', 'cleared-image-' + this.nr).addClass('cleared-image-' + this.nr);
+    this.template = t;
+    this.template.addClass('wrapper-' + this.nr);
+    this.template.find('.drop-zone').attr('data-nr', this.nr);
+    this.image = $(this.template).find('.image-preview');
+    if (this.isset) {
+        this.template.find('.drop-zone').removeClass('empty');
+        this.image.attr('src', this.url);
+        this.image.show();
+    }
+}
 
+function initializeDatabaseQuestionPopup(images) {
+    var imagesContainer = $('.mob-images-container');
+    var inputsContainer = $('.upload-button');
+    var uploadButtonContainer = $('.upload-button-container');
+    var uploadButton = $('<a>').attr('href', '#').text('add photo').addClass('btn image-button upload upload-button');
+    uploadButtonContainer.append(uploadButton);
 
+    function bindRemove(image) {
+        image.template.find('.remove').on('click', function (e) {
+            e.preventDefault();
+            removeImage(image);
+        });
 
+        image.template.find('.drop-zone').on('click', function(e){
+            e.preventDefault();
+            var modal = $(this).closest('form');
+            modal.find('.image-input-' + $(this).attr('data-nr')).click();
+        });
+    }
 
+    function removeImage(image){
+        image.inputHidden.val(1);
+        image.isset = false;
+        image.url = image.emptyUrl;
+        imagesContainer.find('.wrapper-' + image.nr).remove();
+        ImagesProcessor();
+    }
 
+    function blindImage(image, input){
+        image.template.find('.drop-zone').addClass('empty');
+        image.image.hide();
+        image.isset = false;
+        image.image.attr('src', image.emptyUrl);
+        $(input).replaceWith(control = control.clone(true));
+        imagesContainer.find('.wrapper-' + image.nr).remove();
+    }
 
+    function bind(image) {
+        image.input.on('change', function () {
+            var input = image.input[0];
+            if (input.files && input.files[0]) {
+                var fname = input.files[0].name;
+                var FileExtension = fname.substr((~-fname.lastIndexOf(".") >>> 0) + 2);
+                if (FileExtension.toLowerCase() == "jpeg" || FileExtension.toLowerCase() == "png" ||
+                    FileExtension.toLowerCase() == "jpg" || FileExtension.toLowerCase() == "gif") {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        image.template.find('.drop-zone').removeClass('empty');
+                        image.image.attr('src', e.target.result);
+                        image.image.show();
+                        if (!image.isset) {
+                            imagesContainer.append(image.template);
+                            image.isset = true;
+                            image.inputHidden.val(0);
+                            bindRemove(image);
+                        }
+                        ImagesProcessor();
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    blindImage(image, input);
+                }
+            } else {
+                blindImage(image, input);
+            }
+        });
+    }
+
+    images.forEach(function (image) {
+        bind(image);
+        bindRemove(image);
+        inputsContainer.append(image.input);
+        inputsContainer.append(image.inputHidden);
+        if (image.isset) {
+            imagesContainer.append(image.template);
+        }
+    });
+
+    function ImagesProcessor() {
+        var count = 0;
+        images.forEach(function (image) {
+            if (!image.isset) {
+                count++;
+            }
+        });
+        if (count > 0) {
+            uploadButtonContainer.show();
+        } else {
+            uploadButtonContainer.hide();
+        }
+    }
+
+    ImagesProcessor();
+
+    uploadButton.on('click', function (e) {
+        e.preventDefault();
+        var modal = $(this).closest('form');
+        var emptyImage = null;
+        images.forEach(function (image) {
+            if (!image.isset && emptyImage == null) {
+                emptyImage = image;
+            }
+        });
+        if (emptyImage) {
+            modal.find('.image-input-' + emptyImage.nr).click();
+        } else {
+            uploadButtonContainer.hide();
+        }
+    });
+}
+
+function initializeQuestionPopup(images, token, removeURL, clearURL) {
+    var imagesContainer = $('.mob-images-container');
+    var inputsContainer = $('.upload-button');
+    var uploadButtonContainer = $('.upload-button-container');
+    var clearFormButton = $('.clear-form');
+    var uploadButton = $('<a>').attr('href', '#').text('add photo').addClass('btn image-button upload upload-button');
+    uploadButtonContainer.append(uploadButton);
+
+    function bindRemove(image) {
+        image.template.find('.remove').on('click', function (e) {
+            e.preventDefault();
+            removeImage(image);
+        });
+
+        image.template.find('.drop-zone').on('click', function(e){
+            e.preventDefault();
+            var modal = $(this).closest('form');
+            modal.find('.image-input-' + $(this).attr('data-nr')).click();
+        });
+    }
+
+    function removeImage(image){
+        $.ajax({
+            method: "POST",
+            url: removeURL,
+            data: {_token: token, num: image.nr},
+            dataType: 'JSON',
+            success: function () {
+            image.isset = false;
+            image.url = image.emptyUrl;
+            imagesContainer.find('.wrapper-' + image.nr).remove();
+            ImagesProcessor();
+        }
+    });
+    }
+
+    function blindImage(image, input){
+        image.template.find('.drop-zone').addClass('empty');
+        image.image.hide();
+        image.isset = false;
+        image.image.attr('src', image.emptyUrl);
+        $(input).replaceWith(control = control.clone(true));
+        imagesContainer.find('.wrapper-' + image.nr).remove();
+    }
+
+    function bind(image) {
+        image.input.on('change', function () {
+            var input = image.input[0];
+            if (input.files && input.files[0]) {
+                var fname = input.files[0].name;
+                var FileExtension = fname.substr((~-fname.lastIndexOf(".") >>> 0) + 2);
+                if (FileExtension.toLowerCase() == "jpeg" || FileExtension.toLowerCase() == "png" ||
+                    FileExtension.toLowerCase() == "jpg" || FileExtension.toLowerCase() == "gif") {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        image.template.find('.drop-zone').removeClass('empty');
+                        image.image.attr('src', e.target.result);
+                        image.image.show();
+                        if (!image.isset) {
+                            imagesContainer.append(image.template);
+                            image.isset = true;
+                            bindRemove(image);
+                        }
+                        ImagesProcessor();
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    blindImage(image, input);
+                }
+            } else {
+                blindImage(image, input);
+            }
+        });
+    }
+
+    images.forEach(function (image) {
+        bind(image);
+        bindRemove(image);
+        inputsContainer.append(image.input);
+        if (image.isset) {
+            imagesContainer.append(image.template);
+        }
+    });
+
+    function ImagesProcessor() {
+        var count = 0;
+        images.forEach(function (image) {
+            if (!image.isset) {
+                count++;
+            }
+        });
+        if (count > 0) {
+            uploadButtonContainer.show();
+        } else {
+            uploadButtonContainer.hide();
+        }
+    }
+
+    ImagesProcessor();
+
+    uploadButton.on('click', function (e) {
+        e.preventDefault();
+        var modal = $(this).closest('form');
+        var emptyImage = null;
+        images.forEach(function (image) {
+            if (!image.isset && emptyImage == null) {
+                emptyImage = image;
+            }
+        });
+        if (emptyImage) {
+            modal.find('.image-input-' + emptyImage.nr).click();
+        } else {
+            uploadButtonContainer.hide();
+        }
+    });
+
+    clearFormButton.on('click', function(e){
+        e.preventDefault();
+        var form = $('.question-form1');
+        var chars = form.find('.charNum');
+        $.ajax({
+            method: "POST",
+            url: clearURL,
+            data: {_token: token},
+            dataType: 'JSON',
+            success: function () {
+            form.trigger( "reset" );
+            form.find('textarea').html('');
+            form.find('input').not(':input[type=submit], :input[type=hidden]').val('');
+            chars.css('color', '#666666');
+            chars.html('250');
+            images.forEach(function (image) {
+                image.isset = false;
+                image.url = image.emptyUrl;
+                imagesContainer.find('.wrapper-' + image.nr).remove();
+            });
+            ImagesProcessor();
+        }
+    });
+    });
+}

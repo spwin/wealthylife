@@ -12,7 +12,7 @@ class Questions extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'consultant_id', 'question', 'status', 'ip', 'image_id', 'asked_at', 'answered_at', 'rejection', 'timer'
+        'user_id', 'consultant_id', 'question', 'status', 'ip', 'asked_at', 'answered_at', 'rejection', 'timer'
     ];
 
     public function user(){
@@ -24,7 +24,7 @@ class Questions extends Model
     }
 
     public function images(){
-        return $this->belongsToMany('App\Images', 'image_question','question_id', 'image_id')
+        return $this->belongsToMany('App\Images', 'image_question', 'question_id', 'image_id')
             ->withPivot('sort')
             ->withTimestamps();
     }

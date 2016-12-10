@@ -161,14 +161,7 @@ class FrontendController extends Controller
                 ]);
             }
         } else {
-            //$request->session()->flash('modal', 'question');
-            //if($this->checkUserDetails()){
             return Redirect::action('FrontendController@summary');
-            /*} else {
-                Session::flash('flash_notification.general.message', 'Please fill all the data so consultant could provide you with better answer');
-                Session::flash('flash_notification.general.level', 'warning');
-                return Redirect::action('FrontendController@profile');
-            }*/
         }
     }
 

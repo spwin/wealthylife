@@ -70,7 +70,11 @@
                             <div class="modal-container left inline-block">
                                 <a class="btn btn-modal btn-filled blue-button" href="#">Edit</a>
                                 <div class="hidden">
-                                    @include('frontend/elements/question-database', ['question' => $question])
+                                    @if(\App\Helpers\Helpers::isMobile())
+                                        @include('mobile/frontend/elements/question-database', ['question' => $question])
+                                    @else
+                                        @include('frontend/elements/question-database', ['question' => $question])
+                                    @endif
                                 </div>
                             </div>
                             <div class="clear"></div>
