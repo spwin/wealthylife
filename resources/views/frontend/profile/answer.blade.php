@@ -105,7 +105,7 @@
                     @if($question->status == 2 && $answer)
                         <div class="col-md-8 no-padding answer-rating display-after-load">
                             <hr/>
-                            <h4>Did you like the answer? Like us on <a href="{{ env('FACEBOOK_URL') }}" rel="nofollow" class="facebook-color">Facebook</a></h4>
+                            <h4>Was the answer helpful? Like us on <a href="{{ env('FACEBOOK_URL') }}" rel="nofollow" class="facebook-color">Facebook</a></h4>
                             <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Fstylesensei.co.uk%2F&width=300&layout=standard&action=like&size=large&show_faces=true&share=true&height=80&appId=1646316419027352" width="300" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
                             @if(!$answer->rated)
                                 @if (count($errors->answer) > 0)

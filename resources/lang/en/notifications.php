@@ -11,14 +11,14 @@ return [
     'registration.confirmation.email' => 'emails.confirmation',
 
     'question.paid.topic' => '',
-    'question.paid.subject' => '',
+    'question.paid.subject' => 'Your Question Has Been Received',
     'question.paid.content' => '',
-    'question.paid.email' => '',
+    'question.paid.email' => 'emails.question-paid',
 
     'question.answered.topic' => '',
-    'question.answered.subject' => '',
+    'question.answered.subject' => 'Your Question is Answered!',
     'question.answered.content' => '',
-    'question.answered.email' => '',
+    'question.answered.email' => 'emails.question-answered',
 
     'credits.paid.topic' => '',
     'credits.paid.subject' => '',
@@ -56,7 +56,7 @@ return [
     'referral.confirmed.email' => '',
 
     'question.rejected.topic' => 'Question rejected',
-    'question.rejected.subject' => '',
+    'question.rejected.subject' => 'Your question is rejected!',
     'question.rejected.content' => 'Your question was rejected.<br/><strong>Rejection reason:</strong> :reason<br/><strong>:credits credits</strong> have been returned to your balance.<br/><br/>You can see your question <a href=":link">here</a>.',
-    'question.rejected.email' => '',
+    'question.rejected.email' => 'emails.question-rejected',
 ];

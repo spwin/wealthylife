@@ -379,6 +379,7 @@ class ConsultantController extends Controller
         $question->answered_at = date('Y-m-d H:i:s', time());
         $question->status = 2;
         $question->save();
+        Helpers::sendEmail('notifications.question.answered.', $question->user->email, $question->user, ['user' => $question->user->userData, 'question' => $question]);
         return Redirect::action('ConsultantController@interactiveAnswer');
     }
 
@@ -422,10 +423,11 @@ class ConsultantController extends Controller
             $price = Settings::select('value')->where(['name' => 'question_price'])->first();
             $user->points = $user->points + $price->value;
             $user->save();
-            Helpers::sendNotification('notifications.question.rejected.', $user, ['reason' => $reason, 'credits' => $price->value, 'link' => action('FrontendController@viewAnswer', ['id' => $question->id])]);
+            Helpers::sendEmail('notifications.question.rejected.', $question->user->email, $question->user, ['user' => $question->user->userData, 'question' => $question]);
+            //Helpers::sendNotification('notifications.question.rejected.', $user, ['reason' => $reason, 'credits' => $price->value, 'link' => action('FrontendController@viewAnswer', ['id' => $question->id])]);
         }
         Flash::warning('The question was rejected and credits were returned to user');
-        return Redirect::action('ConsultantController@listPending');
+        return Redirect::action('ConsultantController@interactiveAnswer');
     }
 
     public function articles(){

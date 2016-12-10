@@ -736,7 +736,8 @@ class UserController extends Controller
                     $question->status = 1;
                     $question->asked_at = date('Y-m-d H:i:s', time());
                     $question->save();
-                    Session::flash('flash_notification.question.message', 'You payment was completed, please check your email for more info');
+                    Helpers::sendEmail('notifications.question.paid.', $user->email, $user, ['user' => $user->userData]);
+                    Session::flash('flash_notification.question.message', 'You payment was completed, please check your email for more info.');
                     Session::flash('flash_notification.question.level', 'success');
                     return Redirect::action('FrontendController@questions');
                 } else {
@@ -761,6 +762,7 @@ class UserController extends Controller
             $question->status = 1;
             $question->asked_at = date('Y-m-d H:i:s', time());
             $question->save();
+            Helpers::sendEmail('notifications.question.paid.', $user->email, $user, ['user' => $user->userData]);
             Session::flash('flash_notification.question.message', 'Your question has been submitted, please check your email for more info');
             Session::flash('flash_notification.question.level', 'success');
             return Redirect::action('FrontendController@questions');
@@ -860,7 +862,7 @@ class UserController extends Controller
                     $order->save();
                     $user->points = $user->points + $scheme->credits;
                     $user->save();
-                    Session::flash('flash_notification.credits.message', 'The payment was completed. Your current balance is '.$user->points.' credits. Please check your email for details.');
+                    Session::flash('flash_notification.credits.message', 'The payment was completed. Your current balance is '.$user->points.' credits. You should receive transaction information shortly.');
                     Session::flash('flash_notification.credits.level', 'success');
                     return Redirect::action('FrontendController@credits');
                 } else {
@@ -986,7 +988,7 @@ class UserController extends Controller
                     Helpers::sendNotification('notifications.voucher.coupon.', $user, ['email' => $voucher->receiver_email]);
                     Helpers::sendEmail('notifications.voucher.coupon.', $voucher->receiver_email, $user, ['user' => $user->userData, 'voucher' => $voucher]);
                     Helpers::sendEmail('notifications.voucher.copy.', $user->email, $user, ['user' => $user->userData, 'voucher' => $voucher]);
-                    Session::flash('flash_notification.voucher.message', 'You payment was completed, please check your email for more info');
+                    Session::flash('flash_notification.voucher.message', 'You payment was completed. A Voucher Code has been sent to '.$voucher->receiver_email.'. We also have sent you a copy.');
                     Session::flash('flash_notification.voucher.level', 'success');
                     return Redirect::action('FrontendController@vouchers');
                 } else {
