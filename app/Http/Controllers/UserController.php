@@ -195,7 +195,11 @@ class UserController extends Controller
         $auth = new AuthController();
         $auth->login($request, 'user');
         if($user = Auth::guard('user')->user()) {
-            return Redirect::action('UserController@welcome');
+            if($request->session()->has('custom.intend')){
+                return redirect($request->session()->pull('custom.intend'));
+            } else {
+                return Redirect::action('UserController@welcome');
+            }
         } else {
             return Redirect::action($this->getRoute());
         }
@@ -332,7 +336,7 @@ class UserController extends Controller
         return $v;
     }
 
-    public function socialCallback($provider){
+    public function socialCallback(Request $request, $provider){
         try {
             $user = Socialite::with($provider)->user();
         } catch(\Exception $e) {
@@ -365,7 +369,11 @@ class UserController extends Controller
                 $this->downloadAvatar($user_db, $user, $provider);
             }
             Auth::guard('user')->login($user_db);
-            return Redirect::action('UserController@welcome')->withInput();
+            if($request->session()->has('custom.intend')){
+                return redirect($request->session()->pull('custom.intend'));
+            } else {
+                return Redirect::action('UserController@welcome');
+            }
         }else{
             return 'something went wrong';
         }

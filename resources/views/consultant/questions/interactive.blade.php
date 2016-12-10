@@ -65,7 +65,7 @@
                     <div class="box-body">
                         <table class="table table-bordered table-hover">
                             <tr>
-                                <td>
+                                <td class="w300px">
                                     @if(count($current->images) > 0)
                                         @foreach($current->images as $image)
                                             <a href="{{ url()->to('/').$image->path.$image->filename }}" target="_blank">
