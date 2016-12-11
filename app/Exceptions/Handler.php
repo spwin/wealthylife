@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Session\TokenMismatchException;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -48,6 +50,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof TokenMismatchException){
+            Session::flash('flash_notification.suspended.message', 'Your question form session expired, please fill the form again.');
+            Session::flash('flash_notification.suspended.level', 'danger');
+            return redirect()->action('FrontendController@index');
+        }
         return parent::render($request, $e);
     }
 }
