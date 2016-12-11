@@ -2,7 +2,7 @@
 @section('nav-style', 'nav-authorize-question')
 @section('content')
 
-    <section class="page-title page-title-4 image-bg parallax">
+    <section class="page-title payment-header page-title-4 image-bg parallax">
         <div class="background-image-holder-about fadeIn">
             <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
         </div>
@@ -45,8 +45,10 @@
                             <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}"><i class="ti-arrow-left"></i> Back</a></h4>
                         </div>
                         <h4 class="uppercase mb16">Question payment</h4>
-                        <div class="col-md-4 small-question-preview">
-                            <p class="question-body">
+                        <div class="col-md-3 small-question-preview">
+                                <p class="text-justify">
+                                {{ $question->question }}
+                                </p>
                                 @if(count($question->images) > 0)
                                     @foreach($question->images as $image)
                                         <a href="{{ url()->to('/').$image->path.$image->filename }}" data-lightbox="image-{{ $image->id }}" data-title="Question #{{ $question->id }}">
@@ -56,10 +58,9 @@
                                 @else
                                     <img src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
                                 @endif
-                                {{ $question->question }}
-                            </p>
+                                <div class="clearboth"></div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <table class="last-payment-preview">
                                 <tr class="question-price">
                                     <td>Question price:</td>

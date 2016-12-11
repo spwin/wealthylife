@@ -347,7 +347,7 @@ form .textarea-holder{
 form .textarea-holder .charNum{
     position: absolute;
     right: 6px;
-    bottom: 32px;
+    bottom: 12px;
 }
 
 
@@ -1022,6 +1022,9 @@ table.notifications-table>tbody>tr>td a{
 .questions-container p{
     padding: 8px;
 }
+.questions-container .small-question-preview p {
+    padding: 0;
+}
 .error-404 .btn:hover{
     background-color: #02BF87;
     color: #FFFFFF;
@@ -1035,6 +1038,9 @@ table.notifications-table>tbody>tr>td a{
 .btn-filled:visited:hover, .btn-filled:hover {
     color: #FFFFFF;
     background-color: #02BF87;
+}
+.btn-filled.blue-button:visited:hover, .btn-filled.blue-button:hover {
+    background-color: #FFFFFF;
 }
 .btn-filled.blue-button:hover {
     color: #1894EB;
@@ -1207,7 +1213,7 @@ span.text-red{
         font-size: 24px;
     }
 }
-.inner-article .post-snippet img{
+.inner-article .post-snippet img.featured-image{
     max-height: 500px;
     width: auto;
     max-width: 50%;
@@ -1408,13 +1414,18 @@ p.discount span.round{
     max-width: 200px;
 }
 .small-question-preview .question-body{
-    text-align: justify;
+    text-align: center;
 }
 .small-question-preview .question-body img{
     margin-bottom: 20px;
 }
 .small-question-preview{
     border-right: 1px solid #CCCCCC;
+    text-align: center;
+}
+.small-question-preview img {
+    width: 75%;
+    margin-bottom: 15px;
 }
 
 .last-payment-preview{
@@ -1422,6 +1433,22 @@ p.discount span.round{
     margin: 10px;
     max-width: 500px;
 }
+@media all and (max-width: 990px) {
+    .small-question-preview{
+        border: none;
+        text-align: center;
+    }
+    .small-question-preview img {
+        width: 33%;
+        padding: 8px;
+        float: left;
+    }
+    .last-payment-preview{
+        max-width: 95%;
+    }
+}
+
+
 .last-payment-preview tr.dimmed td{
     color: darkgray;
 }
@@ -1567,4 +1594,12 @@ body.soon-page{
     line-height: 1.6;
     text-align: justify;
     font-size: 16px;
+}
+
+a.facebook-color{
+    color: #4267B2;
+    font-weight: 700;
+}
+a.facebook-color:hover{
+    color: #274db2;
 }

@@ -2,7 +2,7 @@
 @section('nav-style', 'nav-authorize-question')
 @section('content')
 
-    <section class="page-title page-title-4 image-bg parallax">
+    <section class="page-title payment-header page-title-4 image-bg parallax">
         <div class="background-image-holder-about fadeIn">
             <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
         </div>
@@ -70,7 +70,11 @@
                             <div class="modal-container left inline-block">
                                 <a class="btn btn-modal btn-filled blue-button" href="#">Edit</a>
                                 <div class="hidden">
-                                    @include('frontend/elements/question-database', ['question' => $question])
+                                    @if(\App\Helpers\Helpers::isMobile())
+                                        @include('mobile/frontend/elements/question-database', ['question' => $question])
+                                    @else
+                                        @include('frontend/elements/question-database', ['question' => $question])
+                                    @endif
                                 </div>
                             </div>
                             <div class="clear"></div>

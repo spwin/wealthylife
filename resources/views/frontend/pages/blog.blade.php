@@ -23,7 +23,24 @@
 
         <div class="arrow-style mob-left-to-right">
 
+            <div class="curve-wrap left-top-wrap">
+                <div class="rotated left-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-top-wrap">
+                <div class="rotated right-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+
         <div class="container">
+
+            <div class="text-center blog-button-txt mb24">
+                <p class="mb16">Tell us your <span class="color-blue-prof bold700">style story!</span></p>
+                <a class="btn text-left btn-modal btn-filled blue-button"><i class="ti-plus bold700"></i><span class="display-inlineblock">Add entry</span></a>
+            </div>
+
             <div class="row masonry-loader">
                 <div class="col-sm-12 text-center">
                     <div class="spinner"></div>
@@ -37,8 +54,13 @@
                             <div class="text-center blog-block-image">
                                 <a href="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
                                     <div itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
-                                        <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}" />
-                                        <meta itemprop="url" content="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}">
+                                        @if($article->user->type == 'user')
+                                            <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}" />
+                                            <meta itemprop="url" content="{{ url()->to('/').'/blog-masonry/360/'.$article->image->filename }}">
+                                        @elseif($article->user->type == 'consultant')
+                                            <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog-masonry-consultant/360/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}" />
+                                            <meta itemprop="url" content="{{ url()->to('/').'/blog-masonry-consultant/360/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}">
+                                        @endif
                                     </div>
                                 </a>
                             </div>

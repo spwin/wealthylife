@@ -47,7 +47,11 @@
                         <div class="modal-container inline-block">
                             <a class="btn btn-modal btn-filled width240" href="#">Edit</a>
                             <div class="hidden">
-                                @include('frontend/elements/question')
+                                @if(\App\Helpers\Helpers::isMobile())
+                                    @include('mobile/frontend/elements/question')
+                                @else
+                                    @include('frontend/elements/question')
+                                @endif
                             </div>
                         </div>
                         <div class="clear"></div>

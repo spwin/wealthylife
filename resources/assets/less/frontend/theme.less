@@ -4569,13 +4569,8 @@ BLOG
 .bg-white {
 	background-color: white;
 }
-.section-blog {
-	padding-top: 0;
-
-		.arrow-style {
-			padding-top: 55px;
-		}
-
+.outer-blog .container {
+	z-index: 2;
 }
 .post-snippet .inner h5 {
 	font-weight: 700;
@@ -4596,9 +4591,6 @@ BLOG
 }
 span.color-green-prof {color:#02bf88;}
 
-.section-blog .arrow-style {
-	padding-top: 55px;
-}
 .mac-line {
 	border-bottom: 1px solid white;
 }
@@ -5217,15 +5209,34 @@ html {
 .slideout-open .slideout-menu {
 	display: block;
 }
+.blog-button-txt {
+	margin-top: -50px;
+	p {
+		font-size: 22px;
+	}
+		.btn {
+			width: 330px;
+			span {
+				margin-left: 82px;
+			}
+		}
+}
 
 
+@media all and (max-width: 990px) {
+	.blog-button-txt {
+		margin-top: 0px;
+		.btn {
+			width: 270px;
+			height: 50px;
+			line-height: 50px;
+			span {
+				margin-left: 58px;
+			}
+		}
+	}
 
-
-
-
-
-
-
+}
 
 
 
@@ -5721,6 +5732,47 @@ div.alert:last-child {
 		margin-right: auto;
 	}
 }
+
+.entries-sub {
+	.color-blue-prof;
+	font-size: 24px;
+}
+.profile-page .about-block .articles-list h4.uppercase {
+	width: 45%;
+}
+
+@media all and (max-width: 990px) {
+	.articles-list .ask-position-mob {
+		bottom: -60px;
+	}
+	.profile-page .about-block .articles-list h4.uppercase {
+		width: 70%;
+	}
+	.articles-list {
+		.tabs li {
+			width: 32.9%;
+		}
+	}
+
+	.checkout-question .col-md-4.photo-container {
+		width: 32%;
+		float: left;
+	}
+
+}
+@media all and (max-width: 500px) {
+	.profile-page .about-block.points-question h4.uppercase {
+		width: 100%;
+	}
+	.container.points-question {
+		padding: 0;
+	}
+	.profile-page section.payment-header.page-title-4 {
+		padding-top: 0;
+	}
+}
+
+
 
 
 
