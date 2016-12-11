@@ -83,7 +83,9 @@ class AuthController extends Controller
 
     public function redirectPath(){
         $url = Auth::guard($this->getGuard())->user()->type;
-        if($url == 'user') $url = '';
+        if($url == 'user'){
+            $url = $this->redirectTo;
+        };
         return '/'.$url;
     }
 

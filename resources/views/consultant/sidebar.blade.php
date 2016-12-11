@@ -48,10 +48,17 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
+                    <li class="{{ (Request::is('consultant/questions/interactive*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@interactiveAnswer') }}"><i class="fa fa-circle-o"></i> Interactive</a></li>
                     <li class="{{ (Request::is('consultant/questions/pending*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listPending') }}"><i class="fa fa-circle-o"></i> Pending</a></li>
                     <li class="{{ (Request::is('consultant/questions/answered*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listAnswered') }}"><i class="fa fa-circle-o"></i> Answered</a></li>
                     <li class="{{ (Request::is('consultant/questions/rejected*') ? 'active' : '') }}"><a href="{{ action('ConsultantController@listRejected') }}"><i class="fa fa-circle-o"></i> Rejected</a></li>
                 </ul>
+            </li>
+            <li class="{{ (Request::is('consultant/articles*') ? 'active' : '') }}">
+                <a href="{{ action('ConsultantController@articles') }}">
+                    <i class="fa fa-newspaper-o"></i>
+                    <span>Articles</span>
+                </a>
             </li>
             <li class="{{ (Request::is('consultant/timetable*') ? 'active' : '') }}">
                 <a href="{{ action('ConsultantController@timetable') }}">

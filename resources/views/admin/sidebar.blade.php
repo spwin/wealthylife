@@ -35,6 +35,12 @@
                     <span>Dashboard</span>
                 </a>
             </li>
+            <li class="{{ (Request::is('admin/pending*') ? 'active' : '') }}">
+                <a href="{{ action('AdminController@pending') }}">
+                    <i class="fa fa-clock-o"></i>
+                    <span>Pending</span>
+                </a>
+            </li>
             <li class="{{ (Request::is('admin/answers*') ? 'active' : '') }}">
                 <a href="{{ action('AdminController@answers') }}">
                     <i class="fa fa-suitcase"></i>

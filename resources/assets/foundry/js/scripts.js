@@ -38,15 +38,15 @@ $(document).ready(function() {
     $('.background-image-holder').each(function() {
         var imgSrc = $(this).children('img').attr('src');
 
-        var loading = $('<img src="images/loading-bg.gif" class="loading-bg" />');
-        $('section.fullscreen').append(loading);
+        /*var loading = $('<img src="images/loading-bg.gif" class="loading-bg" />');
+        $('section.fullscreen').append(loading);*/
 
         var image = $('<img>').attr('src', imgSrc);
         var container = $(this);
 
         image.bind('load', function(data){
             container.css('background-image',"url("+this.src+")");
-            loading.remove();
+            //loading.remove();
             container.addClass('fadeIn');
         });
     });

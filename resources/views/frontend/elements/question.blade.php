@@ -19,7 +19,7 @@
         'role' => 'form',
         'url' => action('UserController@questionCreate', ['modal' => 'question', 'url' => Route::currentRouteAction() ]),
         'files' => true,
-        'class' => 'question-form1',
+        'class' => 'question-form1 universal-question-form',
         'method' => 'POST'
     ]) !!}
     <div class="image-info-block mb8">
@@ -71,7 +71,11 @@
     <div class="textarea-holder ask-quest">
         {!! Form::textarea('question', session()->has('question.content') ? session()->get('question.content') : null, ['class' => $errors->question->first('question', 'field-error ').'mt-1px', 'placeholder' => 'What would you like to ask?', 'onKeyPress' => 'countChar(this,event)', 'onKeyUp' => 'countChar(this,event)']) !!}
         <div class="charNum">
-            {{ session()->has('question.content') ? 250 - strlen(session()->get('question.content')) : 250 }}
+            @if(old())
+                {{ old('question') ? 250 - strlen(old('question')) : 250 }}
+            @else
+                {{ session()->has('question.content') ? 250 - strlen(session()->get('question.content')) : 250 }}
+            @endif
         </div>
     </div>
     <a href="#" class="uppercase right clear-form" onclick="clearForm('question-form1', event, '{{ action('UserController@clearQuestion') }}', '{{ csrf_token() }}', '');">Clear form</a>
@@ -82,7 +86,7 @@
         <div class="clearboth"></div>
     </div>
 
-        <input type="submit" class="question-btn askq" value="Confirm">
+    <input type="submit" class="question-btn askq" value="Confirm">
 
     {!! Form::close() !!}
 </div>

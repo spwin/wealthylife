@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Answers;
+use App\Article;
+use App\Images;
 use App\Payroll;
 use App\Questions;
 use App\Settings;
@@ -16,6 +18,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Laracasts\Flash\Flash;
 
 class ConsultantController extends Controller
@@ -122,6 +125,7 @@ class ConsultantController extends Controller
         $daily_questions = $this->getDailyQuestions($consultant, 30);
         $timetable = $this->getTimetable($consultant);
         $rating = $consultant->answers()->where(['answers.rated' => 1])->where('answers.rating', '>', 0)->avg('rating');
+        $articles = Article::where(['user_id' => $consultant->id])->where('published_at', '>', $payroll->starts_at)->get();
         return view('consultant/dashboard/dashboard')->with([
             'payroll' => $payroll,
             'consultant' => $consultant,
@@ -135,7 +139,8 @@ class ConsultantController extends Controller
             'timetable' => $timetable,
             'latest_answered' => $latest_answered,
             'latest_rated' => $latest_rated,
-            'rating' => round($rating, 2)
+            'rating' => round($rating, 2),
+            'articles' => $articles
         ]);
     }
 
@@ -374,7 +379,8 @@ class ConsultantController extends Controller
         $question->answered_at = date('Y-m-d H:i:s', time());
         $question->status = 2;
         $question->save();
-        return Redirect::action('ConsultantController@listPending');
+        Helpers::sendEmail('notifications.question.answered.', $question->user->email, $question->user, ['user' => $question->user->userData, 'question' => $question]);
+        return Redirect::action('ConsultantController@interactiveAnswer');
     }
 
     public function ajaxPending(Request $request){
@@ -417,9 +423,188 @@ class ConsultantController extends Controller
             $price = Settings::select('value')->where(['name' => 'question_price'])->first();
             $user->points = $user->points + $price->value;
             $user->save();
-            Helpers::sendNotification('notifications.question.rejected.', $user, ['reason' => $reason, 'credits' => $price->value, 'link' => action('FrontendController@viewAnswer', ['id' => $question->id])]);
+            Helpers::sendEmail('notifications.question.rejected.', $question->user->email, $question->user, ['user' => $question->user->userData, 'question' => $question]);
+            //Helpers::sendNotification('notifications.question.rejected.', $user, ['reason' => $reason, 'credits' => $price->value, 'link' => action('FrontendController@viewAnswer', ['id' => $question->id])]);
         }
         Flash::warning('The question was rejected and credits were returned to user');
-        return Redirect::action('ConsultantController@listPending');
+        return Redirect::action('ConsultantController@interactiveAnswer');
+    }
+
+    public function articles(){
+        $user = Auth::guard('consultant')->user();
+        $articles = Article::where(['user_id' => $user->id])->get();
+        return view('consultant/articles/index')->with([
+            'articles' => $articles
+        ]);
+    }
+
+    public function createArticle(){
+        $article = new Article();
+        return view('consultant/articles/create')->with([
+            'article' => $article
+        ]);
+    }
+
+    public function editArticle($id){
+        $article = Article::findOrFail($id);
+        $image_url = url()->to('/').'/'.$article->image->path.$article->image->filename;
+        return view('consultant/articles/edit')->with([
+            'article' => $article,
+            'image_url' => $image_url
+        ]);
+    }
+
+    public function previewArticle($url){
+        $article = Article::with('image')->where(['url' => $url])->first();
+        return view('frontend/pages/preview-inner-blog')->with([
+            'article' => $article
+        ]);
+    }
+
+    public function updateArticle(Request $request, $id){
+        if($user = Auth::guard('consultant')->user() && $article = Article::find($id)) {
+            if($request->has('save')) {
+                $input = $request->all();
+
+                $v = Validator::make($request->all(), [
+                    'title' => 'required|max:255',
+                    'content' => 'required'
+                ]);
+                $v->after(function ($v) use ($request, &$input) {
+                    if ($request->has('image_url')) {
+                        $image_id = $this->createImage($request->get('image_url'));
+                        if ($image_id) {
+                            $input['image_id'] = $image_id;
+                        } else {
+                            $v->errors()->add('image_url', 'Image not found');
+                        }
+                    }
+                });
+                if ($v->fails()) {
+                    return Redirect::back()->withErrors($v->errors())->withInput();
+                }
+
+                $input['hide_name'] = $request->has('hide_name') ? 1 : 0;
+                $input['hide_email'] = $request->has('hide_email') ? 1 : 0;
+                $input['disable_comments'] = $request->has('disable_comments') ? 1 : 0;
+
+                $article->fill($input);
+                $article->save();
+
+                Flash::success('Article has been saved');
+            } elseif($request->has('publish')){
+                $article->status = 3;
+                $article->published_at = date('Y-m-d H:i:s', time());
+                $article->save();
+                Flash::success('Article has been successfully published');
+            } elseif($request->has('unpublish')){
+                $article->status = 1;
+                $article->save();
+                Flash::success('Article has been unpublished');
+            }
+            return Redirect::action('ConsultantController@editArticle', ['id' => $article->id]);
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    public function createImage($image){
+        $id = null;
+        $url_parts = explode('/', $image);
+        $url_parts = array_slice($url_parts, 3);
+
+        $filename = end($url_parts);
+        $full_path = implode('/',$url_parts);
+
+        array_pop($url_parts);
+        $path = '/'.implode('/',$url_parts).'/';
+
+        if(file_exists(public_path($full_path))){
+            $image = new Images();
+            $image->fill([
+                'filename' => $filename,
+                'path' => $path
+            ]);
+            $image->save();
+            $id = $image->id;
+        }
+
+        return $id;
+    }
+
+    public function saveArticle(Request $request){
+        if($user = Auth::guard('consultant')->user()) {
+            $input = $request->all();
+
+            $v = Validator::make($request->all(), [
+                'title' => 'required|max:255',
+                'image_url' => 'required',
+                'content' => 'required'
+            ]);
+            $v->after(function ($v) use ($request, &$input) {
+                $image_id = $this->createImage($request->get('image_url'));
+                if($image_id){
+                    $input['image_id'] = $image_id;
+                } else {
+                    $v->errors()->add('image', 'Image not found');
+                }
+
+            });
+            if ($v->fails()) {
+                return Redirect::back()->withErrors($v->errors())->withInput();
+            }
+
+            $input['user_id'] = $user->id;
+            $input['url'] = $this->generateUrl($input['title']);
+            $input['hide_name'] = $request->has('hide_name') ? 1 : 0;
+            $input['hide_email'] = $request->has('hide_email') ? 1 : 0;
+            $input['disable_comments'] = $request->has('disable_comments') ? 1 : 0;
+            $input['status'] = 1;
+            $input['reviewed'] = 1;
+
+            $article = new Article();
+            $article->fill($input);
+            $article->save();
+
+            Flash::success('Article has been saved');
+            return Redirect::action('ConsultantController@editArticle', ['id' => $article->id]);
+        } else {
+            return Redirect::action('FrontendController@index');
+        }
+    }
+
+    function generateUrl($title){
+        $slug = strtolower($title);
+        $slug = preg_replace('/\W+/','-',$slug);
+        $slug = preg_replace('/[^A-Za-z0-9-]+/', '-', $slug);
+        $slug = ltrim($slug, '-');
+        return $slug;
+    }
+
+    function interactiveAnswer(){
+        $consultant = Auth::guard('consultant')->user();
+        $questions = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->orderBy('asked_at', 'ASC')->limit(10)->get();
+        $current = null;
+        if(count($questions) > 0){
+            $current = $questions[0];
+        }
+        $pending = Questions::where(['status' => 1, 'consultant_id' => $consultant->id])->count();
+        $answers = Questions::where(['status' => 2, 'consultant_id' => $consultant->id])
+            ->where('answered_at', '>', date('Y-m-d', time()).' 00:00:00')
+            ->where('answered_at', '<', date('Y-m-d', time()).' 24:00:00')
+            ->get();
+        $total_time = 0;
+        foreach($answers as $answer){
+            $total_time += $answer->timer;
+        }
+        $average_time = ($count = count($answers)) > 0 ? floor(($total_time / $count)/60) : 0;
+        return view('consultant/questions/interactive')->with([
+            'consultant' => $consultant,
+            'questions' => $questions,
+            'answers' => $answers,
+            'average_time' => $average_time,
+            'pending' => $pending,
+            'current' => $current
+        ]);
     }
 }

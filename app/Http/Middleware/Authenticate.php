@@ -3,8 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+
 
 class Authenticate
 {
@@ -30,6 +33,8 @@ class Authenticate
                         return redirect()->action('ConsultantController@login');
                         break;
                     default :
+                        $intendURL = request()->path();
+                        $request->session()->put('custom.intend', $intendURL);
                         $request->session()->flash('modal', 'need-login');
                         return redirect()->action('FrontendController@index');
                         break;

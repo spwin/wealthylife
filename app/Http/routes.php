@@ -12,7 +12,8 @@
 */
 // IMAGES CACHE
 Route::get('/blog-masonry/{width}/{name}', function($width = NULL, $name = NULL){
-    if(!is_null($width) && !is_null($name)){
+    $sizes = config('sizes.blog-masonry');
+    if(!is_null($width) && !is_null($name) && in_array($width, $sizes)){
         $cache_image = Image::cache(function($image) use($width, $name){
             return $image->make(url('uploads/blog/'.$name))->resize($width, null, function ($c) {
                 $c->aspectRatio();
@@ -27,7 +28,8 @@ Route::get('/blog-masonry/{width}/{name}', function($width = NULL, $name = NULL)
 });
 
 Route::get('/blog/{size}/{name}', function($size = NULL, $name = NULL){
-    if(!is_null($size) && !is_null($name)){
+    $sizes = config('sizes.blog');
+    if(!is_null($size) && !is_null($name) && in_array($size, $sizes)){
         $size = explode('x', $size);
         $cache_image = Image::cache(function($image) use($size, $name){
             return $image->make(url('uploads/blog/'.$name))->resize($size[0], $size[1], function ($c) {
@@ -42,8 +44,48 @@ Route::get('/blog/{size}/{name}', function($size = NULL, $name = NULL){
     }
 });
 
+Route::get('/blog-masonry-consultant/{width}/{name}', function($width = NULL, $name = NULL){
+    $path = \Illuminate\Support\Facades\Input::get('path');
+    $path = rawurldecode($path);
+    $path = str_replace('.','',$path);
+    $sizes = config('sizes.blog-masonry-consultant');
+    if(!is_null($width) && !is_null($name) && !is_null($path) && in_array($width, $sizes)){
+        $cache_image = Image::cache(function($image) use($width, $name, $path){
+            return $image->make(url(ltrim($path, '/').$name))->resize($width, null, function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+        }, 1000);
+
+        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+    } else {
+        abort(404);
+    }
+});
+
+Route::get('/consultant-blog/{size}/{name}', function($size = NULL, $name = NULL){
+    $path = \Illuminate\Support\Facades\Input::get('path');
+    $path = rawurldecode($path);
+    $path = str_replace('.','',$path);
+    $sizes = config('sizes.consultant-blog');
+    if(!is_null($size) && !is_null($name) && !is_null($path) && in_array($size, $sizes)){
+        $size = explode('x', $size);
+        $cache_image = Image::cache(function($image) use($size, $name, $path){
+            return $image->make(url(ltrim($path, '/').$name))->resize($size[0], $size[1], function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+        }, 1000);
+
+        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+    } else {
+        abort(404);
+    }
+});
+
 Route::get('/photo/{size}/{name}', function($size = NULL, $name = NULL){
-    if(!is_null($size) && !is_null($name)){
+    $sizes = config('sizes.photo');
+    if(!is_null($size) && !is_null($name) && in_array($size, $sizes)){
         $size = explode('x', $size);
         $cache_image = Image::cache(function($image) use($size, $name){
             return $image->make(url('uploads/questions/'.$name))->resize($size[0], $size[1], function ($c) {
@@ -58,7 +100,8 @@ Route::get('/photo/{size}/{name}', function($size = NULL, $name = NULL){
 });
 
 Route::get('/temp/{size}/{dir}/{name}', function($size = NULL, $dir = NULL, $name = NULL){
-    if(!is_null($size) && !is_null($name)){
+    $sizes = config('sizes.temp');
+    if(!is_null($size) && !is_null($name) && in_array($size, $sizes)){
         $size = explode('x', $size);
         $cache_image = Image::cache(function($image) use($size, $dir, $name){
             return $image->make(url('uploads/session/temp/'.$dir.'/'.$name))->resize($size[0], $size[1], function ($c) {
@@ -181,6 +224,7 @@ Route::group(['middleware' => ['limited_access']], function () {
             Route::get('profile/{id}', 'ConsultantController@detailsUser');
         });
         Route::group(['prefix' => 'questions'], function () {
+            Route::get('interactive', 'ConsultantController@interactiveAnswer');
             Route::get('pending', 'ConsultantController@listPending');
             Route::get('answered', 'ConsultantController@listAnswered');
             Route::get('rejected', 'ConsultantController@listRejected');
@@ -190,6 +234,14 @@ Route::group(['middleware' => ['limited_access']], function () {
             Route::post('pending/{id}/reject', 'ConsultantController@rejectQuestion');
             Route::post('pending/{id}/save', 'ConsultantController@answerSave');
             Route::post('pending/{id}/send', 'ConsultantController@answerSend');
+        });
+        Route::group(['prefix' => 'articles'], function () {
+            Route::get('/', 'ConsultantController@articles');
+            Route::get('create', 'ConsultantController@createArticle');
+            Route::get('edit/{id}', 'ConsultantController@editArticle');
+            Route::post('save', 'ConsultantController@saveArticle');
+            Route::post('update/{id}', 'ConsultantController@updateArticle');
+            Route::get('blog/preview/{url}', 'ConsultantController@previewArticle');
         });
         Route::group(['prefix' => 'timetable'], function () {
             Route::get('/', 'ConsultantController@timetable');
@@ -257,6 +309,10 @@ Route::group(['middleware' => ['limited_access']], function () {
         Route::group(['prefix' => 'answers'], function () {
             Route::get('/', 'AdminController@answers');
             Route::get('preview/{id}', 'AdminController@showAnswer');
+        });
+        Route::group(['prefix' => 'pending'], function () {
+            Route::get('/', 'AdminController@pending');
+            Route::get('change-consultant/{id}', 'AdminController@changeConsultant');
         });
         Route::group(['prefix' => 'rejections'], function () {
             Route::get('/', 'AdminController@rejections');

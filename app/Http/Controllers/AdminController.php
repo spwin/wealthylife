@@ -586,6 +586,8 @@ class AdminController extends Controller
                         return $a['from'] - $b['from'];
                     });
                     $timetable[$day] = $organised;
+                } else {
+                    $timetable[$day] = Array();
                 }
             }
             $consultant->timetable = json_encode($timetable);
@@ -938,6 +940,35 @@ class AdminController extends Controller
             'price' => $price,
             'total' => 0
         ]);
+    }
+
+    public function pending(Request $request){
+        $key = '';
+        if($request->has('search') && $search = strtolower($request->get('search'))){
+            $key = $search;
+            $questions = Questions::where(['status' => 1])
+                ->whereRaw('LOWER(question) LIKE ?', array('%'.$search.'%'))->orderBy('asked_at', 'ASC')->paginate(20);
+        } else {
+            $questions = Questions::where(['status' => 1])->orderBy('asked_at', 'DESC')->paginate(20);
+        }
+        $consultants = User::where(['type' => 'consultant'])->pluck('email', 'id');
+        return view('admin/questions/pending')->with([
+            'questions' => $questions,
+            'search' => $key,
+            'consultants' => $consultants
+        ]);
+    }
+
+    public function changeConsultant(Request $request, $id){
+        $question = Questions::findOrFail($id);
+        if($request->has('consultant')){
+            $question->consultant_id = $request->get('consultant');
+            $question->save();
+            Flash::success('Question have been successfully assigned to a new consultant');
+        } else {
+            Flash::danger('Something went wrong');
+        }
+        return Redirect::action('AdminController@pending');
     }
 
     public function answers(Request $request){
