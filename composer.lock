@@ -724,26 +724,26 @@
         },
         {
             "name": "jenssegers/agent",
-            "version": "v2.3.3",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jenssegers/agent.git",
-                "reference": "3068d6372a4677af84014a53d5a212cfa74492c1"
+                "reference": "7a9bfa147169bd47b0de89438b96a41ae0a3b077"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jenssegers/agent/zipball/3068d6372a4677af84014a53d5a212cfa74492c1",
-                "reference": "3068d6372a4677af84014a53d5a212cfa74492c1",
+                "url": "https://api.github.com/repos/jenssegers/agent/zipball/7a9bfa147169bd47b0de89438b96a41ae0a3b077",
+                "reference": "7a9bfa147169bd47b0de89438b96a41ae0a3b077",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^4.0|^5.0",
                 "mobiledetect/mobiledetectlib": "^2.7.6",
-                "php": ">=5.3.0"
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.0|^5.0",
-                "satooshi/php-coveralls": "^0.6"
+                "phpunit/phpunit": "^4.8|^5.0",
+                "satooshi/php-coveralls": "^1.0"
             },
             "type": "library",
             "extra": {
@@ -766,18 +766,19 @@
                     "homepage": "https://jenssegers.com"
                 }
             ],
-            "description": "A PHP desktop/mobile user agent parser with support for Laravel, based on Mobiledetect",
+            "description": "Desktop/mobile user agent parser with support for Laravel, based on Mobiledetect",
             "homepage": "https://github.com/jenssegers/agent",
             "keywords": [
                 "Agent",
                 "browser",
+                "desktop",
                 "laravel",
                 "mobile",
                 "platform",
                 "user agent",
                 "useragent"
             ],
-            "time": "2016-03-08 13:47:22"
+            "time": "2016-12-10 11:39:28"
         },
         {
             "name": "jeremeamia/SuperClosure",
@@ -1957,21 +1958,20 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "be326f6a8eacacd86598af2a82bd37e93d9126d2"
+                "reference": "8bb36c8b918e63a08a2b13f31568808f1a7e6c20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/be326f6a8eacacd86598af2a82bd37e93d9126d2",
-                "reference": "be326f6a8eacacd86598af2a82bd37e93d9126d2",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/8bb36c8b918e63a08a2b13f31568808f1a7e6c20",
+                "reference": "8bb36c8b918e63a08a2b13f31568808f1a7e6c20",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
-                "monolog/monolog": "*",
                 "php": ">=5.2.4"
             },
             "conflict": {
@@ -1979,7 +1979,11 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^1.8.0",
-                "phpunit/phpunit": "^4.6.6"
+                "monolog/monolog": "*",
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "suggest": {
+                "monolog/monolog": "Automatically capture Monolog events as breadcrumbs"
             },
             "bin": [
                 "bin/sentry"
@@ -1987,7 +1991,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5.x-dev"
+                    "dev-master": "1.6.x-dev"
                 }
             },
             "autoload": {
@@ -2011,7 +2015,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2016-09-29 21:31:50"
+            "time": "2016-12-09 03:40:24"
         },
         {
             "name": "sentry/sentry-laravel",
@@ -3673,16 +3677,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.30",
+            "version": "4.8.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "a534e04d0bd39c557c2881c341efd06fa6f1292a"
+                "reference": "98b2b39a520766bec663ff5b7ff1b729db9dbfe3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a534e04d0bd39c557c2881c341efd06fa6f1292a",
-                "reference": "a534e04d0bd39c557c2881c341efd06fa6f1292a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/98b2b39a520766bec663ff5b7ff1b729db9dbfe3",
+                "reference": "98b2b39a520766bec663ff5b7ff1b729db9dbfe3",
                 "shasum": ""
             },
             "require": {
@@ -3741,7 +3745,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-12-01 17:05:48"
+            "time": "2016-12-09 02:45:31"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

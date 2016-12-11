@@ -66,6 +66,78 @@
             </div>
         </div>
 
+        <!--- OUR STYLISTS --->
+
+        <div class="arrow-style-invert">
+
+            <div class="container our-stylists">
+                <div class="consultants-head about-block on-black blog ask-us">
+                    <img class="lazy mb24 stylists-icon" src="{{ url()->to('/') }}/images/img-preload.png" alt="Team icon" data-original="{{ url()->to('/') }}/images/stylists-icon.svg">
+                    <h3 class="uppercase blog-head relative">Meet our stylist that are ready<span class="display-block"></span> <span class="color-red">to assist you <span class="display-inlineblock time-back">24/7</span></span></h3>
+                 </div>
+            </div>
+
+        </div>
+
+        <!--  consultants   -->
+
+        <div class="arrow-style mob-right-to-left">
+            <div class="curve-wrap left-top-wrap">
+                <div class="rotated left-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-top-wrap">
+                <div class="rotated right-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="container text-center pt32">
+                    <div class="center-cont consultant">
+                        <img class="width14 left lazy" src="{{ url()->to('/') }}/images/img-preload.png" data-original="{{ url()->to('/') }}/images/esohe-.jpg">
+                        <div class="left about-block padleft25 padright30-mob">
+                            <h3 class="uppercase gift-head mb0">Esohe Ebohon</h3>
+                            <h4 class="uppercase color-green-prof">Personal Style Advisor</h4>
+                            <p>Esohe Ebohon is a fully trained Personal Stylist & Shopper and Founder of Stylierge Styling Services based in London. She began her career working as a fashion assistant on magazines such as Tatler, Glamour, Dazed & Confused and The Daily Telegraph Saturday Magazine. In addition, she also has many years’ experience working in luxury retail. She has styled fashion editorials which have been featured in Elegant, Hacid, Dreamingless and Ellements magazines. She is a Huffington Post blogger and has been featured in Grazia magazine.</p>
+                            <p>She uses her fashion knowledge and expertise to specialise in helping professional women refine their image and create a signature style that is timeless, classic and chic and will make an impact in the workplace and in life. She offers professional, user friendly advice designed to help you look and feel your best.</p>
+                        </div>
+                    </div>
+                    <div class="center-cont consultant">
+                        <img class="width14 left lazy" src="{{ url()->to('/') }}/images/img-preload.png" data-original="{{ url()->to('/') }}/images/caragh-.jpg">
+                        <div class="left about-block padleft25 padright30-mob">
+                            <h3 class="uppercase gift-head mb0">Caragh Logan</h3>
+                            <h4 class="uppercase color-green-prof">Fashion Professional</h4>
+                            <p>Having begun her career in retail and Personal Shopping, Caragh spent her early 20s working in the music and fashion industries, before securing her position as Fashion Editor at the largest Youth Culture magazine in the UK. Since, Caragh has worked across both editorial and styling, and has a practical understanding of how to put together a phenomenal outfit, no matter the style or occasion!</p>
+                            <p>With a natural creative flair, Caragh has an expert understanding of ‘proportional dressing’ to flatter each body-shape and is passionate about empowering women to feel at their absolute best. She also provides a wealth of information in regards to menswear, from street style to structured suits.</p>
+                            <p>Caragh loves a challenge, so throw your best questions at her! She is committed to providing thorough and considered responses, with examples and ‘how tos’ to assist you in achieving your desired look.</p>
+                        </div>
+                    </div>
+                    <div class="center-cont consultant">
+                        <img class="width14 left lazy" src="{{ url()->to('/') }}/images/img-preload.png" data-original="{{ url()->to('/') }}/images/jamilah-.jpg">
+                        <div class="left about-block padleft25 padright30-mob">
+                            <h3 class="uppercase gift-head mb0">Jamilah Estrianna Toni</h3>
+                            <h4 class="uppercase color-green-prof">Personal Shopper</h4>
+                            <p>Jamilah is a young and experience fashion stylist and consultant with more than 3 years of styling a range of editorials, fashion shows and E-commence for some of your favourite online stores. She has also worked as a personal shopper for a variety of clients and celebrities.</p>
+                            <p>Jamilah graduated from London college of Fashion, she was emerged into the styling scene by appearing on a styling show on Channel 4. Since then she has been on a mission to share her styling tips!</p>
+                            <p>"I like to make my clients feel super comfortable and happy with each step of the process. I try to work in a way that you find happiness from your own conclusion rather than working as a stylist who tells you that this is good."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="curve-wrap left-bottom-wrap">
+                <div class="rotated left-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-bottom-wrap">
+                <div class="rotated right-bottom">
+                    <div class="bottom-part"></div>
+                </div>
+            </div>
+        </div>
+
+
              <!--  FASHION AND STYLING   -->
 
         <div class="arrow-style-invert">
