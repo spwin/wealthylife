@@ -4,10 +4,6 @@
 @section('nav-style', 'nav-authorize-question')
 @section('body-class', 'contacts-page')
 @section('content')
-    @if(\App\Helpers\Helpers::isMobile() && $user = Auth::guard('user')->user())
-        @include('mobile/frontend/profile/user-menu')
-    @endif
-    
     <section class="page-title page-title-4 image-bg parallax">
         <div class="background-image-holder-about fadeIn">
             <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
@@ -23,9 +19,8 @@
         </div>
         <!--end of container-->
     </section>
+
     <section>
-
-
         <div class="arrow-style index3 mob-left-to-right">
             <div class="curve-wrap left-top-wrap">
                 <div class="rotated left-top">

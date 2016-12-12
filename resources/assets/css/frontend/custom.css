@@ -1603,3 +1603,6 @@ a.facebook-color{
 a.facebook-color:hover{
     color: #274db2;
 }
+#menu{
+    opacity: 0;
+}

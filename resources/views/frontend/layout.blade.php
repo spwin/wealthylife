@@ -13,15 +13,20 @@
     <link href="{{ URL::to('/') }}/css/fonts.css" rel="stylesheet">
 </head>
 <body class="@yield('body-class', 'default-class')">
-@yield('after-body-snippet')
-@yield('wrapper')
-<div class="modal-container text-right">
-    <a class="btn-modal" href="#"><div id="feedback-icon"></div></a>
-    <div class="hidden">
-        @include('frontend/elements/feedback')
+@if(\App\Helpers\Helpers::isMobile() && $user = Auth::guard('user')->user())
+    @include('mobile/frontend/profile/user-menu')
+@endif
+<div id="sub-body">
+    @yield('after-body-snippet')
+    @yield('wrapper')
+    <div class="modal-container text-right">
+        <a class="btn-modal" href="#"><div id="feedback-icon"></div></a>
+        <div class="hidden">
+            @include('frontend/elements/feedback')
+        </div>
     </div>
+    <div class="trigger-catcher"></div>
 </div>
-<div class="trigger-catcher"></div>
 <script src="{{ URL::to('/') }}/js/front-plugins.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

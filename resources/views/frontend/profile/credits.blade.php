@@ -1,5 +1,6 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-profile')
+@section('body-class', 'profile-page')
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
         <div class="background-image-holder-about fadeIn">
@@ -35,9 +36,7 @@
         <div class="container about-block">
             <div class="row">
 
-                @if(\App\Helpers\Helpers::isMobile())
-                    @include('mobile/frontend/profile/user-menu')
-                @else
+                @if(!\App\Helpers\Helpers::isMobile())
                     @include('frontend/profile/user-menu')
                 @endif
 

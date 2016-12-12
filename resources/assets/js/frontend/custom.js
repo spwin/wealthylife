@@ -40,6 +40,7 @@
 })();
 window.onload = function() {
     $('.display-after-load').show();
+    $('#menu').css({opacity: 1});
 };
 // Question clear
 function clearForm(form_name, e, url, token, image){
