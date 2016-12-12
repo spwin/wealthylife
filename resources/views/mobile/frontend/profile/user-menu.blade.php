@@ -30,6 +30,7 @@
             <li {{ (Request::is('*profile/credits*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@credits') }}">Buy credits</a></li>
             <li {{ (Request::is('*profile/vouchers*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@vouchers') }}">Gift vouchers</a></li>
             <li {{ (Request::is('*profile/referral-program*') ? 'class=um-active' : '') }}><a href="{{ action('FrontendController@referral') }}">Referral rewards</a></li>
+            <li><a href="{{ action('Auth\AuthController@getUserLogout') }}">Log out</a></li>
         </ul>
     </div>
     <div class="widget">
