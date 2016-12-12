@@ -38,7 +38,7 @@
 
             <div class="text-center blog-button-txt mb24">
                 <p class="mb16">Tell us your <span class="color-blue-prof bold700">style story!</span></p>
-                <a class="btn text-left btn-modal btn-filled blue-button"><i class="ti-plus bold700"></i><span class="display-inlineblock">Add entry</span></a>
+                <a class="btn text-left btn-filled blue-button" href="{{ action('FrontendController@newArticle') }}"><i class="ti-plus bold700"></i><span class="display-inlineblock">Add entry</span></a>
             </div>
 
             <div class="row masonry-loader">
