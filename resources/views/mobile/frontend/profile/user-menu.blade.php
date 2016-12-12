@@ -49,47 +49,7 @@
 @push('scripts')
 <script type="text/javascript">
     ($)(function(){
-        var opened = false;
-        var initialised = false;
-        var slideout = new Slideout({
-            'panel': document.getElementById('sub-body'),
-            'menu': document.getElementById('menu'),
-            'padding': $(window).width() < 550 ? 260 : 350,
-            'tolerance': 70
-        });
-        @if(isset($homepage) && $homepage)
-            function onOpenMenu(){
-                $(window).scrollTop(0);
-                $('.cover .slides li .container').css({position: 'absolute'});
-            }
-            function onCloseMenu(){
-                $('.cover .slides li .container').css({position: 'fixed'});
-            }
-
-            slideout.on('translate', function() {
-                if(!initialised) {
-                    initialised = true;
-                    if (opened) {
-                        opened = false;
-                    } else {
-                        opened = true;
-                        onOpenMenu();
-                    }
-                }
-            });
-            slideout.on('open', function() {
-                initialised = false;
-            });
-            slideout.on('close', function() {
-                initialised = false;
-                onCloseMenu();
-            });
-        @endif
-        if (document.querySelector('.toggle-button') !== null) {
-            document.querySelector('.toggle-button').addEventListener('click', function() {
-                slideout.toggle();
-            });
-        }
+        slideoutMenu.init({{ isset($homepage) && $homepage ? 'true' : 'false' }});
     });
 </script>
 @endpush
