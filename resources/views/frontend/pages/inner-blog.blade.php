@@ -30,6 +30,18 @@
 
     <section class="section-blog inner-blog">
         <div class="arrow-style mob-left-to-right">
+
+            <div class="curve-wrap left-top-wrap">
+                <div class="rotated left-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-top-wrap">
+                <div class="rotated right-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+
             <div id="container" class="container about-block">
                 <div class="row">
                     <div itemscope itemtype="http://schema.org/Article" class="inner-article container margin0auto nofloat">

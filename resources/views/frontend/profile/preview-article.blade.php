@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="uppercase mb8 page-h2">Create <span class="color-blue-prof">entry</span></h1>
-                    <h2 class="lead mb0 below"></h2>
+                    <h2 class="lead mb0 below">Let the <span class="color-blue-prof">style</span> begin</h2>
                 </div>
             </div>
             <!--end of row-->
