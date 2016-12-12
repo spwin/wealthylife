@@ -50,25 +50,28 @@
 
 @push('scripts')
 <script type="text/javascript">
-
-    if ($(window).width() > 550) {
-        var slideout = new Slideout({
-            'panel': document.getElementById('panel'),
-            'menu': document.getElementById('menu'),
-            'padding': 350,
-            'tolerance': 70
-        });
-    }
-    else {
-        var slideout = new Slideout({
-            'panel': document.getElementById('panel'),
-            'menu': document.getElementById('menu'),
-            'padding': 260,
-            'tolerance': 70
-        });
-    }
-    document.querySelector('.toggle-button').addEventListener('click', function() {
-        slideout.toggle();
+    ($)(function(){
+        if ($(window).width() > 550) {
+            var slideout = new Slideout({
+                'panel': document.getElementById('panel'),
+                'menu': document.getElementById('menu'),
+                'padding': 350,
+                'tolerance': 70
+            });
+        }
+        else {
+            var slideout = new Slideout({
+                'panel': document.getElementById('panel'),
+                'menu': document.getElementById('menu'),
+                'padding': 260,
+                'tolerance': 70
+            });
+        }
+        if (document.querySelector('.toggle-button') !== null) {
+            document.querySelector('.toggle-button').addEventListener('click', function() {
+                slideout.toggle();
+            });
+        }
     });
 </script>
 @endpush

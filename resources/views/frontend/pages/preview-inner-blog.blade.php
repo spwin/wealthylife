@@ -30,6 +30,18 @@
 
     <section class="section-blog inner-blog">
         <div class="arrow-style mob-left-to-right">
+
+            <div class="curve-wrap left-top-wrap">
+                <div class="rotated left-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+            <div class="curve-wrap right-top-wrap">
+                <div class="rotated right-top">
+                    <div class="top-part"></div>
+                </div>
+            </div>
+
             <div id="container" class="container about-block">
                 <div class="row">
                     <div itemscope itemtype="http://schema.org/Article" class="inner-article container margin0auto nofloat">
@@ -74,9 +86,9 @@
                             <a href="{{ url()->to('/').$article->image->path.$article->image->filename }}" data-lightbox="image-{{ $article->image->id }}" data-title="{{ $article->title }}">
                                 <div itemprop="image" itemscope="" itemtype="https://schema.org/ImageObject">
                                     @if($article->user->type == 'user')
-                                        <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
+                                        <img class="featured-image"  itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
                                     @elseif($article->user->type == 'consultant')
-                                        <img itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/consultant-blog/500x500/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}"/>
+                                        <img class="featured-image"  itemprop="image" alt="{{ $article->title }}" src="{{ url()->to('/').'/consultant-blog/500x500/'.$article->image->filename.'?path='.rawurlencode($article->image->path) }}"/>
                                     @endif
                                 </div>
                             </a>
