@@ -8,6 +8,19 @@
         <div class="background-image-holder-about fadeIn">
             <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
         </div>
+        <div itemprop="publisher" itemscope="" itemtype="https://schema.org/Brand">
+            <div itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+                <meta itemprop="url" content="{{ URL::to('/') }}/images/logo-meta.png">
+                <meta itemprop="width" content="225">
+                <meta itemprop="height" content="225">
+            </div>
+            <meta itemprop="name" content="{{ env('APP_NAME') }}">
+            <meta itemprop="url" content="{{ env('APP_URL') }}">
+            <meta itemprop="sameAs" content="{{ env('FACEBOOK_URL') }}">
+            <meta itemprop="sameAs" content="{{ env('TWITTER_URL') }}">
+            <meta itemprop="sameAs" content="{{ env('GOOGLE_URL') }}">
+            <meta itemprop="sameAs" content="{{ env('INSTAGRAM_URL') }}">
+        </div>
         <div class="container page-first-header">
             <div class="row">
                 <div class="col-md-6">
@@ -48,7 +61,7 @@
                             <p>
                                 <strong>E:</strong> <span id="eadr">m<b>@</b>e@d<b>no</b>oma<b>.com</b>in.com</span>
                                 <br />
-                                <strong>P:</strong> <span class="numbers">+44 7936 005 017</span>
+                                <strong>P:</strong> <a href="tel:+447936005017"><span class="numbers">+44 7936 005 017</span></a>
                                 <br />
                             </p>
                     </div>
@@ -104,74 +117,7 @@
                 </div>
             </div>
         </div>
-{{--
 
-
-
-
-
-
-        <!--div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-md-5">
-                    <h4 class="uppercase">Get In Touch</h4>
-                    <p>Have something to share with us: a piece of advice, feedback, or a problem? Just fill out our form and we will get back to you shortly with the answer that you have been looking for. And trust me, we are quick!</p>
-                    <hr>
-                    <p>
-                        <strong>Pixsens LTD</strong>
-                        <br /> Kemp House
-                        <br /> 160 City Road
-                        <br /> London EC1V 2NX
-                    </p>
-                    <hr>
-                    <p>
-                        <strong>E:</strong> <span id="eadr">m<b>@</b>e@d<b>no</b>oma<b>.com</b>in.com</span>
-                        <br />
-                        --}}{{--<strong>P:</strong> +614 3948 2726
-                        <br />--}}{{--
-                    </p>
-                </div>
-                <div class="col-sm-6 col-md-5 col-md-offset-1">
-                    @if (Session::has('flash_notification.general.message'))
-                        <div class="alert alert-{{ Session::get('flash_notification.general.level') }} alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            {{ Session::get('flash_notification.general.message') }}
-                        </div>
-                    @endif
-                    @if (count($errors->contacts) > 0)
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            <ul>
-                                @foreach ($errors->contacts->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    {!! Form::open([
-                        'role' => 'form',
-                        'url' => action('FrontendController@contactForm'),
-                        'class' => 'form-contacts',
-                        'method' => 'POST'
-                    ]) !!}
-                        <div class="hidden">
-                            {!! Form::text('birthday', null) !!}
-                            {!! Form::text('city', 'London') !!}
-                        </div>
-                        {!! Form::text('name', null, ['placeholder' => 'Your Name']) !!}
-                        {!! Form::text('email', null, ['placeholder' => 'Email Address']) !!}
-                        {!! Form::textarea('message', null, ['rows' => 4, 'placeholder' => 'Message']) !!}
-                        <button type="submit">Send Message</button>
-                    {!! Form::close() !!}
-                </div>
-            </div-->
-            <!--end of row-->
-        <!--/div-->
-        <!--end of container-->--}}
     </section>
     @include('frontend/footer')
 @stop
