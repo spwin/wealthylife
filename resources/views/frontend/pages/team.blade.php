@@ -73,7 +73,7 @@
             <div class="container our-stylists">
                 <div class="consultants-head about-block on-black blog ask-us">
                     <img class="lazy mb24 stylists-icon" src="{{ url()->to('/') }}/images/img-preload.png" alt="Team icon" data-original="{{ url()->to('/') }}/images/stylists-icon.svg">
-                    <h3 class="uppercase blog-head relative">Meet our stylist that are ready<span class="display-block"></span> <span class="color-red">to assist you <span class="display-inlineblock time-back">24/7</span></span></h3>
+                    <h3 class="uppercase blog-head relative">Meet our stylist that are ready<span class="display-block"></span> <span class="color-blue">to assist you <span class="display-inlineblock time-back">24/7</span></span></h3>
                  </div>
             </div>
 
