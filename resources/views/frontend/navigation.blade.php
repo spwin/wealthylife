@@ -1,9 +1,6 @@
 <div class="nav-container">
     <a id="top"></a>
     <nav class="absolute transparent">
-
-
-
         <div class="nav-bar @yield('nav-style', 'nav-home')">
             <div class="module left">
                 <a href="{{ URL::to('/') }}">
