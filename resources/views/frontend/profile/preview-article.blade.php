@@ -14,6 +14,9 @@
                 </div>
             </div>
             <!--end of row-->
+            <div class="toggle-button profile-menu-but bold700 visible990">
+                <span class="display-inlineblock">PROFILE MENU</span>
+            </div>
         </div>
         <!--end of container-->
     </section>
@@ -40,11 +43,6 @@
                     @include('frontend/profile/user-menu')
                 @endif
                 <div class="col-md-9 no-padding">
-
-                    <div class="toggle-button profile-menu-but bold700 visible990">
-                        <span class="display-block mb16">PROFILE MENU</span>
-                        <hr>
-                    </div>
 
                     <div class="inner-article tabbed-content text-tabs display-after-load">
                         <!--div class="modal-container text-right">
