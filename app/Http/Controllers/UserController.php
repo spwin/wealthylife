@@ -195,11 +195,7 @@ class UserController extends Controller
         $auth = new AuthController();
         $auth->login($request, 'user');
         if($user = Auth::guard('user')->user()) {
-            if($request->session()->has('custom.intend')){
-                return redirect($request->session()->pull('custom.intend'));
-            } else {
-                return Redirect::action('UserController@welcome');
-            }
+            return Redirect::action('UserController@welcome');
         } else {
             return Redirect::action($this->getRoute());
         }
@@ -369,11 +365,7 @@ class UserController extends Controller
                 $this->downloadAvatar($user_db, $user, $provider);
             }
             Auth::guard('user')->login($user_db);
-            if($request->session()->has('custom.intend')){
-                return redirect($request->session()->pull('custom.intend'));
-            } else {
-                return Redirect::action('UserController@welcome');
-            }
+            return Redirect::action('UserController@welcome');
         }else{
             return 'something went wrong';
         }
@@ -779,13 +771,21 @@ class UserController extends Controller
         }
     }
 
-    public function welcome(){
+    public function welcome(Request $request){
         if($user = Auth::guard('user')->user()) {
             if($user->welcome) {
+                $intended = null;
+                if($request->session()->has('custom.intend')) {
+                    $intended = $request->session()->pull('custom.intend');
+                }
                 if(session()->has('question.status') && session()->has('question.content') && session()->get('question.status') == 1){
                     return Redirect::action('FrontendController@authorizeQuestion');
                 } else {
-                    return Redirect::action('FrontendController@summary');
+                    if($intended){
+                        return redirect($intended);
+                    } else {
+                        return Redirect::action('FrontendController@summary');
+                    }
                 }
             } else {
                 $user->welcome = 1;

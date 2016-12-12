@@ -48,8 +48,8 @@
                             <p>
                                 <strong>E:</strong> <span id="eadr">m<b>@</b>e@d<b>no</b>oma<b>.com</b>in.com</span>
                                 <br />
-                                {{--<strong>P:</strong> +614 3948 2726
-                                <br />--}}
+                                <strong>P:</strong> <span class="numbers">+44 7936 005 017</span>
+                                <br />
                             </p>
                     </div>
                     <div class="half right about-block referral">
