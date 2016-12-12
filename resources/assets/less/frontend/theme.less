@@ -4082,7 +4082,16 @@ span.color-blue-prof {
 	}
 
 	.profile-menu-but {
-		font-size: 30px;
+		font-size: 19px;
+		position: absolute;
+		bottom: -50px;
+		color: #FFFFFF;
+
+			span {
+				background: url("../images/menu-arrows-g.svg") left center no-repeat;
+				padding-left: 43px;
+				font-size: 20px;
+			}
 	}
 	#menu {
 		padding-top: 90px;
@@ -4102,7 +4111,14 @@ span.color-blue-prof {
 	}
 
 }
-
+@media all and (max-width:435px) {
+	.profile-menu-but {
+		bottom: -40px;
+		span {
+			font-size: 17px;
+		}
+	}
+}
 /*bookmark
 @media all and (min-width: 769px) and (max-width: 800px) {
 	.profile-page {
@@ -5321,26 +5337,28 @@ html {
 .profile-page .page-title-4,
 .page-title-4 {
 	height: auto;
+	padding-top: 0;
+	overflow: visible;
 }
 .page-title .container {
 	transform: none !important;
 }
-.profile-page .page-title-4 {
-	padding-top: 0;
+.profile-page .page-first-header {
+	padding-top: 110px;
+	z-index: 5;
 }
 .page-title .page-first-header {
-	margin-top: 110px;
 	margin-bottom: 20px;
 }
 @media all and (max-width: 1366px) {
 	.page-title .page-first-header {
-		margin-top: 90px;
+		padding-top: 90px;
 	}
 }
 
 @media all and (max-width: 435px) {
 	.page-title .page-first-header {
-		margin-top: 78px;
+		padding-top: 78px;
 		margin-bottom: 0px;
 	}
 }

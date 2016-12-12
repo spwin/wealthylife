@@ -15,8 +15,12 @@
                 </div>
             </div>
             <!--end of row-->
+            <div class="toggle-button profile-menu-but bold700 visible990">
+                <span class="display-inlineblock">PROFILE MENU</span>
+            </div>
         </div>
         <!--end of container-->
+
     </section>
 
     <section>
@@ -35,16 +39,13 @@
 
 
         <div class="container summary-profile about-block">
+
             <div class="row">
                 @if(!\App\Helpers\Helpers::isMobile())
                     @include('frontend/profile/user-menu')
                 @endif
 
                 <div class="col-md-9">
-                    <div class="toggle-button profile-menu-but bold700 visible990">
-                        <span class="display-block mb16">PROFILE MENU</span>
-                        <hr>
-                    </div>
 
                     <section class="pt-20px pb-40px">
                         <div class="tabbed-content text-tabs display-after-load">

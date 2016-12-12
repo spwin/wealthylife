@@ -15,6 +15,9 @@
                 </div>
             </div>
             <!--end of row-->
+            <div class="toggle-button profile-menu-but bold700 visible990">
+                <span class="display-inlineblock">PROFILE MENU</span>
+            </div>
         </div>
         <!--end of container-->
     </section>
