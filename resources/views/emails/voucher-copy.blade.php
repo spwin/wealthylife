@@ -2,6 +2,7 @@
 @section('email-content')
 <div>
     <p>This is a copy of a voucher sent to <strong>{{ $params['voucher']->receiver_email }}</strong>:</p>
+    <p><div style="width: 200px; height: 133px; margin: 0 auto;"><img src="https://www.stylesensei.co.uk/images/email-gift.jpg" width="200" height="133" alt="StyleSensei gift voucher"/></div></p>
     Hey Lucky!<br/>
     <p>You have just received a gift voucher from StyleSensei sent to you as a present{{ $params['voucher']->anonymous ? '' : ' by '.$params['user']->first_name.' '.$params['user']->last_name }}. You can use this gift voucher on Stylesensei to get style, image, and fashion advice. Click <a href="{{ action('FrontendController@vouchers') }}">here</a> to log in, redeem your voucher credits and get started!</p>
     @if($params['voucher']->message)
