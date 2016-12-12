@@ -671,16 +671,20 @@ var slideoutMenu = function(){
                 'tolerance': 70
             });
             slideoutMenu.bind();
-            if(position == 'fixed' && homepage){
+            if(homepage){
                 slideoutMenu.bindHomepage();
             }
         },
         onOpenMenu: function() {
             $(window).scrollTop(0);
-            container.css({position: 'absolute'});
+            if(position == 'fixed') {
+                container.css({position: 'absolute'});
+            }
         },
         onCloseMenu: function() {
-            container.css({position: 'fixed'});
+            if(position == 'fixed') {
+                container.css({position: 'fixed'});
+            }
         },
         bindHomepage: function() {
             slideout.on('translate', function () {
