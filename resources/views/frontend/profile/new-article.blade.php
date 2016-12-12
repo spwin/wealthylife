@@ -197,10 +197,10 @@
         menubar:false,
         height : "260",
         plugins: [
-            'advlist autolink lists image charmap print preview hr anchor pagebreak',
-            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'advlist autolink lists charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars',
             'insertdatetime media nonbreaking save table contextmenu directionality',
-            'emoticons template paste textcolor colorpicker textpattern imagetools codesample'
+            'emoticons template paste textcolor colorpicker textpattern'
         ]
     });
 </script>
