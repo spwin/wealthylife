@@ -45,7 +45,8 @@ class FrontendController extends Controller
 
         $view = view('frontend/pages/index')->with([
             'background' => $backgrounds[array_rand($backgrounds)],
-            'phrase' => $phrase
+            'phrase' => $phrase,
+            'homepage' => true
         ])->render();
 
         //Cache::put('home', $view, 1200);
