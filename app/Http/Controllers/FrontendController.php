@@ -491,11 +491,11 @@ class FrontendController extends Controller
             $sitemap->add(URL::action('FrontendController@privacy'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@terms'), date('c', time()), '1.0', 'weekly');
 
-            /*$sitemap->add(URL::action('FrontendController@blog'), date('c', time()), '1.0', 'hourly');
+            $sitemap->add(URL::action('FrontendController@blog'), date('c', time()), '1.0', 'hourly');
             $articles = Article::where(['status' => 3, 'reviewed' => 1])->orderBy('published_at', 'DESC')->get();
             foreach($articles as $article){
                 $sitemap->add(URL::action('FrontendController@blogEntry', ['url' => $article->url]), date('c', time()), '1.0', 'weekly');
-            }*/
+            }
         }
         return $sitemap->render('xml');
     }

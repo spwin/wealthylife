@@ -119,3 +119,10 @@
     </section>
     @include('frontend/footer')
 @stop
+@push('scripts')
+<script>
+    $('.inner-article img:not(.featured-image)').wrap(function(index) {
+        return '<a href="'+$(this).attr('src')+'" data-lightbox="image-'+index+'" rel="lightbox[gallery]"></a>';
+    });
+</script>
+@endpush
