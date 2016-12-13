@@ -59,7 +59,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <h4 class="uppercase mb40 referral-head">Howdy, {{ $user->userData->first_name }}!</h4>
+                            <h4 class="uppercase mb40 referral-head">Hey, {{ $user->userData->first_name }}!</h4>
                             @if(($count = $user->notifications()->where(['seen' => 0])->count()) > 0)
                                 <div class="alert alert-success alert-dismissible" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
