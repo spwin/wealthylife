@@ -58,7 +58,7 @@
                         @endif
                     </div>
                     <div class="col-md-4 voucher-summary">
-                        <div class="pricing-table pt-1 text-center">
+                        <div class="pricing-table voucher-small emphasis pt-1 text-center">
                             <H5 class="uppercase">Total to pay:</H5>
                             <span class="price">£{{ round($voucher->price) }}</span>
                             <p class="lead">Gift of {{ $voucher->credits }} credits</p>

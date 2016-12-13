@@ -83,24 +83,27 @@
                                     <h5>So, choose the voucher you desire and turn someone’s day around by giving them a chance to be stylish.</h5>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="pricing-table pt-1 text-center boxed">
-                                        <p class="uppercase voucher-top"><span class="smile">Make<br> someone <span class="bold700">smile</span></span></p>
+                                    <div class="pricing-table pt-1 text-center boxed buy-vouchers">
+                                        <span class="display-block absolute gradient-overlay-bottom"></span>
+                                        <p class="uppercase voucher-top"><span class="display-block absolute gradient-overlay-top"></span><span class="smile">Make<br> someone <span class="bold700">smile</span></span></p>
                                         <span class="price"><span class="vouch-buy">Buy</span><span class="text-center price-pos bold700 display-block fs22"><span class="color-red overwrite">£20 - £100</span><br> Gift Vouchers</span></span>
                                         <p class="lead"></p>
-                                        <p class="uppercase perfect-present"><span class="bold700 fs19">Perfect Present</span><br> for a <span class="color-red">Loved</span> One</p>
-                                        <a class="btn btn-filled btn-lg red-btn" href="{{ action('FrontendController@buyVoucher') }}">Make Someone Smile</a>
+                                        <p class="uppercase perfect-present on-top"><span class="bold700 fs19">Perfect Present</span><br> for a <span class="color-red">Loved</span> One</p>
+                                        <a class="btn btn-filled btn-lg red-btn on-top" href="{{ action('FrontendController@buyVoucher') }}">Make Someone Smile</a>
+
                                     </div>
                                     <!--end of pricing table-->
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="pricing-table pt-1 text-center boxed">
-                                        <p class="uppercase voucher-top"><span class="smile enter-code"><span class="bold700">Enter</span><br></be> code to</span></p>
+                                    <div class="pricing-table pt-1 text-center boxed claim-vouchers">
+                                        <span class="display-block absolute gradient-overlay-bottom"></span>
+                                        <p class="uppercase voucher-top"><span class="display-block absolute gradient-overlay-top"></span><span class="smile enter-code"><span class="bold700">Enter</span><br></be> code to</span></p>
                                         <span class="price claim"><span>Use</span><span class="text-center price-pos bold700 display-block use-voucher">Voucher</span></span>
                                         {!! Form::open([
                                             'role' => 'form',
                                             'url' => action('UserController@checkVoucher'),
                                             'method' => 'POST',
-                                            'class' => 'login-profile'
+                                            'class' => 'login-profile on-top'
                                         ]) !!}
                                         <p class="lead"><input type="text" name="code" class="voucher-claim" placeholder="Enter Code Here"></p>
                                         <input type="submit" class="btn btn-filled btn-lg voucher-check" value="Confirm And Continue">

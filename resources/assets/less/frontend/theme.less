@@ -3771,25 +3771,27 @@ CONTACTS
 	.about-block h4.uppercase {
 		padding-right: 0;
 	}
-	form {
-		width: 70%;
-		margin: 0 auto;
-	}
 	.arrow-style .row {
 		margin: 45px 0;
 	}
 }
 
+.contacts-section form {
+	width: 70%;
+	margin: 0 auto;
+}
+
 @media all and (max-width: 990px) {
 	.contacts-page  {
-		form {
-			width: 100%;
-			margin-top: 50px;
-			max-width: 560px;
-		}
+
 		.half {
 			padding: 0;
 		}
+	}
+	.contacts-section form {
+		width: 100%;
+		margin-top: 50px;
+		max-width: 560px;
 	}
 }
 
@@ -3800,10 +3802,8 @@ CONTACTS
 }
 
 @media all and (max-width: 640px) {
-	.contacts-page  {
-		form {
-			margin-top: 0;
-		}
+	.contacts-section form {
+		margin-top: 0;
 	}
 }
 
@@ -4050,14 +4050,11 @@ span.color-blue-prof {
 		.user-photo .image {
 			width: 63%;
 			max-width: none;
-			margin: 0;
-				img {
-					border: 5px solid;
-				}
+			margin: 0 auto;
 		}
 		.username,
 		.user-email {
-			text-align: left;
+			text-align: center;
 		}
 		.mob-profile {
 			margin-left: 43px;
@@ -4097,10 +4094,11 @@ span.color-blue-prof {
 			}
 	}
 	#menu {
-		padding-top: 90px;
+		padding-top: 35px;
 		background-size: 300px;
-		background-position: 50% 50% !important;
-		background-image: url("../images/dark-hardback.png");
+		background-position: 50% 50% !important;/*
+		background-image: url("../images/dark-hardback.png");*/
+		background-color: #1a1a1a;
 		background-repeat: repeat;
 		color: white;
 
@@ -4113,6 +4111,16 @@ span.color-blue-prof {
 			}
 	}
 
+}
+@media all and (max-width: 580px) {
+.profile-page .arrow-style {
+	padding-top: 15px;
+}
+}
+@media all and (max-width: 360px) {
+	.profile-page .arrow-style {
+		padding-top: 0;
+	}
 }
 @media all and (max-width:435px) {
 	.profile-menu-but {
@@ -4387,8 +4395,15 @@ p.discount span.round {
 	transition: all 0.3s ease;
 	-webkit-transition: all 0.3s ease;
 	-moz-transition: all 0.3s ease;
-	background-image: url("../images/pattern.jpg");
 	background-repeat: repeat;
+	position: relative;
+	background-image: url("../images/pattern.jpg");
+}
+.pricing-table.boxed.buy-vouchers {
+	background-image: url("../images/red-pattern.jpg");
+}
+.pricing-table.boxed.claim-vouchers {
+	background-image: url("../images/green-pattern.jpg");
 }
 .pricing-table {
 	 h5.uppercase {
@@ -4544,6 +4559,9 @@ section.pt-0px {
 	.credits .pricing-table input[type="submit"] {
 		font-size: 15px;
 	}
+	.credits .pricing-table.claim-vouchers input[type="submit"] {
+		font-size: 12px;
+	}
 	p.discount span.round {
 		top: -32px;
 		right: 27px;
@@ -4566,13 +4584,13 @@ section.pt-0px {
 		line-height: 49px;
 	}
 }
-
+/*
 @media all and (max-width: 440px) {
 	.credits .container.about-block {
 		padding-left: 0;
 		padding-right: 0;
 	}
-}
+}*/
 
 @media all and (max-width: 360px) {
 	.pricing-table.boxed {
@@ -4837,6 +4855,38 @@ VOUCHERS
 .profile-page .about-block.vouchers h4.uppercase {
 	width: 100%;
 }
+.gradient-overlay-top {
+	top:0;
+	left:0;
+	width:100%;
+	height: 100%;
+	background: rgba(0,0,0,0.95);
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.32) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,0.95)), color-stop(100%, rgba(0,0,0,0.32)));
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.32) 100%);
+	background: -o-linear-gradient(top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.32) 100%);
+	background: -ms-linear-gradient(top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.32) 100%);
+	background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.32) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+}
+.gradient-overlay-bottom {
+	bottom:0;
+	left:0;
+	width:100%;
+	height: 100%;
+	background: rgba(0,0,0,0);
+	background: -moz-linear-gradient(top, rgba(0,0,0,0) 31%, rgba(0,0,0,0.17) 44%, rgba(0,0,0,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(31%, rgba(0,0,0,0)), color-stop(44%, rgba(0,0,0,0.17)), color-stop(100%, rgba(0,0,0,1)));
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0) 31%, rgba(0,0,0,0.17) 44%, rgba(0,0,0,1) 100%);
+	background: -o-linear-gradient(top, rgba(0,0,0,0) 31%, rgba(0,0,0,0.17) 44%, rgba(0,0,0,1) 100%);
+	background: -ms-linear-gradient(top, rgba(0,0,0,0) 31%, rgba(0,0,0,0.17) 44%, rgba(0,0,0,1) 100%);
+	background: linear-gradient(to bottom, rgba(0,0,0,0) 31%, rgba(0,0,0,0.17) 44%, rgba(0,0,0,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+}
+.on-top {
+	z-index: 23;
+	position: relative;
+}
 .vouchers {
 
 	.fs25 {
@@ -5097,11 +5147,7 @@ BUY VOUCHER
 .about-block.buy-voucher h4.uppercase {
 	width: 100%;
 }
-.buy-voucher .pricing-table:hover .price {
-	color: white !important;
-}
 .buy-voucher .pricing-table:hover h5.uppercase {
-	color: #ff2352 !important;
 	opacity: 1;
 }
 
@@ -5111,11 +5157,7 @@ BUY VOUCHER
 	background-size: 300px;
 	background-position: 50% 50% !important;
 	h5.uppercase {
-		color: #ff2352 !important;
 		opacity: 1;
-	}
-	.price {
-		color: white !important;
 	}
 }
 
@@ -5167,8 +5209,8 @@ html {
 	#panel footer {
 		position: absolute;
 		bottom: 0;
-		width: 100%;
-		height: 250px;
+		width: 100%;/*
+		height: 250px;*/
 	}
 }
 
@@ -5196,9 +5238,10 @@ html {
 	display: none;
 }
 
-@media all and (min-width: 500px) {
+@media all and (min-width: 550px) {
 	.slideout-menu {
 		padding-left: 35px;
+		padding-right: 35px;
 	}
 }
 
@@ -5367,17 +5410,80 @@ html {
 }
 
 
+/*****************************/
+
+.foundry_modal.success-modal {
+	padding-top: 40px;
+}
+.voucher-small {
+	background: #EDEDED;
+}
+
+.pricing-table.voucher-small {
+
+	padding: 22px 0;
+
+		h5.uppercase {
+			width: 100%;
+			height: 56px;
+			line-height: 56px;
+			background-color: #02bf88;
+			color: white;
+		}
 
 
+	.price,
+	.how-much {
+		color: #02bf88;
+	}
+	p.lead {
+		font-weight: initial;
+	}
 
 
+}
 
+.pricing-table.boxed.voucher-small,
+.pricing-table.emphasis.voucher-small {
+	h5.uppercase {
+		background-color: #ff2352;
+		color: white;
+	}
+	.price,
+	.how-much{
+		color: #ff2352;
+	}
+	.lead {
+		color: white;
+	}
+}
+@media all and (max-width: 990px) {
+	.pricing-table.voucher-small {
+		width: 100%;
+		margin: 20px 0;
+	}
+	.voucher-summary .pricing-table.voucher-small {
+		width: 50%;
+		min-width: 280px;
+		margin: 20px auto;
+	}
+}
 
-
-
-
-
-
+@media all and (max-width: 767px) {
+	.pricing-table.voucher-small {
+		width: 56%;
+		margin: 20px auto;
+		min-width: 280px;
+	}
+}
+.buy-voucher input[type="submit"] {
+	margin: 0 auto;
+	display: block;
+}
+body,
+#sub-body {
+	min-height: 100%;
+}
 
 
 
@@ -5704,7 +5810,7 @@ input.question-btn.askq {
 
 	div.center-cropped {
 		width: 88%;
-		height: 200px;
+		height: auto;
 	}
 
 	h3.uppercase {
@@ -5725,14 +5831,23 @@ input.question-btn.askq {
 	}
 }
 
+@media all and (max-width:990px) {
+	.foundry_modal.change-photo a.btn {
+		font-size: 12px;
+	}
+}
 
 
 @media all and (max-width:550px) {
 .foundry_modal.change-photo {
 	.avatar-container {
 		width: 100%;
+		max-width: 200px;
 		margin: 0 auto;
 		float: none;
+			right {
+				float: none;
+			}
 	}
 	div.center-cropped {
 		width: 100%;
@@ -5751,13 +5866,6 @@ input.question-btn.askq {
 		margin-top: 30px;
 	}
 }
-}
-@media all and (max-width:350px) {
-	.foundry_modal.change-photo {
-		.avatar-actions input[type="submit"] {
-			width: 110%;
-		}
-	}
 }
 .mt-80px {
 	margin-top: -80px;

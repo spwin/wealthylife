@@ -47,7 +47,7 @@
 
                 <div class="col-md-9">
 
-                    <section class="pt-20px pb-40px">
+                    <section class="pt-0px pb-40px">
                         <div class="tabbed-content text-tabs display-after-load">
                             <div class="modal-container text-right ask-position-mob right">
                                 <a class="btn btn-modal hovered mb-0px" id="ask-question-button" href="#">Ask consultant</a>

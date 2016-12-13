@@ -33,7 +33,7 @@
         <!--end of container-->
     </section>
 
-    <section>
+    <section class="contacts-section">
         <div class="arrow-style index3 mob-left-to-right">
             <div class="curve-wrap left-top-wrap">
                 <div class="rotated left-top">

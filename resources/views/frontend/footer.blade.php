@@ -7,10 +7,10 @@
                 </a>
                 <div class="follow-us mt48">
                     <p>Follow us on:</p>
-                    <a href="{{ env('FACEBOOK_URL') }}" rel="nofollow"><div class="social-icon face"></div></a>
-                    <a href="{{ env('GOOGLE_URL') }}" rel="nofollow"><div class="social-icon gplus"></div></a>
-                    <a href="{{ env('TWITTER_URL') }}" rel="nofollow"><div class="social-icon twit"></div></a>
-                    <a href="{{ env('INSTAGRAM_URL') }}" rel="nofollow"><div class="social-icon inst"></div></a>
+                    <a href="{{ env('FACEBOOK_URL') }}" rel="nofollow" target="_blank"><div class="social-icon face"></div></a>
+                    <a href="{{ env('GOOGLE_URL') }}" rel="nofollow" target="_blank"><div class="social-icon gplus"></div></a>
+                    <a href="{{ env('TWITTER_URL') }}" rel="nofollow" target="_blank"><div class="social-icon twit"></div></a>
+                    <a href="{{ env('INSTAGRAM_URL') }}" rel="nofollow" target="_blank"><div class="social-icon inst"></div></a>
                 </div>
             </div>
             <div class="col-md-3 col-sm-4 ml14proc mt2">
