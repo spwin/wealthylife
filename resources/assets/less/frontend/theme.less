@@ -4201,6 +4201,9 @@ span.color-blue-prof {
 	.summary-profile .ask-position-mob {
 		bottom: 48px;
 	}
+	.notification-inner .ask-position-mob {
+		bottom: -50px;
+	}
 }
 @media all and (max-width: 550px) {
 	.profile-page {
@@ -5482,8 +5485,44 @@ html {
 }
 body,
 #sub-body {
-	min-height: 100%;
+	height: 100%;
 }
+.main-container {
+	min-height: 100%;
+	position: relative;
+}
+footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+body.front-page footer {
+	position: relative;
+}
+#panel > section:nth-child(2) {
+	padding-bottom: 380px;
+}
+
+@media all and (max-width: 768px) {
+	#panel > section:nth-child(2) {
+		padding-bottom: 600px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5803,6 +5842,11 @@ input.question-btn.askq {
 .name-surname {
 	width: 49%;
 }
+@media all and (max-width: 750px) {
+	.name-surname {
+		width: 100%;
+	}
+}
 
 .foundry_modal.change-photo {
 	padding: 38px 48px 28px;
@@ -5864,6 +5908,7 @@ input.question-btn.askq {
 	}
 	a.btn {
 		margin-top: 30px;
+		min-width: initial !important;
 	}
 }
 }
@@ -5923,10 +5968,6 @@ div.question-body .modal-container.left {
 	.bottom-part {
 		background: white;
 	}
-}
-.alert-success,
-.alert-warning {
-	border: none;
 }
 .alert {
 	/*

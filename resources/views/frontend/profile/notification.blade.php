@@ -22,7 +22,7 @@
         <!--end of container-->
     </section>
 
-    <section>
+    <section class="notification-inner">
 
         <div class="arrow-style index3 mob-right-to-left">
             <div class="curve-wrap left-top-wrap">
