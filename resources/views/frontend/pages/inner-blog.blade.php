@@ -3,6 +3,7 @@
 @section('meta-description', $description)
 @section('head-parameters', 'prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"')
 @section('meta-content')
+    <meta property="og:type"   content="article" />
     <meta property="og:image" content="{{ url()->to('/').$article->image->path.$article->image->filename }}" />
     <meta property="og:url" content="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}" />
     <meta property="og:title" content="{{ $article->title }}" />
