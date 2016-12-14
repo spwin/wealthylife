@@ -6,7 +6,7 @@
     <meta name="og:url" content="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}" />
     <meta name="og:title" content="{{ $article->title }}" />
     <meta name="og:description" content="{{ $description }}" />
-    <meta name="fb:app_id" content="{{ env('FACEBOOK_APP_ID') }}" />
+    <meta property="fb:app_id" content="{{ env('FACEBOOK_APP_ID') }}" />
 @stop
 @section('nav-style', 'nav-blog')
 @section('after-body-snippet')
