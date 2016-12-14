@@ -6,6 +6,7 @@
     RewriteEngine On
 
     RewriteCond %{HTTP_HOST} ^stylesensei.co.uk [NC]
+    RewriteCond %{HTTP_HOST} ^138\.68\.131\.248
     RewriteRule ^(.*)$ https://www.stylesensei.co.uk/$1 [L,R=301]
 
     # Redirect Trailing Slashes If Not A Folder...
