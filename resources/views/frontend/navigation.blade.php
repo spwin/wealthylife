@@ -72,11 +72,9 @@
                         <li {{ (Request::is('/') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@index') }}">Home</a>
                         </li>
-                        @if(App\Helpers\Helpers::checkAccess())
                         <li {{ (Request::is('*blog*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@blog') }}">Blog</a>
                         </li>
-                        @endif
                         <li {{ (Request::is('*about*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@about') }}">About</a>
                         </li>

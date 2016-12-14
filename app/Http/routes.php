@@ -132,12 +132,11 @@ Route::get('terms-and-conditions', 'FrontendController@terms');
 Route::get('the-team', 'FrontendController@team');
 Route::post('send-form', 'FrontendController@contactForm');
 Route::post('leave-feedback', 'UserController@leaveFeedback');
+Route::get('blog', 'FrontendController@blog');
+Route::get('blog/{url}', 'FrontendController@blogEntry');
 
 // LIMITED ACCESS PAGES
 Route::group(['middleware' => ['limited_access']], function () {
-
-    Route::get('blog', 'FrontendController@blog');
-    Route::get('blog/{url}', 'FrontendController@blogEntry');
 
     Route::post('/get-answer-time', 'FrontendController@ajaxCheckAnswerTime');
     Route::get('email-confirm/{key}', 'UserController@confirmation');

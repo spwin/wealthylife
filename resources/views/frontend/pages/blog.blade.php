@@ -37,8 +37,13 @@
         <div class="container">
 
             <div class="text-center blog-button-txt mb24">
-                <p class="mb16">Tell us your <span class="color-blue-prof bold700">style story!</span></p>
-                <a class="btn text-left btn-filled blue-button" href="{{ action('FrontendController@newArticle') }}"><i class="ti-plus bold700"></i><span class="display-inlineblock">Add entry</span></a>
+                @if(App\Helpers\Helpers::checkAccess())
+                    <p class="mb16">Tell us your <span class="color-blue-prof bold700">style story!</span></p>
+                    <a class="btn text-left btn-filled blue-button" href="{{ action('FrontendController@newArticle') }}"><i class="ti-plus bold700"></i><span class="display-inlineblock">Add entry</span></a>
+                @else
+                    <p class="mb16">From <span class="color-blue-prof bold700">9th of January 2017</span></p>
+                    <p class="mb16">You can also share your <span class="color-blue-prof bold700">StyleStory</span></p>
+                @endif
             </div>
 
             <div class="row masonry-loader">
