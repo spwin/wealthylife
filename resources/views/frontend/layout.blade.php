@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head @yield('head-parameters')>
     <meta charset="utf-8">
     <title>@yield('page-title', trans('seo.main.title'))</title>
     <meta name="description" content="@yield('meta-description', trans('seo.main.description'))">
