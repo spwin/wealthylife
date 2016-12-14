@@ -2,11 +2,11 @@
 @section('page-title', $article->title)
 @section('meta-description', $description)
 @section('meta-content')
-    <meta content="og:image" property="{{ url()->to('/').$article->image->path.$article->image->filename }}" />
-    <meta content="og:url" property="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}" />
-    <meta content="og:title" property="{{ $article->title }}" />
-    <meta content="og:description" property="{{ $description }}" />
-    <meta content="fb:app_id" property="{{ env('FACEBOOK_APP_ID') }}" />
+    <meta name="og:image" content="{{ url()->to('/').$article->image->path.$article->image->filename }}" />
+    <meta name="og:url" content="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}" />
+    <meta name="og:title" content="{{ $article->title }}" />
+    <meta name="og:description" content="{{ $description }}" />
+    <meta name="fb:app_id" content="{{ env('FACEBOOK_APP_ID') }}" />
 @stop
 @section('nav-style', 'nav-blog')
 @section('after-body-snippet')
