@@ -1,4 +1,6 @@
 @extends('frontend/frame')
+@section('page-title', $article->title)
+@section('meta-description', trim(strip_tags(preg_replace('/\s+/', ' ', substr(html_entity_decode($article->content), 0, 155).'...'))))
 @section('nav-style', 'nav-blog')
 @section('after-body-snippet')
     <div id="fb-root"></div>
