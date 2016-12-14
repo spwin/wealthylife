@@ -1,6 +1,13 @@
 @extends('frontend/frame')
 @section('page-title', $article->title)
-@section('meta-description', trim(strip_tags(preg_replace('/\s+/', ' ', substr(html_entity_decode($article->content), 0, 155).'...'))))
+@section('meta-description', $description)
+@section('meta-content')
+    <meta name="og:image" content="{{ url()->to('/').$article->image->path.$article->image->filename }}">
+    <meta name="og:url" content="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
+    <meta name="og:title" content="{{ $article->title }}">
+    <meta name="og:description" content="{{ $description }}">
+    <meta name="fb:app_id" content="{{ env('FACEBOOK_APP_ID') }}">
+@stop
 @section('nav-style', 'nav-blog')
 @section('after-body-snippet')
     <div id="fb-root"></div>

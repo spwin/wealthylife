@@ -535,7 +535,8 @@ class FrontendController extends Controller
             $article->visits = $article->visits + 1;
             $article->save();
             return view('frontend/pages/inner-blog')->with([
-                'article' => $article
+                'article' => $article,
+                'description' => trim(strip_tags(preg_replace('/\s+/', ' ', substr(html_entity_decode($article->content), 0, 155).'...')))
             ]);
         } else {
             return Redirect::action('FrontendController@blog');
