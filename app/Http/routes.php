@@ -50,14 +50,17 @@ Route::get('/blog-masonry-consultant/{width}/{name}', function($width = NULL, $n
     $path = str_replace('.','',$path);
     $sizes = config('sizes.blog-masonry-consultant');
     if(!is_null($width) && !is_null($name) && !is_null($path) && in_array($width, $sizes)){
-        $cache_image = Image::cache(function($image) use($width, $name, $path){
-            return $image->make(url(ltrim($path, '/').$name))->resize($width, null, function ($c) {
-                $c->aspectRatio();
-                $c->upsize();
-            });
-        }, 1000);
-
-        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+        try {
+            $cache_image = Image::cache(function($image) use($width, $name, $path){
+                return $image->make(url(ltrim($path, '/').$name))->resize($width, null, function ($c) {
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+            }, 1000);
+            return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+        } catch (Intervention\Image\Exception\NotReadableException $e) {
+            abort(404);
+        }
     } else {
         abort(404);
     }
@@ -70,14 +73,17 @@ Route::get('/consultant-blog/{size}/{name}', function($size = NULL, $name = NULL
     $sizes = config('sizes.consultant-blog');
     if(!is_null($size) && !is_null($name) && !is_null($path) && in_array($size, $sizes)){
         $size = explode('x', $size);
-        $cache_image = Image::cache(function($image) use($size, $name, $path){
-            return $image->make(url(ltrim($path, '/').$name))->resize($size[0], $size[1], function ($c) {
-                $c->aspectRatio();
-                $c->upsize();
-            });
-        }, 1000);
-
-        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+        try {
+            $cache_image = Image::cache(function($image) use($size, $name, $path){
+                return $image->make(url(ltrim($path, '/').$name))->resize($size[0], $size[1], function ($c) {
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+            }, 1000);
+            return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+        } catch (Intervention\Image\Exception\NotReadableException $e) {
+            abort(404);
+        }
     } else {
         abort(404);
     }
