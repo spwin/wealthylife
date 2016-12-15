@@ -4,12 +4,12 @@
         <div class="nav-bar @yield('nav-style', 'nav-home')">
             <div class="module left">
                 <a href="{{ URL::to('/') }}">
-                    <img class="logo logo-light" alt="Foundry" src="{{ URL::to('/') }}/images/LOGO-header.svg">
+                    <img class="logo logo-light" alt="{{ env('APP_NAME') }}" src="{{ URL::to('/') }}/images/LOGO-header.svg">
                 </a>
             </div>
             <div class="mob-menu-logo">
                 <a href="{{ URL::to('/') }}">
-                    <img alt="Foundry" src="{{ URL::to('/') }}/images/LOGO-header.svg">
+                    <img alt="{{ env('APP_NAME') }}" src="{{ URL::to('/') }}/images/LOGO-header.svg">
                 </a>
             </div>
 
