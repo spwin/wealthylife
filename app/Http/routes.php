@@ -373,7 +373,7 @@ Route::get('feed', function(){
         $feed->pubdate = $articles[0]->created_at;
         $feed->lang = 'en';
         $feed->setShortening(true);
-        $feed->setTextLimit(150);
+        $feed->setTextLimit(500);
 
         foreach ($articles as $article)
         {
