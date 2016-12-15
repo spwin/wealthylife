@@ -356,3 +356,34 @@ Route::group(['middleware' => ['limited_access']], function () {
         Route::get('logout', 'Auth\AuthController@getAdminLogout');
     });
 });
+
+Route::get('feed', function(){
+    $feed = App::make("feed");
+    //$feed->setCache(60, 'rssFeedKey');
+
+    if (/*!$feed->isCached()*/ true)
+    {
+        $articles = \App\Article::where(['status' => 3])->orderBy('published_at', 'desc')->take(20)->get();
+
+        $feed->title = 'StyleSensei Blog';
+        $feed->description = 'Fashion inspiration for people by people';
+        $feed->logo = url()->to('/').'/images/logo-meta.png';
+        $feed->link = url('feed');
+        $feed->setDateFormat('datetime');
+        $feed->pubdate = $articles[0]->created_at;
+        $feed->lang = 'en';
+        $feed->setShortening(true);
+        $feed->setTextLimit(150);
+
+        foreach ($articles as $article)
+        {
+            $url = action('FrontendController@blogEntry', ['url' => $article->url]);
+            $author = $article->hide_name ? env('APP_NAME') : $article->user->userData->first_name.' '.$article->user->userData->first_name;
+            $image = $article->user->type == 'user' ? url()->to('/').'/blog/500x500/'.$article->image->filename : url()->to('/').'/consultant-blog/500x500/'.$article->image->filename.'?path='.rawurlencode($article->image->path);
+            $description = '<img src="'.$image.'" /> '.$article->title;
+            $feed->add($article->title, $author, $url, $article->published_at, $description, $article->content);
+        }
+
+    }
+    return $feed->render('atom');
+});
