@@ -603,12 +603,25 @@ $(document).ready(function() {
 
     // Accordions
 
+    var hash = '';
+    if(window.location.hash) {
+        hash = window.location.hash;
+        hash = hash.replace('#', '');
+    }
+
     $('.accordion li').click(function() {
         if ($(this).closest('.accordion').hasClass('one-open')) {
             $(this).closest('.accordion').find('li').removeClass('active');
             $(this).addClass('active');
         } else {
-            $(this).toggleClass('active');
+            if($(this).hasClass('active')){
+                $('.accordion li').removeClass('active');
+                $('html,body').animate({ scrollTop: 0 }, "fast");
+            } else {
+                $('.accordion li').removeClass('active');
+                $(this).addClass('active');
+                $('html, body').animate({ scrollTop: $(this).offset().top+2 }, "fast");
+            }
         }
         if(typeof window.mr_parallax !== "undefined"){
             setTimeout(mr_parallax.windowLoad, 500);
@@ -616,12 +629,6 @@ $(document).ready(function() {
     });
 
     // Tabbed Content
-
-    var hash = '';
-    if(window.location.hash) {
-        hash = window.location.hash;
-        hash = hash.replace('#', '');
-    }
 
     $('.tabbed-content').each(function() {
         $(this).append('<ul class="content"></ul>');

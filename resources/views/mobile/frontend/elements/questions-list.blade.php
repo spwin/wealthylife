@@ -1,13 +1,15 @@
-<ul class="accordion one-open mb-0px">
+<ul class="accordion mb-0px">
     <li id="pending-section">
+        <a href="#pending">
             <div class="title">
-                                        <span>
-                                            Pending
-                                            @if($pending->total() > 0)
-                                                (<span class="numbers">{{ $pending->total() }}</span>)
-                                            @endif
-                                        </span>
+                <span>
+                    Pending
+                    @if($pending->total() > 0)
+                        (<span class="numbers">{{ $pending->total() }}</span>)
+                    @endif
+                </span>
             </div>
+        </a>
         <div class="content">
             @if($pending->total() > 0)
                 <table class="table">
@@ -36,14 +38,16 @@
         </div>
     </li>
     <li id="answered-section">
+        <a href="#answered">
             <div class="title">
-                                        <span>
-                                            Answered
-                                            @if($answered->total() > 0)
-                                                (<span class="numbers">{{ $answered->total() }}</span>)
-                                            @endif
-                                        </span>
+                <span>
+                    Answered
+                    @if($answered->total() > 0)
+                        (<span class="numbers">{{ $answered->total() }}</span>)
+                    @endif
+                </span>
             </div>
+        </a>
         <div class="content">
             @if($answered->total() > 0)
                 <table class="table">
@@ -73,13 +77,14 @@
         </div>
     </li>
     <li id="drafts-section">
+        <a href="#drafts">
             <div class="title">
-                                        <span>
-                                            Drafts
-                                            @if($drafts->total() > 0)
-                                                (<span class="numbers">{{ $drafts->total() }}</span>)
-                                            @endif
-                                        </span>
+                <span>
+                    Drafts
+                    @if($drafts->total() > 0)
+                        (<span class="numbers">{{ $drafts->total() }}</span>)
+                    @endif
+                </span>
             </div>
         </a>
         <div class="content">
@@ -122,14 +127,16 @@
         </div>
     </li>
     <li id="rejected-section">
+        <a href="#rejected">
             <div class="title">
-                                        <span>
-                                            Rejected
-                                            @if($rejected->total() > 0)
-                                                (<span class="numbers">{{ $rejected->total() }}</span>)
-                                            @endif
-                                        </span>
+                <span>
+                    Rejected
+                    @if($rejected->total() > 0)
+                        (<span class="numbers">{{ $rejected->total() }}</span>)
+                    @endif
+                </span>
             </div>
+        </a>
         <div class="content">
             @if($rejected->total() > 0)
                 <table class="table">

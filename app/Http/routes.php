@@ -105,6 +105,22 @@ Route::get('/photo/{size}/{name}', function($size = NULL, $name = NULL){
     }
 });
 
+Route::get('/photo-crop/{size}/{name}', function($size = NULL, $name = NULL){
+    $sizes = config('sizes.photo-crop');
+    if(!is_null($size) && !is_null($name) && in_array($size, $sizes)){
+        $size = explode('x', $size);
+        $cache_image = Image::cache(function($image) use($size, $name){
+            return $image->make(url('uploads/questions/'.$name))->fit($size[0], $size[1], function ($c) {
+                $c->aspectRatio();
+                $c->upsize();
+            });
+        }, 1000);
+        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+    } else {
+        abort(404);
+    }
+});
+
 Route::get('/temp/{size}/{dir}/{name}', function($size = NULL, $dir = NULL, $name = NULL){
     $sizes = config('sizes.temp');
     if(!is_null($size) && !is_null($name) && in_array($size, $sizes)){

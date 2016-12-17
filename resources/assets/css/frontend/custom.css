@@ -1627,3 +1627,6 @@ a.facebook-color:hover{
 #menu{
     opacity: 0;
 }
+.questions-container .table>tbody>tr:first-child>td{
+    border-top: none;
+}

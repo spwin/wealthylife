@@ -18,7 +18,7 @@
                             <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                 @if(count($question->images) > 0)
                                     @foreach($question->images as $image)
-                                        <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
+                                        <img class="question-list" src="{{ url()->to('/').'/photo-crop/30x30/'.$image->filename }}">
                                     @endforeach
                                 @else
                                     <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
@@ -56,7 +56,7 @@
                             <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                 @if(count($question->images) > 0)
                                     @foreach($question->images as $image)
-                                        <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
+                                        <img class="question-list" src="{{ url()->to('/').'/photo-crop/30x30/'.$image->filename }}">
                                     @endforeach
                                 @else
                                     <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
@@ -96,7 +96,7 @@
                                 @if(count($question->images) > 0)
                                     @foreach($question->images as $image)
                                         <div class="display-inlineblock ">
-                                        <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
+                                        <img class="question-list" src="{{ url()->to('/').'/photo-crop/30x30/'.$image->filename }}">
                                         </div>
                                     @endforeach
                                 @else
@@ -147,7 +147,7 @@
                             <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
                                 @if(count($question->images) > 0)
                                     @foreach($question->images as $image)
-                                        <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
+                                        <img class="question-list" src="{{ url()->to('/').'/photo-crop/30x30/'.$image->filename }}">
                                     @endforeach
                                 @else
                                     <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
