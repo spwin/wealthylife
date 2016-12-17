@@ -154,7 +154,7 @@
 
             <div class="container">
                 <div class="half left about-block on-black blog">
-                    <h3 class="uppercase blog-head relative">Blog<img class="absolute blog-icon" alt="Blog icon" src="{{ url()->to('/') }}/images/blog-blue-icon.svg"></h3>
+                    <h3 class="uppercase blog-head relative">Blog<img class="absolute blog-icon mobile-none" alt="Blog icon" src="{{ url()->to('/') }}/images/blog-blue-icon.svg"></h3>
                     <p>Are you fond of penning down your thoughts? At StyleSensei, we give our customers a chance to write blogs and get them published on our site for free. In order to get started, all you need to do is create a blog entry with your photo and share.</p>
                     <p>You can invite more people to view your blog by sharing it on other social media platforms.</p>
                 </div>

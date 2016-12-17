@@ -188,7 +188,7 @@
 
             <div class="container container1400">
                 <div class="half left about-block on-black blog ask-us">
-                    <h3 class="uppercase blog-head relative"><span class="fs44">Ask us anything about</span> <span class="color-blue">fashion and styling</span><img class="absolute fashion-icon" alt="Blog icon" src="{{ url()->to('/') }}/images/blog-blue-icon.svg"></h3>
+                    <h3 class="uppercase blog-head relative"><span class="fs44">Ask us anything about</span> <span class="color-blue">fashion and styling</span><img class="absolute fashion-icon mobile-none" alt="Blog icon" src="{{ url()->to('/') }}/images/blog-blue-icon.svg"></h3>
                     <p><span class="bold700">We will answer giving you the best advice to look and feel great.</span><br> Our style advice is meant to make you stand out in the crowd and look effortlessly chic and on-point.</p>
                 </div>
             </div>

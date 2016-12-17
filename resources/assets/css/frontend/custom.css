@@ -191,6 +191,7 @@ table td.w205px{
     width: 205px;
 }
 
+
 input[type="password"].mb-5px{
     margin-bottom: 5px;
 }
@@ -903,10 +904,27 @@ button.delete-draft-question{
     color: #02BF87;
     border: none;
     padding: 0;
-    width: auto;
-    height: auto;
+    width: 19px;
+    position:relative;
+    max-height: 100%;
+    transition: background 0.3s ease-in-out;
+    background: url("../images/x-grey.svg") 0 0 no-repeat transparent;
 }
-
+button.delete-draft-question:after {
+    background: url("../images/x-red.svg") 0 0 no-repeat transparent;
+    content: "";
+    opacity: 0;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transition: all .4s ease;
+}
+button.delete-draft-question:hover:after {
+    opacity: 1;
+}
 .show-answer-btn, .show-answer-btn:link,
 .show-answer-btn:visited, .show-answer-btn:hover,
 .show-answer-btn:active{
@@ -1250,9 +1268,10 @@ span.text-red{
     width: 250px;
 }
 .article-list-img{
+    max-height: 220px;
+    margin: 0 auto;
     max-width: 100%;
-    max-height: 72px;
-    width: auto;
+    display: block;
 }
 .articles-list td a{
     font-size: 16px;
@@ -1290,8 +1309,11 @@ span.text-red{
 img.question-list{
     max-height: 30px;
     max-width: 50px;
-    width: auto;
-    height: auto;
+    object-fit: cover;
+    margin-top: 2px;
+    width: 30px;
+    margin-left: 4px;
+    height: 30px;
 }
 
 .paginator{
