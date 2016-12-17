@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head @yield('head-parameters')>
     <meta charset="utf-8">
     <title>@yield('page-title', trans('seo.main.title'))</title>
     <meta name="description" content="@yield('meta-description', trans('seo.main.description'))">
@@ -11,6 +11,7 @@
     <link href="{{ URL::to('/') }}/css/frontend.css" rel="stylesheet">
     <link href="{{ URL::to('/') }}/css/front-custom.css" rel="stylesheet">
     <link href="{{ URL::to('/') }}/css/fonts.css" rel="stylesheet">
+    {!! Feed::link(url('feed'), 'atom', 'StyleSensei Blog', 'en') !!}
 </head>
 <body class="@yield('body-class', 'default-class')">
 @if(\App\Helpers\Helpers::isMobile() && $user = Auth::guard('user')->user())

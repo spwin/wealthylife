@@ -1,4 +1,15 @@
 @extends('frontend/frame')
+@section('page-title', $article->title)
+@section('meta-description', $description)
+@section('head-parameters', 'prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"')
+@section('meta-content')
+    <meta property="og:type"   content="article" />
+    <meta property="og:image" content="{{ url()->to('/').$article->image->path.$article->image->filename }}" />
+    <meta property="og:url" content="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}" />
+    <meta property="og:title" content="{{ $article->title }}" />
+    <meta property="og:description" content="{{ $description }}" />
+    <meta property="fb:app_id" content="{{ env('FACEBOOK_APP_ID') }}" />
+@stop
 @section('nav-style', 'nav-blog')
 @section('after-body-snippet')
     <div id="fb-root"></div>

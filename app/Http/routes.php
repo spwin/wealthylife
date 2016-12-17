@@ -50,14 +50,17 @@ Route::get('/blog-masonry-consultant/{width}/{name}', function($width = NULL, $n
     $path = str_replace('.','',$path);
     $sizes = config('sizes.blog-masonry-consultant');
     if(!is_null($width) && !is_null($name) && !is_null($path) && in_array($width, $sizes)){
-        $cache_image = Image::cache(function($image) use($width, $name, $path){
-            return $image->make(url(ltrim($path, '/').$name))->resize($width, null, function ($c) {
-                $c->aspectRatio();
-                $c->upsize();
-            });
-        }, 1000);
-
-        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+        try {
+            $cache_image = Image::cache(function($image) use($width, $name, $path){
+                return $image->make(url(ltrim($path, '/').$name))->resize($width, null, function ($c) {
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+            }, 1000);
+            return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+        } catch (Intervention\Image\Exception\NotReadableException $e) {
+            abort(404);
+        }
     } else {
         abort(404);
     }
@@ -70,14 +73,17 @@ Route::get('/consultant-blog/{size}/{name}', function($size = NULL, $name = NULL
     $sizes = config('sizes.consultant-blog');
     if(!is_null($size) && !is_null($name) && !is_null($path) && in_array($size, $sizes)){
         $size = explode('x', $size);
-        $cache_image = Image::cache(function($image) use($size, $name, $path){
-            return $image->make(url(ltrim($path, '/').$name))->resize($size[0], $size[1], function ($c) {
-                $c->aspectRatio();
-                $c->upsize();
-            });
-        }, 1000);
-
-        return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+        try {
+            $cache_image = Image::cache(function($image) use($size, $name, $path){
+                return $image->make(url(ltrim($path, '/').$name))->resize($size[0], $size[1], function ($c) {
+                    $c->aspectRatio();
+                    $c->upsize();
+                });
+            }, 1000);
+            return Response::make($cache_image, 200, ['Content-Type' => 'image']);
+        } catch (Intervention\Image\Exception\NotReadableException $e) {
+            abort(404);
+        }
     } else {
         abort(404);
     }
@@ -355,4 +361,35 @@ Route::group(['middleware' => ['limited_access']], function () {
         });
         Route::get('logout', 'Auth\AuthController@getAdminLogout');
     });
+});
+
+Route::get('feed', function(){
+    $feed = App::make("feed");
+    //$feed->setCache(60, 'rssFeedKey');
+
+    if (/*!$feed->isCached()*/ true)
+    {
+        $articles = \App\Article::where(['status' => 3])->orderBy('published_at', 'desc')->take(20)->get();
+
+        $feed->title = 'StyleSensei Blog';
+        $feed->description = 'Fashion inspiration for people by people';
+        $feed->logo = url()->to('/').'/images/logo-meta.png';
+        $feed->link = url('feed');
+        $feed->setDateFormat('datetime');
+        $feed->pubdate = $articles[0]->created_at;
+        $feed->lang = 'en';
+        $feed->setShortening(true);
+        $feed->setTextLimit(500);
+
+        foreach ($articles as $article)
+        {
+            $url = action('FrontendController@blogEntry', ['url' => $article->url]);
+            $author = $article->hide_name ? env('APP_NAME') : $article->user->userData->first_name.' '.$article->user->userData->first_name;
+            $image = $article->user->type == 'user' ? url()->to('/').'/blog/500x500/'.$article->image->filename : url()->to('/').'/consultant-blog/500x500/'.$article->image->filename.'?path='.rawurlencode($article->image->path);
+            $description = '<img src="'.$image.'" /> '.$article->title;
+            $feed->add($article->title, $author, $url, $article->published_at, $description, $article->content);
+        }
+
+    }
+    return $feed->render('atom');
 });

@@ -18,7 +18,8 @@
         "intervention/imagecache": "^2.3",
         "roumen/sitemap": "^2.6",
         "jenssegers/agent": "^2.3",
-        "unisharp/laravel-filemanager": "^1.6"
+        "unisharp/laravel-filemanager": "^1.6",
+        "roumen/feed": "^2.10"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
