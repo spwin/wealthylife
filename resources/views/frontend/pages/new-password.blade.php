@@ -1,6 +1,6 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-authorize-question')
-@section('content')U
+@section('content')
     <section class="fullscreen">
         <div class="container v-align-transform">
             <div class="row">

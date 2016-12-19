@@ -5,9 +5,6 @@
 @section('body-class', 'contacts-page')
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
-        <div class="background-image-holder-about fadeIn">
-            <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
-        </div>
         <div itemprop="publisher" itemscope="" itemtype="https://schema.org/Brand">
             <div itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
                 <meta itemprop="url" content="{{ URL::to('/') }}/images/logo-meta.png">
