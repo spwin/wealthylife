@@ -5,9 +5,6 @@
 @section('body-class', 'team-page')
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
-        <div class="background-image-holder-about fadeIn">
-            <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover5.jpg" /-->
-        </div>
         <div class="container page-first-header">
             <div class="row">
                 <div class="col-md-6">

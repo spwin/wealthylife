@@ -63,16 +63,16 @@
         },
         {
             "name": "braintree/braintree_php",
-            "version": "3.18.0",
+            "version": "3.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/braintree/braintree_php.git",
-                "reference": "cc7f22d1aaf0aa7abee7b8dd890f0c198c12db4f"
+                "reference": "66550498408df0fd186df2f2c3bde842a7e8a6e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/cc7f22d1aaf0aa7abee7b8dd890f0c198c12db4f",
-                "reference": "cc7f22d1aaf0aa7abee7b8dd890f0c198c12db4f",
+                "url": "https://api.github.com/repos/braintree/braintree_php/zipball/66550498408df0fd186df2f2c3bde842a7e8a6e9",
+                "reference": "66550498408df0fd186df2f2c3bde842a7e8a6e9",
                 "shasum": ""
             },
             "require": {
@@ -106,7 +106,7 @@
                 }
             ],
             "description": "Braintree PHP Client Library",
-            "time": "2016-11-14 21:04:29"
+            "time": "2016-12-12 23:19:58"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -2009,16 +2009,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "8bb36c8b918e63a08a2b13f31568808f1a7e6c20"
+                "reference": "7656110b7577c4239b5c76a5c2d67261b0122ca0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/8bb36c8b918e63a08a2b13f31568808f1a7e6c20",
-                "reference": "8bb36c8b918e63a08a2b13f31568808f1a7e6c20",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/7656110b7577c4239b5c76a5c2d67261b0122ca0",
+                "reference": "7656110b7577c4239b5c76a5c2d67261b0122ca0",
                 "shasum": ""
             },
             "require": {
@@ -2066,7 +2066,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2016-12-09 03:40:24"
+            "time": "2016-12-14 21:57:27"
         },
         {
             "name": "sentry/sentry-laravel",
@@ -2294,7 +2294,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.2.0",
+            "version": "v3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -4337,16 +4337,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.2.0",
+            "version": "v3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "f2300ba8fbb002c028710b92e1906e7457410693"
+                "reference": "a7095af4b97a0955f85c8989106c249fa649011f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/f2300ba8fbb002c028710b92e1906e7457410693",
-                "reference": "f2300ba8fbb002c028710b92e1906e7457410693",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/a7095af4b97a0955f85c8989106c249fa649011f",
+                "reference": "a7095af4b97a0955f85c8989106c249fa649011f",
                 "shasum": ""
             },
             "require": {
@@ -4388,7 +4388,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-11-18 21:17:59"
+            "time": "2016-12-10 10:07:06"
         },
         {
             "name": "webmozart/assert",
