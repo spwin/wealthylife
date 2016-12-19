@@ -358,7 +358,7 @@ footer{ padding: 30px 0; }
 .image-bg .container, .image-bg div[class*='col-']{ position: relative; z-index: 3; }
 .container.image-bg .row{ position: relative; z-index: 3; }
 
-.background-image-holder{ position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; background: @bg-dark; background-size: cover !important; background-position: 50% 50% !important; .transition(0.3s); opacity: 0; }
+.background-image-holder{ position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 1; background: #080808; background-size: cover !important; background-position: 50% 50% !important; .transition(0.3s); opacity: 0; }
 .background-image-holder img{ display: none; }
 .background-multiply .background-image-holder{ background-color: @color-primary !important; background-blend-mode: multiply; }
 .background-image-holder.fadeIn{ opacity: 1; }
@@ -5276,12 +5276,12 @@ html {
 body:not(.front-page) #sub-body {
 	background-image: url("../images/pattern.jpg");
 	background-size: 300px;
-	background-color: #666;
+	background-color: #1D1D1D;
 }
 #sub-body {
 	background-attachment: fixed;
 	background-repeat: repeat;
-	background-color: #666;
+	background-color: #080808;
 }
 .front-page #sub-body {
 	-webkit-background-size: auto 100%;
@@ -5302,17 +5302,6 @@ body:not(.front-page) #sub-body {
 	transition: background-image 0.3s ease-in-out;
 }
 
-.front-page #sub-body:before {
-	position: fixed;
-	content: '';
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	background: #000;
-	opacity: 0.5;
-	z-index: 2;
-}
 .homepage-image-holder {
 	display: none;
 }
