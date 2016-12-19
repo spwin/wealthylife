@@ -671,9 +671,9 @@ var slideoutMenu = function(){
                 'tolerance': 70
             });
             slideoutMenu.bind();
-            /*if(homepage){
+            if(homepage){
                 slideoutMenu.bindHomepage();
-            }*/
+            }
         },
         onOpenMenu: function() {
             $(window).scrollTop(0);
