@@ -3,9 +3,6 @@
 @section('content')
 
     <section class="page-title page-title-4 auth-head-sec image-bg parallax">
-        <div class="background-image-holder-about fadeIn">
-            <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/cover16.jpg" /-->
-        </div>
         <div class="container page-first-header mt24">
             <div class="row text-center">
                     <p class="authorize-head"><span class="bold700 color-green-prof">You need to be Logged in</span> in order to proceed. It takes less than a minute to create a new

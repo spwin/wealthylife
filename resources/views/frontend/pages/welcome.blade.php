@@ -3,9 +3,6 @@
 @section('content')
 
     <section class="page-title page-title-4 height165px image-bg parallax">
-        <div class="background-image-holder-about fadeIn">
-            <!--img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/about-bg.jpg" /-->
-        </div>
         <div class="container page-first-header">
             <div class="row">
                 <div class="col-md-6">
