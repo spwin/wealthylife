@@ -11,8 +11,8 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
-    <link href="{{ URL::to('/') }}/css/admin.css" rel="stylesheet">
-    <link href="{{ URL::to('/') }}/css/plugins.css" rel="stylesheet">
+    <link href="{{ URL::to('/') }}/css/admin.css?v={{ config('cache.version') }}" rel="stylesheet">
+    <link href="{{ URL::to('/') }}/css/plugins.css?v={{ config('cache.version') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -25,7 +25,7 @@
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script src="{{ URL::to('/') }}/js/admin/bootstrap.min.js"></script>
 <script src="{{ URL::to('/') }}/js/admin/app.min.js"></script>
-<script src="{{ URL::to('/') }}/js/plugins.js"></script>
+<script src="{{ URL::to('/') }}/js/plugins.js?v={{ config('cache.version') }}"></script>
 @stack('scripts')
 </body>
 </html>

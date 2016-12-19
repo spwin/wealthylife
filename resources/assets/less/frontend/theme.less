@@ -5273,10 +5273,13 @@ html {
 	position:relative;
 	z-index: 1;
 }
-#sub-body {
+body:not(.front-page) #sub-body {
 	background-image: url("../images/pattern.jpg");
-	background-attachment: fixed;
 	background-size: 300px;
+	background-color: #666;
+}
+#sub-body {
+	background-attachment: fixed;
 	background-repeat: repeat;
 	background-color: #666;
 }
@@ -5284,10 +5287,10 @@ html {
 	background-size: cover;
 	background-position: center;
 
-	-webkit-transition: background 0.5s linear;
-	-moz-transition: background 0.5s linear;
-	-o-transition: background 0.5s linear;
-	transition: background 0.5s linear;
+	-webkit-transition: background-image 0.3s ease-in-out;
+	-moz-transition: background-image 0.3s ease-in-out;
+	-o-transition: background-image 0.3s ease-in-out;
+	transition: background-image 0.3s ease-in-out;
 }
 
 .front-page #sub-body:before {

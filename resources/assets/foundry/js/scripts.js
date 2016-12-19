@@ -35,6 +35,17 @@ $(document).ready(function() {
 
     // Append .background-image-holder <img>'s as CSS backgrounds
 
+    $('.homepage-image-holder').each(function() {
+        var imgSrc = $(this).children('img').attr('src');
+
+        var image = $('<img>').attr('src', imgSrc);
+        var container = $('#sub-body');
+
+        image.bind('load', function(data){
+            container.css('background-image',"url("+this.src+")");
+        });
+    });
+
     $('.background-image-holder').each(function() {
         var imgSrc = $(this).children('img').attr('src');
 

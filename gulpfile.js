@@ -57,6 +57,7 @@ elixir(function(mix) {
         .copy('resources/assets/foundry/video', 'public/video')
         .copy('resources/assets/videos', 'public/video')
         .copy('resources/assets/fonts/frontend', 'public/fonts');
+
     mix.styles([
         '../foundry/css/bootstrap.min.css',
         '../foundry/css/themify-icons.css',
@@ -66,6 +67,7 @@ elixir(function(mix) {
         '../plugins/datepicker/datepicker3.css',
         '../plugins/bootstrap-slider/slider.css'
     ], 'public/css/front-plugins.css');
+
     mix.styles([
         'frontend/tinymce.css'
     ], 'public/css/tinymce.css');
@@ -93,4 +95,12 @@ elixir(function(mix) {
         '../foundry/js/jquery.lazyload.min.js',
         'frontend/custom.js'
     ], 'public/js/front-plugins.js');
+    /*mix.version([
+        "css/admin.css",
+        "css/plugins.css",
+        "js/plugins.js",
+        "css/frontend.css",
+        "css/front-plugins.css",
+        "css/front-custom.css",
+        "js/front-plugins.js"]);*/
 });

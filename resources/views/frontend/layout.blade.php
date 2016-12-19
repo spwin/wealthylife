@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     @yield('meta-content')
 {{--<link rel="alternate" href="{{ url()->to('/') }}" hreflang="en-GB" />--}}
-    <link href="{{ URL::to('/') }}/css/front-plugins.css" rel="stylesheet">
-    <link href="{{ URL::to('/') }}/css/frontend.css" rel="stylesheet">
-    <link href="{{ URL::to('/') }}/css/front-custom.css" rel="stylesheet">
-    <link href="{{ URL::to('/') }}/css/fonts.css" rel="stylesheet">
+    <link href="{{ URL::to('/') }}/css/front-plugins.css?v={{ config('cache.version') }}" rel="stylesheet">
+    <link href="{{ URL::to('/') }}/css/frontend.css?v={{ config('cache.version') }}" rel="stylesheet">
+    <link href="{{ URL::to('/') }}/css/front-custom.css?v={{ config('cache.version') }}" rel="stylesheet">
+    <link href="{{ URL::to('/') }}/css/fonts.css?v={{ config('cache.version') }}" rel="stylesheet">
     {!! Feed::link(url('feed'), 'atom', 'StyleSensei Blog', 'en') !!}
 </head>
 <body class="@yield('body-class', 'default-class')">
@@ -28,7 +28,7 @@
     </div>
     <div class="trigger-catcher"></div>
 </div>
-<script src="{{ URL::to('/') }}/js/front-plugins.js"></script>
+<script src="{{ URL::to('/') }}/js/front-plugins.js?v={{ config('cache.version') }}"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
