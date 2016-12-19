@@ -5304,11 +5304,14 @@ body:not(.front-page) #sub-body {
 	height: 100%;
 	top: 0;
 	left: 0;
-	background: url("../images/welcome.jpg") no-repeat center center;
+	background-image: url("../images/welcome.jpg");
+	background-repeat: no-repeat;
+	background-position: center center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+	background-attachment: fixed;
 	z-index: 2;
 }
 .homepage-image-holder {
