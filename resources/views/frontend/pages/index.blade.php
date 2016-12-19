@@ -2,7 +2,7 @@
 @section('nav-style', 'nav-home')
 @section('body-class', 'front-page')
 @section('after-body-snippet')
-    <div class="background-image-holder">
+    <div class="homepage-image-holder">
         <img alt="Background Image" class="background-image" src="{{ url()->to('/') }}/images/{{ $background }}.jpg">
     </div>
 @stop
