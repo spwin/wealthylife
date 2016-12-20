@@ -139,7 +139,7 @@
                         </ul>
                     </div>
                     <div class="box-footer">
-                        <a href="{{ action('ConsultantController@timetable') }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i> All Users List</a>
+                        <a href="{{ action('ConsultantController@listUsers') }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i> All Users List</a>
                     </div>
                 </div>
             </div>
