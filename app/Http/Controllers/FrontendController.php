@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Discounts;
+use App\Helpers\Helpers;
 use App\Images;
 use App\Newsletter;
 use App\Notifications;
@@ -32,6 +33,7 @@ use Illuminate\Support\Facades\Storage;
 use Braintree\ClientToken;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
+use Jenssegers\Agent\Facades\Agent;
 
 class FrontendController extends Controller
 {
@@ -312,10 +314,17 @@ class FrontendController extends Controller
     public function questions(){
         if($user = Auth::guard('user')->user()){
             $per_page = 15;
-            $pending = $user->questions()->with('images')->where(['status' => 1])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'pending_page', null);
-            $answered = $user->questions()->with('images')->where(['status' => 2])->orderBy('answered_at', 'DESC')->paginate($per_page, ['*'], 'answered_page', null);
-            $drafts = $user->questions()->with('images')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
-            $rejected = $user->questions()->with('images')->where(['status' => 3])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'rejected_page', null);
+            if(Helpers::isMobile()){
+                $pending = $user->questions()->with('images')->where(['status' => 1])->orderBy('created_at', 'DESC')->get();
+                $answered = $user->questions()->with('images')->where(['status' => 2])->orderBy('answered_at', 'DESC')->get();
+                $drafts = $user->questions()->with('images')->where(['status' => 0])->orderBy('created_at', 'DESC')->get();
+                $rejected = $user->questions()->with('images')->where(['status' => 3])->orderBy('created_at', 'DESC')->get();
+            } else {
+                $pending = $user->questions()->with('images')->where(['status' => 1])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'pending_page', null);
+                $answered = $user->questions()->with('images')->where(['status' => 2])->orderBy('answered_at', 'DESC')->paginate($per_page, ['*'], 'answered_page', null);
+                $drafts = $user->questions()->with('images')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
+                $rejected = $user->questions()->with('images')->where(['status' => 3])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'rejected_page', null);
+            }
             return view('frontend/profile/questions')->with([
                 'user' => $user,
                 'pending' => $pending,
@@ -342,9 +351,15 @@ class FrontendController extends Controller
         if($user = Auth::guard('user')->user()){
             $per_page = 10;
             $articles = Article::where(['user_id' => $user->id])->get();
-            $published = $user->articles()->with('image')->where(['status' => 3])->orderBy('published_at', 'DESC')->paginate($per_page, ['*'], 'published_page', null);
-            $submitted = $user->articles()->with('image')->where(['status' => 1])->orWhere(['status' => 2])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'submitted_page', null);
-            $drafts = $user->articles()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
+            if(Helpers::isMobile()){
+                $published = $user->articles()->with('image')->where(['status' => 3])->orderBy('published_at', 'DESC')->get();
+                $submitted = $user->articles()->with('image')->where(['status' => 1])->orWhere(['status' => 2])->orderBy('created_at', 'DESC')->get();
+                $drafts = $user->articles()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->get();
+            } else {
+                $published = $user->articles()->with('image')->where(['status' => 3])->orderBy('published_at', 'DESC')->paginate($per_page, ['*'], 'published_page', null);
+                $submitted = $user->articles()->with('image')->where(['status' => 1])->orWhere(['status' => 2])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'submitted_page', null);
+                $drafts = $user->articles()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
+            }
             return view('frontend/profile/articles')->with([
                 'user' => $user,
                 'articles' => $articles,

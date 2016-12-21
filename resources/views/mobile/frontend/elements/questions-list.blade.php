@@ -4,14 +4,14 @@
             <div class="title">
                 <span>
                     Pending
-                    @if($pending->total() > 0)
-                        (<span class="numbers">{{ $pending->total() }}</span>)
+                    @if(count($pending) > 0)
+                        (<span class="numbers">{{ count($pending) }}</span>)
                     @endif
                 </span>
             </div>
         </a>
         <div class="content">
-            @if($pending->total() > 0)
+            @if(count($pending) > 0)
                 <table class="table">
                     @foreach($pending as $question)
                         <tr>
@@ -32,9 +32,6 @@
             @else
                 <p>No pending questions.</p>
             @endif
-            <div class="paginator">
-                {{ $pending->fragment('pending')->links() }}
-            </div>
         </div>
     </li>
     <li id="answered-section">
@@ -42,14 +39,14 @@
             <div class="title">
                 <span>
                     Answered
-                    @if($answered->total() > 0)
-                        (<span class="numbers">{{ $answered->total() }}</span>)
+                    @if(count($answered) > 0)
+                        (<span class="numbers">{{ count($answered) }}</span>)
                     @endif
                 </span>
             </div>
         </a>
         <div class="content">
-            @if($answered->total() > 0)
+            @if(count($answered) > 0)
                 <table class="table">
                     @foreach($answered as $question)
                         <tr class="{{ $question->answer->seen ? '' : 'bold' }}" >
@@ -71,9 +68,6 @@
             @else
                 <p>No answered questions.</p>
             @endif
-            <div class="paginator">
-                {{ $answered->fragment('answered')->links() }}
-            </div>
         </div>
     </li>
     <li id="drafts-section">
@@ -81,14 +75,14 @@
             <div class="title">
                 <span>
                     Drafts
-                    @if($drafts->total() > 0)
-                        (<span class="numbers">{{ $drafts->total() }}</span>)
+                    @if(count($drafts) > 0)
+                        (<span class="numbers">{{ count($drafts) }}</span>)
                     @endif
                 </span>
             </div>
         </a>
         <div class="content">
-            @if($drafts->total() > 0)
+            @if(count($drafts) > 0)
                 <table class="table">
                     @foreach($drafts as $question)
                         <tr>
@@ -121,9 +115,6 @@
             @else
                 <p>No questions drafts.</p>
             @endif
-            <div class="paginator">
-                {{ $drafts->fragment('drafts')->links() }}
-            </div>
         </div>
     </li>
     <li id="rejected-section">
@@ -131,14 +122,14 @@
             <div class="title">
                 <span>
                     Rejected
-                    @if($rejected->total() > 0)
-                        (<span class="numbers">{{ $rejected->total() }}</span>)
+                    @if(count($rejected) > 0)
+                        (<span class="numbers">{{ count($rejected) }}</span>)
                     @endif
                 </span>
             </div>
         </a>
         <div class="content">
-            @if($rejected->total() > 0)
+            @if(count($rejected) > 0)
                 <table class="table">
                     @foreach($rejected as $question)
                         <tr>
@@ -160,9 +151,6 @@
             @else
                 <p>You have no rejected questions.</p>
             @endif
-            <div class="paginator">
-                {{ $rejected->fragment('pending')->links() }}
-            </div>
         </div>
     </li>
 </ul>

@@ -1,15 +1,15 @@
-<ul class="accordion one-open mb-0px">
+<ul class="accordion mb-0px">
     <li id="published-section">
             <div class="title">
                                         <span>
                                             Published
-                                            @if($published->total() > 0)
-                                                (<span class="numbers">{{ $published->total() }}</span>)
+                                            @if(count($published) > 0)
+                                                (<span class="numbers">{{ count($published) }}</span>)
                                             @endif
                                         </span>
             </div>
         <div class="content">
-            @if($published->total() > 0)
+            @if(count($published) > 0)
                     @foreach($published as $article)
                         <div class="article-prev mb8">
                             <h5 class="mb8">{{ $article->title }}</h5>
@@ -30,9 +30,6 @@
             @else
                 <p>You have no published blog entries yet.</p>
             @endif
-            <div class="paginator">
-                {{ $published->fragment('published')->links() }}
-            </div>
         </div>
     </li>
 
@@ -40,13 +37,13 @@
             <div class="title">
                                         <span>
                                             Submitted
-                                            @if($submitted->total()  > 0)
-                                                (<span class="numbers">{{ $submitted->total() }}</span>)
+                                            @if(count($submitted)  > 0)
+                                                (<span class="numbers">{{ count($submitted) }}</span>)
                                             @endif
                                         </span>
             </div>
         <div class="content">
-            @if($submitted->total() > 0)
+            @if(count($submitted) > 0)
                     @foreach($submitted as $article)
 
                     <div class="article-prev mb8">
@@ -68,9 +65,6 @@
             @else
                 <p>You have no submitted blog entries.</p>
             @endif
-            <div class="paginator">
-                {{ $submitted->fragment('submitted')->links() }}
-            </div>
         </div>
     </li>
 
@@ -78,13 +72,13 @@
             <div class="title">
                                         <span>
                                             Drafts
-                                            @if($drafts->total()  > 0)
-                                                (<span class="numbers">{{ $drafts->total() }}</span>)
+                                            @if(count($drafts)  > 0)
+                                                (<span class="numbers">{{ count($drafts) }}</span>)
                                             @endif
                                         </span>
             </div>
         <div class="content">
-            @if($drafts->total() > 0)
+            @if(count($drafts) > 0)
                     @foreach($drafts as $article)
                     <div class="article-prev mb8">
                         <h5 class="mb8">{{ $article->title }}</h5>
@@ -106,9 +100,6 @@
             @else
                 <p>You have no blog entries drafts.</p>
             @endif
-            <div class="paginator">
-                {{ $drafts->fragment('drafts')->links() }}
-            </div>
         </div>
     </li>
 </ul>

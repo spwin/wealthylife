@@ -623,14 +623,17 @@ $(document).ready(function() {
         hash = hash.replace('#', '');
     }
 
-    $('.accordion li').click(function() {
+    $('.accordion li').click(function(e) {
+        if($(e.target).parents('.content').length || $(e.target).hasClass('content')) {
+            return
+        }
         if ($(this).closest('.accordion').hasClass('one-open')) {
             $(this).closest('.accordion').find('li').removeClass('active');
             $(this).addClass('active');
         } else {
             if($(this).hasClass('active')){
                 $('.accordion li').removeClass('active');
-                $('html,body').animate({ scrollTop: 0 }, "fast");
+                $('html,body').animate({ scrollTop: $(this).parent('.accordion').offset().top - 60 }, "fast");
             } else {
                 $('.accordion li').removeClass('active');
                 $(this).addClass('active');
