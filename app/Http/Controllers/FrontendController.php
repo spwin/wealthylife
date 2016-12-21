@@ -315,15 +315,15 @@ class FrontendController extends Controller
         if($user = Auth::guard('user')->user()){
             $per_page = 15;
             if(Helpers::isMobile()){
-                $pending = $user->questions()->with('images')->where(['status' => 1])->orderBy('created_at', 'DESC')->get();
+                $pending = $user->questions()->with('images')->where(['status' => 1])->orderBy('asked_at', 'DESC')->get();
                 $answered = $user->questions()->with('images')->where(['status' => 2])->orderBy('answered_at', 'DESC')->get();
                 $drafts = $user->questions()->with('images')->where(['status' => 0])->orderBy('created_at', 'DESC')->get();
-                $rejected = $user->questions()->with('images')->where(['status' => 3])->orderBy('created_at', 'DESC')->get();
+                $rejected = $user->questions()->with('images')->where(['status' => 3])->orderBy('asked_at', 'DESC')->get();
             } else {
-                $pending = $user->questions()->with('images')->where(['status' => 1])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'pending_page', null);
+                $pending = $user->questions()->with('images')->where(['status' => 1])->orderBy('asked_at', 'DESC')->paginate($per_page, ['*'], 'pending_page', null);
                 $answered = $user->questions()->with('images')->where(['status' => 2])->orderBy('answered_at', 'DESC')->paginate($per_page, ['*'], 'answered_page', null);
                 $drafts = $user->questions()->with('images')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
-                $rejected = $user->questions()->with('images')->where(['status' => 3])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'rejected_page', null);
+                $rejected = $user->questions()->with('images')->where(['status' => 3])->orderBy('asked_at', 'DESC')->paginate($per_page, ['*'], 'rejected_page', null);
             }
             return view('frontend/profile/questions')->with([
                 'user' => $user,
