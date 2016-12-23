@@ -1,8 +1,11 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-authorize-question')
 @section('content')
-    <section class="fullscreen">
-        <div class="container v-align-transform">
+    <section class="no-padding-all"></section>
+
+    <section class="fullscreen reset-pass">
+
+            <div class="container v-align-transform">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
                     @if (Session::has('flash_notification.password.message'))
@@ -16,7 +19,7 @@
                 </div>
                 <div class="col-sm-6 col-sm-offset-3">
                     <div class="feature text-center">
-                        <h2 class="large">Enter your email</h2>
+                        <h2 class="large color-white">Enter your <span class="color-red">E-mail</span></h2>
                         {!! Form::open([
                             'role' => 'form',
                             'url' => action('UserController@resetPassword'),

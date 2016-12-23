@@ -611,7 +611,7 @@ nav.nav-centered.outOfSight .logo{ display: none; }
 
 /*!---------- 9. ALERTS ----------*/
 
-.alert{ margin-bottom: 10px; background: none; border-radius: 0; font-weight: 600; padding: 12px 16px; }
+.alert{ margin-bottom: 20px; background: none; border-radius: 0; font-weight: 600; padding: 12px 16px; }
 .alert .close{ opacity: 1; font-size: 24px; top: -2px; right: -4px; .transition(0.3s); z-index: 1;}
 .alert .close span{ font-weight: 400; }
 .alert-warning{ border: 1px solid #d88519; color: #d88519; }
@@ -5633,6 +5633,9 @@ body.front-page footer {
 	padding-bottom: 24px;
 	margin-bottom: 24px;
 }
+div.alert:last-child {
+	margin-bottom: 25px;
+}
 div.content > div.article-prev:nth-last-child(2) {
 	border-bottom: none;
 	padding-bottom: 0;
@@ -5648,9 +5651,60 @@ div.content > div.article-prev:nth-last-child(2) {
 		margin-top: 20px;
 	}
 }
-.delete-draft-question {
-
+.no-padding-all {
+	padding:0 ;
 }
+.reset-pass .feature {
+	max-width: 500px;
+	margin: 0 auto;
+}
+.reset-pass.new-pass .feature {
+	max-width: none;
+}
+@media all and (max-width: 990px) {
+	.reset-pass.new-pass .feature {
+		max-width: 500px;
+		margin: 0 auto;
+	}
+	.no-padding-all {
+		padding: 50px;
+	}
+	.reset-pass .v-align-transform {
+		transform: none !important;
+	}
+	.reset-pass.fullscreen {
+			height: auto;
+	}
+}
+@media all and (min-width: 768px) and (max-width:991px) {
+	.reset-pass {
+		.col-sm-6 {
+			width: 100%;
+		}
+		.col-sm-offset-3 {
+			margin-left: 0;
+		}
+	}
+}
+.error-404 .social-login {
+	max-width: 415px;
+}
+.error-404 .ti-lock {
+	color: #02bf88;
+}
+@media all and (max-width: 450px) {
+	.profile-page .preview-article.about-block h4.uppercase {
+		width: 100%;
+	}
+}
+@media all and (max-width: 360px) {
+	.summary-profile.about-block h4.uppercase {
+		margin-bottom: 15px;
+	}
+}
+
+
+
 
 
 
@@ -5869,7 +5923,6 @@ input.question-btn.askq {
 		width: 100%;
 		height: 50px;
 		line-height: 50px;
-		font-size: 18px;
 	}
 	.question-form1 .image-button.btn {
 		margin-bottom: 24px;
@@ -6110,10 +6163,6 @@ div.question-body .modal-container.left {
 	border-bottom: 1px solid gray;
 	margin-bottom: 0;
 	*/
-}
-
-div.alert:last-child {
-	border-bottom: none;
 }
 
 .profile-page .tabbed-content {

@@ -123,7 +123,7 @@
                                         'method' => 'POST',
                                         'class' => 'confirm-article'
                                     ]) !!}
-                                    <input type="submit" class="btn" value="Submit for review">
+                                    <input type="submit" class="btn hovered" value="Submit for review">
                                     {!! Form::close() !!}
                                 @else
                                     <h4 class="mr-15px">Submitted for review</h4>

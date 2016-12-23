@@ -1,7 +1,8 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-authorize-question')
 @section('content')
-    <section class="fullscreen">
+    <section class="no-padding-all"></section>
+    <section class="fullscreen reset-pass new-pass">
         <div class="container v-align-transform">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
@@ -14,9 +15,9 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-sm-6 col-sm-offset-3">
+                <div class="col-sm-8 col-sm-offset-2">
                     <div class="feature text-center">
-                        <h2 class="large">Please enter new password:</h2>
+                        <h2 class="large color-white">Please enter new password:</h2>
                         @if (count($errors->password) > 0)
                             <div class="alert alert-danger alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">

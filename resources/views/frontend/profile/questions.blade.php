@@ -53,7 +53,7 @@
                                 @endif
                             </div>
                         </div>
-                        <h4 class="uppercase mb16">Questions</h4>
+                        <h4 class="uppercase mb24">Questions</h4>
                         {{--<p class="lead mb64">
                             Some info about questions
                         </p>--}}
