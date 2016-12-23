@@ -343,9 +343,29 @@ function checkAnswerTime(e,button,token, url){
     }
 }
 
+function repositionModal(modal){
+    var windowW = $(window).outerWidth(),
+        windowH = $(window).outerHeight(),
+        modalW = modal.outerWidth(),
+        modalH = modal.outerHeight();
+
+    modal.css({
+        "top": ((windowH-modalH)/2)+"px",
+        "left": ((windowW-modalW)/2)+"px"
+    });
+}
+
 $('.trigger-catcher').on('question-modal', function(){
     $('.answer-time-result').html('');
     $('.check-answer-time .check-time-button').show();
+    repositionModal($('.foundry_modal.reveal-modal'));
+});
+
+$(window).resize(function(){
+    var modal = $('.foundry_modal.reveal-modal');
+    if(modal.is(':visible')){
+        repositionModal(modal);
+    }
 });
 
 // MAIN PHRASE TOP POSITION ON SCROLL/*

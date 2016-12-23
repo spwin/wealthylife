@@ -1616,18 +1616,12 @@ section+.portfolio-pullup{ padding-top: 0; margin-top: -128px; position: relativ
 
 /*!---------- 35. MODALS ----------*/
 
-.foundry_modal{ overflow-y: auto; max-height: 100%; /*max-width: 50%; width: 50%; */position: fixed; top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); -webkit-transform: translateX(-50%) translateY(-50%);padding: 130px 48px 28px; .transition(0.1s); opacity: 0; visibility: hidden; background: #fff; -webkit-font-smoothing: subpixel-antialiased; .cast-shadow; z-index: -1; }
+.foundry_modal{ overflow-y: auto; max-height: 100%; /*max-width: 50%; width: 50%; */position: fixed; /*top: 50%; left: 50%; transform: translateX(-50%) translateY(-50%); -webkit-transform: translateX(-50%) translateY(-50%);*/padding: 130px 48px 28px; /*.transition(0.1s); */opacity: 0; visibility: hidden; background: #fff; -webkit-font-smoothing: subpixel-antialiased; .cast-shadow; z-index: -1; }
 .foundry_modal.no-bg{ background: none; box-shadow: none !important; }
 .modal-screen{ position: fixed; width: 100%; height: 100%; background: #000; opacity: 0; z-index: 9998; .transition(0.3s); visibility: hidden; top: 0; left: 0; }
 .modal-screen.reveal-modal{ opacity: .8; visibility: visible; }
 .foundry_modal.reveal-modal{
-	opacity: 1; visibility: visible; z-index: 9999; top: 50%; left: 50%; -webkit-backface-visibility: hidden;  -webkit-transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.0, 1.0);
-	image-rendering: optimizeSpeed;             /*                     */
-	image-rendering: -moz-crisp-edges;          /* Firefox             */
-	image-rendering: -o-crisp-edges;            /* Opera               */
-	image-rendering: -webkit-optimize-contrast; /* Chrome (and Safari) */
-	image-rendering: optimize-contrast;         /* CSS3 Proposed       */
-	-ms-interpolation-mode: nearest-neighbor;   /* IE8+                */
+	opacity: 1; visibility: visible; z-index: 9999; /*top: 50%; left: 50%; -webkit-backface-visibility: hidden;  -webkit-transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.0, 1.0);*/
 	-webkit-font-smoothing: antialiased;
 }
 .foundry_modal .close-modal{ z-index: 5; position: absolute; .transition(0.1s); top: 24px; right: 24px; cursor: pointer; font-size: 18px; }
@@ -1654,13 +1648,13 @@ section+.portfolio-pullup{ padding-top: 0; margin-top: -128px; position: relativ
 }
 
 @media all and (max-width: 768px){
-	.foundry_modal{ max-width: 80%; width: 80%; padding: 135px 15px 28px; transform: translateX(0%) translateY(50%); -webkit-transform: translateX(0%) translateY(50%); }
+	.foundry_modal{ max-width: 80%; width: 80%; padding: 135px 15px 28px; /*transform: translateX(0%) translateY(50%); -webkit-transform: translateX(0%) translateY(50%);*/ }
 	.foundry_modal .close-modal{ right: 18px; }
 
 }
 
 @media all and (max-width: 470px){
-	.foundry_modal{ max-width: 95%; width: 95%; padding: 135px 15px 28px; transform: translateX(0%) translateY(50%); -webkit-transform: translateX(0%) translateY(50%); }
+	.foundry_modal{ max-width: 95%; width: 95%; padding: 135px 15px 28px; /*transform: translateX(0%) translateY(50%); -webkit-transform: translateX(0%) translateY(50%);*/ }
 	.foundry_modal .close-modal{ right: 18px; }
 }
 

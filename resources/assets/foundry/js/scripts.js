@@ -441,25 +441,28 @@ $(document).ready(function() {
 
     // Autoshow modals
 
-	$('.foundry_modal[data-time-delay]').each(function(){
-		var modal = $(this);
-		var delay = modal.attr('data-time-delay');
-		modal.prepend($('<i class="ti-close close-modal">'));
-    	if(typeof modal.attr('data-cookie') != "undefined"){
-        	if(!mr_cookies.hasItem(modal.attr('data-cookie'))){
-                setTimeout(function(){
-        			modal.addClass('reveal-modal');
-        			$('.modal-screen').addClass('reveal-modal');
-        		},delay);
+    $('.foundry_modal[data-time-delay]').each(function(){
+        var modal = $(this);
+        if (modal.parents('.modal-container').length) {}else {
+            var delay = modal.attr('data-time-delay');
+            modal.prepend($('<i class="ti-close close-modal">'));
+            if (typeof modal.attr('data-cookie') != "undefined") {
+                if (!mr_cookies.hasItem(modal.attr('data-cookie'))) {
+                    setTimeout(function () {
+                        modal.addClass('reveal-modal');
+                        $('.modal-screen').addClass('reveal-modal');
+                        $('.trigger-catcher').trigger('question-modal');
+                    }, delay);
+                }
+            } else {
+                setTimeout(function () {
+                    modal.addClass('reveal-modal');
+                    $('.modal-screen').addClass('reveal-modal');
+                    $('.trigger-catcher').trigger('question-modal');
+                }, delay);
             }
-        }else{
-            setTimeout(function(){
-                modal.addClass('reveal-modal');
-                $('.modal-screen').addClass('reveal-modal');
-            },delay);
         }
-        //center_elem(modal);
-	});
+    });
 
     // Exit modals
     $('.foundry_modal[data-show-on-exit]').each(function(){
@@ -620,14 +623,17 @@ $(document).ready(function() {
         hash = hash.replace('#', '');
     }
 
-    $('.accordion li').click(function() {
+    $('.accordion li').click(function(e) {
+        if($(e.target).parents('.content').length || $(e.target).hasClass('content')) {
+            return
+        }
         if ($(this).closest('.accordion').hasClass('one-open')) {
             $(this).closest('.accordion').find('li').removeClass('active');
             $(this).addClass('active');
         } else {
             if($(this).hasClass('active')){
                 $('.accordion li').removeClass('active');
-                $('html,body').animate({ scrollTop: 0 }, "fast");
+                $('html,body').animate({ scrollTop: $(this).parent('.accordion').offset().top - 60 }, "fast");
             } else {
                 $('.accordion li').removeClass('active');
                 $(this).addClass('active');

@@ -155,7 +155,7 @@
                             @foreach($latest_users as $user)
                                 <li>
                                     <img src="{{ $user->userData->image ? URL::to('/').$user->userData->image->path.$user->userData->image->filename : URL::to('/').'/images/avatars/no_image.png'}}" alt="User Image">
-                                    <a class="users-list-name" href="{{ action('ConsultantController@detailsUser', ['id' => $user->id]) }}">{{ $user->userData->first_name.' '.$user->userData->last_name }}</a>
+                                    <a class="users-list-name" href="{{ action('AdminController@detailsUser', ['id' => $user->id]) }}">{{ $user->userData->first_name.' '.$user->userData->last_name }}</a>
                                     <span class="users-list-date">
                                         @if(date('l M', time()) == date('l M', strtotime($user->created_at)))
                                             Today
@@ -170,7 +170,7 @@
                         </ul>
                     </div>
                     <div class="box-footer">
-                        <a href="{{ action('ConsultantController@timetable') }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i> All Users List</a>
+                        <a href="{{ action('AdminController@listUsers') }}" class="btn btn-primary"><i class="fa fa-arrow-right"></i> All Users List</a>
                     </div>
                 </div>
             </div>

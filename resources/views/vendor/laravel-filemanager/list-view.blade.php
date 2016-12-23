@@ -50,9 +50,9 @@
         {{ date("Y-m-d h:m", $file['created']) }}
       </td>
       <td>
-        <a href="javascript:trash('{{ $file_name }}')">
+        {{--<a href="javascript:trash('{{ $file_name }}')">
           <i class="fa fa-trash fa-fw"></i>
-        </a>
+        </a>--}}
         @if($type == 'Images')
         <a href="javascript:cropImage('{{ $file_name }}')">
           <i class="fa fa-crop fa-fw"></i>
