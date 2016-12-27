@@ -1,10 +1,11 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-blog')
+@section('body-class', 'page-not-found')
 @section('content')
     <section class="no-padding-all"></section>
 
     <section class="fullscreen">
-        <div class="container v-align-transform error-404">
+        <div class="container error-404">
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1">
                     <div class="text-center color-white">

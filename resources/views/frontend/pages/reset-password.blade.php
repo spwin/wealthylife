@@ -1,11 +1,12 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-authorize-question')
+@section('body-class', 'reset-pass-page')
 @section('content')
     <section class="no-padding-all"></section>
 
     <section class="fullscreen reset-pass">
 
-            <div class="container v-align-transform">
+            <div class="container">
             <div class="row">
                 <div class="col-sm-8 col-sm-offset-2">
                     @if (Session::has('flash_notification.password.message'))

@@ -1,5 +1,6 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-authorize-question')
+@section('body-class', 'auth-question')
 @section('content')
 
     <section class="page-title page-title-4 auth-head-sec image-bg parallax">

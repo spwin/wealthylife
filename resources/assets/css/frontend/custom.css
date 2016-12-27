@@ -260,7 +260,9 @@ div.question-body img{
     max-height: 226px;
     margin: 0 auto;
 }
-
+div.question-body.your-question img {
+    width: auto;
+}
 div.question-body .modal-container{
     float: right;
 }

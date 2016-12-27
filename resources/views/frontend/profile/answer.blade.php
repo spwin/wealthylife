@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="uppercase mb8 page-h2 myquestionshead">My Questions</h1>
-                    <h2 class="lead mb0 below">Let the <span class="color-red-prof">style</span> begin.</h2>
+                    <h2 class="lead mb0 below">Let the <span class="color-red">style</span> begin.</h2>
                 </div>
             </div>
             <!--end of row-->
@@ -64,7 +64,8 @@
                             </div>
                         @endif
                         <h4 class="uppercase mb16">Your Question</h4>
-                        <div class="your-question mb16">
+                        <hr>
+                        <div class="your-question question-body mb16">
                             <div class="row">
                                 <div class="col-md-12 mb-25px">
                                     <div class="question-body">{{ $question->question }}</div>
