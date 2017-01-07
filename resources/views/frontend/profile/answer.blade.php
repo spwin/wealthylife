@@ -73,9 +73,9 @@
                                 <div class="col-md-12 mb-25px">
                                     @if($question->images)
                                         @foreach($question->images as $image)
-                                            <div class="col-md-4">
+                                            <div class="col-md-4 photo-container">
                                                 <a href="{{ url()->to('/').$image->path.$image->filename }}"  data-lightbox="image-{{ $image->id }}" data-title="Question #{{ $question->id }}">
-                                                    <img src="{{ url()->to('/').'/photo/500x500/'.$image->filename }}">
+                                                    <img src="{{ url()->to('/').'/photo-crop/300x300/'.$image->filename }}">
                                                 </a>
                                             </div>
                                         @endforeach

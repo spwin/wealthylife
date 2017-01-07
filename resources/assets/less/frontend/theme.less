@@ -664,6 +664,9 @@ input.transparent:-moz-input-placeholder, button.transparent:-moz-input-placehol
 input.transparent:-ms-input-placeholder, button.transparent:-ms-input-placeholder  { color: #fff; }
 
 input[type="submit"], button[type="submit"]{ height: 50px; line-height: 48px; border: 2px solid @color-primary; background: @color-primary; color: #fff; width: 100%; font-size: 13px; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; border-radius: 0 !important; }
+.delete-draft-question[type="submit"] {
+	height: 23px;
+}
 .bg-primary input[type="submit"], .bg-primary button[type="submit"]{ background: #fff; color: @color-primary; }
 input[type="submit"]:focus, button[type="submit"]:focus{ outline: none; }
 input[type="submit"].hollow, button[type="submit"].hollow{ background: none; border: 2px solid @color-primary; color: @color-primary; .transition(0.3s); }
@@ -4065,10 +4068,6 @@ span.color-blue-prof {
 		.arrow-style {
 			padding-top: 30px;
 		}
-		ul.lead li {
-			font-size: 24px;
-			line-height: 52px;
-		}
 		#menu .title {
 			font-size: 18px;
 		}
@@ -4103,6 +4102,10 @@ span.color-blue-prof {
 			.lead .um-active a {
 				color: #47b475;
 			}
+		ul.lead li {
+			font-size: 24px;
+			line-height: 52px;
+		}
 	}
 
 }
@@ -5189,7 +5192,6 @@ CHECKOUT QUESTION/PAYMENT CREDITS
 	background-size: 300px;
 	background-position: 50% 50% !important;
 	h5.uppercase {
-		color: #ff2352 !important;
 		opacity: 1;
 	}
 	.price {
@@ -5392,6 +5394,7 @@ body:not(.front-page) #sub-body {
 	.width14 {
 		width: 13%;
 		border-radius: 50%;
+		margin-bottom: 10px;
 	}
 }
 .padleft25 {
@@ -5455,46 +5458,76 @@ body:not(.front-page) #sub-body {
 	padding-top: 40px;
 }
 .voucher-small {
-	background: #EDEDED;
+	background-image: url("../images/red-pattern.jpg");
+	background-size: 300px;
+	color: #fff;
+	position:relative;
+	h5.uppercase {
+		background-color: #ff2352;
+		color: white;
+		position: relative;
+		width: 100%;
+		height: 56px;
+		line-height: 56px;
+		opacity: 1;
+		transition: all 0.3s ease;
+		-webkit-transition: all 0.3s ease;
+		-moz-transition: all 0.3s ease;
+	}
+	.price,
+	.how-much {
+		color: #fff;
+		position: relative;
+	}
+	p.lead {
+		font-weight: initial;
+		position: relative;
+	}
+	.gradient-overlay-bottom {
+		background: rgba(0,0,0,0.79);
+		background: -moz-linear-gradient(top, rgba(0,0,0,0) 45%, rgba(0,0,0,0.79) 100%);
+		background: -webkit-gradient(left top, left bottom, color-stop(45%, rgba(0,0,0,0)), color-stop(100%, rgba(0,0,0,0.79)));
+		background: -webkit-linear-gradient(top, rgba(0,0,0,0) 45%, rgba(0,0,0,0.79) 100%);
+		background: -o-linear-gradient(top, rgba(0,0,0,0) 45%, rgba(0,0,0,0.79) 100%);
+		background: -ms-linear-gradient(top, rgba(0,0,0,0) 45%, rgba(0,0,0,0.79) 100%);
+		background: linear-gradient(to bottom, rgba(0,0,0,0) 45%, rgba(0,0,0,0.79) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#000000', GradientType=0 );
+	}
+	.gradient-overlay-top {
+		background: rgba(0, 0, 0, 0.67);
+		background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.67) 0%, rgba(0, 0, 0, 0) 36%);
+		background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0.67)), color-stop(36%, rgba(0, 0, 0, 0)));
+		background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.67) 0%, rgba(0, 0, 0, 0) 36%);
+		background: -o-linear-gradient(top, rgba(0, 0, 0, 0.67) 0%, rgba(0, 0, 0, 0) 36%);
+		background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.67) 0%, rgba(0, 0, 0, 0) 36%);
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.67) 0%, rgba(0, 0, 0, 0) 36%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#000000', GradientType=0);
+	}
 }
 
 .pricing-table.voucher-small {
 
 	padding: 22px 0;
-
+/*
 		h5.uppercase {
-			width: 100%;
-			height: 56px;
-			line-height: 56px;
+
 			background-color: #02bf88;
 			color: white;
 		}
+*/
 
 
-	.price,
-	.how-much {
-		color: #02bf88;
-	}
-	p.lead {
-		font-weight: initial;
-	}
 
 
 }
 
 .pricing-table.boxed.voucher-small,
 .pricing-table.emphasis.voucher-small {
+	background-image: url("../images/green-pattern.jpg");
 	h5.uppercase {
-		background-color: #ff2352;
-		color: white;
+		background-color: #04BF87;
 	}
-	.price,
-	.how-much{
-		color: #ff2352;
-	}
-	.lead {
-		color: white;
-	}
+
 }
 @media all and (max-width: 990px) {
 	.pricing-table.voucher-small {
@@ -5720,14 +5753,58 @@ div.content > div.article-prev:nth-last-child(2) {
 		}
 
 	}
+
+	.question-body .col-md-4.photo-container {
+		width: 33.33%;
+		float: left;
+		padding: 10px;
+	}
+
+}
+
+.my-quest-line {
+	padding-bottom: 15px;
+	padding-top: 15px;
+	border-bottom: 1px solid #ccc;
+
+	.left {
+		width: 60%;
+	}
 }
 
 
 
+#pending-section,
+#answered-section,
+#drafts-section,
+#rejected-section {
+
+	.content {
+
+		.my-quest-line:first-child {
+			padding-top: 0;
+		}
+		.my-quest-line:last-child {
+			border-bottom: none;
+		}
 
 
+	}
+}
 
-
+.show-answer {
+	background-image: url("../images/preview-icon.svg");
+	padding-left: 25px;
+	background-repeat: no-repeat;
+}
+@media all and (max-width: 630px) {
+	.my-quest-line .no-float-630 {
+		float: none
+	}
+	.my-quest-line .left {
+		width: 100%;
+	}
+}
 
 
 
@@ -6165,14 +6242,14 @@ input.question-btn.askq {
 		font-size: 25px;
 	}
 }
-
+/*
 .auth-head-sec.image-bg {
 	 .btn:hover {
 		background: #47b475;
 		color: #fff;
 		 border-color: #47b475;
 	}
-}
+}*/
 div.question-body .modal-container.left {
 	float: left;
 }

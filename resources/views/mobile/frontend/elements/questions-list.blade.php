@@ -12,23 +12,27 @@
         </a>
         <div class="content">
             @if(count($pending) > 0)
-                <table class="table">
-                    @foreach($pending as $question)
-                        <tr>
-                            <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
-                                @if(count($question->images) > 0)
-                                    @foreach($question->images as $image)
-                                        <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
-                                    @endforeach
-                                @else
-                                    <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
-                                @endif
-                            </td>
-                            <td class="text-center w170px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
-                            <td onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
-                        </tr>
-                    @endforeach
-                </table>
+
+                @foreach($pending as $question)
+                <div class="my-quest-line" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                    <div class="right no-float-630">
+                        @if(count($question->images) > 0)
+                            @foreach($question->images as $image)
+                                <img class="right question-list no-float-630" src="{{ url()->to('/').'/photo-crop/50x50/'.$image->filename }}">
+                            @endforeach
+                        @else
+                            <img class="right question-list no-float-630" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                        @endif
+                    </div>
+                    <div class="left">
+                        <div>{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</div>
+                        <div>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 10)).'...' }}</div>
+                    </div>
+
+                    <div class="clearboth"></div>
+                </div>
+                @endforeach
+
             @else
                 <p>No pending questions.</p>
             @endif
@@ -47,24 +51,32 @@
         </a>
         <div class="content">
             @if(count($answered) > 0)
-                <table class="table">
+
                     @foreach($answered as $question)
-                        <tr class="{{ $question->answer->seen ? '' : 'bold' }}" >
-                            <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
-                                @if(count($question->images) > 0)
-                                    @foreach($question->images as $image)
-                                        <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
-                                    @endforeach
-                                @else
-                                    <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
-                                @endif
-                            </td>
-                            <td class="text-center w170px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
-                            <td onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
-                            <td class="w170px text-center"><a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="btn btn-sm show-answer-btn">Show answer</a></td>
-                        </tr>
-                    @endforeach
-                </table>
+                            <div class="my-quest-line" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                <div class="right no-float-630">
+                                    @if(count($question->images) > 0)
+                                        @foreach($question->images as $image)
+                                            <img class="right question-list no-float-630" src="{{ url()->to('/').'/photo-crop/50x50/'.$image->filename }}">
+                                        @endforeach
+                                    @else
+                                        <img class="right question-list no-float-630" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                    @endif
+
+                                </div>
+                                <div class="left">
+                                    <div>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</div>
+                                    <div>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 10)).'...' }}</div>
+
+                                </div>
+
+                                <div class="clearboth"></div>
+                                <div>
+                                    <a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="show-answer">Show answer</a>
+                                </div>
+                            </div>
+                        @endforeach
+
             @else
                 <p>No answered questions.</p>
             @endif
@@ -83,35 +95,38 @@
         </a>
         <div class="content">
             @if(count($drafts) > 0)
-                <table class="table">
-                    @foreach($drafts as $question)
-                        <tr>
-                            <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
-                                @if(count($question->images) > 0)
-                                    @foreach($question->images as $image)
-                                        <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
-                                    @endforeach
-                                @else
-                                    <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
-                                @endif
-                            </td>
-                            <td class="text-center w170px" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">{{ date('d M, Y H:i', strtotime($question->created_at)) }}</td>
-                            <td onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
-                            <td class="w180px text-right controls">
-                                {!! Form::open([
-                                    'method' => 'POST',
-                                    'action' => ['UserController@deleteQuestion', $question->id],
-                                    'onclick'=> 'return confirm("Delete this draft?")',
-                                    'class' => 'inline'
-                                    ]) !!}
-                                <button type="submit" class="delete-draft-question">
-                                </button>
-                                {!! Form::close() !!}
-                                        <!--a href="{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}" class="btn btn-sm show-answer-btn mb-0px">Proceed</a-->
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
+
+                        @foreach($drafts as $question)
+                            <div class="my-quest-line">
+                                <div class="right no-float-630" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
+                                    @if(count($question->images) > 0)
+                                        @foreach($question->images as $image)
+                                            <img class="right question-list no-float-630" src="{{ url()->to('/').'/photo-crop/50x50/'.$image->filename }}">
+                                        @endforeach
+                                    @else
+                                        <img class="right question-list no-float-630" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                    @endif
+
+                                </div>
+                                <div class="left" onclick="window.location='{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}';">
+                                    <div>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</div>
+                                    <div>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 10)).'...' }}</div>
+
+                                </div>
+
+                                <div class="clearboth"></div>
+                                <div>
+                                    {!! Form::open([
+                                            'method' => 'POST',
+                                            'action' => ['UserController@deleteQuestion', $question->id],
+                                            'onclick'=> 'return confirm("Delete this draft?")',
+                                            'class' => 'inline'
+                                            ]) !!}
+                                    <button type="submit" class="delete-draft-question">Delete</button>
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        @endforeach
             @else
                 <p>No questions drafts.</p>
             @endif
@@ -130,24 +145,33 @@
         </a>
         <div class="content">
             @if(count($rejected) > 0)
-                <table class="table">
-                    @foreach($rejected as $question)
-                        <tr>
-                            <td class="text-left w180px noneon460" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
-                                @if(count($question->images) > 0)
-                                    @foreach($question->images as $image)
-                                        <img class="question-list" src="{{ url()->to('/').'/photo/50x30/'.$image->filename }}">
-                                    @endforeach
-                                @else
-                                    <img class="question-list" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
-                                @endif
-                            </td>
-                            <td class="text-center w170px" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ date('d M, Y H:i', strtotime($question->updated_at)) }}</td>
-                            <td onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">{{ implode(' ', array_slice(explode(' ', $question->question), 0, 5)).'...' }}</td>
-                            <td class="w170px text-center"><a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="btn btn-sm show-answer-btn">Check reason</a></td>
-                        </tr>
-                    @endforeach
-                </table>
+                        @foreach($rejected as $question)
+                            <div class="my-quest-line" onclick="window.location='{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}';">
+                                <div class="right no-float-630">
+                                    @if(count($question->images) > 0)
+                                        @foreach($question->images as $image)
+                                            <img class="right question-list no-float-630" src="{{ url()->to('/').'/photo-crop/50x50/'.$image->filename }}">
+                                        @endforeach
+                                    @else
+                                        <img class="right question-list no-float-630" src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                    @endif
+
+                                </div>
+                                <div class="left">
+                                    <div>{{ date('d M, Y H:i', strtotime($question->created_at)) }}</div>
+                                    <div>{{ implode(' ', array_slice(explode(' ', $question->question), 0, 10)).'...' }}</div>
+
+                                </div>
+
+                                <div class="clearboth"></div>
+                                <div>
+                                    <a href="{{ action('FrontendController@viewAnswer', ['id' => $question->id]) }}" class="show-answer">Check reason</a>
+                                </div>
+                            </div>
+                        @endforeach
+
+
+
             @else
                 <p>You have no rejected questions.</p>
             @endif

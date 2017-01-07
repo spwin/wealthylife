@@ -44,26 +44,7 @@
                             <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@checkoutQuestion', ['id' => $question->id]) }}"><i class="ti-arrow-left"></i> Back</a></h4>
                         </div>
                         <h4 class="uppercase mb16">Question payment</h4>
-                        <hr>
-                        <div class="question-body">
-                            <div class="question-text">
-                                <p>{{ $question->question }}</p>
-                            </div>
-                                @if(count($question->images) > 0)
-                                    @foreach($question->images as $image)
-                                    <div class="col-md-4 photo-container">
-                                        <a href="{{ url()->to('/').$image->path.$image->filename }}" data-lightbox="image-{{ $image->id }}" data-title="Question #{{ $question->id }}">
-                                            <img src="{{  url()->to('/').'/photo/300x300/'.$image->filename }}">
-                                        </a>
-                                    </div>
-                                    @endforeach
-                                @else
-                                    <img src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
-                                @endif
-                            <div class="clearboth"></div>
-                        </div>
-                        <hr>
-                        <div class="col-md-8 nofloat margin0auto">
+                        <div class="col-md-5">
                             <table class="last-payment-preview">
                                 <tr class="question-price">
                                     <td>Question price:</td>
@@ -91,6 +72,8 @@
                                     <td class="text-right">£{{ $order_draft->to_pay }}</td>
                                 </tr>
                             </table>
+                        </div>
+                        <div class="col-md-offset-1 col-md-6">
                             {!! Form::open([
                             'method' => 'POST',
                             'action' => ['UserController@payment', $order_draft->id],
@@ -99,6 +82,27 @@
                             <div id="payment-form"></div>
                             <button type="submit" class="btn btn-filled">Confirm and Pay</button>
                             {!! Form::close() !!}
+                        </div>
+
+                        <hr>
+                        <div class="question-body">
+                            <div class="question-text">
+                                <p>{{ $question->question }}</p>
+                            </div>
+                                @if(count($question->images) > 0)
+                                    @foreach($question->images as $image)
+                                    <div class="col-md-4 photo-container">
+                                        <a href="{{ url()->to('/').$image->path.$image->filename }}" data-lightbox="image-{{ $image->id }}" data-title="Question #{{ $question->id }}">
+                                            <img src="{{  url()->to('/').'/photo-crop/300x300/'.$image->filename }}">
+                                        </a>
+                                    </div>
+                                    @endforeach
+                                @else
+                                <div class="col-md-4 photo-container">
+                                    <img src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                    </div>
+                                @endif
+                            <div class="clearboth"></div>
                         </div>
                     </div>
                 </div>

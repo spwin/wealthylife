@@ -55,12 +55,14 @@
                                 @foreach($question->images as $image)
                                     <div class="col-md-4 photo-container">
                                     <a href="{{ url()->to('/').$image->path.$image->filename }}" data-lightbox="image-{{ $image->id }}" data-title="Question #{{ $question->id }}">
-                                        <img src="{{  url()->to('/').'/photo/300x300/'.$image->filename }}">
+                                        <img src="{{  url()->to('/').'/photo-crop/300x300/'.$image->filename }}">
                                     </a>
                                         </div>
                                 @endforeach
                             @else
-                                <img src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                <div class="col-md-4 photo-container">
+                                    <img src="{{ url()->to('/').'/images/avatars/no_image.png' }}">
+                                </div>
                             @endif
                             <div class="clearboth"></div>
 

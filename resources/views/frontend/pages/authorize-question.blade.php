@@ -33,7 +33,7 @@
                             @foreach($question['images'] as $image)
                                 <div class="col-md-4 photo-container">
                                 <a href="{{ url()->to('/').'/'.$image['original'] }}" data-lightbox="image-question" data-title="Question image">
-                                    <img src="{{ url()->to('/').'/'.$image['thumb'] }}">
+                                    <img src="{{ url()->to('/').'/photo-crop/300x300/'.$image['thumb'] }}">
                                 </a>
                                 </div>
                             @endforeach
@@ -41,9 +41,9 @@
                             <img src="{{ url()->to('/').'/'.$question['empty'] }}">
                         @endif
                         <div class="clear"></div>
-                        <hr>
+                        <hr class="mt16">
                         <div class="modal-container inline-block">
-                            <a class="btn btn-modal btn-filled width240" href="#">Edit</a>
+                            <a class="btn btn-modal btn-filled width240 blue-button" href="#">Edit</a>
                             <div class="hidden">
                                 @if(\App\Helpers\Helpers::isMobile())
                                     @include('mobile/frontend/elements/question')
