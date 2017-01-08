@@ -51,16 +51,10 @@ class ConsultantSlot
 
     protected function getTodayTime($slots, $now){
         $total = 0;
-        echo '<br/><br/>consultant';
         foreach($slots as $slot){
-            echo '<br/>slot from: '.$slot->from;
-            echo '<br/>slot to: '.$slot->to;
-            echo '<br/>now: '.$now;
             if($slot->from < $now && $slot->to > $now) {
-                echo '<br/>case1';
                 $total += $this->diffInMin($now, $slot->to);
             } elseif($slot->from > $now) {
-                echo '<br/>case2';
                 $total += $this->diffInMin($slot->from, $slot->to);
             }
         }
@@ -194,7 +188,6 @@ class ConsultantSlot
         }
         $result = false;
         if($found){
-            die();
             $result = $current;
         }
         return $result;
