@@ -109,6 +109,7 @@ class ConsultantSlot
             $current_day_slots = $days->$current_weekday;
             if($this->isWorking($days)) {
                 $todayTime = $this->getTodayTime($current_day_slots, $nowHI);
+                echo $todayTime.'<br/>';
                 if ($todayTime > ($busyness + $qt)) {
                     $result = $this->getExactTodayTime($busyness, $qt, $current_day_slots, $nowHI);
                 } else {
@@ -170,9 +171,11 @@ class ConsultantSlot
         date_default_timezone_set("Europe/London");
         $consultants = User::where(['type' => 'consultant', 'disable' => 0])->get();
         $now = time();
+        echo 'now: '.date('Y-d-m H:i:s',$now).'<br/>';
         $current = '9999999999';
         $found = false;
         foreach($consultants as $consultant){
+            echo 'name: '.$consultant->email.'<br/>';
             $days = json_decode($consultant->timetable);
             $pending_questions = $consultant->questions()->where(['status' => 1])->count();
             $qt = $this->getAverageAnswerTime($consultant);
@@ -181,12 +184,15 @@ class ConsultantSlot
             $firstEmptyTime = $slotCalculator->getFirstEmptyTime($days, $now, $busyness, $qt);
             $timestampResult = strtotime($firstEmptyTime);
             if($timestampResult && $timestampResult < $current){
+                echo $timestampResult.'<br/>';
+                echo 'this<br/>';
                 $found = true;
                 $current = $timestampResult;
             }
         }
         $result = false;
         if($found){
+            die();
             $result = $current;
         }
         return $result;
