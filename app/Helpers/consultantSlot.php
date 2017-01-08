@@ -111,6 +111,7 @@ class ConsultantSlot
                 $todayTime = $this->getTodayTime($current_day_slots, $nowHI);
                 echo $todayTime.'<br/>';
                 if ($todayTime > ($busyness + $qt)) {
+                    echo 'there<br/>';
                     $result = $this->getExactTodayTime($busyness, $qt, $current_day_slots, $nowHI);
                 } else {
                     $day++;
