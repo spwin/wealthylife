@@ -51,11 +51,18 @@ class ConsultantSlot
 
     protected function getTodayTime($slots, $now){
         $total = 0;
+        echo '<br/><br/>consultant';
         foreach($slots as $slot){
-            if($slot->from < $now && $slot->to > $now)
+            echo '<br/>slot from: '.$slot->from;
+            echo '<br/>slot to: '.$slot->to;
+            echo '<br/>now: '.$now;
+            if($slot->from < $now && $slot->to > $now) {
+                echo '<br/>case1';
                 $total += $this->diffInMin($now, $slot->to);
-            elseif($slot->from > $now)
+            } elseif($slot->from > $now) {
+                echo '<br/>case2';
                 $total += $this->diffInMin($slot->from, $slot->to);
+            }
         }
         return $total;
     }
@@ -109,9 +116,7 @@ class ConsultantSlot
             $current_day_slots = $days->$current_weekday;
             if($this->isWorking($days)) {
                 $todayTime = $this->getTodayTime($current_day_slots, $nowHI);
-                echo $todayTime.'<br/>';
                 if ($todayTime > ($busyness + $qt)) {
-                    echo 'there<br/>';
                     $result = $this->getExactTodayTime($busyness, $qt, $current_day_slots, $nowHI);
                 } else {
                     $day++;
@@ -172,11 +177,9 @@ class ConsultantSlot
         date_default_timezone_set("Europe/London");
         $consultants = User::where(['type' => 'consultant', 'disable' => 0])->get();
         $now = time();
-        echo 'now: '.date('Y-m-d H:i:s',$now).'<br/>';
         $current = '9999999999';
         $found = false;
         foreach($consultants as $consultant){
-            echo 'name: '.$consultant->email.'<br/>';
             $days = json_decode($consultant->timetable);
             $pending_questions = $consultant->questions()->where(['status' => 1])->count();
             $qt = $this->getAverageAnswerTime($consultant);
@@ -185,8 +188,6 @@ class ConsultantSlot
             $firstEmptyTime = $slotCalculator->getFirstEmptyTime($days, $now, $busyness, $qt);
             $timestampResult = strtotime($firstEmptyTime);
             if($timestampResult && $timestampResult < $current){
-                echo date('Y-m-d H:i:s',$timestampResult).'<br/>';
-                echo 'this<br/>';
                 $found = true;
                 $current = $timestampResult;
             }
