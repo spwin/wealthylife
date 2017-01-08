@@ -171,7 +171,7 @@ class ConsultantSlot
         date_default_timezone_set("Europe/London");
         $consultants = User::where(['type' => 'consultant', 'disable' => 0])->get();
         $now = time();
-        echo 'now: '.date('Y-d-m H:i:s',$now).'<br/>';
+        echo 'now: '.date('Y-m-d H:i:s',$now).'<br/>';
         $current = '9999999999';
         $found = false;
         foreach($consultants as $consultant){
@@ -184,7 +184,7 @@ class ConsultantSlot
             $firstEmptyTime = $slotCalculator->getFirstEmptyTime($days, $now, $busyness, $qt);
             $timestampResult = strtotime($firstEmptyTime);
             if($timestampResult && $timestampResult < $current){
-                echo $timestampResult.'<br/>';
+                echo date('Y-m-d H:i:s',$timestampResult).'<br/>';
                 echo 'this<br/>';
                 $found = true;
                 $current = $timestampResult;
