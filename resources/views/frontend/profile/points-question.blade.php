@@ -7,7 +7,7 @@
         <div class="container page-first-header">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="uppercase mb8 page-h2">Ask consultant</h1>
+                    <h1 class="uppercase mb8 page-h2">Ask a question</h1>
                     <h2 class="lead mb0 below">Let the <span class="color-red">style</span> begin</h2>
                 </div>
             </div>

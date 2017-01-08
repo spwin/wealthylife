@@ -41,7 +41,7 @@
                 <div class="col-md-9">
                     <div class="tabbed-content text-tabs display-after-load">
                         <div class="modal-container text-right mobile-none ask-position-mob right">
-                            <a class="btn btn-modal hovered mb-0px" href="#">Ask consultant</a>
+                            <a class="btn btn-modal hovered mb-0px" href="#">Ask a question</a>
                             <div class="hidden">
                                 @if(\App\Helpers\Helpers::isMobile())
                                     @include('mobile/frontend/elements/question')
