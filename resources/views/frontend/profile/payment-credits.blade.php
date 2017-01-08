@@ -48,7 +48,9 @@
                     <h4 class="uppercase mb16"><a class="normal" href="{{ action('FrontendController@credits') }}"><i class="ti-arrow-left"></i> See all packages</a></h4>
                     <h4 class="uppercase mb16">Payment process</h4>
                     <div class="col-md-4">
-                        <div class="credits-preview pricing-table pt-1 text-center boxed">
+                        <div class="credits-preview pricing-table voucher-small pt-1 text-center boxed">
+                            <span class="display-block absolute gradient-overlay-bottom"></span>
+                            <span class="display-block absolute gradient-overlay-top"></span>
                             <h5 class="uppercase">{{ $scheme->credits }} credits for</h5>
                             <span class="price">£{{ round($scheme->price) }}</span>
                             <p class="discount"><span class="round">- {{ round(100 - ($scheme->price*100/$scheme->credits)) }}%</span></p>

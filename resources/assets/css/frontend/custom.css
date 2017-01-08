@@ -927,6 +927,16 @@ button.delete-draft-question:after {
 button.delete-draft-question:hover:after {
     opacity: 1;
 }
+@media all and (max-width:990px){
+    button.delete-draft-question {
+        padding-left: 20px;
+        background: url("../images/x-red.svg") 0 0 no-repeat transparent;
+        color: #FF2352;
+    }
+    .delete-draft-question[type="submit"] {
+        height: 14px;
+    }
+}
 .show-answer-btn, .show-answer-btn:link,
 .show-answer-btn:visited, .show-answer-btn:hover,
 .show-answer-btn:active{
@@ -1125,6 +1135,7 @@ input[type="text"].voucher-claim:focus{
 }
 .vouchers-form-select .pricing-table{
     cursor: pointer;
+    position: relative;
     border: 1px solid #EEEEEE;
 }
 .label_description{
@@ -1309,13 +1320,27 @@ span.text-red{
 }
 
 img.question-list{
-    max-height: 30px;
-    max-width: 50px;
     object-fit: cover;
     margin-top: 2px;
     width: 30px;
     margin-left: 4px;
     height: 30px;
+}
+@media all and (max-width:990px) {
+    img.question-list{
+        height: 50px;
+        width: 50px;
+        margin-left: 10px;
+    }
+}
+@media all and (max-width:630px) {
+    img.question-list{
+        height: 40px;
+        width: 40px;
+        margin-left: 0;
+        margin-right: 10px;
+        margin-bottom: 7px;
+    }
 }
 
 .paginator{

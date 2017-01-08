@@ -56,6 +56,8 @@
                     </div>
                     <div class="col-md-4 voucher-summary">
                         <div class="pricing-table voucher-small emphasis pt-1 text-center">
+                            <span class="display-block absolute gradient-overlay-bottom"></span>
+                            <span class="display-block absolute gradient-overlay-top"></span>
                             <H5 class="uppercase">Total to pay:</H5>
                             <span class="price">£{{ round($voucher->price) }}</span>
                             <p class="lead">Gift of {{ $voucher->credits }} credits</p>
