@@ -2,6 +2,14 @@
 @section('page-title', trans('seo.blog.title'))
 @section('meta-description', trans('seo.blog.description'))
 @section('nav-style', 'nav-blog')
+@section('meta-content')
+    <meta property="og:type"   content="website" />
+    <meta property="og:image" content="{{ url()->to('/').'/images/logo-image.png' }}" />
+    <meta property="og:url" content="{{ action('FrontendController@blog') }}" />
+    <meta property="og:title" content="StyleSensei Blog" />
+    <meta property="og:description" content="Style Blog is a platform where users can make entries related to fashion, style, and overall image. If you think that you have some great styling tips to share, go ahead and write an article on Style Blog." />
+    <meta property="fb:app_id" content="{{ env('FACEBOOK_APP_ID') }}" />
+@stop
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
         <div class="container page-first-header">
