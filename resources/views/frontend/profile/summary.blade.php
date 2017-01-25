@@ -95,7 +95,7 @@
                                             @if(($count = ($user->articles ? $user->articles()->where(['status' => 0])->count() : 0)) > 0)
                                                 <li><a href="{{ action('FrontendController@articles', '#drafts') }}">Drafts ({{ $count }})</a></li>
                                             @endif
-                                            @if(($count = ($user->articles ? $user->articles()->where(['status' => 1])->orWhere(['status' => 2])->count() : 0)) > 0)
+                                            @if(($count = ($user->articles ? $user->articles()->whereIn('status', [1,2])->count() : 0)) > 0)
                                                 <li><a href="{{ action('FrontendController@articles', '#submitted') }}">Submitted ({{ $count }})</a></li>
                                             @endif
                                             @if(($count = ($user->articles ? $user->articles()->where(['status' => 3])->count() : 0)) > 0)
@@ -172,7 +172,7 @@
                                         @if(($count = ($user->articles ? $user->articles()->where(['status' => 0])->count() : 0)) > 0)
                                             <li><a href="{{ action('FrontendController@articles', '#drafts') }}">Drafts ({{ $count }})</a></li>
                                         @endif
-                                        @if(($count = ($user->articles ? $user->articles()->where(['status' => 1])->orWhere(['status' => 2])->count() : 0)) > 0)
+                                        @if(($count = ($user->articles ? $user->articles()->whereIn('status', [1,2])->count() : 0)) > 0)
                                             <li><a href="{{ action('FrontendController@articles', '#submitted') }}">Submitted ({{ $count }})</a></li>
                                         @endif
                                         @if(($count = ($user->articles ? $user->articles()->where(['status' => 3])->count() : 0)) > 0)

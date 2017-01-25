@@ -180,7 +180,7 @@ class summaryGraphs
             }
         }
 
-        $vouchers = Vouchers::where('created_at', '>=', $payroll->starts_at)->where(['status' => 1])->orWhere(['status' => 2])->orderBy('created_at', 'DESC')->get();
+        $vouchers = Vouchers::where('created_at', '>=', $payroll->starts_at)->whereIn('status', [1,2])->orderBy('created_at', 'DESC')->get();
         if(count($vouchers) > 0){
             foreach($vouchers as $voucher){
                 if($voucher->generated){
@@ -222,7 +222,7 @@ class summaryGraphs
                 'edited' => 0
             ]
         );
-        $articles = Article::where('created_at', '>=', $date->format('Y-m-d H:i:s'))->where(['status' => 1])->orWhere(['status' => 2])->orWhere(['status' => 3])->orderBy('created_at', 'DESC')->get();
+        $articles = Article::where('created_at', '>=', $date->format('Y-m-d H:i:s'))->whereIn('status', [1,2,3])->orderBy('created_at', 'DESC')->get();
         $tomorrow = new \DateTime('tomorrow');
         $counter = 0;
         while($date < $tomorrow){
@@ -246,7 +246,7 @@ class summaryGraphs
             }
         }
 
-        $articles = Article::where('created_at', '>=', $payroll->starts_at)->where(['status' => 1])->orWhere(['status' => 2])->orWhere(['status' => 3])->orderBy('created_at', 'DESC')->get();
+        $articles = Article::where('created_at', '>=', $payroll->starts_at)->where('status', [1,2,3])->orderBy('created_at', 'DESC')->get();
         if(count($articles) > 0){
             foreach($articles as $article){
                 $result['totals']['articles'] += 1;
@@ -348,7 +348,7 @@ class summaryGraphs
                 'rejected' => 0
             ]
         );
-        $questions = Questions::where('asked_at', '>=', $date->format('Y-m-d H:i:s'))->where(['status' => 1])->orWhere(['status' => 2])->orWhere(['status' => 3])->orderBy('created_at', 'DESC')->get();
+        $questions = Questions::where('asked_at', '>=', $date->format('Y-m-d H:i:s'))->whereIn('status', [1,2,3])->orderBy('created_at', 'DESC')->get();
         $tomorrow = new \DateTime('tomorrow');
         $counter = 0;
         while($date < $tomorrow){
@@ -372,7 +372,7 @@ class summaryGraphs
             }
         }
 
-        $questions = Questions::where('asked_at', '>=', $payroll->starts_at)->where(['status' => 1])->orWhere(['status' => 2])->orWhere(['status' => 3])->orderBy('created_at', 'DESC')->get();
+        $questions = Questions::where('asked_at', '>=', $payroll->starts_at)->whereIn('status', [1,2,3])->orderBy('created_at', 'DESC')->get();
         if(count($questions) > 0){
             foreach($questions as $question){
                 $result['totals']['questions'] += 1;

@@ -353,11 +353,11 @@ class FrontendController extends Controller
             $articles = Article::where(['user_id' => $user->id])->get();
             if(Helpers::isMobile()){
                 $published = $user->articles()->with('image')->where(['status' => 3])->orderBy('published_at', 'DESC')->get();
-                $submitted = $user->articles()->with('image')->where(['status' => 1])->orWhere(['status' => 2])->orderBy('created_at', 'DESC')->get();
+                $submitted = $user->articles()->with('image')->whereIn('status', [1,2])->orderBy('created_at', 'DESC')->get();
                 $drafts = $user->articles()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->get();
             } else {
                 $published = $user->articles()->with('image')->where(['status' => 3])->orderBy('published_at', 'DESC')->paginate($per_page, ['*'], 'published_page', null);
-                $submitted = $user->articles()->with('image')->where(['status' => 1])->orWhere(['status' => 2])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'submitted_page', null);
+                $submitted = $user->articles()->with('image')->whereIn('status', [1,2])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'submitted_page', null);
                 $drafts = $user->articles()->with('image')->where(['status' => 0])->orderBy('created_at', 'DESC')->paginate($per_page, ['*'], 'drafts_page', null);
             }
             return view('frontend/profile/articles')->with([
