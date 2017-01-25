@@ -341,7 +341,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $question->question }}</td>
-                                                <td>{{ date('d M, Y', strtotime($question->asked_at)) }}</td>
+                                                <td>{{ date('d M, Y', strtotime($question->created_at)) }}</td>
                                             </tr>
                                         @endforeach
                                     @endif
