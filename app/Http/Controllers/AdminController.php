@@ -914,6 +914,7 @@ class AdminController extends Controller
                 ];
                 $done = 'Published';
                 Helpers::sendNotification('notifications.article.published.', $article->user, ['link' => action('FrontendController@blogEntry', ['url' => $article->url])]);
+                Helpers::sendEmail('notifications.article.published.', $article->user->email, $article->user, ['user' => $article->user->userData, 'link' => action('FrontendController@blogEntry', ['url' => $article->url])]);
                 break;
             case 'archive':
                 $input = [

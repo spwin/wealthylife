@@ -46,9 +46,9 @@ return [
     'contacts.form.email' => 'emails.contacts',
 
     'article.published.topic' => 'Your Article has been published!',
-    'article.published.subject' => '',
+    'article.published.subject' => 'Your Article has been published!',
     'article.published.content' => 'Your Article has been published on the page. You can view it by clicking this link: <a href=":link">:link</a>',
-    'article.published.email' => '',
+    'article.published.email' => 'emails.article-published',
 
     'referral.confirmed.topic' => 'Referral reward',
     'referral.confirmed.subject' => '',
