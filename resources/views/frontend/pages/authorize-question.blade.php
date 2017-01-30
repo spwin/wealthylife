@@ -33,7 +33,7 @@
                             @foreach($question['images'] as $image)
                                 <div class="col-md-4 photo-container">
                                 <a href="{{ url()->to('/').'/'.$image['original'] }}" data-lightbox="image-question" data-title="Question image">
-                                    <img src="{{ url()->to('/').'/photo-crop/300x300/'.$image['thumb'] }}">
+                                    <img src="{{ url()->to('/').'/'.$image['thumb'] }}">
                                 </a>
                                 </div>
                             @endforeach
