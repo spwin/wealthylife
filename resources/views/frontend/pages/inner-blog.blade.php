@@ -9,6 +9,11 @@
     <meta property="og:title" content="{{ $article->title }}" />
     <meta property="og:description" content="{{ $description }}" />
     <meta property="fb:app_id" content="{{ env('FACEBOOK_APP_ID') }}" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@StyleSenseiUK">
+    <meta name="twitter:title" content="{{ $article->title }}">
+    <meta name="twitter:description" content="{{ $description }}">
+    <meta name="twitter:image" content="{{ url()->to('/').$article->image->path.$article->image->filename }}">
 @stop
 @section('nav-style', 'nav-blog')
 @section('after-body-snippet')

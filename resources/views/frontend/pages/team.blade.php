@@ -2,6 +2,9 @@
 @section('page-title', trans('seo.team.title'))
 @section('meta-description', trans('seo.team.description'))
 @section('nav-style', 'nav-authorize-question')
+@section('meta-content')
+    @include('frontend/elements/twitter-card')
+@stop
 @section('body-class', 'team-page')
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">

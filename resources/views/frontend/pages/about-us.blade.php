@@ -2,6 +2,9 @@
 @section('page-title', trans('seo.about.title'))
 @section('meta-description', trans('seo.about.description'))
 @section('nav-style', 'nav-authorize-question')
+@section('meta-content')
+    @include('frontend/elements/twitter-card')
+@stop
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
         <div class="container page-first-header">

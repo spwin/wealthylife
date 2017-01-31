@@ -1,6 +1,9 @@
 @extends('frontend/frame')
 @section('nav-style', 'nav-authorize-question')
 @section('body-class', 'reset-pass-page')
+@section('meta-content')
+    @include('frontend/elements/twitter-card')
+@stop
 @section('content')
     <section class="no-padding-all"></section>
 

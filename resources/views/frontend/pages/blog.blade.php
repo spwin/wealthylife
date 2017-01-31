@@ -9,6 +9,11 @@
     <meta property="og:title" content="StyleSensei Blog" />
     <meta property="og:description" content="Style Blog is a platform where users can make entries related to fashion, style, and overall image. If you think that you have some great styling tips to share, go ahead and write an article on Style Blog." />
     <meta property="fb:app_id" content="{{ env('FACEBOOK_APP_ID') }}" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@StyleSenseiUK">
+    <meta name="twitter:title" content="StyleSensei Blog">
+    <meta name="twitter:description" content="Style Blog is a platform where users can make entries related to fashion, style, and overall image. If you think that you have some great styling tips to share, go ahead and write an article on Style Blog.">
+    <meta name="twitter:image" content="{{ url()->to('/').'/images/logo-image.png' }}">
 @stop
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">

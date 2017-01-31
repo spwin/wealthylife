@@ -2,6 +2,9 @@
 @section('page-title', trans('seo.contacts.title'))
 @section('meta-description', trans('seo.contacts.description'))
 @section('nav-style', 'nav-authorize-question')
+@section('meta-content')
+    @include('frontend/elements/twitter-card')
+@stop
 @section('body-class', 'contacts-page')
 @section('content')
     <section class="page-title page-title-4 image-bg parallax">
