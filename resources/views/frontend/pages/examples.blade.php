@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="uppercase mb8 page-h2">Examples</h1>
-                    <h2 class="lead mb0 below">Check what you can get <span class="color-pink">for only £20.</span></h2>
+                    <h2 class="lead mb0 below">Let the <span class="color-pink">style</span> begin.</h2>
                 </div>
             </div>
             <!--end of row-->
