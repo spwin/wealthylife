@@ -246,7 +246,7 @@ class summaryGraphs
             }
         }
 
-        $articles = Article::where('created_at', '>=', $payroll->starts_at)->where('status', [1,2,3])->orderBy('created_at', 'DESC')->get();
+        $articles = Article::where('created_at', '>=', $payroll->starts_at)->whereIn('status', [1,2,3])->orderBy('created_at', 'DESC')->get();
         if(count($articles) > 0){
             foreach($articles as $article){
                 $result['totals']['articles'] += 1;
