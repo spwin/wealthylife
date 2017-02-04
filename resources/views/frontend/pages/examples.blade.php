@@ -39,7 +39,16 @@
 
                 <div class="text-center blog-button-txt mb24">
                     <p class="mb16">Get <span class="color-blue-prof bold700">Professional</span> Advice!</p>
-                    <a class="btn text-left btn-filled blue-button" href="{{ action('FrontendController@newArticle') }}"><span class="display-inlineblock">Ask stylist now</span></a>
+                    <div class="modal-container">
+                        <a class="btn btn-modal text-left btn-filled blue-button" href="#"><span class="display-inlineblock">Ask stylist now</span></a>
+                        <div class="hidden">
+                            @if(\App\Helpers\Helpers::isMobile())
+                                @include('mobile/frontend/elements/question')
+                            @else
+                                @include('frontend/elements/question')
+                            @endif
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row example">
