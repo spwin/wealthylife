@@ -152,6 +152,7 @@ Route::get('about-us', 'FrontendController@about');
 Route::get('privacy-policy', 'FrontendController@privacy');
 Route::get('terms-and-conditions', 'FrontendController@terms');
 Route::get('the-team', 'FrontendController@team');
+Route::get('examples', 'FrontendController@examples');
 Route::post('send-form', 'FrontendController@contactForm');
 Route::post('leave-feedback', 'UserController@leaveFeedback');
 Route::get('blog', 'FrontendController@blog');

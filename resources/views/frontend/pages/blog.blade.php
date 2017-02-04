@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="uppercase mb8 page-h2">Blog</h1>
-                    <h2 class="lead mb0 below"><span class="color-green-prof">Fashion inspiration</span> for people by people</h2>
+                    <h2 class="lead mb0 below"><span class="color-pink">Fashion inspiration</span> for people by people</h2>
                 </div>
             </div>
             <!--end of row-->

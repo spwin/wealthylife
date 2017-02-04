@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="uppercase mb8 page-h2">Blog</h1>
-                    <h2 class="lead mb0 below"><span class="color-green-prof">Fashion inspiration</span> for people by people</h2>
+                    <h2 class="lead mb0 below"><span class="color-pink">Fashion inspiration</span> for people by people</h2>
                 </div>
             </div>
             <!--end of row-->
@@ -48,6 +48,7 @@
                 <div class="rotated left-top">
                     <div class="top-part"></div>
                 </div>
+
             </div>
             <div class="curve-wrap right-top-wrap">
                 <div class="rotated right-top">
@@ -56,12 +57,18 @@
             </div>
 
             <div id="container" class="container about-block">
+
+                <div class="text-center blog-button-txt mb24">
+                    <p class="mb16">Tell us your <span class="color-blue-prof bold700">style story!</span></p>
+                    <a class="btn text-left btn-filled blue-button" href="{{ action('FrontendController@newArticle') }}"><i class="ti-plus bold700"></i><span class="display-inlineblock">Add entry</span></a>
+                </div>
+
                 <div class="row">
                     <div itemscope itemtype="http://schema.org/Article" class="inner-article container margin0auto nofloat">
                         <meta itemscope="" itemprop="mainEntityOfPage" itemtype="https://schema.org/WebPage" itemid="{{ action('FrontendController@blogEntry', ['url' => $article->url]) }}">
                         <div class="post-snippet mb24">
                             <div class="post-title">
-                                <h5 class="uppercase mb16 inner-blog"><a class="normal" href="{{ url()->previous() }}"><i class="ti-arrow-left"></i> Back</a></h5>
+                                <h5 class="uppercase mb16 inner-blog"><a class="normal" href="{{ action('FrontendController@blog') }}"><i class="ti-arrow-left"></i> Back</a></h5>
                                 <meta itemprop="headline" content="{{ $article->title }}">
                                 <h4 itemprop="name" class="inline-block">{{ $article->title }}</h4>
                             </div>

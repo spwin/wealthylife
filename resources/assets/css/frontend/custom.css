@@ -179,6 +179,10 @@
     margin-top: 15px;
 }
 
+.mt-50px{
+    margin-top: 50px;
+}
+
 table td.w180px{
     width: 180px;
 }
@@ -1656,4 +1660,23 @@ a.facebook-color:hover{
 }
 .questions-container .table>tbody>tr:first-child>td{
     border-top: none;
+}
+
+.image-bg .btn.homepage-ask{
+    background-color: #b01e36;
+    border-color: #b01e36;
+}
+.image-bg .btn.homepage-ask:hover{
+    background-color: white;
+    border-color: white;
+}
+.example p, .example ul li{
+    font-size: 18px;
+    line-height: 1.5;
+}
+.example ul li{
+    margin-bottom: 10px;
+}
+.example img{
+    max-height: 300px;
 }

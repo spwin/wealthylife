@@ -83,7 +83,7 @@
                                     </li>
                                     @endif
                                 </ul>
-                                <img src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
+                                <img class="featured-image" src="{{ url()->to('/').'/blog/500x500/'.$article->image->filename }}"/>
                                 {!! $article->content !!}
                             </div>
                             <!--end of post snippet-->

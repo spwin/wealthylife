@@ -440,6 +440,10 @@ class FrontendController extends Controller
         return view('frontend/pages/team')->with([]);
     }
 
+    public function examples(){
+        return view('frontend/pages/examples')->with([]);
+    }
+
     public function privacy(){
         return view('frontend/pages/privacy')->with([]);
     }

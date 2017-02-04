@@ -75,15 +75,15 @@
                         <li {{ (Request::is('*blog*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@blog') }}">Blog</a>
                         </li>
+                        <li {{ (Request::is('*examples*') ? 'class=current' : '') }}>
+                            <a href="{{ action('FrontendController@examples') }}">Examples</a>
+                        </li>
                         <li {{ (Request::is('*about*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@about') }}">About</a>
                         </li>
                         <li {{ (Request::is('*the-team*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@team') }}">The Team</a>
                         </li>
-                        {{--<li>
-                            <a href="#">FAQ</a>
-                        </li>--}}
                         <li {{ (Request::is('*contact-us*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@contacts') }}">Contacts</a>
                         </li>

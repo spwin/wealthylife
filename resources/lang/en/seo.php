@@ -9,6 +9,9 @@ return [
     'team.title' => 'The Team | StyleSensei',
     'team.description' => 'Meet the style experts behind StyleSensei or get on board with them by sending us a message!',
 
+    'examples.title' => 'Examples of Stylist Advice | StyleSensei',
+    'examples.description' => 'Some Examples of Stylist Advice with years of combined experience in menswear, luxury retail, fashion editorials, TV, and professional womenswear.',
+
     'blog.title' => 'Style Blog | StyleSensei',
     'blog.description' => 'Let others hear your fashion and styling advice by writing blogs for Style Blog now!',
 
