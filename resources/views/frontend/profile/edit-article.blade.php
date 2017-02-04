@@ -158,7 +158,7 @@
                                 </div>
 
                                 <div class="pull-right">
-                                    <input type="submit" class="btn" value="Save and Preview">
+                                    <input type="submit" class="btn btn-filled" value="Save and Preview">
                                 </div>
                                 {!! Form::close() !!}
                             </div>
