@@ -507,6 +507,7 @@ class FrontendController extends Controller
             $sitemap->add(URL::action('FrontendController@about'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@team'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@contacts'), date('c', time()), '1.0', 'weekly');
+            $sitemap->add(URL::action('FrontendController@examples'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@privacy'), date('c', time()), '1.0', 'weekly');
             $sitemap->add(URL::action('FrontendController@terms'), date('c', time()), '1.0', 'weekly');
 
