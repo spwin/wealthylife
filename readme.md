@@ -1,23 +1,27 @@
-# StyleSensei
-_______________________________________________________________________
-Commands to run:
+## StyleSensei
+---
+#### Commands to run:
 
-composer update
+`composer install`
 
-php artisan vendor:publish --tag=lfm_public
-php artisan vendor:publish --tag=lfm_view
+`php artisan vendor:publish --tag=lfm_public`
+`php artisan vendor:publish --tag=lfm_view`
 
-====================
-create directories:
-====================
-public/uploads/articles/files/
-public/uploads/articles/photos/
+`npm install`
+`npm install --global gulp`
+`gulp`
 
-================================================
-set permissions to access these folders as root:
-================================================
-chown user:www-data -R articles/
-chmod 777 -R articles/
+`php artisan migrate --seed`
+
+#### Create directories:
+
+`public/uploads/articles/files/`
+`public/uploads/articles/photos/`
+
+#### Set permissions to access these folders as root:
+
+`chown user:www-data -R articles/`
+`chmod 777 -R articles/`
 
 Thank you,
 Stanislav
