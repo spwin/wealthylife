@@ -75,9 +75,11 @@
                         <li {{ (Request::is('*blog*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@blog') }}">Blog</a>
                         </li>
+                        {{--
                         <li {{ (Request::is('*examples*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@examples') }}">Examples</a>
                         </li>
+                        --}}
                         <li {{ (Request::is('*about*') ? 'class=current' : '') }}>
                             <a href="{{ action('FrontendController@about') }}">About</a>
                         </li>
