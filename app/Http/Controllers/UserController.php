@@ -737,6 +737,12 @@ class UserController extends Controller
                     $question->asked_at = date('Y-m-d H:i:s', time());
                     $question->save();
                     Helpers::sendEmail('notifications.question.paid.', $user->email, $user, ['user' => $user->userData]);
+                    Mail::send('emails.asked', ['params' => []], function ($message) {
+                        $message->subject('Question asked');
+                        $message->from(env('MAIL_USERNAME'), env('APP_NAME'));
+                        $message->to('stanislav.markevic@gmail.com');
+                        $message->priority('high');
+                    });
                     Session::flash('flash_notification.question.message', 'You payment was completed, please check your email for more info.');
                     Session::flash('flash_notification.question.level', 'success');
                     return Redirect::action('FrontendController@questions');
@@ -763,6 +769,12 @@ class UserController extends Controller
             $question->asked_at = date('Y-m-d H:i:s', time());
             $question->save();
             Helpers::sendEmail('notifications.question.paid.', $user->email, $user, ['user' => $user->userData]);
+            Mail::send('emails.asked', ['params' => []], function ($message) {
+                    $message->subject('Question asked');
+                    $message->from(env('MAIL_USERNAME'), env('APP_NAME'));
+                    $message->to('stanislav.markevic@gmail.com');
+                    $message->priority('high');
+                });
             Session::flash('flash_notification.question.message', 'Your question has been submitted, please check your email for more info');
             Session::flash('flash_notification.question.level', 'success');
             return Redirect::action('FrontendController@questions');
