@@ -392,12 +392,6 @@ class FrontendController extends Controller
     }
 
     public function contacts(){
-        Mail::send('emails.asked', ['params' => []], function ($message) {
-            $message->subject('Question asked');
-            $message->from(env('MAIL_USERNAME'), env('APP_NAME'));
-            $message->to('stanislav.markevic@gmail.com');
-            $message->priority('high');
-        });
         return view('frontend/pages/contacts')->with([
 
         ]);
