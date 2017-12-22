@@ -67,7 +67,7 @@
                                     <li>- No entry with advertising or marketing messages will be entertained or published on our Style Blog.</li>
                                 </ul>
                                 Every blog entry that you make is first screened and checked by our team and if they find any of the above issues in your entries, your entry will not be accepted.
-                                We are positive that you will note down our blog writing criteria and submit your entries accordingly. We highly welcome any kind of fun stuff that is related to fashion on Style Blog. So, get started by filling out this form.
+                                We are positive that you will note down our blog writing criteria and submit your entries accordingly. We highly welcome any kind of fun stuff that is related to fashion on Style Blog. So, get started by filling out <strong>this form</strong>.
                             </p>
                         </div>
                         <div class="col-md-12">
