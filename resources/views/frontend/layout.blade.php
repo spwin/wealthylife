@@ -45,7 +45,7 @@
         data-fg="#FFFFFF"
         data-divlink="FFFFFF"
         data-divlinkbg="#b01e36"
-        data-link="#CCCCCC"
+        data-link="#FF6D53"
         data-text-align="left"
         data-close-text="Got it!"
         data-moreinfo="https://www.stylesensei.co.uk/privacy-policy"
