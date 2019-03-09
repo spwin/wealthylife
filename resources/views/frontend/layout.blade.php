@@ -39,6 +39,18 @@
   ga('send', 'pageview');
 
 </script>
+<script type="text/javascript" id="cookieinfo"
+        src="https://cookieinfoscript.com/js/cookieinfo.min.js"
+        data-bg="#000000"
+        data-fg="#FFFFFF"
+        data-divlink="FFFFFF"
+        data-divlinkbg="#b01e36"
+        data-link="#CCCCCC"
+        data-text-align="left"
+        data-close-text="Got it!"
+        data-moreinfo="https://www.stylesensei.co.uk/privacy-policy"
+>
+</script>
 @stack('scripts')
 </body>
 </html>
