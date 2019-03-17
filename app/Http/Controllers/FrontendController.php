@@ -43,7 +43,7 @@ class FrontendController extends Controller
             return $page;
         }*/
         $phrase = Phrases::where(['enabled' => 1])->inRandomOrder()->first();
-        $backgrounds = ['back4', 'antilopa', 'antilopa2', 'antilopa3', 'antilopa4', 'antilopa5'];
+        $backgrounds = ['back4', 'antilopa3'];
 
         $view = view('frontend/pages/index')->with([
             'background' => $backgrounds[array_rand($backgrounds)],
