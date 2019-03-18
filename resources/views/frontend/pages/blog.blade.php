@@ -90,6 +90,10 @@
                                         <div itemprop="author" itemscope="" itemtype="https://schema.org/Person">
                                             <meta itemprop="name" content="{{ $article->user->userData->first_name.' '.$article->user->userData->last_name }}">
                                         </div>
+                                    @else
+                                        <div itemprop="author" itemscope="" itemtype="https://schema.org/Organization">
+                                            <meta itemprop="name" content="{{ env('APP_META_NAME') }}">
+                                        </div>
                                     @endif
                                 @endif
                                 <div itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
