@@ -1,6 +1,7 @@
 @extends('frontend/frame')
 @section('page-title', trans('seo.team.title'))
 @section('meta-description', trans('seo.team.description'))
+@section('meta-keywords', trans('seo.team.keywords'))
 @section('nav-style', 'nav-authorize-question')
 @section('meta-content')
     @include('frontend/elements/twitter-card')

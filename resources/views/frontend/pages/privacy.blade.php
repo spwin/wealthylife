@@ -1,6 +1,7 @@
 @extends('frontend/frame')
 @section('page-title', trans('seo.policy.title'))
 @section('meta-description', trans('seo.policy.description'))
+@section('meta-keywords', trans('seo.policy.keywords'))
 @section('meta-content')
     <meta name="robots" content="noindex">
 @stop

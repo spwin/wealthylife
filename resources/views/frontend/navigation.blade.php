@@ -4,7 +4,7 @@
         <div class="nav-bar @yield('nav-style', 'nav-home')">
             <div class="module left">
                 <a href="{{ URL::to('/') }}">
-                    <img class="logo logo-light" alt="{{ env('APP_NAME') }}" src="{{ URL::to('/') }}/images/LOGO-header.svg">
+                    <img class="logo logo-light" alt="Online personal styling services London" src="{{ URL::to('/') }}/images/LOGO-header.svg">
                 </a>
             </div>
             <div class="mob-menu-logo">

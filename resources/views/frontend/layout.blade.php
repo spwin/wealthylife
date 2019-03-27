@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>@yield('page-title', trans('seo.main.title'))</title>
     <meta name="description" content="@yield('meta-description', trans('seo.main.description'))">
+    <meta name="keywords" content="@yield('meta-keywords', trans('seo.main.keywords'))">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link rel="canonical" href="{{ request()->url() }}" />
     @yield('meta-content')

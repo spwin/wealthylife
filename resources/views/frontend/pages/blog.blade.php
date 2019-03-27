@@ -1,6 +1,7 @@
 @extends('frontend/frame')
 @section('page-title', trans('seo.blog.title'))
 @section('meta-description', trans('seo.blog.description'))
+@section('meta-keywords', trans('seo.blog.keywords'))
 @section('nav-style', 'nav-blog')
 @section('meta-content')
     <meta property="og:type"   content="website" />

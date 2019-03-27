@@ -41,8 +41,11 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <span class="sub">© Copyright {{ date('Y', time()) }}, <a href="http://www.pixsens.co.uk"><span class="company-color">Pixsens LTD</span></a></span>
+            </div>
+            <div class="col-sm-12">
+                <span class="sub">Best online Stylist UK | Online image consultant UK | Online personal Styling services London | My Personal Stylist Online</span>
             </div>
         </div>
     </div>
