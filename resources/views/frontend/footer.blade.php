@@ -45,7 +45,12 @@
                 <span class="sub">© Copyright {{ date('Y', time()) }}, <a href="http://www.pixsens.co.uk"><span class="company-color">Pixsens LTD</span></a></span>
             </div>
             <div class="col-sm-12">
-                <span class="sub">Best online Stylist UK | Online image consultant UK | Online personal Styling services London | My Personal Stylist Online</span>
+                <span class="sub">
+                    <a href="{{ action('FrontendController@team') }}">Best online Stylist UK</a> |
+                    <a href="{{ action('FrontendController@contacts') }}">Online image consultant UK</a> |
+                    <a href="{{ action('FrontendController@about') }}">Online personal Styling services London</a> |
+                    <a href="{{ action('FrontendController@index') }}">My Personal Stylist Online</a>
+                </span>
             </div>
         </div>
     </div>
